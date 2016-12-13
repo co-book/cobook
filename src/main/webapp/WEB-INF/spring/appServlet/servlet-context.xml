@@ -21,6 +21,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 파일 업로드시 저장할 위치 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\WEBBOARD\\summernote_upload"></beans:constructor-arg>
+	</beans:bean>
+
+	
+	
 	<!-- 파일업로드로 들어오는 데이터를 처리하는 객체 -->
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.ReplyMapper">
+
+	<select id="listAll" resultType="ReplyVO">
+	select * from reply_test
+	where boardno = #{boardno}
+	order by reparent asc, reorder asc
+	</select>
+
+	<insert id="insert">
+	insert into reply_test
+	(replyno, boardno, replycont, reparent, user_id)
+	values
+	(replyno_seq.nextval, #{boardno},
+	 #{replycont}, replyno_seq.currval,
+	 #{user_id})
+	</insert>
+	
+	<insert id="comment">
+	insert into reply_test
+	(replyno, boardno, replycont, reparent, redepth, reorder, user_id)
+	values
+	(replyno_seq.nextval, #{boardno},
+	 #{replycont},#{reparent},
+	 #{redepth}, #{reorder},
+	 #{user_id})
+	</insert>
+	
+	<update id="update_reorder">
+	update reply_test
+	set reorder = reorder + 1
+	where
+	reparent = #{reparent}
+	 and
+	reorder > #{reorder}
+	</update>
+	
+	<update id="update">
+	update reply_test set
+	replycont = #{replycont}
+	where
+	rno = #{rno}
+	</update>
+	<delete id="delete">
+	delete reply_test 
+	where
+	rno = #{rno}
+	</delete>
+
+</mapper>
