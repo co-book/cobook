@@ -104,19 +104,20 @@
 function getAllList(boardno){
  
   $.getJSON("/replies/" + boardno, function(data){
-      
+      // 템플릿에 잇는 html을 뽑아온후
+      // handlebars 컴파일시킴 
+      // 그런다음 template = 틀 에 데이터를 끼워넣은 후 replies에 html 넣어줌
 	  var reply_temp = $("#reply-template").html();
       var template = Handlebars.compile(reply_temp);
       var reply_html = template(data);
       $("#replies").html(reply_html);
       
-      
-      
   });
   
 
 }
-
+// 핸들바 사용자 정의 함수 
+// 댓글 깊이를 측정해서 왼쪽 마진 간격을줌
 Handlebars.registerHelper("redepthCheck", function(redepth){
 	
 	if(redepth > 0){
@@ -125,6 +126,8 @@ Handlebars.registerHelper("redepthCheck", function(redepth){
 	
 });
 </script>
+
+<!-- handlebars 템플릿 html틀을 댓글형식의 html틀을 만들엇음 -->
 <script id="reply-template" type="text/x-handlebars-template">
 {{#each .}}
 
