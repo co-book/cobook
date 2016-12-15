@@ -130,7 +130,7 @@ Handlebars.registerHelper("redepthCheck", function(redepth){
 <!-- handlebars 템플릿 html틀을 댓글형식의 html틀을 만들엇음 -->
 <script id="reply-template" type="text/x-handlebars-template">
 {{#each .}}
-
+<div>replyno:{{replyno}}&nbsp;&nbsp;reparent:{{reparent}}&nbsp;&nbsp;reorder:{{reorder}}&nbsp;&nbsp;redepth:{{redepth}}</div>
 <li class='replyLi' {{redepthCheck redepth}} data-reparent='{{reparent}}' data-replyno='{{replyno}}' 
 	data-redepth='{{redepth}}' data-reorder='{{reorder}}'>
   {{replyno}}:{{replycont}}

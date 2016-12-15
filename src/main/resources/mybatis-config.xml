@@ -6,6 +6,9 @@
 	<typeAliases>
 		<package name="org.ebook.cobook.editor.domain" />
 		<package name="org.ebook.cobook.reply.domain" />
+		<package name="org.ebook.cobook.reivew.domain" />
+		<package name="org.ebook.cobook.good.domain" />
+		<package name="org.ebook.cobook.star.domain" />
 	</typeAliases>
 
 </configuration>

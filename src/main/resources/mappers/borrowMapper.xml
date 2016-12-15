@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.File_attachMapper">
+
+	<select id="bollowFileList">
+		select board_no, fileurl from file_attach
+		where
+		board_no in((select ebook_no from borrow
+		where member_no = #{member_no}))
+	</select>
+
+	<select id="bollowBookList">
+		select ebook_no, title from ebook
+		where ebook_no in((select ebook_no from borrow
+		where member_no = #{member_no}))
+	</select>
+
+</mapper>

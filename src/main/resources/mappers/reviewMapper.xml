@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.ReviewMapper">
+
+	<insert id="create">
+		insert into review(review_no, member_no, title, contents, ebook_no,
+		evaluate)
+		values
+		(review_no_seq.nextval, #{member_no}, #{title},
+		 #{contents}, #{ebook_no}, #{evaluate});
+	</insert>
+
+
+
+</mapper>

@@ -1,0 +1,10 @@
+﻿INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (01, sysdate, 01, 01);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (02, sysdate, 02, 02);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (03, sysdate, 03, 03);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (04, sysdate, 04, 04);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (05, sysdate, 05, 05);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (06, sysdate, 06, 06);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (07, sysdate, 07, 07);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (08, sysdate, 08, 08);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (09, sysdate, 09, 09);
+INSERT INTO borrow (user_no, borrowdate, period, cash) VALUES (10, sysdate, 10, 10);
