@@ -1,0 +1,29 @@
+# Created by https://www.gitignore.io/api/w,windows
+
+#!! ERROR: w is undefined. Use list command to see defined gitignore types !!#
+
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# End of https://www.gitignore.io/api/w,windows
+
+# tmp 디렉토리 전체를 무시하는 경우.
+summernote_upload/
