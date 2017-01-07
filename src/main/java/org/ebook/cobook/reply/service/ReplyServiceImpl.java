@@ -1,9 +1,12 @@
 package org.ebook.cobook.reply.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.ebook.cobook.board.domain.Criteria;
+import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.reply.persistence.ReplyDAO;
 import org.springframework.stereotype.Service;
@@ -13,40 +16,50 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
 	private ReplyDAO replyDao;
+
+	@Override
+	public void addReply(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.insertReply(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> replyAndLike_itList(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return replyDao.replyList(map);
+	}
+
+	@Override
+	public void modifyReply(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.updateReply(vo);
+	}
+
+	@Override
+	public void removeReply(Integer rno) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.deleteReply(rno);
+	}
+
+	@Override
+	public void addComment(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.insertComment(vo);
+	}
+
+	@Override
+	public void addLike_it(Like_itVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.insertLike_it(vo);
+	}
+
+	@Override
+	public void removeLike_it(Integer like_it_no) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.deleteLike_it(like_it_no);
+	}
 	
-	@Override
-	public void register(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		replyDao.insert(vo);
-	}
-
-	@Override
-	public List<ReplyVO> listAll(Integer bno) throws Exception {
-		// TODO Auto-generated method stub
-		return replyDao.listAll(bno);
-	}
-
-	@Override
-	public void modify(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		replyDao.update(vo);
-	}
-
-	@Override
-	public void remove(Integer rno) throws Exception {
-		// TODO Auto-generated method stub
-		replyDao.delete(rno);
-	}
-
-	@Override
-	public void comment(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		replyDao.update_reorder(vo);
-		vo.setReorder(vo.getReorder() + 1);
-		
-		replyDao.comment(vo);
-		
-	}
+	
 
 	
 

@@ -1,9 +1,12 @@
 package org.ebook.cobook.reply.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.reply.service.ReplyService;
 import org.slf4j.Logger;
@@ -33,7 +36,7 @@ public class ReplyController {
 		ResponseEntity<String> entity = null;
 		try{
 
-			replyService.register(vo);
+			replyService.addReply(vo);
 			entity = new ResponseEntity("SUCCESS", HttpStatus.CREATED);
 			
 		}catch(Exception e){
@@ -45,14 +48,18 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value="/{bno}", method = RequestMethod.GET)
-	public ResponseEntity<List<ReplyVO>> listAll(@PathVariable("bno") Integer bno)throws Exception{
+	public ResponseEntity<List<Map<String, Object>>> listAll(@PathVariable("bno") Integer bno,
+												 @RequestBody Criteria cri)throws Exception{
 		
 		logger.info("리스트 호출");
-		ResponseEntity<List<ReplyVO>> entity = null;
+		ResponseEntity<List<Map<String, Object>>> entity = null;
 		try{
-			List<ReplyVO> list = replyService.listAll(bno);
+			Map<String, Object> map = new HashMap<>();
+			map.put("bno", bno);
+			map.put("cri", cri);
+			List<Map<String, Object>> list = replyService.replyAndLike_itList(map);
 			logger.info("리스트값: "+list.toString());
-			entity = new ResponseEntity<List<ReplyVO>>(list, HttpStatus.OK);
+			entity = new ResponseEntity<List<Map<String, Object>>>(list, HttpStatus.OK);
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -68,7 +75,7 @@ public class ReplyController {
 		
 		ResponseEntity entity = null;
 		try{
-			replyService.modify(vo);
+			replyService.modifyReply(vo);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -83,7 +90,7 @@ public class ReplyController {
 		
 		ResponseEntity entity = null;
 		try{
-			replyService.remove(rno);
+			replyService.removeReply(rno);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -101,7 +108,7 @@ public class ReplyController {
 		
 		ResponseEntity<String> entity = null;
 		try{
-			replyService.comment(vo);
+			replyService.addComment(vo);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 			
 		}catch(Exception e){

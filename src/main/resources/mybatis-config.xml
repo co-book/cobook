@@ -3,12 +3,17 @@
 	PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!-- <settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings> -->
+
 	<typeAliases>
 		<package name="org.ebook.cobook.board.domain" />
 		<package name="org.ebook.cobook.reply.domain" />
 		<package name="org.ebook.cobook.reivew.domain" />
 		<package name="org.ebook.cobook.good.domain" />
 		<package name="org.ebook.cobook.star.domain" />
+		<package name="org.ebook.cobook.mybook.domain"/>
 	</typeAliases>
 
 </configuration>
