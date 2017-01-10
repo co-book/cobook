@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.FilesMapper">
+
+	<insert id="insertFile">
+	insert into files(file_no, book_no, filename, fileurl, book_type, filetype)
+	values
+	(file_no_seq.nextval, #{book_no}, #{filename}, #{fileurl}, #{book_type}, #{filetype})
+	</insert>
+	
+	<delete id="deleteFile">
+	delete from files where file_no = #{file_no}
+	</delete>
+
+</mapper>

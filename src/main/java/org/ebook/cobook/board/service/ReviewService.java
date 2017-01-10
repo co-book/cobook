@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
+import org.ebook.cobook.fileUpload.domain.FilesVO;
 
 public interface ReviewService {
 
