@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value="/board/review/*")
 public class ReviewController {
 	
-	@Inject
+	/*@Inject
 	private ReviewService reviewService;
 	
 	private static final Logger logger = 
@@ -55,7 +55,7 @@ public class ReviewController {
 		model.addAttribute("list", list);
 		model.addAttribute("displayFile", "http://localhost:8080/files/displayFile?fileName=");
 		logger.info("리스트: "+list.toString());
-	}
+	}*/
 	
 	
 	
