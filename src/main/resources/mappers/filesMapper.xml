@@ -12,7 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<delete id="deleteFile">
-	delete from files where file_no = #{file_no}
+	delete from files where book_no = #{book_no}
+	and book_type = #{book_type} 
 	</delete>
 
 </mapper>

@@ -6,6 +6,7 @@ public interface FilesDAO {
 
 	public void insertFile(FilesVO vo)throws Exception;
 	
-	public void deleteFile(Integer file_no)throws Exception;
+	public void deleteFile(FilesVO vo)throws Exception;
 	
+	public void multiFile(String[] files, FilesVO filesVO)throws Exception;
 }
