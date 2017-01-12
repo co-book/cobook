@@ -18,7 +18,7 @@ public class ebookController {
 	
 	@RequestMapping("/ebookList")
 	public String list(Model mdoel){
-		
+		System.out.println("testcommut");
 		return "";
 	}
 }
