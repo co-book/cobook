@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ReviewMapper">
 
-	<insert id="create">
+	<insert id="create" parameterType="ReviewVO">
 		insert into bookreview(review_no, member_no, title,
 		contents, ebook_no,
 		reg_date, evaluate)
@@ -13,6 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(review_no_seq.nextval,
 		#{member_no}, #{title},
 		#{contents}, #{ebook_no}, sysdate, #{evaluate})
+		
+		<selectKey resultType="int" keyProperty="review_no" order="AFTER">
+		SELECT review_no_seq.currval from dual
+		</selectKey>
 	</insert>
 
 	<select id="bookReviewList" resultType="ReviewVO">

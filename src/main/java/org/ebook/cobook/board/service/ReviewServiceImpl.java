@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.board.persistence.ReviewDAO;
+import org.ebook.cobook.fileUpload.persistence.FilesDAO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +16,9 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Inject
 	private ReviewDAO reviewDAO;
+	
+	@Inject
+	private FilesDAO filesDAO;
 
 	@Override
 	public List<Map<String, Object>> borrowBookList(Integer member_no) throws Exception {
