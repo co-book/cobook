@@ -46,4 +46,11 @@ public class HomeController {
 		
 	}
 	
+	@RequestMapping(value="/ebookList", method = RequestMethod.GET)
+	public String ebooklist(){
+		logger.info("Welcome home! ");
+		
+		return "ebooklist";	
+	}
+	
 }

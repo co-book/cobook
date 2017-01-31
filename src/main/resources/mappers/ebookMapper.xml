@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.ebookMapper">
+
+	<select id="getEbookList" resultType="EbookVO">
+	select 
+		ebook_no,
+		title,
+		author,
+		<!--cover,
+		 files.filename,
+		 files.filetype,
+		 -->
+		files.fileurl as cover
+	from EBOOK  
+		LEFT OUTER JOIN files  ON
+		 (cover= files.file_no 
+		 and files.filetype= 'COVER' 
+		 and files.book_type='EBOOK')
+	ORDER BY ebook_no
+	</select>
+
+
+
+</mapper>
