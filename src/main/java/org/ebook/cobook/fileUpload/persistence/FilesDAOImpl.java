@@ -32,6 +32,7 @@ public class FilesDAOImpl implements FilesDAO {
 	@Override
 	public void multiFile(String[] files, FilesVO filesVO) throws Exception {
 
+		
 		// 파일 url, name, 확장자를 구해야함
 		for(String fileFullName : files){
 			filesVO.parsingFileData(fileFullName);

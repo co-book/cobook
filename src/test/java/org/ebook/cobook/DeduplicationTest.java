@@ -31,7 +31,7 @@ public class DeduplicationTest extends AbstractCommonConfTest{
 	private ReviewDAO dao;
 	
 	private static final Logger logger = 
-			LoggerFactory.getLogger(MybookDAOTest.class);
+			LoggerFactory.getLogger(DeduplicationTest.class);
 	
 	@Test
 	public void Test() throws Exception{
