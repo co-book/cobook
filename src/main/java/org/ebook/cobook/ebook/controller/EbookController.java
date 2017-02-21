@@ -9,6 +9,8 @@ import javax.inject.Inject;
 
 import org.ebook.cobook.board.controller.ReviewController;
 import org.ebook.cobook.board.domain.ReviewVO;
+import org.ebook.cobook.ebook.domain.BookmarkVO;
+import org.ebook.cobook.ebook.domain.BorrowVo;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.ebook.service.EbookService;
 import org.slf4j.Logger;
@@ -19,6 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import sun.print.resources.serviceui;
 
 @Controller
 @RequestMapping(value="/ebook/*")
@@ -42,7 +47,7 @@ public class EbookController {
 		logger.info("Ebook List : "+list.toString());
 		
 	    //HashMap<String, Object> hashmap = new HashMap<String, Object>();
-	   // hashmap.put("EbookList", list);
+	    // hashmap.put("EbookList", list);
 	    
 		ResponseEntity<List<EbookVO>> entity = null;
 		try{
@@ -73,20 +78,93 @@ public class EbookController {
 	@RequestMapping(value= "/getEbookDetail", method = RequestMethod.GET)
 	public void getEbookDetail(Model model) throws Exception{
 		logger.info("getEbookDetail 호출");
-
+		
 	}
 	
-	// bookmark
+	/**
+	 * 북마크 리스트 불러오기 
+	 * @param model
+	 * @throws Exception
+	 */
+	@RequestMapping(value= "/getBookMarkList", method = RequestMethod.GET)
+	public @ResponseBody List<BookmarkVO> getBookMarkList(Model model , BorrowVo borrowVo ) throws Exception{
+		logger.info("getBookMarkList 호출");
+		//List<BookmarkVo> list = ebookService.getBookMarkList();
+		return null;
+	}
+	
+	/**
+	 * 북마크 추가
+	 * @param model
+	 * @throws Exception
+	 */
+	//추가 ? ebook_no, member_no , cfi 모두 같은 경우 에러처리? 
 	@RequestMapping(value= "/setBookMark", method = RequestMethod.GET)
-	public void setBookMark(Model model) throws Exception{
+	@ResponseBody
+	public Map<String, Object> setBookMark(Model model , BookmarkVO bookmark) throws Exception{
 		logger.info("setBookMark 호출");
-
+		Map<String, Object> resultMap = new HashMap<>();
+		boolean result = false;
+		String resultMsg = "";
+		try{
+			ebookService.setBookMark(bookmark);
+			result = true;
+		} catch (Exception e) {
+			 result = false;
+			 resultMsg=e.getMessage();
+			 e.printStackTrace();
+		}
+		resultMap.put("result", result);
+		resultMap.put("resultMsg", resultMsg);
+		return resultMap;
 	}
 	
-	@RequestMapping(value= "/getBookMark", method = RequestMethod.GET)
-	public void getBookMark(Model model) throws Exception{
-		logger.info("getBookMark 호출");
+	/**
+	 * 북마크 지우기
+	 * @param model
+	 * @throws Exception
+	 */
+	@RequestMapping(value= "/removeBookmark", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> removeBookmark(Model model , BookmarkVO bookmark) throws Exception{
+		logger.info("removeBookmark 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		boolean result = false;
+		String resultMsg = "";
 
+		try{
+			ebookService.removeBookmark(bookmark);
+			result = true;
+		} catch (Exception e) {
+			 result = false;
+			 resultMsg=e.getMessage();
+			 e.printStackTrace();
+		}
+		resultMap.put("result", result);
+		resultMap.put("resultMsg", resultMsg);
+		return resultMap;
 	}
 	
+
+	@RequestMapping(value= "/updateLastPage", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> updateLastPage(Model model , BorrowVo borrowVo) throws Exception{
+		logger.info("updateLastPage 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		boolean result = false;
+		String resultMsg = "";
+		
+		try{
+			ebookService.updateLastPage(borrowVo);
+			result = true;
+			System.out.println(result);
+		} catch (Exception e) {
+			 result = false;
+			 resultMsg=e.getMessage();
+			 e.printStackTrace();
+		}
+		resultMap.put("result", result);
+		resultMap.put("resultMsg", resultMsg);
+		return resultMap;
+	}
 }

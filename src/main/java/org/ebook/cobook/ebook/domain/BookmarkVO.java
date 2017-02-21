@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class BookmarkVO {
 
-	private Integer bookmark_no;
-	private Integer member_no;
-	private Integer ebook_no;
-	private String ebookPage;
-	private String chapter;
-	private String mybookmark;
-	private Date readDate;
+	private Integer bookmark_no;	//bookmark 정보
+	private Integer member_no;		//member 정보
+	private Integer ebook_no;		//ebook 정보
+	private String ebookPage;		//cfi
+	private String chapter;			//챔터
+	private String mybookmark;		//북마크 이름설정
+	private Date readDate;			//읽은 날짜
 	
 	public Integer getBookmark_no() {
 		return bookmark_no;

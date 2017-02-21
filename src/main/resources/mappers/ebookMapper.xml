@@ -10,10 +10,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ebook_no,
 		title,
 		author,
-		<!--cover,
+<!--	cover,
 		 files.filename,
-		 files.filetype,
-		 -->
+		 files.filetype,		 -->
 		files.fileurl as cover
 	from EBOOK  
 		LEFT OUTER JOIN files  ON
@@ -24,5 +23,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
+	<insert id="setBookmark" parameterType="EbookVO">	
+		insert into BOOKMARK ( BOOKMARK_NO ,MEMBER_NO ,EBOOK_NO ,EBOOKPAGE , READDATE , CHAPTER , MYBOOKMARK  )
+		values( BOOKMARK_no_seq.nextval, #{member_no} , #{ebook_no} , #{ebookPage} , SYSDATE , #{chapter} , #{mybookmark})
+	</insert>
+	
+	<delete id="removeBookmark" parameterType="EbookVO">	
+		DELETE FROM BOOKMARK
+		WHERE EBOOKPAGE = #{ebookPage} and MEMBER_NO = #{member_no} and EBOOK_NO = #{ebook_no}
+	</delete>
+	
+	
+	<select id="getBookmarkList">	
+	
+	</select>
 
+	<update id="updateLastPage" parameterType="BorrowVO">
+		UPDATE BORROW SET READPAGE = #{readPage} WHERE BORROW_NO = #{borrow_no}
+	</update>
+	
+	
+	<insert id="setBorrow" parameterType="BorrowVO">
+		insert into BORROW ( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,CASH ,STATUS ,READPAGE )
+		values(borrow_no_seq.nextval, #{member_no} , #{ebook_no},  SYSDATE , #{period}, #{cash}, 'NEW' ,'NEW')
+	</insert>
+	
+	<!-- 
+	select *  from BORROW  where EBOOK_NO='1' and MEMBER_NO='1' and BORROWDATE+period>sysdate  order by BORROWDATE desc 
+	 -->
 </mapper>

@@ -151,7 +151,7 @@ $(function(){
         <th>등록일 </th>
         <th>조회수 </th>
     </tr>
-{{each .}}
+{{each }}
     <tr>
         <td><a href="#" class=".mybook-img"><img src='{{fileurl}}'></a></td>
         <td><a href="#">{{title}}</a></td>

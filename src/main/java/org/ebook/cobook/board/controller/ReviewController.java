@@ -33,7 +33,6 @@ public class ReviewController {
 	
 	@RequestMapping(value="/review_write", method=RequestMethod.POST)
 	public String writePOST(Model model, ReviewVO vo)throws Exception{
-		
 		logger.info("리뷰 작성기능 실행");
 		logger.info(vo.toString());
 		reviewService.writeReview(vo);
