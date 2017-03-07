@@ -25,7 +25,7 @@ public class ReviewController {
 	
 	private static final Logger logger = 
 			LoggerFactory.getLogger(ReviewController.class);
-
+	
 	@RequestMapping(value="/review_write", method=RequestMethod.GET)
 	public void writeGET(){
 		

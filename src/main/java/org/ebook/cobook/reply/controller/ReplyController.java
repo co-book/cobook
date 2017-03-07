@@ -37,11 +37,11 @@ public class ReplyController {
 		try{
 
 			replyService.addReply(vo);
-			entity = new ResponseEntity("SUCCESS", HttpStatus.CREATED);
+			entity = new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
 			
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		return entity;
@@ -73,7 +73,7 @@ public class ReplyController {
 	public ResponseEntity<String> reply_modify(@PathVariable("rno") Integer rno,
 			@RequestBody ReplyVO vo)throws Exception{
 		
-		ResponseEntity entity = null;
+		ResponseEntity<String> entity = null;
 		try{
 			replyService.modifyReply(vo);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
@@ -88,7 +88,7 @@ public class ReplyController {
 	@RequestMapping(value = "/{rno}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> reply_delete(@PathVariable("rno")Integer rno)throws Exception{
 		
-		ResponseEntity entity = null;
+		ResponseEntity<String> entity = null;
 		try{
 			replyService.removeReply(rno);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
