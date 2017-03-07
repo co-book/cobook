@@ -21,17 +21,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</update>
 	
-	<select id="getMember" resultType="org.prototype.domain.MemberVO">
+	<select id="getMember" resultType="MemberVO">
 	SELECT email, nickname, password FROM member
 	WHERE email = #{email}
 	</select>
 
-	<select id="getEmail" parameterType="String" resultType="org.prototype.domain.MemberVO">
+	<select id="getEmail" parameterType="String" resultType="MemberVO">
 	SELECT email FROM member
 	WHERE email = #{email}
 	</select>
 
-	<select id="getNickName" parameterType="String" resultType="org.prototype.domain.MemberVO">
+	<select id="getNickName" parameterType="String" resultType="MemberVO">
 	SELECT nickname FROM member
 	WHERE nickname = #{nickname}
 	</select>
