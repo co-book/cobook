@@ -43,7 +43,7 @@ public class FilesDAOTest extends AbstractCommonConfTest{
 	@Ignore
 	public void testDeleteFile()throws Exception{
 		
-		dao.deleteFile(102);
+		//dao.deleteFile(102);
 	}
 	
 	
