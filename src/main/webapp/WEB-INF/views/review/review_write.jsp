@@ -33,7 +33,7 @@ $(function(){
 	});
 </script>
 <script id="modal-template">
-{{#each .}}
+{{#each}}
 <div>
 <p>{{list.title}}</p>
 <p><a class='bollow_img' data-eno='{{eno}}' data-src='{{src}}'><img src='{{src}}'>

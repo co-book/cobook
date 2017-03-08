@@ -3,69 +3,62 @@ package org.ebook.cobook.reply.domain;
 import java.util.Date;
 
 public class ReplyVO {
-
-	private Integer replyno; //--댓글번호
-	private Integer boardno; //--게시물 번호
-	private String replycont; //-- 댓글
-	private Date regdate; //-- 등록날짜
-	private int reparent; //-- 댓글부모번호
-	private int redepth; //-- 댓글 레벨
-	private int reorder; //-- 댓글 순서
-	private String user_id; // 유저 id
-	public Integer getReplyno() {
-		return replyno;
+ // 댓글번호, 회원번호, 부모번호, 게시물번호, 부모타입, 내용, 날짜
+	private Integer reply_no;
+	private Integer member_no;
+	private Integer parent_no;
+	private Integer board_no;
+	private String parent_type;
+	private String contents;
+	private Date reg_date;
+	
+	
+	
+	
+	
+	public Integer getReply_no() {
+		return reply_no;
 	}
-	public void setReplyno(Integer replyno) {
-		this.replyno = replyno;
+	public void setReply_no(Integer reply_no) {
+		this.reply_no = reply_no;
 	}
-	public Integer getBoardno() {
-		return boardno;
+	public Integer getMember_no() {
+		return member_no;
 	}
-	public void setBoardno(Integer boardno) {
-		this.boardno = boardno;
+	public void setMember_no(Integer member_no) {
+		this.member_no = member_no;
 	}
-	public String getReplycont() {
-		return replycont;
+	public Integer getParent_no() {
+		return parent_no;
 	}
-	public void setReplycont(String replycont) {
-		this.replycont = replycont;
+	public void setParent_no(Integer parent_no) {
+		this.parent_no = parent_no;
 	}
-	public Date getRegdate() {
-		return regdate;
+	public Integer getBoard_no() {
+		return board_no;
 	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setBoard_no(Integer board_no) {
+		this.board_no = board_no;
 	}
-	public int getReparent() {
-		return reparent;
+	public String getParent_type() {
+		return parent_type;
 	}
-	public void setReparent(int reparent) {
-		this.reparent = reparent;
+	public void setParent_type(String parent_type) {
+		this.parent_type = parent_type;
 	}
-	public int getRedepth() {
-		return redepth;
+	public String getContents() {
+		return contents;
 	}
-	public void setRedepth(int redepth) {
-		this.redepth = redepth;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public int getReorder() {
-		return reorder;
+	public Date getReg_date() {
+		return reg_date;
 	}
-	public void setReorder(int reorder) {
-		this.reorder = reorder;
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	@Override
-	public String toString() {
-		return "ReplyVO [replyno=" + replyno + ", boardno=" + boardno + ", replycont=" + replycont + ", regdate="
-				+ regdate + ", reparent=" + reparent + ", redepth=" + redepth + ", reorder=" + reorder + ", user_id="
-				+ user_id + "]";
-	}
+	
 	
 	
 	

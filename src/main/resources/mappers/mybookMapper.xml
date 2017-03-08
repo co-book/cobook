@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.MybookMapper">
+
+	<select id="listCri" resultType="MybookVO">
+	<![CDATA[
+		SELECT a.mybook_no, a.member_no, a.title, a.contents, a.hit, a.reg_date,
+			   b.nickname
+		FROM (
+				SELECT rownum as rn,
+				mybook_no, member_no, title, contents, hit, reg_date
+				FROM mybook
+				WHERE mybook_no > 0
+	]]>		
+				<include refid="search"></include>
+	
+	<![CDATA[
+				ORDER BY mybook_no DESC) a, member b
+		WHERE rn >= #{pageStart} AND rownum <= #{perPageNum}
+		AND 
+			  a.member_no = b.member_no
+	]]>
+	</select>
+
+	<select id="getCriCount" resultType="int">
+	<![CDATA[
+	 SELECT count(mybook_no) 
+ 	 FROM mybook
+ 	 WHERE mybook_no > 0 
+	]]>
+		<include refid="search"></include>
+	
+	</select>
+
+	<insert id="insert">
+	INSERT INTO MYBOOK
+    (MYBOOK_NO, 
+    MEMBER_NO, 
+    TITLE, 
+    CONTENTS, 
+    HIT, 
+    Reg_date)
+VALUES
+    (mybook_no_seq.nextval, 
+    #{member_no}, 
+    #{title}, 
+    #{contents}, 
+    0, 
+    sysdate)
+	</insert>
+
+	<select id="read" resultType="MybookVO">
+	SELECT 
+			*
+	FROM
+			mybook
+	WHERE 
+			mybook_no = #{mybook_no}
+	</select>
+
+	<update id="update">
+	UPDATE MYBOOK
+	SET
+    TITLE = #{title}, 
+    CONTENTS = #{contents}
+	WHERE MYBOOK_NO = #{mybook_no}
+	</update>
+
+	<delete id="delete">
+	DELETE FROM mybook
+	WHERE mybook_no = #{mybook_no}
+	</delete>
+	
+	<update id="increseHit">
+	UPDATE mybook 
+	SET
+		hit = hit + 1
+	WHERE
+		mybook_no = #{mybook_no}
+	
+	</update>
+	
+	
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND title LIKE CONCAT('%', #{keyword}) || '%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND contents LIKE CONCAT('%', #{keyword}) || '%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				AND member_no
+				IN(select member_no FROM member
+				WHERE
+				nickname LIKE CONCAT('%', #{keyword}) || '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title LIKE CONCAT('%', #{keyword}) || '%' OR
+				contents LIKE
+				CONCAT('%', #{keyword}) || '%')
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and
+				( contents LIKE CONCAT('%', #{keyword}) || '%'
+				OR
+				member_no IN(select member_no FROM member
+				WHERE nickname LIKE
+				CONCAT('%', #{keyword}) || '%')
+				)
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				AND
+				( title LIKE CONCAT('%', #{keyword}) || '%'
+				OR
+				contents
+				LIKE CONCAT('%', #{keyword}) || '%'
+				OR
+				member_no IN(select member_no
+				FROM member
+				WHERE nickname LIKE CONCAT('%', #{keyword}) || '%')
+				)
+			</if>
+		</if>
+	</sql>
+
+
+</mapper>

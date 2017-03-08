@@ -3,19 +3,14 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.ebook.cobook.mapper.File_attachMapper">
+<mapper namespace="org.ebook.cobook.mapper.BorrowedBookMapper">
 
-	<select id="bollowFileList">
-		select board_no, fileurl from file_attach
-		where
-		board_no in((select ebook_no from borrow
-		where member_no = #{member_no}))
-	</select>
-
-	<select id="bollowBookList">
-		select ebook_no, title from ebook
-		where ebook_no in((select ebook_no from borrow
-		where member_no = #{member_no}))
+	<select id="bollowBookList" resultType="map">
+		SELECT e.ebook_no, e.title, f.fileurl
+		FROM ebook e INNER JOIN files f
+		ON e.ebook_no = f.file_no
+		WHERE EXISTS(SELECT ebook_no FROM borrow b
+		WHERE member_no = #{member_no} AND e.ebook_no = b.ebook_no)
 	</select>
 
 </mapper>

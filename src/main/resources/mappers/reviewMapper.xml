@@ -6,13 +6,145 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.ReviewMapper">
 
 	<insert id="create">
-		insert into review(review_no, member_no, title, contents, ebook_no,
-		evaluate)
+		insert into bookreview(review_no, member_no, title,
+		contents, ebook_no,
+		reg_date, evaluate)
 		values
-		(review_no_seq.nextval, #{member_no}, #{title},
-		 #{contents}, #{ebook_no}, #{evaluate});
+		(review_no_seq.nextval,
+		#{member_no}, #{title},
+		#{contents}, #{ebook_no}, sysdate, #{evaluate})
 	</insert>
 
+	<select id="bookReviewList" resultType="ReviewVO">
+	<![CDATA[	
+		SELECT br.review_no, br.ebook_no, br.member_no, br.title, br.contents, br.hit, br.reg_date,
+		br.evaluate, f.fileurl, e.category
+		FROM 
+		(
+			SELECT ROWNUM AS rn,
+			review_no, ebook_no, member_no, title, contents, hit, reg_date, evaluate
+			FROM bookreview
+			WHERE review_no > 0
+	]]>
+
+		<include refid="search"></include>
+		ORDER BY review_no desc
+		) br, files f, ebook e
+	<![CDATA[
+	WHERE rn >= #{pageStart} AND rownum <= #{perPageNum}
+	AND
+	br.ebook_no = f.book_no
+	AND
+	f.book_type like 'ebook'
+	AND
+	br.ebook_no = e.ebook_no
+	]]>
+
+	</select>
 
 
+
+	<select id="boardReviewCount" resultType="int">
+	<![CDATA[  
+  select count(review_no) 
+  from bookreview
+  where review_no > 0 
+	]]>
+		<include refid="search"></include>
+
+	</select>
+
+	<select id="readBookReview" resultType="map">
+		SELECT br.title,
+		br.evaluate, br.contents, e.author,
+		e.publisher, f.fileurl, m.nickname
+		FROM bookreview br, ebook e, files f,
+		member m
+		WHERE br.ebook_no =
+		e.ebook_no
+		AND
+		br.ebook_no = f.book_no
+		AND
+		f.book_type LIKE 'ebook'
+		AND
+		br.member_no = m.member_no
+		AND
+		br.review_no = #{review_no}
+	</select>
+
+	<update id="updateBookReview">
+		update bookreview
+		set title = #{title}, contents = #{contents},
+		ebook_no = #{ebook_no}
+		where review_no = #{review_no}
+
+	</update>
+
+	<delete id="deleteBookReview">
+		delete from bookreview
+		where review_no = #{review_no}
+
+	</delete>
+
+<update id="increseHit">
+	UPDATE bookreview
+	SET
+		hit = hit + 1
+	WHERE
+		mybook_no = #{mybook_no}
+	
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND title like CONCAT('%', #{keyword}) || '%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND contents like CONCAT('%', #{keyword}) || '%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				AND member_no
+				IN(select member_no FROM member
+				WHERE
+				nickname like CONCAT('%', #{keyword}) || '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title like CONCAT('%', #{keyword}) || '%' OR
+				contents like
+				CONCAT('%', #{keyword}) || '%')
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and
+				( contents like CONCAT('%', #{keyword}) || '%'
+				OR
+				member_no IN(select member_no FROM member
+				WHERE nickname like
+				CONCAT('%', #{keyword}) || '%')
+				)
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				AND
+				( title like CONCAT('%', #{keyword}) || '%'
+				OR
+				contents
+				like CONCAT('%', #{keyword}) || '%'
+				OR
+				member_no IN(select member_no
+				FROM member
+				WHERE nickname like CONCAT('%', #{keyword}) || '%')
+				)
+			</if>
+		</if>
+	</sql>
 </mapper>

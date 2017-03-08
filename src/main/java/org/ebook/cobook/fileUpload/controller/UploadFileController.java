@@ -7,6 +7,7 @@ import java.io.InputStream;
 import javax.annotation.Resource;
 
 import org.apache.commons.io.IOUtils;
+import org.ebook.cobook.util.Incoding;
 import org.ebook.cobook.util.MediaUtils;
 import org.ebook.cobook.util.UploadFileUtils;
 import org.slf4j.Logger;
@@ -59,9 +60,10 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 	@ResponseBody
 	@RequestMapping(value="/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
-
-		System.out.println("iso-8859-1 -> utf-8         : " + new String(fileName.getBytes("iso-8859-1"), "utf-8"));
-		fileName = new String(fileName.getBytes("iso-8859-1"), "utf-8");
+		
+		//Incoding.incoding(fileName);
+		/*System.out.println("iso-8859-1 -> utf-8         : " + new String(fileName.getBytes("iso-8859-1"), "utf-8"));
+		fileName = new String(fileName.getBytes("iso-8859-1"), "utf-8");*/
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		

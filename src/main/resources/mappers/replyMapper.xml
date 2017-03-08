@@ -5,50 +5,78 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ReplyMapper">
 
-	<select id="listAll" resultType="ReplyVO">
-	select * from reply_test
-	where boardno = #{boardno}
-	order by reparent asc, reorder asc
+	<!-- 댓글 + 좋아요 리스트 -->
+	<select id="replyList" resultType="map">
+		<![CDATA[	
+		
+SELECT ROWNUM row_no, rp.reply_no, rp.member_no AS reply_member_no, rp.parent_no, rp.parent_type, rp.board_no, rp.contents, rp.reg_date,
+l.like_it_no, l.member_no AS like_member_no, m.nickname
+from (
+  SELECT ROWNUM AS rn, reply_no, member_no, parent_no, parent_type, board_no, contents, reg_date
+  from 
+        (
+        SELECT * FROM reply
+        ORDER BY parent_no asc, reply_no asc
+        )
+) rp, like_it l, member m
+WHERE rn >= #{cri.pageStart} AND rownum <= #{cri.perPageNum}
+AND rp.reply_no = l.reply_no(+)
+AND rp.member_no = m.member_no
+AND rp.board_no = #{vo.board_no}
+AND rp.PARENT_TYPE = #{vo.parent_type}
+	]]>
+
 	</select>
 
-	<insert id="insert">
-	insert into reply_test
-	(replyno, boardno, replycont, reparent, user_id)
-	values
-	(replyno_seq.nextval, #{boardno},
-	 #{replycont}, replyno_seq.currval,
-	 #{user_id})
+	<!-- 댓글 입력 -->
+	<insert id="insertReply">
+INSERT INTO reply
+	(reply_no, member_no, parent_no, parent_type, board_no,
+	contents, reg_date)
+VALUES
+	(reply_no_seq.nextval, #{member_no}, reply_no_seq.currval,
+	#{parent_type}, #{board_no}, #{contents}, sysdate)
 	</insert>
+
+	<!-- 답글 입력 -->
+<insert id="insertComment">
+INSERT INTO reply 
+	(reply_no, member_no, parent_no,parent_type,
+ 	board_no,contents, reg_date)
+VALUES
+	(reply_no_seq.nextval, #{member_no}, #{parent_no}, #{parent_type},
+	 #{board_no}, #{contents}, sysdate)
+</insert>
 	
-	<insert id="comment">
-	insert into reply_test
-	(replyno, boardno, replycont, reparent, redepth, reorder, user_id)
-	values
-	(replyno_seq.nextval, #{boardno},
-	 #{replycont},#{reparent},
-	 #{redepth}, #{reorder},
-	 #{user_id})
-	</insert>
+	<!-- 댓글수정 -->
+<update id="updateReply">
+UPDATE 
+  		reply 
+SET 
+  		contents = #{contents}
+WHERE
+ 		reply_no = #{reply_no}
+
+</update>
 	
-	<update id="update_reorder">
-	update reply_test
-	set reorder = reorder + 1
-	where
-	reparent = #{reparent}
-	 and
-	reorder > #{reorder}
-	</update>
-	
-	<update id="update">
-	update reply_test set
-	replycont = #{replycont}
-	where
-	rno = #{rno}
-	</update>
-	<delete id="delete">
-	delete reply_test 
-	where
-	rno = #{rno}
-	</delete>
+<!-- 댓글 삭제 -->
+<delete id="deleteReply">
+DELETE 
+  reply
+WHERE 
+  reply_no = #{reply_no}
+
+</delete>
+
+<!-- 좋아요 추가 -->
+<insert id="insertLike_it">
+insert into LIKE_IT (like_it_no, member_no, reply_no)
+values (like_it_no_seq.nextval, #{member_no}, #{reply_no})
+</insert>
+
+<!-- 좋아요 삭제 -->
+<delete id="deleteLike_it">
+delete like_it where like_it_no = #{like_it_no}
+</delete>
 
 </mapper>
