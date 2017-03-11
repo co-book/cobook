@@ -1,6 +1,8 @@
 package org.ebook.cobook.member.controller;
 
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.member.service.MemberService;
@@ -65,7 +67,33 @@ public class MemberController {
 		return entity;
 	}
 
-	
+	@ResponseBody
+	@RequestMapping(value="/loginPOST", method = RequestMethod.POST)
+	public ResponseEntity<String> loginPOST(@RequestBody MemberVO vo, HttpSession session){
+		
+		ResponseEntity<String> entity = null;
+		String result = "FAIL";
+		System.out.println(vo.toString());
+		try{
+			
+			String password = vo.getPassword();
+			MemberVO member = service.getMember(vo);
+			if(member != null){
+				
+				if(member.getPassword().equals(password)){
+					session.setAttribute("login", member);
+					result = "SUCCESS";
+				}
+			}
+			
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		}catch(Exception e){
+			
+			entity = new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
 	
 	

@@ -2,6 +2,9 @@ package org.ebook.cobook.fileUpload.domain;
 
 import java.util.Arrays;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("FilesVO")
 public class FilesVO {
 
 	private Integer file_no;

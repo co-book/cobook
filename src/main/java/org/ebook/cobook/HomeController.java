@@ -1,24 +1,15 @@
 package org.ebook.cobook;
 
 import java.text.DateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
-import org.ebook.cobook.board.domain.ReviewVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import domain.Book;
-import domain.BookList;
-import domain.Greeting;
-import domain.Name;
 
 
 /**
@@ -69,35 +60,5 @@ public class HomeController {
 		return "redirect:/editorCopy";
 	}
 	
-	@RequestMapping("/hello.json")
-	@ResponseBody
-	public Greeting greetingJson(@RequestBody Name name) {
-		return new Greeting("안녕하세요, " + name.getName(), name);
-	}
 	
-	@RequestMapping(value="/jsonTest", method = RequestMethod.POST)
-	@ResponseBody
-	public ReviewVO jsonTest(@RequestBody ReviewVO reviewVO){
-	
-		logger.debug("reviewVO 값확인: " + reviewVO.toString());
-		return reviewVO;
-	}
-	
-	@RequestMapping(value = "/books.xml", produces = "application/xml; charset=utf-8")
-	@ResponseBody
-	public BookList booksXml() {
-		return createBookList();
-	}
-
-	private Book books(String title, int price, String isbn) {
-		return new Book(title, price, isbn);
-	}
-	
-	private BookList createBookList() {
-		return new BookList(Arrays.asList(
-				books("제목1", 1000, "000000"),
-				books("제목2", 2000, "000001"),
-				books("제목3", 3000, "000004")
-				));
-	}
 }

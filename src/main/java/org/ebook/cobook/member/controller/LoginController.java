@@ -1,7 +1,5 @@
 package org.ebook.cobook.member.controller;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,45 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-
-
-	@RequestMapping(value = "/APIExamNaverLogin")
-	public void examLogin() {
-
-	}
-
-	@RequestMapping(value = "/callback")
-	public void callback() {
-
-	}
-
-	@RequestMapping(value = "/kakao")
-	public void kakao() {
-
-	}
-
-	@RequestMapping(value = "/facebook")
-	public void facebook(HttpServletRequest req) {
-
-		cookieLog(req);
-	}
-
-	@RequestMapping(value = "/facebook2")
-	public void facebook2() {
-
-	}
-
-	@RequestMapping(value = "/google")
-	public void google(HttpServletRequest req) {
-
-		cookieLog(req);
-
-	}
-
-	@RequestMapping(value = "/google2")
-	public void google2() {
-
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/register", produces = "text/plain;charset=UTF-8")
@@ -77,7 +36,10 @@ public class LoginController {
 	
 	
 	
-	public void cookieLog(HttpServletRequest req) {
+	
+	
+	
+	/*public void cookieLog(HttpServletRequest req) {
 
 		System.out.println("--------쿠키 확인---------------");
 		Cookie[] cookie = req.getCookies();
@@ -90,6 +52,8 @@ public class LoginController {
 				
 			}
 		}
-	}
+	}*/
+	
+	
 
 }

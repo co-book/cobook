@@ -2,6 +2,9 @@ package org.ebook.cobook.reply.domain;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("ReplyVO")
 public class ReplyVO {
  // 댓글번호, 회원번호, 부모번호, 게시물번호, 부모타입, 내용, 날짜
 	private Integer reply_no;

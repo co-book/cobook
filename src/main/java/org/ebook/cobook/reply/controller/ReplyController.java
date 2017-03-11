@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -47,16 +48,32 @@ public class ReplyController {
 		return entity;
 	}
 	
-	@RequestMapping(value="/{bno}", method = RequestMethod.GET)
-	public ResponseEntity<List<Map<String, Object>>> listAll(@PathVariable("bno") Integer bno,
-												 @RequestBody Criteria cri)throws Exception{
+	@ResponseBody
+	@RequestMapping(value="/{parent_type}/{board_no}/{perPageNum}/{page}", method = RequestMethod.GET)
+	public ResponseEntity<List<Map<String, Object>>> listAll(
+			@PathVariable("parent_type") String parent_type,
+			@PathVariable("board_no") Integer board_no,
+		    @PathVariable("page") Integer page,
+			@PathVariable("perPageNum") Integer perPageNum)throws Exception{
 		
 		logger.info("리스트 호출");
 		ResponseEntity<List<Map<String, Object>>> entity = null;
+		logger.info("타입:"+parent_type);
+		logger.info("게시물번호:"+board_no);
+		logger.info("보여줄갯수:"+perPageNum);
+		logger.info("페이지:"+page);
 		try{
+			
 			Map<String, Object> map = new HashMap<>();
-			map.put("bno", bno);
+			Criteria cri = new Criteria();
+			cri.setPage(page);
+			cri.setPerPageNum(perPageNum);
+
+			map.put("parent_type", parent_type);
+			map.put("board_no", board_no);
 			map.put("cri", cri);
+			System.out.println("맵");
+			System.out.println(map.toString());
 			List<Map<String, Object>> list = replyService.replyAndLike_itList(map);
 			logger.info("리스트값: "+list.toString());
 			entity = new ResponseEntity<List<Map<String, Object>>>(list, HttpStatus.OK);

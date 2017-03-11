@@ -1,5 +1,8 @@
 package org.ebook.cobook.star.domain;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("StarVO")
 public class StarVO {
 
 	private Integer star_no;

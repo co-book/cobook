@@ -1,5 +1,8 @@
 package org.ebook.cobook.member.domain;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("MemberVO")
 public class MemberVO {
 
 	private int member_no;

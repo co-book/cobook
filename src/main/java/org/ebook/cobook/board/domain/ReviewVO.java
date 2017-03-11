@@ -2,6 +2,9 @@ package org.ebook.cobook.board.domain;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("ReviewVO")
 public class ReviewVO {
 	 private Integer review_no; 
      private Integer ebook_no; 

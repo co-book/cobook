@@ -3,7 +3,6 @@ package org.ebook.cobook.board.domain;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 public class PageMaker {
 
 	private int totalCount;

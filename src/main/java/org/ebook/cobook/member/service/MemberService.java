@@ -11,5 +11,7 @@ public interface MemberService {
 	public boolean checkEmail(String email) throws Exception;
 
 	public boolean checkNickName(String nickname) throws Exception;
+	
+	public MemberVO getMember(MemberVO vo)throws Exception;
 
 }

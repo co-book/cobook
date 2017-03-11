@@ -71,7 +71,7 @@
 
           // Listen for sign-in state changes.
 
-          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+         /* gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);*/
 
 
 
@@ -94,6 +94,7 @@
         if (isSignedIn) {
 
           makeApiCall();
+          
         } else {
 
         }
@@ -109,6 +110,8 @@
     	  options.setPrompt('consent');
     	  options.setScope('profile').setScope('email');
        	  gapi.auth2.getAuthInstance().signIn(options);
+       	  openJoin();
+       	  
       }
 
 
@@ -130,21 +133,25 @@
           resourceName: 'people/me'
 
         }).then(function(resp) {
-
-		  setGoogleProFile(resp.result);
+        	
+		  /*setGoogleProFile(resp.result);*/
         });
 
       }
 
-      function setGoogleProFile(result){
+     /* function setGoogleProFile(result){
     		
     		var sex = result.genders[0].value;
     		var email = result.emailAddresses[0].value;
     		var age = result.ageRange;
+    		switch(age){
+    			case 'TWENTY_ONE_OR_OLDER' : age = 21; break;
+    		}
+    		
     		console.log(sex);
     		console.log(email);
     		console.log(age);
     		$("#sex").val(sex);
     		$("#email").val(email);
     		$("#age").val(age);
-    	}
+    	}*/
