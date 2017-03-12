@@ -34,7 +34,10 @@ public class LoginController {
 		
 	}
 	
-	
+	@RequestMapping(value="/facebook2", method = RequestMethod.GET)
+	public void facebook2(){
+		
+	}
 	
 	
 	

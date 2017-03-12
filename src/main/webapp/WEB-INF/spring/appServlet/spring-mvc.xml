@@ -17,6 +17,7 @@
 	<mvc:view-controller path="/test/replyTest" view-name="/test/replyTest" />
 	<mvc:view-controller path="/test/loginTest" view-name="/test/loginTest" />
 	<mvc:view-controller path="/index" view-name="/CoBookTest0.1/index" />
+	<mvc:view-controller path="/login/facebook" view-name="/login/facebook"  />
 	
 	<bean id="AuthInterceptor" class="org.ebook.cobook.interceptor.AuthInterceptor"></bean>
 	

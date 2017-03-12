@@ -18,31 +18,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta name="keywords"
 	content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="text/javascript"
+	src="/resources/CoBookTest0.1/js/jquery-2.1.4.min.js"></script>
 <script type="application/x-javascript">
+	
+	
 	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
 
+
+
 </script>
+<!-- 구글 스크립트 -->
 <script src="/resources/js/google.js"></script>
 <!-- 페이스북 스크립트 -->
 <script>
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : '135805423595994',
-			xfbml : true,
-			version : 'v2.8'
-		}, FB.getLoginStatus(function(response) {
-			statusChangeCallback(response);
-
-		}));
-		FB.AppEvents.logPageView();
-
-	}
 
 	function statusChangeCallback(response) {
 		console.log('statusChangeCallback');
-		console.log(response);
 		// 토큰을 가져온다 
 
 		// response 객체는 현재 로그인 상태를 나타내는 정보를 보여준다. 
@@ -52,9 +46,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			// 페이스북을 통해서 로그인이 되어있다. 
 			// 토큰을 가져온다 
 			var accessToken = response.authResponse.accessToken;
-			getProFile(accessToken);
-			openJoin();
-			
+
 		} else if (response.status === 'not_authorized') {
 			// 페이스북에는 로그인 했으나, 앱에는 로그인이 되어있지 않다. 
 			/* 
@@ -96,11 +88,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	}
 
-	function checkLoginState() {
+	/* function checkLoginState() {
 		FB.getLoginStatus(function(response) {
 			statusChangeCallback(response);
 		});
-	}
+	} */
+	$(document).ready(function() {
+		$("#fBtn").on("click", function() {
+			console.log("페이스북 호출");
+			FB.getLoginStatus(function(response) {
+				console.log(response);
+				if (response && response.status === 'connected') {
+
+					openJoin();
+					FB.logout(function(response) {
+						console.log("로그아웃 호출");
+					});
+				}else{
+					
+					FB.login(function(response){
+				
+						if(response && response.status === 'connected'){
+							openJoin();
+							FB.logout(function(response) {
+								console.log("로그아웃 호출");
+							});
+						}					
+					
+					});
+				}
+
+			});
+
+		});
+	});
 </script>
 <!-- //for-mobile-apps -->
 <link href="/resources/CoBookTest0.1/css/bootstrap.css" rel="stylesheet"
@@ -139,8 +160,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	href="/resources/CoBookTest0.1/css/font-awesome.min.css" />
 <!-- //font-awesome icons -->
 <!-- js -->
-<script type="text/javascript"
-	src="/resources/CoBookTest0.1/js/jquery-2.1.4.min.js"></script>
 <!-- <script type="text/javascript" src="/resources/CoBookTest0.1/js/jquery-1.9.0.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
 <script type="text/javascript"
@@ -175,45 +194,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$('#slider').nivoSlider();
 	});
 </script>
-<script>
-	$(function() {
-		$("#loginBtn").on("click", function() {
-			console.log("체크");
-			var email = $("#email").val();
-			var password = $("#password").val();
-			console.log(email);
-			console.log(password);
-			$.ajax({
-
-				type : 'POST',
-				url : '/member/loginPOST',
-				headers : {
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "POST"
-				},
-				dataType : 'text',
-				data : JSON.stringify({
-					email : email,
-					password : password
-				}),
-				success : function(result) {
-					console.log(result);
-					if (result.indexOf("S") != -1) {
-						alert("로그인성공");
-						location.reload();
-					} else {
-						alert("로그인 실패")
-						$("#email").val("");
-						$("#password").val("");
-					}
-				}
-
-			});
-
-		});
-
-	});
-</script>
+<script src="/resources/js/index/login.js"></script>
 <!-- //banner-bottom-plugin -->
 <link
 	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
@@ -245,13 +226,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 </head>
 <body>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+	<script>
+	
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId : '135805423595994',
+			xfbml : true,
+			version : 'v2.8'
+		});
+
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+
+	};
+	
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		
+	</script>
 	<!-- header ì ê¹¨ì§?-->
 	<div class="header">
 		<div class="container">
@@ -346,16 +347,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="social-icons">
 									<div class="login-button">
 										<div id="fb-root"></div>
-										<!-- <a class="fa" href="#"><i class="anc-fa"></i><span>Facebook</span> -->
-										<!-- <div class="fb-login-button" data-max-rows="1"
-											data-size="large" data-show-faces="false"
-											data-auto-logout-link="false" onlogin="checkLoginState();"></div> -->
-											<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"
-											onlogin="checkLoginState();">
-											</div>
+										<a class="fa" id="fBtn" href="#"><i class="anc-fa"></i><span>Facebook</span></a>
+
 										<div class="clear"></div>
-										<!--</a>  -->  <a class="go" id="authorize-button" href="#"><i class="anc-go"></i><span>Google+</span> 
-										<!-- <button id="authorize-button">구글 버튼</button> -->
+										<!--</a>  -->
+										<a class="go" id="authorize-button" href="#"><i
+											class="anc-go"></i><span>Google+</span> <!-- <button id="authorize-button">구글 버튼</button> -->
 											<div class="clear"></div></a>
 										<div class="clear"></div>
 									</div>
@@ -382,8 +379,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				opacity : "toggle"
 			}, "slow");
 		});
-		
-		function openJoin(){
+
+		// 회원가입 창으로 넘어가는 메서드
+		function openJoin() {
 			$('.toggle').toggle(function() {
 				// Switches the Icon
 				$(this).children('i').toggleClass('fa-pencil');
@@ -2676,13 +2674,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		});
 	</script>
-	 <script async defer src="https://apis.google.com/js/api.js" 
-
-      onload="this.onload=function(){};handleClientLoad()" 
-
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-
-    </script>
+	<script async defer src="https://apis.google.com/js/api.js"
+		onload="this.onload=function(){};handleClientLoad()"
+		onreadystatechange="if (this.readyState === 'complete') this.onload()">
+		
+	</script>
 	<!-- //here ends scrolling icon -->
 </body>
 </html>
