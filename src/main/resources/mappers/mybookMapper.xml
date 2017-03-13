@@ -5,10 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.MybookMapper">
 
-	<select id="listCri" resultType="MybookVO">
+	<select id="listCri" resultType="map">
 	<![CDATA[
 		SELECT a.mybook_no, a.member_no, a.title, a.contents, a.hit, a.reg_date,
-			   b.nickname
+			   b.nickname, f.fileurl
 		FROM (
 				SELECT rownum as rn,
 				mybook_no, member_no, title, contents, hit, reg_date
@@ -18,10 +18,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<include refid="search"></include>
 	
 	<![CDATA[
-				ORDER BY mybook_no DESC) a, member b
+				ORDER BY mybook_no DESC) a, member b, files f
 		WHERE rn >= #{pageStart} AND rownum <= #{perPageNum}
 		AND 
 			  a.member_no = b.member_no
+		AND
+			  a.mybook_no = f.book_no
+		AND
+			  f.book_type like 'mybook'
+		
 	]]>
 	</select>
 
@@ -50,15 +55,22 @@ VALUES
     #{contents}, 
     0, 
     sysdate)
+    
+    <selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
+    SELECT mybook_no_seq.currval FROM dual
+    </selectKey>
+    
 	</insert>
 
 	<select id="read" resultType="MybookVO">
 	SELECT 
-			*
+			mybook_no, member_no, title, contents, hit, reg_date
 	FROM
-			mybook
+			mybook myb, files f
 	WHERE 
 			mybook_no = #{mybook_no}
+	AND
+			
 	</select>
 
 	<update id="update">

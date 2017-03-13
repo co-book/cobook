@@ -1,5 +1,6 @@
 package org.ebook.cobook.board.domain;
 
+
 public class Criteria {
 
 	private int page;	

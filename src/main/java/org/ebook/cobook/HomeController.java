@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 /**
  * Handles requests for the application home page.
  */
@@ -46,6 +47,7 @@ public class HomeController {
 		
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value="/ebookList", method = RequestMethod.GET)
 	public String ebooklist(){
 		logger.info("Welcome home! ");
@@ -58,4 +60,20 @@ public class HomeController {
 		return "viewer_jsp";	
 	}
 	
+=======
+	@RequestMapping(value="/hello", method = RequestMethod.GET)
+	public void hello(String name, Model model)throws Exception{
+		System.out.println("메서드 실행확인 name: " + name);
+		logger.debug(name);
+		model.addAttribute("greeting", name);
+	}
+	
+	@RequestMapping(value="/hello", method = RequestMethod.POST)
+	public String helloPOST()throws Exception{
+		
+		return "redirect:/editorCopy";
+	}
+	
+	
+>>>>>>> 7224330813ac2f75e9e51dbfce5c9ba08bf864f6
 }

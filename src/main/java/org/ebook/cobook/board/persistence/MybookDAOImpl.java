@@ -1,6 +1,7 @@
 package org.ebook.cobook.board.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -18,7 +19,7 @@ public class MybookDAOImpl implements MybookDAO {
 	private final String namespace = "org.ebook.cobook.mapper.MybookMapper";
 	
 	@Override
-	public List<MybookVO> listCri(Criteria cri) throws Exception {
+	public List<Map<String, Object>> listCri(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".listCri", cri);
 	}
@@ -36,15 +37,15 @@ public class MybookDAOImpl implements MybookDAO {
 	}
 
 	@Override
-	public void insert(MybookVO vo) throws Exception{
+	public void insert(MybookVO mybookVO) throws Exception{
 		// TODO Auto-generated method stub
-		session.insert(namespace+".insert", vo);
+		session.insert(namespace+".insert", mybookVO);
 	}
 
 	@Override
-	public void update(MybookVO vo) throws Exception{
+	public void update(MybookVO mybookVO) throws Exception{
 		// TODO Auto-generated method stub
-		session.update(namespace+".update", vo);
+		session.update(namespace+".update", mybookVO);
 	}
 
 	@Override

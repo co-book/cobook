@@ -1,5 +1,8 @@
 package org.ebook.cobook.likeIt.domain;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Like_itVO")
 public class Like_itVO {
 
 	private Integer like_it_no;

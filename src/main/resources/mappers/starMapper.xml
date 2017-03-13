@@ -4,7 +4,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.ebook.cobook.mapper.StarMapper">
+<!-- 별점 입력,수정,삭제 -->
+	<insert id="insertStar">
+		insert into star
+		(star_no, reply_no, ebook_no,
+		member_no, starpoint)
+		values
+		(star_no_seq.nextval, #{reply_no},
+		#{ebook_no}, #{member_no}, #{starpoint})
+	</insert>
 
-	
+	<update id="updateStar">
+		UPDATE star
+		SET
+		starpoint = #{starpoint}
+		WHERE
+		star_no = #{star_no}
+	</update>
+
+	<delete id="deleteStar">
+		delete star
+		where star_no = #{star_no}
+	</delete>
 
 </mapper>

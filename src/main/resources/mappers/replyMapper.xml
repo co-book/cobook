@@ -22,8 +22,8 @@ from (
 WHERE rn >= #{cri.pageStart} AND rownum <= #{cri.perPageNum}
 AND rp.reply_no = l.reply_no(+)
 AND rp.member_no = m.member_no
-AND rp.board_no = #{vo.board_no}
-AND rp.PARENT_TYPE = #{vo.parent_type}
+AND rp.board_no = #{board_no}
+AND rp.PARENT_TYPE = #{parent_type}
 	]]>
 
 	</select>
@@ -78,5 +78,9 @@ values (like_it_no_seq.nextval, #{member_no}, #{reply_no})
 <delete id="deleteLike_it">
 delete like_it where like_it_no = #{like_it_no}
 </delete>
+
+<!-- 별점 + 댓글 -->
+
+
 
 </mapper>
