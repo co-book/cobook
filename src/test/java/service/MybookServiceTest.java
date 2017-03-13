@@ -54,7 +54,6 @@ public class MybookServiceTest extends AbstractCommonConfTest{
 	}
 	
 	@Test
-	@Ignore
 	public void TestCriList() throws Exception{
 		
 		PageMaker pageMaker = new PageMaker();
@@ -62,10 +61,9 @@ public class MybookServiceTest extends AbstractCommonConfTest{
 		cri.setPage(1);
 		cri.setPerPageNum(10);
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(103);
+		pageMaker.	setTotalCount(103);
 		List<Map<String, Object>>list = service.listCriPage(cri);
 		logger.debug(list.toString());
-		
 	}
 	
 	
