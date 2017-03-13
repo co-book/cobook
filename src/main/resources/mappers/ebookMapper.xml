@@ -51,4 +51,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 
 	select *  from BORROW  where EBOOK_NO='1' and MEMBER_NO='1' and BORROWDATE+period>sysdate  order by BORROWDATE desc 
 	 -->
+	 
+	 <select id="getEbookDetail" parameterType="EbookVO">
+	 	select
+			e.ebook_no,
+	 		e.title,
+	 		e.author,
+	 		e.publisher,
+	 		e.publishedDate,
+	 		e.intro,
+	 		e.cash,
+	 		e.category,
+	 		files.fileurl as cover,
+    		(b.BORROWDATE+b.period) as expiryDate
+		from EBOOK e 
+		LEFT OUTER JOIN files  ON
+		(cover= files.file_no 
+		 and files.filetype= 'COVER' 
+		 and files.book_type='EBOOK')
+		 
+     	left outer join borrow b on
+     	(b.ebook_no = e.ebook_no)
+     	
+     	where e.ebook_no=#{ebook_no}
+	 </select>
+	 
+	 
+	 
 </mapper>

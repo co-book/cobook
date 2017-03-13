@@ -49,5 +49,11 @@ public class EbookServiceImpl implements EbookService {
 		ebookDAO.updateLastPage(borrowVo);
 	}
 
+	@Override
+	public EbookVO eBookDetail(int ebookn_no) throws Exception {
+		// TODO Auto-generated method stub
+		return ebookDAO.eBookDetail(ebookn_no);
+	}
+
 
 }

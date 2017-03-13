@@ -53,5 +53,12 @@ public class EbookDAOImpl implements EbookDAO {
 		
 	}
 
+
+	@Override
+	public EbookVO eBookDetail(int ebookn_no) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ebookNamespace+".eBookDetail", ebookn_no);
+	}
+
 	
 }
