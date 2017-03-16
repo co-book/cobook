@@ -4,16 +4,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Co-Book World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- css -->
 <link href="resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="resources/CoBookDesign/css/login.css" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
 <link href="resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- 메인추가 -->
 <link href="resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
-<!-- 메인추가 -->
+<!-- 메인추가 
+<link href="resources/CoBookDesign/css/contactstyle.css"  rel="stylesheet" type="text/css" media="all" />
+<link href="resources/CoBookDesign/css/faqstyle.css?ver=1" rel="stylesheet" type="text/css" media="all" />
+<link href="resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
+-->
 <link href="resources/CoBookDesign/css/medile.css" rel='stylesheet' type='text/css' />
 <!-- banner-slider -->
 <link href="resources/CoBookDesign/css/jquery.slidey.min.css" rel="stylesheet">
@@ -29,8 +35,7 @@
 <!-- aladinList -->
 <link rel="stylesheet" href="resources/CoBookDesign/css/flexslider.css" type="text/css" media="screen" property="" />
 
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
+
 
 <script type="text/javascript" src="resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="resources/CoBookDesign/js/easing.js"></script>
@@ -52,43 +57,43 @@ $(document).ready(function(){
 	//배너
 	$.ajax({
 		type : "get",
-		url : 'index/cobookBookList',
+		url : 'index/banner',
 		dataType : 'html',
 		success : function(data) {
-			$('#index_cobookBookList').append(data);
-			cobookBookList();
+			$('#index_banner').append(data);
+			banner();
 		}
 	});
 	
 	//cobook 추천 리스트
 	$.ajax({
 		type : "get",
-		url : 'index/monthlyBookList',
+		url : 'index/cobookList',
 		dataType : 'html',
 		success : function(data) {
-			$('#index_monthlyBookList').append(data);
-			monthlyBookList();
+			$('#index_cobookList').append(data);
+			cobookList();
 		}
 	});
 	
 	//Monthly 리스트
 	$.ajax({
 		type : "get",
-		url : 'index/featuredBookList',
+		url : 'index/monthlyList',
 		dataType : 'html',
 		success : function(data) {
-			$('#index_featuredBookList').append(data);
+			$('#index_monthlyList').append(data);
 		}
 	});
 	
 	//Alladin 리스트
 	$.ajax({
 		type : "get",
-		url : 'index/alladinBookList',
+		url : 'index/alladinList',
 		dataType : 'html',
 		success : function(data) {
-			$('#index_alladinBookList').append(data);
-			alladinBookList();
+			$('#index_alladinList').append(data);
+			aladinList();
 		}
 	});
 	
@@ -96,7 +101,7 @@ $(document).ready(function(){
 });
 
 //배너추가후 이벤트 등록
-function cobookBookList() {
+function banner() {
 	   $("#slidey").slidey({
 			interval: 8000,
 			listCount: 5,
@@ -108,7 +113,7 @@ function cobookBookList() {
 		$('#slider').nivoSlider();
 } 
 //cobooklist 이벤트 
-function monthlyBookList() {
+function cobookList() {
 	$("#owl-demo").owlCarousel({
 		 
 		  autoPlay: 3000, //Set AutoPlay to 3 seconds
@@ -119,7 +124,7 @@ function monthlyBookList() {
 		});
 }
 //알라딘리스트 
-function alladinBookList(){
+function aladinList(){
 	  $('.flexslider').flexslider({
 			animation: "slide",
 			start: function(slider){
@@ -143,15 +148,15 @@ function alladinBookList(){
 </head>
 <body>
 <!-- header login, wishList, navibar start -->
-<c:import url="header.jsp" charEncoding="UTF-8" >
+<c:import url="/WEB-INF/views/header.jsp" charEncoding="UTF-8" >
 	<c:param name="loginId" value="loginId" />
 </c:import>
 <!-- content start-->
-<div id="index_cobookBookList"></div> 
-<div id="index_monthlyBookList"></div>
-<div id="index_featuredBookList"></div>
-<div id="index_alladinBookList"></div>
+<div id="index_banner"></div> 
+<div id="index_cobookList"></div>
+<div id="index_monthlyList"></div>
+<div id="index_alladinList"></div>
 <!-- footer -->
-<c:import url="footer.jsp" charEncoding="UTF-8" />
+<c:import url="/WEB-INF/views/footer.jsp" charEncoding="UTF-8"/>
 </body>
 </html>
