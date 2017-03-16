@@ -16,6 +16,7 @@
 		<package name="org.ebook.cobook.star.domain" />
 		<package name="org.ebook.cobook.mybook.domain"/>
 		<package name="org.ebook.cobook.ebook.domain"/>
+		<package name="org.ebook.cobook.member.domain"/>
 	</typeAliases>
 
 </configuration>
