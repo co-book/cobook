@@ -12,7 +12,6 @@ import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.fileUpload.persistence.FilesDAO;
 import org.springframework.stereotype.Service;
 
-import com.sun.media.jfxmedia.logging.Logger;
 
 @Service
 public class MybookServiceImpl implements MybookService {
@@ -24,9 +23,9 @@ public class MybookServiceImpl implements MybookService {
 	private FilesDAO filesDAO;
 
 	@Override
-	public List<Map<String, Object>> listCriPage(Criteria cri) throws Exception {
+	public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return mybookDAO.listCri(cri);
+		return mybookDAO.getMybookList(cri);
 	}
 
 	@Override
@@ -36,18 +35,18 @@ public class MybookServiceImpl implements MybookService {
 	}
 
 	@Override
-	public MybookVO readPage(Integer mybook_no) throws Exception {
+	public Map<String, Object> getMybookSingle(Integer mybook_no) throws Exception {
 		// TODO Auto-generated method stub
 		mybookDAO.increseHit(mybook_no);
 
-		return mybookDAO.read(mybook_no);
+		return mybookDAO.getMybookSingle(mybook_no);
 	}
 
 	@Override
-	public void register(MybookVO mybookVO, FilesVO filesVO) throws Exception {
+	public void writeMybook(MybookVO mybookVO, FilesVO filesVO) throws Exception {
 		// TODO Auto-generated method stub
 		// selectKey태그에 의해 review_no값을 mybookVO객체에 자동으로 셋팅된다
-		mybookDAO.insert(mybookVO);
+		mybookDAO.writeMybook(mybookVO);
 		// 방금 저장한 게시물의 번호를 가져와서
 		// 파일테이블에 book_no값을 넣어줘야함
 		filesVO.setBook_no(mybookVO.getMybook_no());
@@ -62,11 +61,11 @@ public class MybookServiceImpl implements MybookService {
 	}
 
 	@Override
-	public void modify(MybookVO mybookVO, FilesVO filesVO) throws Exception {
+	public void modifyMybook(MybookVO mybookVO, FilesVO filesVO) throws Exception {
 		// TODO Auto-generated method stub
 		filesDAO.deleteFile(filesVO);
 
-		mybookDAO.update(mybookVO);
+		mybookDAO.modifyMybook(mybookVO);
 		// 파일등록 여부를 검사
 		String[] files = filesVO.getFiles();
 		if (files == null) {
@@ -78,11 +77,17 @@ public class MybookServiceImpl implements MybookService {
 	}
 
 	@Override
-	public void remove(Integer mybook_no, FilesVO filesVO) throws Exception {
+	public void deleteMybook(Integer mybook_no, FilesVO filesVO) throws Exception {
 		// TODO Auto-generated method stub
 		// 게시물을 삭제하기전에 참조관계인 파일목록을 제거
 		filesDAO.deleteFile(filesVO);
-		mybookDAO.delete(mybook_no);
+		mybookDAO.deleteMybook(mybook_no);
+	}
+
+	@Override
+	public List<String> getAttach(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		return filesDAO.getAttach(bno);
 	}
 	
 	

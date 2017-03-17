@@ -5,29 +5,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.MybookMapper">
 
-	<select id="listCri" resultType="map">
-	<![CDATA[
-		SELECT a.mybook_no, a.member_no, a.title, a.contents, a.hit, a.reg_date,
-			   b.nickname, f.fileurl
-		FROM (
-				SELECT rownum as rn,
-				mybook_no, member_no, title, contents, hit, reg_date
-				FROM mybook
-				WHERE mybook_no > 0
-	]]>		
-				<include refid="search"></include>
-	
-	<![CDATA[
-				ORDER BY mybook_no DESC) a, member b, files f
-		WHERE rn >= #{pageStart} AND rownum <= #{perPageNum}
-		AND 
-			  a.member_no = b.member_no
-		AND
-			  a.mybook_no = f.book_no
-		AND
-			  f.book_type like 'mybook'
-		
-	]]>
+	<!-- <select id="listCri" resultType="map"> <![CDATA[ SELECT a.mybook_no, 
+		a.member_no, a.title, a.contents, a.hit, a.reg_date, b.nickname, f.fileurl 
+		FROM ( SELECT rownum as rn, mybook_no, member_no, title, contents, hit, reg_date 
+		FROM mybook WHERE mybook_no > 0 ]]> <include refid="search"></include> <![CDATA[ 
+		ORDER BY mybook_no DESC) a, member b, files f WHERE rn >= #{pageStart} AND 
+		rownum <= #{perPageNum} AND a.member_no = b.member_no AND a.mybook_no = f.book_no 
+		AND f.book_type like 'mybook' ]]> </select> -->
+	<select id="getMybookList" resultType="map">
+<![CDATA[
+	SELECT mybook_no, title, reg_date, nickname, hit, fileurl
+FROM(
+        SELECT ROWNUM rn, mybook_no, title, reg_date, nickname, hit, fileurl
+        FROM 
+            (
+             SELECT m1.mybook_no, m1.title, m1.reg_date, m2.nickname, m1.hit, f.fileurl
+             FROM mybook m1, member m2, files f
+             WHERE m1.MEMBER_NO = m2.MEMBER_NO
+             AND m1.MYBOOK_NO = f.BOOK_NO
+             AND f.BOOK_TYPE like 'MYBOOK'
+             AND f.FILETYPE like 'COVER'
+             ]]>
+		<include refid="search"></include>
+<![CDATA[
+             ORDER BY m1.mybook_no desc
+            )
+    )
+WHERE rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
+]]>
 	</select>
 
 	<select id="getCriCount" resultType="int">
@@ -37,66 +42,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 WHERE mybook_no > 0 
 	]]>
 		<include refid="search"></include>
-	
+
 	</select>
 
 	<insert id="insert">
-	INSERT INTO MYBOOK
-    (MYBOOK_NO, 
-    MEMBER_NO, 
-    TITLE, 
-    CONTENTS, 
-    HIT, 
-    Reg_date)
-VALUES
-    (mybook_no_seq.nextval, 
-    #{member_no}, 
-    #{title}, 
-    #{contents}, 
-    0, 
-    sysdate)
-    
-    <selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
-    SELECT mybook_no_seq.currval FROM dual
-    </selectKey>
-    
+		INSERT INTO MYBOOK
+		(MYBOOK_NO,
+		MEMBER_NO,
+		TITLE,
+		CONTENTS,
+		HIT,
+		Reg_date)
+		VALUES
+		(mybook_no_seq.nextval,
+		#{member_no},
+		#{title},
+		#{contents},
+		0,
+		sysdate)
+
+		<selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
+			SELECT mybook_no_seq.currval FROM dual
+		</selectKey>
+
 	</insert>
 
-	<select id="read" resultType="MybookVO">
-	SELECT 
-			mybook_no, member_no, title, contents, hit, reg_date
-	FROM
-			mybook myb, files f
-	WHERE 
-			mybook_no = #{mybook_no}
-	AND
-			
+	<select id="getMybookSingle" resultType="map">
+		SELECT m.mybook_no, m.member_no, m.title, m.contents, m.hit, m.reg_date
+		, f.file_no, f.fileurl
+		FROM mybook m, files f
+		WHERE m.mybook_no = #{mybook_no}
+		AND m.mybook_no = f.book_no
+		AND f.BOOK_TYPE like 'MYBOOK'
+		AND f.FILETYPE like 'COVER'
+
 	</select>
 
 	<update id="update">
-	UPDATE MYBOOK
-	SET
-    TITLE = #{title}, 
-    CONTENTS = #{contents}
-	WHERE MYBOOK_NO = #{mybook_no}
+		UPDATE MYBOOK
+		SET
+		TITLE = #{title},
+		CONTENTS = #{contents}
+		WHERE MYBOOK_NO = #{mybook_no}
 	</update>
 
 	<delete id="delete">
-	DELETE FROM mybook
-	WHERE mybook_no = #{mybook_no}
+		DELETE FROM mybook
+		WHERE mybook_no = #{mybook_no}
 	</delete>
-	
+
 	<update id="increseHit">
-	UPDATE mybook 
-	SET
+		UPDATE mybook
+		SET
 		hit = hit + 1
-	WHERE
+		WHERE
 		mybook_no = #{mybook_no}
-	
+
 	</update>
-	
-	
-	
+
+
+
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
@@ -140,5 +145,8 @@ VALUES
 		</if>
 	</sql>
 
+	<select id="listAll" resultType="MybookVO">
+		select * from mybook
+	</select>
 
 </mapper>

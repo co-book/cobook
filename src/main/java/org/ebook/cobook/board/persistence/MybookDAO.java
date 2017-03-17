@@ -8,18 +8,23 @@ import org.ebook.cobook.board.domain.MybookVO;
 
 public interface MybookDAO {
 
-	public List<Map<String, Object>> listCri(Criteria cri)throws Exception;
+	// mybook리스트 가져오기
+	public List<Map<String, Object>> getMybookList(Criteria cri)throws Exception;
 	
 	public int getCriCount(Criteria cri)throws Exception;
 	
-	public MybookVO read(Integer mybook_no)throws Exception;
+	public Map<String, Object> getMybookSingle(Integer mybook_no)throws Exception;
 	
-	public void insert(MybookVO mybookVO)throws Exception;
+	public void writeMybook(MybookVO mybookVO)throws Exception;
 	
-	public void update(MybookVO mybookVO)throws Exception;
+	public void modifyMybook(MybookVO mybookVO)throws Exception;
 	
-	public void delete(Integer mybook_no)throws Exception;
+	public void deleteMybook(Integer mybook_no)throws Exception;
 	
 	public void increseHit(Integer mybook_no)throws Exception;
+	
+	public List<MybookVO> listAll()throws Exception;
+	
+	
 	
 }

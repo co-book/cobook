@@ -41,29 +41,32 @@ public class MybookServiceTest extends AbstractCommonConfTest{
 				, "acc35670-5e4c-4fcc-bf11-523db48d9fda_댓글 보이기.PNG"};
 	
 		filesVO.setFiles(files);
-		service.register(mybookVO, filesVO);
+		//service.register(mybookVO, filesVO);
 	}
 	
 	// mybook - read
 	@Test
-	@Ignore
 	public void read() throws Exception{
 		
 		Integer mybook_no = 221;
-		logger.debug(service.readPage(mybook_no).toString());
+		logger.debug(service.getMybookSingle(mybook_no).toString());
 	}
 	
 	@Test
+	@Ignore
 	public void TestCriList() throws Exception{
 		
 		PageMaker pageMaker = new PageMaker();
 		Criteria cri = new Criteria();
+		cri.setKeyword("TITLE 090");
+		cri.setSearchType("t");
 		cri.setPage(1);
 		cri.setPerPageNum(10);
-		pageMaker.setCri(cri);
-		pageMaker.	setTotalCount(103);
-		List<Map<String, Object>>list = service.listCriPage(cri);
-		logger.debug(list.toString());
+		List<Map<String, Object>> list = service.getMybookList(cri);
+		for(Map vo : list){
+			System.out.println(vo.toString());
+		}
+		
 	}
 	
 	

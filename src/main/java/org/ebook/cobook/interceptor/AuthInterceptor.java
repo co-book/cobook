@@ -11,6 +11,7 @@ import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.member.persistence.MemberDAO;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+// 안씀
 public class AuthInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject

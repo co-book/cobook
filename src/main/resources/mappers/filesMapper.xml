@@ -15,5 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	delete from files where book_no = #{book_no}
 	and book_type = #{book_type} 
 	</delete>
+	
+  <select id="getAttach" resultType="string">
+	select FILEURL from tbl_attach where book_no = #{book_no} order by regdate
+  </select> 
 
 </mapper>

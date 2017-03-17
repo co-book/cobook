@@ -57,8 +57,14 @@
 			statusChangeCallback(response);
 		});
 	} */
+	
+
 	$(document).ready(function() {
+
+		// 페이스북 버튼클릭
 		$("#fBtn").on("click", function() {
+			
+			event.preventDefault();
 			console.log("페이스북 호출");
 			FB.getLoginStatus(function(response) {
 				console.log(response);

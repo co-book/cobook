@@ -68,9 +68,7 @@
 				version : 'v2.8'
 			});
 
-			FB.getLoginStatus(function(response) {
-				statusChangeCallback(response);
-			});
+			
 			
 			
 

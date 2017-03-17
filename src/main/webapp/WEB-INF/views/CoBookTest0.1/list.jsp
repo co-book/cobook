@@ -336,12 +336,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 						<ul id="myTab" class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">0 - 9</a></li>
-							<li role="presentation"><a href="#a" role="tab" id="a-tab" data-toggle="tab" aria-controls="a">A</a></li>
-							<li role="presentation"><a href="#b" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">B</a></li>
-							<li role="presentation"><a href="#c" role="tab" id="c-tab" data-toggle="tab" aria-controls="c">C</a></li>
-							<li role="presentation"><a href="#d" role="tab" id="d-tab" data-toggle="tab" aria-controls="d">D</a></li>
-							<li role="presentation"><a href="#e" role="tab" id="e-tab" data-toggle="tab" aria-controls="e">E</a></li>
-							<li role="presentation"><a href="#f" role="tab" id="f-tab" data-toggle="tab" aria-controls="f">F</a></li>
+							<li role="presentation"><a href="#a" role="tab" id="a-tab" data-toggle="tab" aria-controls="a">ㄱ</a></li>
+							<li role="presentation"><a href="#b" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">ㄴ</a></li>
+							<li role="presentation"><a href="#c" role="tab" id="c-tab" data-toggle="tab" aria-controls="c">ㄷ</a></li>
+							<li role="presentation"><a href="#d" role="tab" id="d-tab" data-toggle="tab" aria-controls="d">ㄹ</a></li>
+							<li role="presentation"><a href="#e" role="tab" id="e-tab" data-toggle="tab" aria-controls="e">ㅁ</a></li>
+							<li role="presentation"><a href="#f" role="tab" id="f-tab" data-toggle="tab" aria-controls="f">ㅂ</a></li>
 							<li role="presentation"><a href="#g" role="tab" id="g-tab" data-toggle="tab" aria-controls="g">G</a></li>
 							<li role="presentation"><a href="#h" role="tab" id="h-tab" data-toggle="tab" aria-controls="h">H</a></li>
 							<li role="presentation"><a href="#i" role="tab" id="i-tab" data-toggle="tab" aria-controls="i">I</a></li>

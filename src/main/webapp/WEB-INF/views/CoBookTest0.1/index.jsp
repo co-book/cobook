@@ -26,6 +26,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function hideURLbar(){ window.scrollTo(0,1); } 
 
 </script>
+<!-- 파이어베이스 js -->
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-auth.js"></script>
+<script src="/resources/js/index/firebase.js"></script>
 <!-- 구글 스크립트 -->
 <script src="/resources/js/google.js"></script>
 <!-- 페이스북 스크립트 -->
@@ -129,6 +133,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				$('.setting').remove();
 			});
 		});
+		
+		$("#modal-body").on("click", "#findPw", function(){
+			event.preventDefault();
+			console.log("클릭");
+		});
+		
+		function findPw(){
+			event.preventDefault();
+			console.log("클릭");
+		}
 	});
 </script>
 </head>
@@ -161,6 +175,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 		
 	</script>
+<script>
+
+
+
+
+</script>
 	<!-- header ì ê¹¨ì§?-->
 	<div class="header">
 		<div class="container">
@@ -266,7 +286,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 								<div class="cta">
-									<a href="#">Forgot your password?</a>
+									<a id="findPw" onclick="findPw();" href="#">Forgot your password?</a>
 								</div>
 							</div>
 						</div>
@@ -639,7 +659,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<li><a href="#"><i class="fa fa-star-half-o"
 													aria-hidden="true"></i></a></li>
 										</ul>
-									</div>
+									</div>	
 									<div class="clearfix"></div>
 								</div>
 							</div>

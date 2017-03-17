@@ -1,7 +1,7 @@
 package org.ebook.cobook.fileUpload.persistence;
 
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -32,13 +32,20 @@ public class FilesDAOImpl implements FilesDAO {
 	@Override
 	public void multiFile(String[] files, FilesVO filesVO) throws Exception {
 
-		
-		// 파일 url, name, 확장자를 구해야함
+		// 파일 등록,수정 하는경우에 파일 풀네임을 파싱하는 함수
+		// 파일 url, name, 확장자 를 구해야함
 		for(String fileFullName : files){
 			filesVO.parsingFileData(fileFullName);
 			insertFile(filesVO);
 		}
 	}
+
+	@Override
+	public List<String> getAttach(Integer mybook_no) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getAttach", mybook_no);
+	}
+
 
 	
 	
