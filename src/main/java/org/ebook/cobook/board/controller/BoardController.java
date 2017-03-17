@@ -34,14 +34,11 @@ public class BoardController {
 	
 	@RequestMapping(value="/listAll", method = RequestMethod.GET)
 	public void listAll(Model model){
-		
 		model.addAttribute("list", service.listAll());
-		
 	}
 	
 	@RequestMapping(value="/readPage", method = RequestMethod.GET)
 	public void readPage(@RequestParam("bno") int bno, Model model){
-		
 		model.addAttribute("boardVO", service.read(bno));
 	}
 	

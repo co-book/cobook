@@ -47,6 +47,20 @@ public class HomeController {
 		
 	}
 	
+<<<<<<< HEAD
+	@RequestMapping(value="/ebookList", method = RequestMethod.GET)
+	public String ebooklist(){
+		logger.info("Welcome home! ");
+		return "ebooklist";	
+	}
+	
+	@RequestMapping(value="/index", method = RequestMethod.GET)
+	public String index(){
+		logger.info("Welcome home! ");
+		return "viewer_jsp";	
+	}
+	
+=======
 	@RequestMapping(value="/hello", method = RequestMethod.GET)
 	public void hello(String name, Model model)throws Exception{
 		System.out.println("메서드 실행확인 name: " + name);
@@ -236,4 +250,5 @@ public class HomeController {
 	
 	
 	
+>>>>>>> 7224330813ac2f75e9e51dbfce5c9ba08bf864f6
 }

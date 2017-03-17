@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
+<<<<<<< HEAD
+	<pluginVersion><![CDATA[3.8.2.201610040608-RELEASE]]></pluginVersion>
+=======
 	<pluginVersion><![CDATA[3.8.1.201607290748-RELEASE]]></pluginVersion>
+>>>>>>> 7224330813ac2f75e9e51dbfce5c9ba08bf864f6
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -11,7 +15,10 @@
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+<<<<<<< HEAD
+=======
 		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
+>>>>>>> 7224330813ac2f75e9e51dbfce5c9ba08bf864f6
 	</autoconfigs>
 	<configSets>
 	</configSets>

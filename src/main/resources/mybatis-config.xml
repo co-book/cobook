@@ -3,6 +3,21 @@
 	PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<<<<<<< HEAD
+	<!-- <settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings> -->
+	
+
+	<typeAliases>
+		<package name="org.ebook.cobook.board.domain" />
+		<package name="org.ebook.cobook.reply.domain" />
+		<package name="org.ebook.cobook.reivew.domain" />
+		<package name="org.ebook.cobook.good.domain" />
+		<package name="org.ebook.cobook.star.domain" />
+		<package name="org.ebook.cobook.mybook.domain"/>
+		<package name="org.ebook.cobook.ebook.domain"/>
+=======
 	
 	
 	<typeAliases>
@@ -13,6 +28,7 @@
 		<package name="org.ebook.cobook.member.domain"/>
 		<package name="org.ebook.cobook.reply.domain"/>
 		<package name="org.ebook.cobook.star.domain"/>
+>>>>>>> 7224330813ac2f75e9e51dbfce5c9ba08bf864f6
 	</typeAliases>
 
 </configuration>
