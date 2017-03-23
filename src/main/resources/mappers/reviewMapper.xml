@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ReviewMapper">
 
-	<insert id="create" parameterType="ReviewVO">
+	<insert id="writeReview" parameterType="ReviewVO">
 		insert into bookreview(review_no, member_no, title,
 		contents, ebook_no,
 		reg_date, evaluate)
@@ -19,36 +19,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</selectKey>
 	</insert>
 
-	<select id="bookReviewList" resultType="ReviewVO">
-	<![CDATA[	
-		SELECT br.review_no, br.ebook_no, br.member_no, br.title, br.contents, br.hit, br.reg_date,
-		br.evaluate, f.fileurl, e.category
-		FROM 
-		(
-			SELECT ROWNUM AS rn,
-			review_no, ebook_no, member_no, title, contents, hit, reg_date, evaluate
-			FROM bookreview
-			WHERE review_no > 0
-	]]>
-
-		<include refid="search"></include>
-		ORDER BY review_no desc
-		) br, files f, ebook e
-	<![CDATA[
-	WHERE rn >= #{pageStart} AND rownum <= #{perPageNum}
-	AND
-	br.ebook_no = f.book_no
-	AND
-	f.book_type like 'ebook'
-	AND
-	br.ebook_no = e.ebook_no
-	]]>
-
+	<select id="getBookReviewList" resultType="ReviewVO">
+<![CDATA[
+	SELECT review_no, title, contents, hit, reg_date, evaluate, coverurl, category, nickname
+FROM (
+        SELECT ROWNUM AS rn, review_no, title, contents, hit, reg_date, evaluate
+      , coverurl, category, nickname
+          FROM (
+                 SELECT br.review_no,  br.title, br.contents, br.hit, br.reg_date, br.evaluate,
+                 e.coverurl, e.category, m.nickname
+                 FROM bookreview br, ebook e, member m
+                 WHERE br.ebook_no = e.ebook_no
+                 AND br.member_no = m.member_no
+                 ORDER BY review_no DESC
+                )
+      )
+WHERE rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
+]]>
 	</select>
 
 
 
-	<select id="boardReviewCount" resultType="int">
+	<select id="getReviewCount" resultType="int">
 	<![CDATA[  
   select count(review_no) 
   from bookreview
@@ -58,25 +50,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
-	<select id="readBookReview" resultType="map">
-		SELECT br.title,
-		br.evaluate, br.contents, e.author,
-		e.publisher, f.fileurl, m.nickname
-		FROM bookreview br, ebook e, files f,
-		member m
-		WHERE br.ebook_no =
-		e.ebook_no
+	<select id="getReviewSingle" resultType="map">
+		SELECT br.review_no, br.title, br.evaluate, br.contents, br.reg_date, br.hit, e.author,
+		e.publisher, e.coverurl, m.nickname
+		FROM bookreview br, ebook e, member m
+		WHERE 
+			br.ebook_no = e.ebook_no
 		AND
-		br.ebook_no = f.book_no
+  			br.member_no = m.member_no
 		AND
-		f.book_type LIKE 'ebook'
-		AND
-		br.member_no = m.member_no
-		AND
-		br.review_no = #{review_no}
+			br.review_no = #{review_no}
 	</select>
 
-	<update id="updateBookReview">
+	<update id="modifyReview">
 		update bookreview
 		set title = #{title}, contents = #{contents},
 		ebook_no = #{ebook_no}
@@ -84,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</update>
 
-	<delete id="deleteBookReview">
+	<delete id="deleteReview">
 		delete from bookreview
 		where review_no = #{review_no}
 
@@ -95,17 +81,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SET
 		hit = hit + 1
 	WHERE
-		mybook_no = #{mybook_no}
+		review_no = #{review_no}
 	
 	</update>
 
+<!-- 인기순 -->
+<select id="getReviewPopularity" resultType="map">
+<![CDATA[  
+SELECT review_no, title, contents, hit, reg_date, evaluate, coverurl, category, nickname
+FROM (
+        SELECT ROWNUM AS rn, review_no, title, contents, hit, reg_date, evaluate
+      , coverurl, category, nickname
+          FROM (
+                 SELECT br.review_no,  br.title, br.contents, br.hit, br.reg_date, br.evaluate,
+                 e.coverurl, e.category, m.nickname
+                 FROM bookreview br, ebook e, member m
+                 WHERE br.ebook_no = e.ebook_no
+                 AND br.member_no = m.member_no
+                 ORDER BY hit DESC
+                )
+      )
+rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
+]]>
+</select>
 
+<!-- 쿼리수정 필요 -->
+<!-- 좋아요 순위 -->
+	<select id="getlikeTop6">
+	SELECT count(*) AS likeCount FROM 
+(
+SELECT r.REPLY_NO
+FROM like_it l, reply r
+WHERE l.reply_no = r.reply_no
+AND r.board_no = 2
+AND r.parent_type = 'BOOKREVIEW'
+)
+GROUP BY REPLY_NO;
+	</select>
 
-
-
-
-
-
+<select id="getlastedReviewList" resultType="ReviewVO">
+<![CDATA[
+SELECT review_no, title, ebook_title, reg_date FROM(
+SELECT br.review_no, br.title, e.title AS ebook_title, br.reg_date
+FROM bookreview br, ebook e
+WHERE br.ebook_no = e.ebook_no
+ORDER BY reg_date desc
+)
+WHERE rownum <= 10
+]]>
+</select>
 
 
 

@@ -10,22 +10,26 @@ public interface ReviewDAO {
 
 	public List<Map<String, Object>> getBorrowedBook(Integer member_no) throws Exception;
 
-	public void create(ReviewVO vo) throws Exception;
+	public void writeReview(ReviewVO vo) throws Exception;
 
-	public List<ReviewVO> bookReviewList(Criteria cri) throws Exception;
+	public List<Map<String, Object>> getBookReviewList(Criteria cri) throws Exception;
 
-	public int getCount(Criteria cri) throws Exception;
+	public int getReviewCount(Criteria cri) throws Exception;
 
-	public Map<String, Object> readBookReview(Integer review_no)throws Exception;
+	public Map<String, Object> getReviewSingle(Integer review_no)throws Exception;
 	
-	public void updateBookReview(ReviewVO vo)throws Exception;
+	public void modifyReview(ReviewVO vo)throws Exception;
 	
-	public void deleteBookReview(Integer review_no)throws Exception;
+	public void deleteReview(Integer review_no)throws Exception;
 	
 	public void increseHit(Integer review_no) throws Exception;
 	
+	public List<Map<String, Object>> getReviewPopularity(Criteria cri)throws Exception;
 	
+	// 좋아요 순 댓글 top6
 	
+	// 최근 리뷰
+	public List<ReviewVO> getlastedReviewList()throws Exception;
 	
 	
 	

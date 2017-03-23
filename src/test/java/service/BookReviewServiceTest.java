@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,19 +20,24 @@ public class BookReviewServiceTest extends AbstractCommonConfTest{
 	@Test
 	public void getReviewList() throws Exception{
 		
-		Criteria cri = new Criteria();
+		/*Criteria cri = new Criteria();
 		cri.setPage(1);
 		cri.setPerPageNum(10);
 		List<ReviewVO> list = service.getBookReviewList(cri);
 		
 		for(ReviewVO vo : list){
 			System.out.println(vo.toString());
-		}
+		}*/
 		
 		
 	}
 	
-	
+	@Test
+	public void getReviewSingle() throws Exception{
+		
+		Map map = service.getReviewSingle(1);
+		System.out.println(map.toString());
+	}
 	
 	
 	

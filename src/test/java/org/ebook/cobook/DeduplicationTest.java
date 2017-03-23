@@ -36,7 +36,7 @@ public class DeduplicationTest extends AbstractCommonConfTest{
 	@Test
 	public void Test() throws Exception{
 		
-		Criteria cri = new Criteria();
+		/*Criteria cri = new Criteria();
 		cri.setPage(1);
 		cri.setPerPageNum(10);
 		cri.setKeyword("TITLE");
@@ -50,7 +50,7 @@ public class DeduplicationTest extends AbstractCommonConfTest{
 		for(ReviewVO vo : list){
 			logger.debug("[" + i +"] : " + vo.toString());
 			i++;
-		}
+		}*/
 	
 	}
 	

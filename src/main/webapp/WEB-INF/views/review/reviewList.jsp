@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <div role="tabpanel" class="tab-pane fade in active" id="home1" aria-labelledby="home1-tab">
+									<c:forEach items="${size}" end="${size % 2 == 1? size / 2 + 1:size / 2}">
 										<div class="wthree-news-top-left">
 											<div class="col-md-6 w3-agileits-news-left">
 												<div class="col-sm-5 wthree-news-img">
@@ -33,7 +34,8 @@
 											</div>
 											<div class="clearfix"> </div>
 										</div>
-										<div class="wthree-news-top-left">
+									</c:forEach>
+										<!-- <div class="wthree-news-top-left">
 											<div class="col-md-6 w3-agileits-news-left">
 												<div class="col-sm-5 wthree-news-img">
 													<a href="news-single.html"><img src="resources/CoBookDesign/images/m3.jpg" alt="" /></a>
@@ -249,5 +251,5 @@
 												<div class="clearfix"> </div>
 											</div>
 											<div class="clearfix"> </div>
-										</div>
+										</div> -->
 									</div>

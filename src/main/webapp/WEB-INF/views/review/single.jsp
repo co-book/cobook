@@ -65,11 +65,16 @@
 					<div class="col-md-8 wthree-top-news-left">
 						<div class="wthree-news-left">
 							<div class="wthree-news-left-img">
-								<img src="images/7.jpg" alt="" />
-								<h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique mattis fermentum. Etiam semper aliquet massa, id tempus massa mattis eget.</h4>
+								<img src="/resources/img/space1.jpg" alt="" />
+								<h4>${reviewVO.TITLE}</h4>
+								<!-- 작성자, 날짜, 댓글갯수 -->
 								<div class="s-author">
-									<p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> June 2, 2016 &nbsp;&nbsp; <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Comments (10)</a></p>
+									<p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${reviewVO.NICKNAME}</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> ${reviewVO.REG_DATE} &nbsp;&nbsp; <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Comments (${REPLYCOUNT})</a></p>
 								</div>
+								<!-- 삭제,수정,목록 버튼 -->
+								<button class="modBtn" id="modBtn">수정</button>
+								<button class="rmBtn" id="rmBtn">삭제</button>
+								<button class="listBtn" id="listBtn">목록</button>
 								<div id="fb-root"></div>
 								<div class="news-shar-buttons">
 									<ul>
@@ -108,10 +113,7 @@
 									</ul>
 								</div>
 								<div class="w3-agile-news-text">
-									<p>Pellentesque vel urna accumsan, dictum sapien vitae, condimentum tellus. Nulla fermentum enim vitae commodo dapibus. Vivamus diam ligula, accumsan non malesuada et, interdum malesuada turpis. Donec posuere eros eget velit iaculis consequat. Vestibulum ante felis, congue a sapien pharetra, sodales congue magna. Curabitur id varius urna. Morbi finibus, velit sagittis fermentum venenatis, erat risus elementum nibh, at commodo lorem orci sed nulla. Pellentesque eu velit pulvinar, scelerisque lacus ut, semper dolor.
-									<span>Donec semper, nibh et lacinia sollicitudin, nibh dui pellentesque elit, eu placerat leo felis nec nunc. Sed bibendum pretium metus eget euismod. Mauris id lacus lacus. Praesent faucibus nunc eget turpis tristique molestie. Duis dui diam, tristique eu gravida ut, congue eget felis. Proin sapien ligula, volutpat ut ultrices sit amet, dignissim quis urna. </span>
-									Cras fermentum eu dolor in porttitor. Praesent sagittis sollicitudin scelerisque. Vivamus ac erat in ex consectetur imperdiet vel eget sapien. Duis viverra nisi id leo varius, vitae eleifend turpis vulputate. Mauris eget sagittis augue, ut efficitur mauris. Aenean risus nisi, faucibus eget condimentum at, porttitor vel felis. Aliquam eu augue ut tortor gravida iaculis in in orci. Quisque vehicula consectetur sagittis.
-									</p>
+									<p><span>${reviewVO.CONTENTS}</span></p>
 								</div>
 							</div>
 						</div>
@@ -488,7 +490,64 @@
 						   </div>
 			</div>
 	</div>
+	
+<!-- FormHtml -->
+<form class="singleForm" action="" method="post">
+	<input type="hidden" id="review_noTxt" name="review_no" value="">
+	<input type="hidden" id="pageTxt"  name="page" value="">
+	<input type="hidden" id="perPageNumTxt" name="perPageNum"  value="">
+</form>	
 <!-- //faq-banner -->
 <c:import url="/WEB-INF/views/footer.jsp" charEncoding="UTF-8"/>
+<script type="text/javascript">
+$(function(){
+	
+	var review_no = '${reviewVO.REVIEW_NO}';
+	var page = '${cri.page}';
+	var perPageNum = '${cri.perPageNum}';
+	var formObj = $(".singleForm");
+	
+	console.log("값테스트");
+	console.log("review_no = " + review_no);
+	console.log("page = " + page);
+	console.log("perPageNum = " + perPageNum);
+	
+	$(".modBtn").on("click", function(){
+		
+		 var url = "/review/modifyPage;
+		//$(location).attr("href", url);
+		formObj.attr("action", url);
+		formObj.attr("method", "get");
+		$("#review_noTxt").val(review_no);
+		$("#pageTxt").val(page);
+		$("#perPageNumTxt").val(perPageNum);
+		formObj.submit();
+	});
+	
+	$(".rmBtn").on("click", function(){
+		var url = "/review/removePage";
+		formObj.attr("action", url);
+		formObj.attr("method", "post");		
+		$("#review_noTxt").val(review_no);
+		$("#pageTxt").val(page);
+		$("#perPageNumTxt").val(perPageNum);
+		formObj.submit();
+	});
+	
+	$(".listBtn").on("click", function(){
+		
+		var url = "/review/replyList
+		formObj.attr("action", url);
+		formObj.attr("method", "get");
+		$("#review_noTxt").val(review_no);
+		$("#pageTxt").val(page);
+		$("#perPageNumTxt").val(perPageNum);
+		formObj.submit();
+	});
+	
+	
+});
+
+</script>
 </body>
 </html>

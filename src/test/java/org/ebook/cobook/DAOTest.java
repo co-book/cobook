@@ -28,7 +28,7 @@ public class DAOTest extends AbstractCommonConfTest{
 	@Test
 	public void listTest() throws Exception{
 		
-		Criteria cri = new Criteria();
+		/*Criteria cri = new Criteria();
 		cri.setPage(1);
 		cri.setPerPageNum(10);
 		cri.setKeyword("TITLE");
@@ -40,7 +40,7 @@ public class DAOTest extends AbstractCommonConfTest{
 		List<ReviewVO> list = dao.bookReviewList(cri);
 		logger.info(list.toString());
 		logger.info(pageMaker.toString());
-		logger.info(pageMaker.makeSearch(1));
+		logger.info(pageMaker.makeSearch(1));*/
 		
 	}
 	
@@ -48,9 +48,9 @@ public class DAOTest extends AbstractCommonConfTest{
 	@Ignore
 	public void read()throws Exception{
 		
-		Map<String, Object> map = dao.readBookReview(103);
+	/*	Map<String, Object> map = dao.readBookReview(103);
 		logger.debug("debug: "+map.toString());
-		logger.info("info: "+map.toString());
+		logger.info("info: "+map.toString());*/
 	}
 	
 	@Test
@@ -63,14 +63,14 @@ public class DAOTest extends AbstractCommonConfTest{
 		vo.setReview_no(101);
 		vo.setEbook_no(5);
 		
-		dao.updateBookReview(vo);
+		/*dao.updateBookReview(vo);*/
 	}
 	
 	@Test
 	@Ignore
 	public void delete()throws Exception{
 		
-		dao.deleteBookReview(99);
+//		dao.deleteBookReview(99);
 		
 		
 	}

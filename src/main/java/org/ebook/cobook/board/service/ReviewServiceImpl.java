@@ -10,6 +10,9 @@ import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.board.persistence.ReviewDAO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.fileUpload.persistence.FilesDAO;
+import org.ebook.cobook.reply.domain.ReplyVO;
+import org.ebook.cobook.reply.persistence.ReplyDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +20,9 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Inject
 	private ReviewDAO reviewDAO;
+	
+	@Autowired
+	private ReplyDAO replyDAO;
 	
 	@Inject
 	private FilesDAO filesDAO;
@@ -33,7 +39,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public void writeReview(ReviewVO reviewVO, FilesVO filesVO) throws Exception {
 		// TODO Auto-generated method stub
 		// selectKey태그에 의해 review_no값을 ReviewVO객체에 자동으로 셋팅된다
-		reviewDAO.create(reviewVO);
+		reviewDAO.writeReview(reviewVO);
 		// 방금 저장한 게시물의 번호를 가져와서 
 		// 파일테이블에 book_no값을 넣어줘야함
 		filesVO.setBook_no(reviewVO.getReview_no());
@@ -47,25 +53,25 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	// 리뷰게시판에 뿌려줄 게시물목록
 	@Override
-	public List<ReviewVO> getBookReviewList(Criteria cri) throws Exception {
+	public List<Map<String, Object>> getBookReviewList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return reviewDAO.bookReviewList(cri);
+		return reviewDAO.getBookReviewList(cri);
 	}
 
 	// 페이징 처리를 위한 전체 게시물 갯수를 리턴
 	@Override
 	public int getBookReviewCount(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return reviewDAO.getCount(cri);
+		return reviewDAO.getReviewCount(cri);
 	}
 
 	// 특정 게시물 읽어오기
 	@Override
-	public Map<String, Object> readBookReview(Integer review_no) throws Exception {
+	public Map<String, Object> getReviewSingle(Integer review_no) throws Exception {
 		// TODO Auto-generated method stub
 		
 		reviewDAO.increseHit(review_no);
-		return reviewDAO.readBookReview(review_no);
+		return reviewDAO.getReviewSingle(review_no);
 	}
 
 	// 게시물 수정
@@ -77,7 +83,7 @@ public class ReviewServiceImpl implements ReviewService {
 		// 등록할경우 로직이 더추가 되기때문에 간결하게 하기위해서 파일을 일괄삭제
 		filesDAO.deleteFile(filesVO);
 		// 삭제한후 수정된 게시물 등록 & 파일 재등록
-		reviewDAO.updateBookReview(reviewVO);
+		reviewDAO.modifyReview(reviewVO);
 		// 회원이 파일을 등록햇는지 검사
 		String[] files = filesVO.getFiles();
 		if(files == null){return;}
@@ -87,11 +93,32 @@ public class ReviewServiceImpl implements ReviewService {
 
 	// 게시물 삭제
 	@Override
-	public void removeBookReview(Integer review_no, FilesVO filesVO) throws Exception {
+	public void deleteReview(Integer review_no, FilesVO filesVO) throws Exception {
 		// TODO Auto-generated method stub
 	// 리뷰게시물을 삭제하기전에 참조관계인 파일목록을 지워야한다
 		filesDAO.deleteFile(filesVO);
-		reviewDAO.deleteBookReview(review_no);
+		reviewDAO.deleteReview(review_no);
+	}
+
+	// 인기순 리뷰 리스트
+	@Override
+	public List<Map<String, Object>> getReviewPopularity(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return reviewDAO.getReviewPopularity(cri);
+	}
+
+	// 해당 리뷰 게시물의 총 댓글수
+	@Override
+	public int getReplyCount(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return replyDAO.getReplyCount(vo);
+	}
+
+	// 최근 리뷰 리스트
+	@Override
+	public List<ReviewVO> getlastedReviewList() throws Exception {
+		// TODO Auto-generated method stub
+		return reviewDAO.getlastedReviewList();
 	}
 	
 }

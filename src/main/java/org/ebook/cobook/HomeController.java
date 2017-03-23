@@ -47,7 +47,6 @@ public class HomeController {
 		
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value="/ebookList", method = RequestMethod.GET)
 	public String ebooklist(){
 		logger.info("Welcome home! ");
@@ -57,10 +56,9 @@ public class HomeController {
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String index(){
 		logger.info("Welcome home! ");
-		return "viewer_jsp";	
+		return "index";	
 	}
 	
-=======
 	@RequestMapping(value="/hello", method = RequestMethod.GET)
 	public void hello(String name, Model model)throws Exception{
 		System.out.println("메서드 실행확인 name: " + name);
@@ -187,7 +185,7 @@ public class HomeController {
 			}
 
 			//리뷰 리스트 최신순, 인기순  
-
+/*
 			@RequestMapping(value = "/review/reviewList", method = RequestMethod.GET)
 
 			public String reviewList( Model model) {
@@ -220,7 +218,7 @@ public class HomeController {
 
 				return "review/bestReply";
 
-			}
+			}*/
 
 			
 
@@ -238,7 +236,7 @@ public class HomeController {
 
 			 */
 
-			@RequestMapping(value = "/review/single", method = RequestMethod.GET)
+			/*@RequestMapping(value = "/review/single", method = RequestMethod.GET)
 
 			public String single( Model model) {
 
@@ -246,9 +244,8 @@ public class HomeController {
 
 				return "/review/single";
 
-			}
+			}*/
 	
+			
 	
-	
->>>>>>> 7224330813ac2f75e9e51dbfce5c9ba08bf864f6
 }

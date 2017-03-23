@@ -105,7 +105,7 @@ public class ReplyDAOTest {
 		Like_itVO vo = new Like_itVO();
 		vo.setMember_no(1);
 		vo.setReply_no(2);
-		replyDAO.insertLike_it(vo);
+		/*replyDAO.insertLike_it(vo);*/
 		
 		
 	}
@@ -115,7 +115,7 @@ public class ReplyDAOTest {
 	@Ignore
 	public void removeLike_it()throws Exception{
 		
-		replyDAO.deleteLike_it(101);
+		/*replyDAO.deleteLike_it(101);*/
 	}
 	
 	
