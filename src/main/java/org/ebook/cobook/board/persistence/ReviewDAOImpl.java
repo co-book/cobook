@@ -89,6 +89,13 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectList(reviewNamespace+".getlastedReviewList");
 	}
 
+// 베댓
+	@Override
+	public List<Map<String, Object>> getBestReply() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getBestReply");
+	}
+
 	
 	
 	

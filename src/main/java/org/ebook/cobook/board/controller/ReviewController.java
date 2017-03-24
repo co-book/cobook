@@ -73,7 +73,8 @@ public class ReviewController {
 		// 게시물 읽어오기 file_no + fileurl + 게시물 정보
 		// 좋아요 top6 클릭해서 들어올경우에는 reply_no 값이 채워진다
 		@RequestMapping(value = "/single", method = RequestMethod.GET)
-		  public void read(@RequestParam("review_no") int review_no, @ModelAttribute("cri") Criteria cri
+		  public void read(@RequestParam("review_no") int review_no
+				  , @ModelAttribute("cri") Criteria cri
 				  , @RequestParam(value="reply_no", required=false) Integer reply_no,Model model)
 		      throws Exception {
 			
@@ -165,8 +166,18 @@ public class ReviewController {
 
 			}
 	
-	
-	
+	// 좋아요 순 댓글 top6
+	// r.reply_no, r.board_no, r.contents,  m.nickname, likeCount
+			@RequestMapping(value = "/bestReply", method = RequestMethod.GET)
+
+			public String bestReply(Model model) {
+
+				logger.info("bestReply");
+				model.addAttribute("list", reviewService.getBestReply());
+				
+				return "review/bestReply";
+
+			}
 	
 	
 	

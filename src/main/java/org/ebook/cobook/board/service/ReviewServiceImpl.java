@@ -121,4 +121,12 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.getlastedReviewList();
 	}
 	
+	// 베댓
+		@Override
+		public List<Map<String, Object>> getBestReply() {
+			// TODO Auto-generated method stub
+			return reviewDAO.getBestReply();
+		}
+	
+	
 }

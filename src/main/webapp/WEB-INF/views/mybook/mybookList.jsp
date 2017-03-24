@@ -21,7 +21,7 @@
 										 <c:forEach items="${list}" var="vo">
 										  <tr>
 											<td>${vo.MYBOOK_NO}</td>
-											<td class="w3-list-img"><a href="#"><img src="resources/CoBookDesign/images/n1.jpg" alt="" /> <span>${vo.TITLE}</span></a></td>
+											<td class="w3-list-img"><a href="/mybook/single?mybook_no=${vo.MYBOOK_NO}&page=${cri.page}&perPageNum=${cri.perPageNum}"><img src="resources/CoBookDesign/images/n1.jpg" alt="" /> <span>${vo.TITLE}</span></a></td>
 											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${vo.REG_DATE}" /></td>
 											<td>${vo.NICKNAME}</td>
 											<td>${vo.HIT}</td>

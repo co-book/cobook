@@ -105,18 +105,22 @@ rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
 ]]>
 </select>
 
-<!-- 쿼리수정 필요 -->
-<!-- 좋아요 순위 -->
-	<select id="getlikeTop6">
-	SELECT count(*) AS likeCount FROM 
+<!-- 좋아요 순위6 -->
+	<select id="getBestReply" resultType="map">
+<![CDATA[
+SELECT r.reply_no, r.board_no, r.contents,  m.nickname, likeCount
+FROM
 (
-SELECT r.REPLY_NO
-FROM like_it l, reply r
+  SELECT l.reply_no, count(like_it_no) AS likeCount
+  FROM like_it l, reply r
+  WHERE l.reply_no = r.reply_no
+  AND parent_type like 'BOOKREVIEW'
+  GROUP BY l.reply_no
+) l, reply r, member m
 WHERE l.reply_no = r.reply_no
-AND r.board_no = 2
-AND r.parent_type = 'BOOKREVIEW'
-)
-GROUP BY REPLY_NO;
+AND  r.member_no = m.member_no
+AND ROWNUM <= 6
+]]>
 	</select>
 
 <select id="getlastedReviewList" resultType="ReviewVO">

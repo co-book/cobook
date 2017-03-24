@@ -34,9 +34,14 @@ public interface ReviewService {
 	// 인기 게시물 리스트 가지고오기
 	public List<Map<String, Object>> getReviewPopularity(Criteria cri)throws Exception;
 	
+	// 리플 총 개수
 	public int getReplyCount(ReplyVO vo)throws Exception;
 
 	// 최근 리뷰
 	public List<ReviewVO> getlastedReviewList()throws Exception;
+	
+	// 베스트 댓글 top6
+	public List<Map<String, Object>> getBestReply();
+	
 	
 }

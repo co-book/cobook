@@ -22,7 +22,8 @@
 	<mvc:view-controller path="/news" view-name="/CoBookTest0.1/news" />
 	<mvc:view-controller path="/cobookTest" view-name="/sample/cobookTest" />
 	<mvc:view-controller path="/loginPop" view-name="/sample/loginPop" />
-
+	<util:properties id="url" location="/WEB-INF/url.properties" />
+	
 	
 	<bean id="AuthInterceptor" class="org.ebook.cobook.interceptor.AuthInterceptor"></bean>
 	
@@ -32,6 +33,7 @@
 			<ref bean="AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors> -->
+	<util:properties id="url" location="/WEB-INF/url.properties" />
 
 
 </beans>
