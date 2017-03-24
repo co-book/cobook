@@ -5,12 +5,12 @@ import java.util.Date;
 public class ReplyVO {
  // 댓글번호, 회원번호, 부모번호, 게시물번호, 부모타입, 내용, 날짜
 	private Integer reply_no;	//댓글번호
-	private Integer member_no;	//작성자 번혼
+	private Integer member_no;	//작성자 번호
 	private Integer parent_no;	//리플의 부모 번호
 	private Integer board_no;	//몇번게시글인지
 	private String parent_type;	//어떤 게시판인지
-	private String contents;	
-	private Date reg_date;	
+	private String contents;	//내용
+	private Date reg_date;		//작성날짜
 	
 	
 	
