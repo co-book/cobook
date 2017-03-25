@@ -17,7 +17,7 @@
 		var test = '${login}';
 		console.log(test);
 		console.log("회원번호: " + member_no);
-		getReplyList(10,1);
+	/* 	getReplyList(10,1); */
 		// parent_type board_no가 어느 테이블에 속해잇는지 알려줌
 		var parent_type = 'mybook';
 		
@@ -53,6 +53,25 @@
 			});
 			
 		}
+		
+		// 좋아요 클릭시 이벤트처리
+	 	$(".like").on("click", function(){
+			console.log("클릭");
+			var likeImg = $(this).children().first();
+			var isLike = likeImg.attr("data-islike");
+			console.log(isLike);
+			if(isLike == "false"){
+				likeImg.attr("src","/resources/img/light-like.png");
+				likeImg.attr("data-islike", "true");
+			}else{
+				likeImg.attr("src","/resources/img/like.png");
+				likeImg.attr("data-islike", "false");
+			}
+			
+		}); 
+		
+		
+		
 
 	});
 </script>
@@ -72,16 +91,40 @@
 		<ul>
 			<li>
 				<div>No1:유저ID&nbsp;2017/03/08</div>
-				<textarea rows="" cols=""></textarea>
-				<a href="#"><img alt="" width="30px" height="30px" src="/resources/img/like.png"></a>10	
+				<textarea id="replyCont" rows="" cols=""></textarea>
+				<a href="#" class="like"><img data-islike="false" alt="" width="30px" height="30px" src="/resources/img/like.png"></a>10	
+				<br />
+				<p>
+				<button id="commentBtn">답글달기</button>
+				<button id="rmBtn">삭제</button>
+				<button id="modBtn">수정</button>
+				</p>
 			</li>
+			
 		</ul>
+		<button>더보기</button>
+		
 		
 	</div>
 
 
-	<script>
-		
+	<script id="reply-template" type="text/x-handlebars-template">
+{{#each .}}	
+<ul>
+			<li>
+				<div>No1:유저ID&nbsp;2017/03/08</div>
+				<textarea id="replyCont" rows="" cols=""></textarea>
+				<a href="#" class="like"><img data-islike="false" alt="" width="30px" height="30px" src="/resources/img/like.png"></a>10	
+				<br />
+				<p>
+				<button id="commentBtn">답글달기</button>
+				<button id="rmBtn">삭제</button>
+				<button id="modBtn">수정</button>
+				</p>
+			</li>
+			
+		</ul>
+		<button>더보기</button>
 	</script>
 
 

@@ -22,4 +22,6 @@ public interface ReplyService {
 
 	public void deleteLikeIt(Integer like_it_no) throws Exception;
 
+	public Map<String, Object> getLikeList(ReplyVO vo) throws Exception;
+	
 }

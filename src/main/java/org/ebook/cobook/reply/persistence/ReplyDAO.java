@@ -25,5 +25,6 @@ public interface ReplyDAO {
 	
 	public void deleteLikeIt(Integer like_it_no)throws Exception;
 	
+	public List<Map<String, Object>> getLikeList(ReplyVO vo) throws Exception;
 	
 }

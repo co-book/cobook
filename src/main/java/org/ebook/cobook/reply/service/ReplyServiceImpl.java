@@ -57,6 +57,12 @@ public class ReplyServiceImpl implements ReplyService {
 		// TODO Auto-generated method stub
 		replyDao.deleteLikeIt(like_it_no);
 	}
+
+	@Override
+	public Map<String, Object> getLikeList(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return replyDao.getLikeList(vo);
+	}
 	
 	
 

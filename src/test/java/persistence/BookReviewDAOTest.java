@@ -49,5 +49,11 @@ public class BookReviewDAOTest extends AbstractCommonConfTest{
 		System.out.println(dao.getlastedReviewList());
 	}
 	
+	@Test
+	public void getLikeList()throws Exception{
+		
+		
+	}
+	
 	
 }
