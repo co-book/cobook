@@ -34,7 +34,7 @@ FROM (
                  ORDER BY review_no DESC
                 )
       )
-WHERE rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
+WHERE rn >= #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 ]]>
 	</select>
 

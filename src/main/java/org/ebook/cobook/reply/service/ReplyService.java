@@ -20,8 +20,9 @@ public interface ReplyService {
 
 	public void addLikeIt(Like_itVO vo) throws Exception;
 
-	public void deleteLikeIt(Integer like_it_no) throws Exception;
-
-	public Map<String, Object> getLikeList(ReplyVO vo) throws Exception;
+	public void deleteLikeIt(Like_itVO vo)throws Exception;
 	
+	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception;
+	
+	public int getReplyCount(Map<String, Object> map)throws Exception;
 }

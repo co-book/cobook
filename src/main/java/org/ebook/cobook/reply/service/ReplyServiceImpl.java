@@ -53,15 +53,21 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void deleteLikeIt(Integer like_it_no) throws Exception {
+	public void deleteLikeIt(Like_itVO vo)throws Exception{
 		// TODO Auto-generated method stub
-		replyDao.deleteLikeIt(like_it_no);
+		replyDao.deleteLikeIt(vo);
 	}
 
 	@Override
-	public Map<String, Object> getLikeList(ReplyVO vo) throws Exception {
+	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
-		return replyDao.getLikeList(vo);
+		return replyDao.getLikeList(paramMap);
+	}
+
+	@Override
+	public int getReplyCount(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return replyDao.getReplyCount(map);
 	}
 	
 	

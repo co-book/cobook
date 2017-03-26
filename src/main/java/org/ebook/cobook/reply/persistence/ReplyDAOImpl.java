@@ -55,22 +55,22 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public void deleteLikeIt(Integer like_it_no) throws Exception {
+	public void deleteLikeIt(Like_itVO vo)throws Exception{;
 		// TODO Auto-generated method stub
-		session.delete(namespace+".deleteLike_it", like_it_no);
+		session.delete(namespace+".deleteLike_it", vo);
 	}
 
 	// 댓글 총 갯수
 	@Override
-	public int getReplyCount(ReplyVO vo) throws Exception {
+	public int getReplyCount(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectOne(namespace+".getReplyCount", vo);
+		return session.selectOne(namespace+".getReplyCount", map);
 	}
 
 	@Override
-	public List<Map<String, Object>> getLikeList(ReplyVO vo) throws Exception {
+	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectList(namespace+".getLikeList", vo);
+		return session.selectList(namespace+".getLikeList", paramMap);
 	}
 	
 	

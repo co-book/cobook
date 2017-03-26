@@ -1,11 +1,11 @@
 package persistence;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.ebook.cobook.board.persistence.ReviewDAO;
-import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.reply.persistence.ReplyDAO;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -36,14 +36,15 @@ public class BookReviewDAOTest extends AbstractCommonConfTest{
 	@Ignore
 	public void ReviewCount() throws Exception{
 		
-		ReplyVO vo = new ReplyVO();
-		vo.setBoard_no(1);
-		vo.setParent_type("BOOKREVIEW");
-		int result = replyDAO.getReplyCount(vo);
+	    Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("board_no",2);
+		paramMap.put("parent_type","BOOKREVIEW");
+		int result = replyDAO.getReplyCount(paramMap);
 		System.out.println(result);
 	}
 	
 	@Test
+	@Ignore
 	public void test3()throws Exception{
 		
 		System.out.println(dao.getlastedReviewList());

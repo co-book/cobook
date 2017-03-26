@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.ReplyMapper">
 
 	<!-- 댓글 총갯수 -->
-	<select id="getReplyCount" resultType="int">
+	<select id="getReplyCount" resultType="int" parameterType="map">
 		SELECT COUNT(*) FROM reply
 		WHERE board_no = #{board_no}
 		AND parent_type like #{parent_type}
@@ -38,8 +38,9 @@ WHERE rn >= #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 
 	</select> -->
 	
-<select id="replyList" resultType="map" parameterType="ReplyVO">
-SELECT r.*, l.reply_no AS lReply_no, NVL(l.likeCount, 0) AS likeCount FROM
+<select id="replyList" resultType="map" parameterType="map">
+<![CDATA[
+SELECT r.*, l.reply_no AS lReply_no, NVL(l.likeCount, 0) AS likeCount, m.nickname FROM
 	(
   		SELECT r.reply_no, r.parent_no, r.member_no, r.board_no, r.contents, r.reg_date, ROW_NUMBER() OVER(ORDER BY parent_no DESC, r.REPLY_NO ASC) rn
   		FROM reply r
@@ -53,9 +54,12 @@ SELECT r.*, l.reply_no AS lReply_no, NVL(l.likeCount, 0) AS likeCount FROM
 		AND r.board_no = #{board_no}
 		AND r.parent_type like #{parent_type}
 		GROUP BY l.reply_no
-	 ) l
+	 ) l, member m
 WHERE r.reply_no = l.reply_no(+)
+AND r.member_no = m.member_no
+AND r.rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 ORDER BY parent_no desc, r.reply_no asc
+]]>
 </select>
 
 	<!-- 댓글 입력 -->
@@ -89,8 +93,7 @@ ORDER BY parent_no desc, r.reply_no asc
 		SET
 		contents = #{contents}
 		WHERE
-		reply_no =
-		#{reply_no}
+		reply_no =#{reply_no}
 
 	</update>
 
@@ -111,11 +114,12 @@ ORDER BY parent_no desc, r.reply_no asc
 
 	<!-- 좋아요 삭제 -->
 	<delete id="deleteLikeIt">
-		delete like_it where like_it_no = #{like_it_no}
+		delete like_it 
+		where reply_no = #{reply_no} AND member_no = #{member_no}
 	</delete>
 
-	<!-- 좋아요를 누른 댓글 리스트-->
-<select id="getLikeList" resultType="map" parameterType="ReplyVO">
+	<!-- 특정 게시판의 특정게시물에 좋아요를 누른 댓글 리스트-->
+<select id="getLikeList" resultType="map" parameterType="map">
 SELECT l.reply_no FROM like_it l, reply r
 WHERE l.member_no = #{member_no}
 AND l.reply_no = r.reply_no

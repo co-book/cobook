@@ -61,6 +61,11 @@ public class ReplyVO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
+	@Override
+	public String toString() {
+		return "ReplyVO [reply_no=" + reply_no + ", member_no=" + member_no + ", parent_no=" + parent_no + ", board_no="
+				+ board_no + ", parent_type=" + parent_type + ", contents=" + contents + ", reg_date=" + reg_date + "]";
+	}
 	
 	
 	

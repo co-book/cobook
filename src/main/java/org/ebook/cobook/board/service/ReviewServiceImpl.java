@@ -1,5 +1,6 @@
 package org.ebook.cobook.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +112,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int getReplyCount(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return replyDAO.getReplyCount(vo);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("board_no", vo.getBoard_no());
+		paramMap.put("parent_type", vo.getParent_type());
+		
+		return replyDAO.getReplyCount(paramMap);
 	}
 
 	// 최근 리뷰 리스트
