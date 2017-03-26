@@ -161,11 +161,12 @@ public class ReplyController {
 		
 		ResponseEntity<String> entity = null;
 		vo.setMember_no(1);
+		System.out.println(vo.toString());
 		try{
 			replyService.addLikeIt(vo);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
-			
+			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -177,13 +178,14 @@ public class ReplyController {
 		
 		ResponseEntity<String> entity = null;
 		vo.setMember_no(1);
+		System.out.println(vo.toString());
 
 		try{
 			
 			replyService.deleteLikeIt(vo);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
-			
+			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -198,6 +200,7 @@ public class ReplyController {
 		List<Map<String, Object>> likeList = listMap.get("userLikeList");
 		for(int i = 0; i < replyList.size(); i++){
 			
+			replyList.get(i).put("isLike", "0");
 			for(int j = 0; j < likeList.size(); j++){
 				
 				if(replyList.get(i).get("REPLY_NO").equals(likeList.get(j).get("REPLY_NO"))){

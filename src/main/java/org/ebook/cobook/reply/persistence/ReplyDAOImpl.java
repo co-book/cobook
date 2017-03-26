@@ -51,13 +51,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public void addLikeIt(Like_itVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		session.insert(namespace+".insertLike_it", vo);
+		session.insert(namespace+".addLikeIt", vo);
 	}
 
 	@Override
 	public void deleteLikeIt(Like_itVO vo)throws Exception{;
 		// TODO Auto-generated method stub
-		session.delete(namespace+".deleteLike_it", vo);
+		session.delete(namespace+".deleteLikeIt", vo);
 	}
 
 	// 댓글 총 갯수

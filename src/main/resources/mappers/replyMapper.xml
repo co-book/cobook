@@ -107,13 +107,13 @@ ORDER BY parent_no desc, r.reply_no asc
 	</delete>
 
 	<!-- 좋아요 추가 -->
-	<insert id="addLikeIt">
+	<insert id="addLikeIt" parameterType="org.ebook.cobook.likeIt.domain.Like_itVO">
 		insert into LIKE_IT (like_it_no, member_no, reply_no)
 		values (like_it_no_seq.nextval, #{member_no}, #{reply_no})
 	</insert>
 
 	<!-- 좋아요 삭제 -->
-	<delete id="deleteLikeIt">
+	<delete id="deleteLikeIt" parameterType="org.ebook.cobook.likeIt.domain.Like_itVO">
 		delete like_it 
 		where reply_no = #{reply_no} AND member_no = #{member_no}
 	</delete>

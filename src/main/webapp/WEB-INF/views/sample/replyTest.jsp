@@ -30,6 +30,31 @@
 		console.log(test);
 		console.log("회원번호: " + member_no);
 		
+		// 좋아요 처리
+		function paramAjax(url, reply_no, member_no){
+
+			console.log(url);
+			$.ajax({
+			
+				type : "post",
+				url : url,
+				headers : {
+	            	"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+	            },
+				dataType : "text",
+				data : JSON.stringify({
+					member_no : member_no,
+					reply_no : reply_no
+				}),
+				success : function(result){
+					console.log(result);
+				}
+	            
+			});
+			
+		}
+		
 		$("#addReply").on("click", function() {
 
 			var contents = $("#contents").val();
@@ -80,22 +105,28 @@
 
 		// 좋아요 클릭시 이벤트처리
 		$("#replies").on("click", ".like",function() {
-			console.log("좋아요 클릭");
-			var likeImg = $(this);
-			console.log(likeImg);
-			var isLike = likeImg.text();
-			console.log(isLike); 
+			
+			var linkObj = $(this);
+			var imgObj = linkObj.children().first();
+			var isLike = imgObj.attr("data-islike");
 			var reply_no = $(this).attr("data-replyno");
+			var likeObj = linkObj.next();
+			var likeVal = likeObj.text();
+			console.log(likeObj);
 			console.log("reply_no : "+reply_no);
-			if ("1".indexOf(isLike) != -1) {
+			
+			if (isLike.indexOf("0") != -1) {
+				console.log("isLike 타입: "+ typeof isLike);
 				paramAjax("/replies/addLike", reply_no, member_no);
-				likeImg.attr("src", "/resources/img/light-like.png");
-				likeImg.attr("data-islike", true);
+				imgObj.attr("src", "/resources/img/light-like.png");
+				imgObj.attr("data-islike", "1");
+				likeObj.text(Number(likeVal) + 1);
 				
 			} else {
 				paramAjax("/replies/deleteLike", reply_no, member_no);
-				likeImg.attr("src", "/resources/img/like.png");
-				likeImg.attr("data-islike", false);
+				imgObj.attr("src", "/resources/img/like.png");
+				imgObj.attr("data-islike", "0");
+				likeObj.text(Number(likeVal) - 1);
 				
 			}
 
@@ -124,7 +155,6 @@
 
 		// ajax로 답글 데이터 보냄
 		$("#commentBtn").on("click", function() {
-			 
 			var parent_no = $("#replyData").attr("data-parentNo");
 			var parent_type = "BOOKREVIEW";
 			var contents = $("#commentTxt").val();
@@ -231,31 +261,7 @@
 		target.append(html);
 	}
 	
-	function paramAjax(url, reply_no, member_no){
-		console.log("아작스");
-		console.log(url);
-		console.log(reply_no);
-		console.log(member_no);
-		$.ajax({
-		
-			type : "post",
-			url : url,
-			headers : {
-            	"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"
-            },
-			dataType : "text",
-			data : JSON.stringify({
-				member_no : member_no,
-				reply_no : reply_no
-			}),
-			success : function(result){
-				console.log(result);
-			}
-            
-		});
-		
-	}
+	
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -290,9 +296,9 @@
 				<div>No{{REPLY_NO}}:{{NICKNAME}}&nbsp;{{prettifyDate REG_DATE}}</div>
 				<textarea id="replyCont" rows="" cols="">{{CONTENTS}}</textarea>
 				
-<a href="#" class="like" data-islike={{isLike}} data-replyNo={{REPLY_NO}}><img data-islike={{isLike}} width="30px" height="30px" src={{checkLike isLike}}>{{isLike}}</a>
+<a href="#" class="like" data-islike={{isLike}} data-replyNo={{REPLY_NO}}><img data-islike={{isLike}} width="30px" height="30px" src={{checkLike isLike}}></a>
 
-				<span>{{LIKECOUNT}}</span>	
+				<span id="likeCount">{{LIKECOUNT}}</span>	
 				<br />
 				<p>
 				<button id="openComment" data-parentNo={{PARENT_NO}}>답글쓰기</button>
@@ -311,7 +317,7 @@ Handlebars.registerHelper('checkLike', function(isLike){
 	  
 	console.log("isLike : " + isLike);
 	var linkURL = "";
-	if(isLike){
+	if(isLike.indexOf("1") != -1){
 		
 		linkURL = "/resources/img/light-like.png";
 	}else{
