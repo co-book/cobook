@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.ebook.cobook.board.controller.ReviewController;
+import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
 import org.ebook.cobook.ebook.domain.BorrowVo;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -174,4 +176,17 @@ public class EbookController {
 		resultMap.put("resultMsg", resultMsg);
 		return resultMap;
 	}
+	
+	 @RequestMapping(value="/getMyborrowList", method = RequestMethod.GET)
+	  public String getMybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
+		  // [세션]
+		  Map<String, Object> paramMap = new HashMap<>();
+		  paramMap.put("cri", cri);
+		  paramMap.put("member_no", 2);
+		  
+		  model.addAttribute("mybookList", ebookService.getMyborrowList(paramMap));
+		  
+		  return "";
+	  }
+	
 }

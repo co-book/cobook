@@ -11,6 +11,7 @@ import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.board.persistence.ReviewDAO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.fileUpload.persistence.FilesDAO;
+import org.ebook.cobook.mypage.persistence.MyPageDAO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.reply.persistence.ReplyDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,14 @@ public class ReviewServiceImpl implements ReviewService {
 	@Inject
 	private ReviewDAO reviewDAO;
 	
-	@Autowired
+	@Inject
 	private ReplyDAO replyDAO;
 	
 	@Inject
 	private FilesDAO filesDAO;
+	
+	@Inject
+	private MyPageDAO myPageDAO;
 
 	// 회원의 대출목록을 가져오는 함수
 	@Override
@@ -131,6 +135,12 @@ public class ReviewServiceImpl implements ReviewService {
 		public List<Map<String, Object>> getBestReply() {
 			// TODO Auto-generated method stub
 			return reviewDAO.getBestReply();
+		}
+
+		@Override
+		public List<Map<String, Object>> getMyBookReviewList(Map<String, Object> paramMap) throws Exception {
+			// TODO Auto-generated method stub
+			return myPageDAO.getMyBookReviewList(paramMap);
 		}
 	
 	

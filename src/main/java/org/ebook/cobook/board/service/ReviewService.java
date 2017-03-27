@@ -42,6 +42,8 @@ public interface ReviewService {
 	
 	// 베스트 댓글 top6
 	public List<Map<String, Object>> getBestReply();
-	
-	
+
+	// 내가 쓴 후기 리스트
+	public List<Map<String, Object>> getMyBookReviewList(Map<String, Object> paramMap)throws Exception;
+
 }

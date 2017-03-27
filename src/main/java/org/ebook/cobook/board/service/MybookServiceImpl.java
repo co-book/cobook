@@ -10,6 +10,7 @@ import org.ebook.cobook.board.domain.MybookVO;
 import org.ebook.cobook.board.persistence.MybookDAO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.fileUpload.persistence.FilesDAO;
+import org.ebook.cobook.mypage.persistence.MyPageDAO;
 import org.springframework.stereotype.Service;
 
 
@@ -22,6 +23,9 @@ public class MybookServiceImpl implements MybookService {
 	@Inject
 	private FilesDAO filesDAO;
 
+	@Inject
+	private MyPageDAO myPageDAO;
+	
 	@Override
 	public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
@@ -88,6 +92,12 @@ public class MybookServiceImpl implements MybookService {
 	public List<String> getAttach(Integer bno) throws Exception {
 		// TODO Auto-generated method stub
 		return filesDAO.getAttach(bno);
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserMybookList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return myPageDAO.getUserMybookList(paramMap);
 	}
 	
 	

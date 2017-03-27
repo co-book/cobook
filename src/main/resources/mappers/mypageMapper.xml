@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.MypageMapper">
+
+	<select id="getMyBookReviewList" resultType="map" >
+<![CDATA[	
+		SELECT review_no, evaluate, title, nickname, coverurl 
+		FROM(
+				SELECT br.review_no, ROW_NUMBER() OVER(ORDER BY review_no DESC) rn,
+				br.evaluate, br.title, m.nickname, e.coverurl
+				FROM bookreview br, member m, ebook e
+				WHERE br.MEMBER_NO = #{member_no}
+				AND br.ebook_no = e.ebook_no
+				AND m.member_no = br.member_no
+		)
+		WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
+	]]>
+	</select>
+
+	<select id="getUserMybookList" resultType="map">
+<![CDATA[
+	SELECT mybook_no, fileurl, title, hit, nickname
+FROM (
+		SELECT ROW_NUMBER() OVER(ORDER BY my.mybook_no DESC) AS rn, my.mybook_no, f.fileurl, my.title, my.hit, m.nickname
+		FROM mybook my, files f, member m
+		WHERE my.MEMBER_NO = #{member_no}
+		AND f.BOOK_NO = my.MYBOOK_NO
+		AND f.BOOK_TYPE like 'MYBOOK'
+		AND f.FILETYPE like 'COVER'
+		AND my.MEMBER_NO = m.member_no
+)
+WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
+]]>
+	</select>
+	
+	<select id="getMyborrowList" resultType="map">
+<![CDATA[
+	SELECT ebook_no, title, coverurl, borrowdate
+	FROM(
+			SELECT e.ebook_no, e.title, e.coverurl, b.BORROWDATE, ROW_NUMBER() OVER(ORDER BY borrowdate DESC) AS rn
+			FROM borrow b, ebook e
+			WHERE b.member_no = #{member_no}
+			AND b.ebook_no = e.ebook_no
+		 )
+	WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
+]]>
+	</select>
+
+</mapper>

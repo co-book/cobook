@@ -1,5 +1,6 @@
 package org.ebook.cobook.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -133,4 +134,17 @@ public class MybookController {
 	    
 	    return mybookService.getAttach(bno);
 	  } 
+	  
+	  @RequestMapping(value="/getUserMybookList", method = RequestMethod.GET)
+	  public String getMybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
+		  // [세션]
+		  Map<String, Object> paramMap = new HashMap<>();
+		  paramMap.put("cri", cri);
+		  paramMap.put("member_no", 2);
+		  
+		  model.addAttribute("mybookList", mybookService.getUserMybookList(paramMap));
+		  
+		  return "";
+	  }
+	  
 }

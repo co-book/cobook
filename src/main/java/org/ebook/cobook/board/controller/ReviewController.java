@@ -1,5 +1,6 @@
 package org.ebook.cobook.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,163 +23,174 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(value="/review/*")
+@RequestMapping(value = "/review/*")
 public class ReviewController {
-	
+
 	@Inject
 	private ReviewService reviewService;
-	
-	private static final Logger logger = 
-			LoggerFactory.getLogger(ReviewController.class);
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
+
 	// 게시물 리스트 = 닉네임 + 파일정보 + 게시물목록
-		/*@RequestMapping(value="/reviewList", method = RequestMethod.GET)
-		public String mybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
-			
-			logger.debug("reviewList 호출");
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
-			
-			List<Map<String, Object>> list = reviewService.getBookReviewList(cri);
-			
-			logger.debug("사이즈 : "+list.size());
-			model.addAttribute("list", reviewService.getBookReviewList(cri));
-			model.addAttribute("pageMaker", pageMaker);
-			model.addAttribute("size", list.size());
-			
-			return "review/reviewList";
-		}*/
-		
-		// 인기순 리스트
-		@RequestMapping(value="/popularityList", method = RequestMethod.GET)
-		public String popularityListGET(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
-			
-			logger.debug("reviewList 호출");
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
-			
-			List<Map<String, Object>> list = reviewService.getReviewPopularity(cri);
-			
-			logger.debug("사이즈 : "+list.size());
-			model.addAttribute("list", reviewService.getReviewPopularity(cri));
-			model.addAttribute("pageMaker", pageMaker);
-			model.addAttribute("size", list.size());
-			
-			return "review/reviewList";
-		}
-		
-		
-		// 게시물 읽어오기 file_no + fileurl + 게시물 정보
-		// 좋아요 top6 클릭해서 들어올경우에는 reply_no 값이 채워진다
-		@RequestMapping(value = "/single", method = RequestMethod.GET)
-		  public void read(@RequestParam("review_no") int review_no
-				  , @ModelAttribute("cri") Criteria cri
-				  , @RequestParam(value="reply_no", required=false) Integer reply_no,Model model)
-		      throws Exception {
-			
-			ReplyVO vo = new ReplyVO();
-			vo.setBoard_no(review_no);
-			vo.setParent_type("BOOKREVIEW");
-		    model.addAttribute("reviewVO", reviewService.getReviewSingle(review_no));
-		    model.addAttribute("REPLYCOUNT", reviewService.getReplyCount(vo));
-		    model.addAttribute("reply_no", reply_no);
-		}
-		
-		// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
-		 @RequestMapping(value = "/removePage", method = RequestMethod.POST)
-		  public String remove(@RequestParam("review_no") int review_no, Criteria cri, RedirectAttributes rttr) throws Exception {
+	/*
+	 * @RequestMapping(value="/reviewList", method = RequestMethod.GET) public
+	 * String mybookList(@ModelAttribute("cri")Criteria cri, Model model)throws
+	 * Exception{
+	 * 
+	 * logger.debug("reviewList 호출"); PageMaker pageMaker = new PageMaker();
+	 * pageMaker.setCri(cri);
+	 * pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+	 * 
+	 * List<Map<String, Object>> list = reviewService.getBookReviewList(cri);
+	 * 
+	 * logger.debug("사이즈 : "+list.size()); model.addAttribute("list",
+	 * reviewService.getBookReviewList(cri)); model.addAttribute("pageMaker",
+	 * pageMaker); model.addAttribute("size", list.size());
+	 * 
+	 * return "review/reviewList"; }
+	 */
 
-			 FilesVO filesVO = new FilesVO();
-			 filesVO.setBook_no(review_no);
-			 filesVO.setBook_type("REVIEW");
-			 
-		    reviewService.deleteReview(review_no, filesVO);
-		    
-		    rttr.addAttribute("page", cri.getPage());
-		    rttr.addAttribute("perPageNum", cri.getPerPageNum());
-		    rttr.addAttribute("searchType", cri.getSearchType());
-		    rttr.addAttribute("keyword", cri.getKeyword());
+	// 인기순 리스트
+	@RequestMapping(value = "/popularityList", method = RequestMethod.GET)
+	public String popularityListGET(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
-		    rttr.addFlashAttribute("msg", "SUCCESS");
+		logger.debug("reviewList 호출");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
 
-		    return "redirect:/sboard/list";
-		  }
+		List<Map<String, Object>> list = reviewService.getReviewPopularity(cri);
 
-		 // single페이지 요청
-		  @RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
-		  public void modifyPagingGET(int review_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		logger.debug("사이즈 : " + list.size());
+		model.addAttribute("list", reviewService.getReviewPopularity(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("size", list.size());
 
-		    model.addAttribute(reviewService.getReviewSingle(review_no));
-		  }
+		return "review/reviewList";
+	}
 
-		  // 게시물 수정처리
-		  // 한게시물의 그림파일을 전부 삭제하고 다시 넣어준다
-		  // 주의 cover파일일경우 처리
-		  @RequestMapping(value = "/modifyPage", method = RequestMethod.POST)
-		  public String modifyPagingPOST(ReviewVO reviewVO, Criteria cri, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
+	// 게시물 읽어오기 file_no + fileurl + 게시물 정보
+	// 좋아요 top6 클릭해서 들어올경우에는 reply_no 값이 채워진다
+	@RequestMapping(value = "/single", method = RequestMethod.GET)
+	public void read(@RequestParam("review_no") int review_no, @ModelAttribute("cri") Criteria cri,
+			@RequestParam(value = "reply_no", required = false) Integer reply_no, Model model) throws Exception {
 
-		    logger.info(cri.toString());
-		    filesVO.setBook_no(reviewVO.getReview_no());
-		    filesVO.setBook_type("REVIEW");
-		    reviewService.modifyBookReview(reviewVO, filesVO);
+		ReplyVO vo = new ReplyVO();
+		vo.setBoard_no(review_no);
+		vo.setParent_type("BOOKREVIEW");
+		model.addAttribute("reviewVO", reviewService.getReviewSingle(review_no));
+		model.addAttribute("REPLYCOUNT", reviewService.getReplyCount(vo));
+		model.addAttribute("reply_no", reply_no);
+	}
 
-		    rttr.addAttribute("page", cri.getPage());
-		    rttr.addAttribute("perPageNum", cri.getPerPageNum());
-		    rttr.addAttribute("searchType", cri.getSearchType());
-		    rttr.addAttribute("keyword", cri.getKeyword());
+	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
+	@RequestMapping(value = "/removePage", method = RequestMethod.POST)
+	public String remove(@RequestParam("review_no") int review_no, Criteria cri, RedirectAttributes rttr)
+			throws Exception {
 
-		    rttr.addFlashAttribute("msg", "SUCCESS");
+		FilesVO filesVO = new FilesVO();
+		filesVO.setBook_no(review_no);
+		filesVO.setBook_type("REVIEW");
 
-		    logger.info(rttr.toString());
+		reviewService.deleteReview(review_no, filesVO);
 
-		    return "redirect:/sboard/list";
-		  }
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 
-		  @RequestMapping(value = "/register", method = RequestMethod.GET)
-		  public void registGET() throws Exception {
+		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		    logger.info("regist get ...........");
-		  }
+		return "redirect:/sboard/list";
+	}
 
-		  @RequestMapping(value = "/register", method = RequestMethod.POST)
-		  public String registPOST(ReviewVO reviewVO, FilesVO filesVO,RedirectAttributes rttr) throws Exception {
+	// single페이지 요청
+	@RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
+	public void modifyPagingGET(int review_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
-		    logger.info("regist post ...........");
-		    logger.info(reviewVO.toString());
-		    System.out.println("reviewVO : "+reviewVO.toString());
-		    reviewService.writeReview(reviewVO, filesVO);
+		model.addAttribute(reviewService.getReviewSingle(review_no));
+	}
 
-		    rttr.addFlashAttribute("msg", "SUCCESS");
+	// 게시물 수정처리
+	// 한게시물의 그림파일을 전부 삭제하고 다시 넣어준다
+	// 주의 cover파일일경우 처리
+	@RequestMapping(value = "/modifyPage", method = RequestMethod.POST)
+	public String modifyPagingPOST(ReviewVO reviewVO, Criteria cri, FilesVO filesVO, RedirectAttributes rttr)
+			throws Exception {
 
-		    return "redirect:/sboard/list";
-		  }
-	
-		//최신 리뷰 - 최신에 쓰여진 리뷰(책이름 , 리뷰 제목 )
+		logger.info(cri.toString());
+		filesVO.setBook_no(reviewVO.getReview_no());
+		filesVO.setBook_type("REVIEW");
+		reviewService.modifyBookReview(reviewVO, filesVO);
 
-			@RequestMapping(value = "/lastedReviewList", method = RequestMethod.GET)
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 
-			public void lastedReviewList(Model model) throws Exception {
+		rttr.addFlashAttribute("msg", "SUCCESS");
 
-				logger.info("lastedReviewList");
-				model.addAttribute("list", reviewService.getlastedReviewList());
+		logger.info(rttr.toString());
 
-			}
-	
+		return "redirect:/sboard/list";
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public void registGET() throws Exception {
+
+		logger.info("regist get ...........");
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String registPOST(ReviewVO reviewVO, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
+
+		logger.info("regist post ...........");
+		logger.info(reviewVO.toString());
+		System.out.println("reviewVO : " + reviewVO.toString());
+		reviewService.writeReview(reviewVO, filesVO);
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
+		return "redirect:/sboard/list";
+	}
+
+	// 최신 리뷰 - 최신에 쓰여진 리뷰(책이름 , 리뷰 제목 )
+
+	@RequestMapping(value = "/lastedReviewList", method = RequestMethod.GET)
+
+	public void lastedReviewList(Model model) throws Exception {
+
+		logger.info("lastedReviewList");
+		model.addAttribute("list", reviewService.getlastedReviewList());
+
+	}
+
 	// 좋아요 순 댓글 top6
-	// r.reply_no, r.board_no, r.contents,  m.nickname, likeCount
-			@RequestMapping(value = "/bestReply", method = RequestMethod.GET)
+	// r.reply_no, r.board_no, r.contents, m.nickname, likeCount
+	@RequestMapping(value = "/bestReply", method = RequestMethod.GET)
 
-			public String bestReply(Model model) {
+	public String bestReply(Model model) {
 
-				logger.info("bestReply");
-				model.addAttribute("list", reviewService.getBestReply());
-				
-				return "review/bestReply";
+		logger.info("bestReply");
+		model.addAttribute("list", reviewService.getBestReply());
 
-			}
-	
-	
-	
+		return "review/bestReply";
+
+	}
+
+	// 사용자가 읽은 후기리스트 요청 모델값 reviewList
+	@RequestMapping(value = "/getMybookReviews", method = RequestMethod.GET)
+	public String getMyBookReviewList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		// [세션]
+		Map<String, Object> paramMap = new HashMap<>();
+
+		// 파라미터 값 셋팅
+		paramMap.put("cri", cri);
+		paramMap.put("member_no", 3);
+
+		model.addAttribute("reviewList", reviewService.getMyBookReviewList(paramMap));
+
+		return "/mybook/???";
+	}
+
 }

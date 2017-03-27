@@ -9,6 +9,7 @@ import org.ebook.cobook.fileUpload.domain.FilesVO;
 
 public interface MybookService {
 
+	// 마이북 페이지에 리스트
 	public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception;
 
 	public int getCriCount(Criteria cri)throws Exception;
@@ -23,4 +24,7 @@ public interface MybookService {
 
 	 public List<String> getAttach(Integer bno)throws Exception;
 	
+	 // 내가 작성한 마이북 리스트
+	 public List<Map<String, Object>> getUserMybookList(Map<String, Object> paramMap)throws Exception;
+
 }

@@ -515,7 +515,7 @@ $(function(){
 	
 	$(".modBtn").on("click", function(){
 		
-		 var url = "/review/modifyPage;
+		 var url = "/review/modifyPage";
 		//$(location).attr("href", url);
 		formObj.attr("action", url);
 		formObj.attr("method", "get");
@@ -537,7 +537,7 @@ $(function(){
 	
 	$(".listBtn").on("click", function(){
 		console.log("리스트버튼 클릭");
-		var url = "/review/replyList
+		var url = "/review/replyList";
 		formObj.attr("action", url);
 		formObj.attr("method", "get");
 		$("#review_noTxt").val(review_no);

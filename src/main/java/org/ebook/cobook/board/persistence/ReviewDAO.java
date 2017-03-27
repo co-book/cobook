@@ -29,12 +29,8 @@ public interface ReviewDAO {
 	// 좋아요 순 댓글 top6
 	public List<Map<String, Object>> getBestReply();
 	
-	
 	// 최근 리뷰
 	public List<ReviewVO> getlastedReviewList()throws Exception;
-	
-	
-	
 	
 	
 	
