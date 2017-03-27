@@ -101,7 +101,8 @@ FROM (
                  ORDER BY hit DESC
                 )
       )
-rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
+WHERE
+rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 ]]>
 </select>
 

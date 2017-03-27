@@ -58,7 +58,7 @@ public class ReviewController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
-
+		
 		List<Map<String, Object>> list = reviewService.getReviewPopularity(cri);
 
 		logger.debug("사이즈 : " + list.size());
