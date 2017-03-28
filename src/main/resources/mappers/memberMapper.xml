@@ -5,20 +5,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.MemberMapper">
 	
-	<insert id="insertMember">
+	<insert id="joinMember">
 	insert into member(member_no, nickname, password, sex, age, mypoint, email)
 	values (member_no_seq.nextval, #{nickname}, #{password}, #{sex}, #{age},
 			#{mypoint}, #{email})
-	
 	</insert>
 	
-	<update id="updatePassword">
+	<update id="modifyMember">
 	update member 
 	set
 		password = #{password}
 	where
 		member_no = #{member_no} 
-	
 	</update>
 	
 	<select id="getMember" resultType="MemberVO">

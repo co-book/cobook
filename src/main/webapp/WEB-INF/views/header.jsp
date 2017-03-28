@@ -1,6 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- FaceBook sdk -->
+<script>
+window.fbAsyncInit = function() {
+	FB.init({
+		appId : '135805423595994',
+		xfbml : true,
+		version : 'v2.8'
+	});
+};
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id))
+			return;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- Google sdk -->
+<script async defer src="https://apis.google.com/js/api.js"
+	onload="this.onload=function(){};handleClientLoad()"
+	onreadystatechange="if (this.readyState === 'complete') this.onload()">
+	
+</script>
+<!-- login -->
+<script type="text/javascript" src="resources/js/login.js"></script>
+<script type="text/javascript" src="resources/js/google.js"></script>
+
+
 <!-- header -->
 <div class="header">
 		<div class="container">
@@ -141,40 +171,59 @@ $(document).ready(function(){
 						<div class="w3_login_module">
 							<div class="module form-module">
 							  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
-								<div class="tooltip">Sign Up!</div>
+								<div class="tooltip">Click it!</div>
 							  </div>
 							  <div class="form">
-								<h3>Login to your account</h3>
+								<h3>CoBook 로그인</h3>
 								<form class="login" action="#" method="post">
 								  <input type="text" name="Username" placeholder="Username" required="">
 								  <input type="password" name="Password" placeholder="Password" required="">
 								  <input type="submit" value="Login">
 								</form>
-							  </div>
-							  <!-- <div class="social-icons">
+								<div class="social-icons">
 									<div class="login-button">
-											<a class="fa" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
-											<a class="go" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
-										<div class="clear"></div>
-									</div>
-								</div> -->
-							  <div class="form">
-								<h3>Create an account</h3>
-								<form class="login" action="#" method="post">
-								  <input type="text" name="Username" placeholder="Username" required="">
-								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="email" name="Email" placeholder="Email Address" required="">
-								  <input type="text" name="Phone" placeholder="Phone Number" required="">
-								  <input type="submit" value="Register">
-								</form>
-							  </div>
-								 <div class="social-icons">
-									<div class="login-button">
-											<a class="fa" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
-											<a class="go" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
+											<a class="fa" id="loginFacebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
+											<a class="go" id="loginGoogle" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
 										<div class="clear"></div>
 									</div>
 								</div>
+							  </div>
+
+							  <div class="form">
+								<h3>CoBook 회원가입</h3>
+								<form class="login" action="#" method="post">
+								<div>
+								  <input type="email" name="Email" placeholder="이메일" required="">
+								  <a class="emailCheck" href="#">인증</a>
+								 </div>
+								 <div>
+								  <input type="email" name="EmailCheckKey" placeholder="인증번호" required="" >
+								  <a class="emailCheck" href="#" >확인</a>
+								 </div>
+								  <input type="password" name="Password" placeholder="비밀번호" required="">
+								  <input type="text" name="Username" placeholder="닉네임" required="">
+								   <div>
+								  <input type="number" name="Age" placeholder="나이" required="" >
+								  <a class="genderSelect" href="#" >
+								  	<label class="radio-inline">
+								  			<input type="radio" name="Gender1" placeholder="성별" value="남성" required="">남성
+								  		</label>
+										<label class="radio-inline">
+											<input type="radio" name="Gender1" placeholder="성별" value="여성" required="">여성
+								  		</label>
+								  </a>
+								 </div>
+								  <input type="submit" value="Register">
+								</form>
+								<div class="social-icons">
+									<div class="login-button">
+											<a class="fa" id="joinFacebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
+											<a class="go" id="joinGoogle" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
+										<div class="clear"></div>
+									</div>
+								</div>
+							  </div>
+
 									<div class="cta">
 										<a href="#">Forgot your password?</a>
 									</div>
@@ -196,5 +245,36 @@ $(document).ready(function(){
 			'padding-bottom': 'toggle',
 			opacity: "toggle"
 		  }, "slow");
+		});
+		
+		//facebook 버튼
+		$("#loginFacebook").on("click", function() {
+			console.log("페이스북 호출");
+			
+			console.log(facebook("login"));
+			console.log("페이스북 end");
+			ChangeForm();
+		});
+		
+		function ChangeForm(){
+				  // Switches the Icon
+				  $('.toggle').children('i').toggleClass('fa-pencil');
+				  // Switches the forms  
+				  $('.form').animate({
+					height: "toggle",
+					'padding-top': 'toggle',
+					'padding-bottom': 'toggle',
+					opacity: "toggle"
+				  }, "slow");
+				  
+				  SetJoinForm('test@test','M','ID');
+		};
+		function SetJoinForm(email,gender, id){
+			
+		};
+
+		$('.modal').on('hidden.bs.modal', function (e) {
+		    $(this).find('form')[0].reset();
+		    $(this).find('form')[1].reset();
 		});
 	</script>

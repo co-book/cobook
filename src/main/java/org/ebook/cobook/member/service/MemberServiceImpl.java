@@ -15,13 +15,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void joinMember(MemberVO vo) {
 		// TODO Auto-generated method stub
-		memberDAO.insertMember(vo);
+		memberDAO.joinMember(vo);
 	}
 
 	@Override
 	public void modifyMember(MemberVO vo) {
 		// TODO Auto-generated method stub
-		memberDAO.updatePassword(vo);
+		memberDAO.modifyMember(vo);
 	}
 
 	@Override

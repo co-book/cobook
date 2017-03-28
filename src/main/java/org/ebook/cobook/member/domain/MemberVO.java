@@ -8,10 +8,19 @@ public class MemberVO {
 	private int member_no;
 	private String nickname;
 	private String password;
-	private String sex;
+	private String gender;
 	private int age;
 	private int myPoint;
 	private String email;
+	private String loginType;
+	
+	
+	public String getLoginType() {
+		return loginType;
+	}
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
 	public int getMember_no() {
 		return member_no;
 	}
@@ -30,11 +39,11 @@ public class MemberVO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getSex() {
-		return sex;
+	public String getGender() {
+		return gender;
 	}
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public int getAge() {
 		return age;
@@ -57,7 +66,7 @@ public class MemberVO {
 	
 	@Override
 	public String toString() {
-		return "MemberVO [member_no=" + member_no + ", nickname=" + nickname + ", password=" + password + ", sex=" + sex
+		return "MemberVO [member_no=" + member_no + ", nickname=" + nickname + ", password=" + password + ", gender=" + gender
 				+ ", age=" + age + ", myPoint=" + myPoint + ", email=" + email + "]";
 	}
 	

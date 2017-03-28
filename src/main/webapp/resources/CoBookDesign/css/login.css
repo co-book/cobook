@@ -81,6 +81,18 @@ h1 {
   -webkit-appearance: none;
   color:#c0c0c0;
 }
+.login form input[type="email"] {
+  outline: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #c0c0c0;
+  padding: 10px 20px 10px 46px;
+  border: 1px solid #2DC2BC;
+  border-radius: 5px;
+  margin: 0 auto 15px;
+  width: 40%;
+  -webkit-appearance: none;
+}
 .login-bwn {
   text-align: center;
 }
@@ -97,6 +109,7 @@ h1 {
   border: none;
   border-radius: 5px;
 }
+
 .login input[type="submit"]:hover {
 	background:rgb(160, 6, 6);
 	transition: 0.5s all;
@@ -320,6 +333,7 @@ label.checkbox {
  float: inherit;
   
 }
+
 .login-button a span {
   margin-top: 8px;
   display: block;
@@ -484,6 +498,11 @@ form {
     padding: 9px 20px 9px 45px;
 	width: 66%;
 }
+.login form input[type="text"],.login input[type="email"] {
+  font-size: 13px;
+    padding: 9px 20px 9px 45px;
+	width: 44%;
+}
 .forgot {
   width: 90%;
 }
@@ -524,4 +543,50 @@ body {
 .copyright p a {
   font-size: 0.9em;
 }
+}
+
+ a.emailCheck {  
+    outline: none;
+    width: 20%; 
+    border: 1px solid #2DC2BC;
+    border-radius: 5px;
+    margin: 0 0 20px;
+    padding: 10px 20px 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    font-size: 14px;
+    background: #2DC2BC;
+    color: #ffffff;
+}
+ button.emailCheck {  
+    outline: none;
+    width: 20%; 
+    border: 1px solid #2DC2BC;
+    border-radius: 5px;
+    margin: 0 0 20px;
+    padding: 10px 20px 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    font-size: 14px;
+    background: #2DC2BC;
+    color: #ffffff;
+}
+ a.genderSelect {
+ 	width: 50%; 
+    border-radius: 5px;
+    margin: 0 0 20px;
+    padding: 10px 20px 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    padding-left: 30px;
+    
+}
+.radio-inline, .checkbox-inline {
+	padding : 10px;
 }

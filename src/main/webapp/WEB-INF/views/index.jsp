@@ -11,8 +11,8 @@
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- css -->
 <link href="resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/login.css" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
-<link href="resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="resources/CoBookDesign/css/login.css?ver=11" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
+<link href="resources/CoBookDesign/css/style.css?ver=13" rel="stylesheet" type="text/css" media="all" />
 <!-- 메인추가 -->
 <link href="resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
 <!-- 메인추가 

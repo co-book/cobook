@@ -1,6 +1,8 @@
 package org.ebook.cobook.member.controller;
 
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -20,15 +22,69 @@ public class MemberController {
 
 	@Inject
 	private MemberService service;
+	
+	/**
+	 * 로그인  
+	 * loginType - facebook, google, cobook으로 구분
+	 * @param vo
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	public ResponseEntity<String> login(@RequestBody MemberVO vo, HttpSession session){
+		ResponseEntity<String> entity = null;
+		String result = "FAIL";
+		String msg="OK";
+		
+		System.out.println(vo.toString());
+		try{
+			MemberVO member = service.getMember(vo);
+			//회원가입여부 체크 
+			if(member != null){
+				//로그인 여부 체크 
+				if(vo.getLoginType().equals("COBOOKLOGIN")){
+					// COBOOK 회원 가입시 - 비밀번호 체크
+					if(member.getPassword().equals(vo.getPassword())){
+						session.setAttribute("member", vo);
+						result = "SUCCESS";
+					}
+				}else{
+					// GOOGLE, FACEBOOK 
+					session.setAttribute("member", vo);
+					result = "SUCCESS";
+				}
+			}else{
+				result = "FAIL";
+				msg="회원 가입되지 않은 아이디입니다. 회원가입을 해주세요 ";
+			}
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		}catch(Exception e){
+			entity = new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+			msg = e.getMessage();
+		}
+		session.setAttribute("msg", msg);
+		return entity;
+	}
+	
 
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	/**
+	 * 회원가입
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/joinMember", method = RequestMethod.POST)
 	public String joinMember(MemberVO vo) throws Exception {
-
 		service.joinMember(vo);
-
 		return "redirect:/";
 	}
 
+	/**
+	 * 중복체크?
+	 * @param vo
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
 	public ResponseEntity<String> checkEmail(@RequestBody MemberVO vo) {
@@ -67,33 +123,7 @@ public class MemberController {
 		return entity;
 	}
 
-	@ResponseBody
-	@RequestMapping(value="/loginPOST", method = RequestMethod.POST)
-	public ResponseEntity<String> loginPOST(@RequestBody MemberVO vo, HttpSession session){
-		
-		ResponseEntity<String> entity = null;
-		String result = "FAIL";
-		System.out.println(vo.toString());
-		try{
-			
-			String password = vo.getPassword();
-			MemberVO member = service.getMember(vo);
-			if(member != null){
-				
-				if(member.getPassword().equals(password)){
-					session.setAttribute("login", member);
-					result = "SUCCESS";
-				}
-			}
-			
-			entity = new ResponseEntity<>(result, HttpStatus.OK);
-		}catch(Exception e){
-			
-			entity = new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
+	
 	
 	
 	
