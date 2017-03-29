@@ -8,7 +8,7 @@ function CobookMember(){
 	this.email = email;
 }     
 
-CobookMember.prototype.cobookLogin = function(){
+CobookMember.prototype.cobookLogin = function(member){
     	console.log(this.email+"/" + this.password +"/"+ this.loginType);
     	$.ajax({
     		type : 'POST',
@@ -16,9 +16,9 @@ CobookMember.prototype.cobookLogin = function(){
     		contentType : "application/json",
     		dataType : 'json',
     		data  : {
-    			"email"  :  this.email,
-    		  	"password" 	 :	this.password,
-    		  	"loginType" : this.loginType
+    			"email"  :  member.email,
+    		  	"password" 	 :	member.password,
+    		  	"loginType" : member.loginType
     	  	},
     		success : function(result) {
 

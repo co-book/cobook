@@ -3,6 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- FaceBook sdk -->
 <script>
+var login_cobook1 = function(){
+	console.log("ddddddddddddddddddddddd");
+	cobookLogin($("#login_email").val(),$("#login_password").val(),"COBOOKLOGIN");
+} 
+
 window.fbAsyncInit = function() {
 	FB.init({
 		appId : '135805423595994',
@@ -175,15 +180,15 @@ $(document).ready(function(){
 							  </div>
 							  <div class="form">
 								<h3>CoBook 로그인</h3>
-								<form class="login" action="#" method="post">
-								  <input type="text" name="Username" placeholder="Username" required="">
-								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="submit" value="Login">
+								<form class="login" onsubmit="login_cobook_function(); return false ">
+								  <input id="login_email" type="email" name="Email"  style="width:100%;"  placeholder="Email" required="">
+								  <input id="login_password" type="password" name="Password" placeholder="Password" required="">
+								  <input id="login_cobook" type="submit" value="Login">
 								</form>
 								<div class="social-icons">
 									<div class="login-button">
-											<a class="fa" id="loginFacebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
-											<a class="go" id="loginGoogle" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
+											<a class="fa" id="login_facebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
+											<a class="go" id="login_google" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
 										<div class="clear"></div>
 									</div>
 								</div>
@@ -191,41 +196,41 @@ $(document).ready(function(){
 
 							  <div class="form">
 								<h3>CoBook 회원가입</h3>
-								<form class="login" action="#" method="post">
+								<form class="login" onsubmit="join_cobook_function(); return false;">
 								<div>
-								  <input type="email" name="Email" placeholder="이메일" required="">
-								  <a class="emailCheck" href="#">인증</a>
+								  <input id="join_email" type="email" name="Email" placeholder="이메일" required="">
+								  <a id="join_email_check" class="emailCheck" href="#">인증</a>
 								 </div>
 								 <div>
-								  <input type="email" name="EmailCheckKey" placeholder="인증번호" required="" >
-								  <a class="emailCheck" href="#" >확인</a>
+								  <input id="join_email_check_key" type=text name="EmailCheckKey"  style="width:80%;display:inline-block ;" placeholder="인증번호" required="" >
+								  <a id="join_email_check_key_btn" class="emailCheck" href="#" >확인</a>
 								 </div>
-								  <input type="password" name="Password" placeholder="비밀번호" required="">
-								  <input type="text" name="Username" placeholder="닉네임" required="">
+								  <input id="join_password" type="password" name="Password" placeholder="비밀번호" required="">
+								  <input id="join_username" type="text" name="Username" placeholder="닉네임" required="">
 								   <div>
-								  <input type="number" name="Age" placeholder="나이" required="" >
-								  <a class="genderSelect" href="#" >
+								  <input id="join_age" type="number" name="Age" placeholder="나이" required="" >
+								  <a id="join_gender" class="genderSelect" href="#" >
 								  	<label class="radio-inline">
-								  			<input type="radio" name="Gender1" placeholder="성별" value="남성" required="">남성
+								  			<input  type="radio" name="Gender" placeholder="성별" value="M" required="">남성
 								  		</label>
 										<label class="radio-inline">
-											<input type="radio" name="Gender1" placeholder="성별" value="여성" required="">여성
+											<input type="radio" name="Gender" placeholder="성별" value="W" required="">여성
 								  		</label>
 								  </a>
 								 </div>
-								  <input type="submit" value="Register">
+								  <input id="join_cobook" type="submit" value="Register">
 								</form>
 								<div class="social-icons">
 									<div class="login-button">
-											<a class="fa" id="joinFacebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
-											<a class="go" id="joinGoogle" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
+											<a class="fa" id="join_facebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
+											<a class="go" id="join_google" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
 										<div class="clear"></div>
 									</div>
 								</div>
 							  </div>
 
 									<div class="cta">
-										<a href="#">Forgot your password?</a>
+										<a id="forgotPassword" href="#">Forgot your password?</a>
 									</div>
 								</div>
 							</div>
@@ -246,17 +251,39 @@ $(document).ready(function(){
 			opacity: "toggle"
 		  }, "slow");
 		});
+
+		//Cobook 로그인 버튼   - form의 onsubmit에 등록
+		var login_cobook_function = function(){
+			console.log("ddddddddddddddddddddddd");
+			cobookLogin($("#login_email").val(),$("#login_password").val(),"COBOOKLOGIN");
+		} 
 		
-		//facebook 버튼
-		$("#loginFacebook").on("click", function() {
-			console.log("페이스북 호출");
-			
-			console.log(facebook("login"));
-			console.log("페이스북 end");
-			ChangeForm();
+		var join_cobook_function = function(){
+			console.log("ddddddddddddddddddddddd");
+		}
+		//Cobook 가입 버튼 
+		$("#join_cobook").on("click", function() {
+
 		});
 		
-		function ChangeForm(){
+		//로그인 facebook 버튼
+		$("#login_facebook").on("click", function() {
+
+		});
+		//가입 facebook 버튼
+		$("#join_facebook").on("click", function() {
+
+		});
+		//로그인 google 버튼
+		$("#login_google").on("click", function() {
+
+		});
+		//가입 google 버튼
+		$("#join_google").on("click", function() {
+
+		});
+		
+		function ChangeJoinForm(){
 				  // Switches the Icon
 				  $('.toggle').children('i').toggleClass('fa-pencil');
 				  // Switches the forms  
@@ -273,6 +300,7 @@ $(document).ready(function(){
 			
 		};
 
+		//모달 닫을때, form 초기화 작업
 		$('.modal').on('hidden.bs.modal', function (e) {
 		    $(this).find('form')[0].reset();
 		    $(this).find('form')[1].reset();

@@ -33,6 +33,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody MemberVO vo, HttpSession session){
+		System.out.println("login!!!!!!!111");
 		ResponseEntity<String> entity = null;
 		String result = "FAIL";
 		String msg="OK";
@@ -63,7 +64,8 @@ public class MemberController {
 			entity = new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
 			msg = e.getMessage();
 		}
-		session.setAttribute("msg", msg);
+		//session.setAttribute("msg", msg);
+		System.out.println(msg);
 		return entity;
 	}
 	

@@ -45,8 +45,8 @@
             scope: scopes
         }).then(function () {
         	//해당 구글 버튼 이벤트 부여
-        	loginGoogleButton = document.getElementById("loginGoogle");
-        	loginGoogleButton.onclick =  googleLogin;
+ //       	loginGoogleButton = document.getElementById("loginGoogle");
+ //       	loginGoogleButton.onclick =  googleLogin;
         });
 
       }

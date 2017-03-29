@@ -1,60 +1,10 @@
 
-//이벤트 : api를 이용하여 데이터 받아오기
-var getEmail = function() {
-	
-}
-
-
-var cobookMember = {
-	    // 속성
-	    email: null,
-	    password: null,
-	    loginType: null,
-	    gender : null,
-	    age : null,
-	     
-	    // 메소드
-	    cobookLogin : function(email, password, loginType){
-	    	console.log(this.email+"/" + this.password);
-	    	$.ajax({
-	    		type : 'POST',
-	    		url : '/member/login',
-	    		contentType : "application/json",
-	    		dataType : 'json',
-	    		data  : {
-	    			"email"  :  this.email,
-	    		  	"password" 	 :	this.password,
-	    		  	"loginType" : this.loginType
-	    	  	},
-	    		success : function(result) {
-
-	    			//1. 로그인 성공 -> 로그인 OK 
-	    			// 창닫고, 로그아웃으로 변경 
-	    			
-	    			//2. 로그인 실패 ->
-	    			//			1.google, facebook -> 등록되지않은 에러  -> 회원가입 시켜줌
-	    			//			2. 일반 
-	    			//				>> 등록되지 않은 아이디 -
-	    			//				>> 패스워드 에러            -> alert
-
-	    			console.log(result);
-
-	    		}
-	    	});
-	    },
-	    setJoinForm: function() {
-	    	
-	    }
-	};
-	 
-
-
 //로그인 , 회원가입 여부 판단. 
 var cobookLogin = function(email, password, loginType){
 	console.log(email+"/" + password);
 	$.ajax({
 		type : 'POST',
-		url : '/member/login',
+		url : 'member/login',
 		contentType : "application/json",
 		dataType : 'json',
 		data  : {
