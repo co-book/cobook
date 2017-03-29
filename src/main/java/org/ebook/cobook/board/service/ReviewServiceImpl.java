@@ -48,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
 		// 방금 저장한 게시물의 번호를 가져와서 
 		// 파일테이블에 book_no값을 넣어줘야함
 		filesVO.setBook_no(reviewVO.getReview_no());
-		filesVO.setBook_type("bookreview");
+		filesVO.setBook_type("BOOKREVIEW");
 		
 		String[] files = filesVO.getFiles();
 		if(files == null){return;}

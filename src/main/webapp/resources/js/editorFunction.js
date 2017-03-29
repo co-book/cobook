@@ -20,6 +20,7 @@ function callSummernote(){
 function sendFile(file, editor) {
 	//html5에 기능중 하나인 FormData를 생성 : <form>태그로 만든 데이터의 전송 방식과 동일하게 파일 데이터를 전송할 수 있음.
 	var formdata = new FormData();
+	console.log("파파파file: " + file);
 	formdata.append("file", file);
 	$
 			.ajax({
@@ -37,6 +38,7 @@ function sendFile(file, editor) {
 					console.log(data);
 					//서버명과 로컬호스트가 없어서 안된거였음.
 					var url = data;
+					var uploadPath = "";
 					console.log(url);
 					$('#summernote').summernote('editor.insertImage', url);
 					//url를 받아서 li<input type=hidden name='files' value="url을 넣어준다.">
@@ -45,13 +47,9 @@ function sendFile(file, editor) {
 							.append(
 									"<li class='list-group-item'>"
 											+ dataname
-											+ "<input type='hidden' name='file_url' value='"+url+"'/></li>");
+											+ "<input type='hidden' name='files' value='"+url+"'/></li>");
 
-					$(".list-group")
-							.append(
-									"<li class='list-group-item'>"
-											+ dataname
-											+ "<input type='text' name='file_url' value='"+url+"'/></li>");
+				
 
 				}
 			});

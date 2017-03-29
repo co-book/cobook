@@ -54,7 +54,7 @@ public class MybookServiceImpl implements MybookService {
 		// 방금 저장한 게시물의 번호를 가져와서
 		// 파일테이블에 book_no값을 넣어줘야함
 		filesVO.setBook_no(mybookVO.getMybook_no());
-		filesVO.setBook_type("mybook");
+		filesVO.setBook_type("MYBOOK");
 		// 파일등록 여부를 검사
 		String[] files = filesVO.getFiles();
 		if (files == null) {

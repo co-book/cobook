@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -116,11 +117,13 @@ public class MybookController {
 	  }
 
 	  @RequestMapping(value = "/register", method = RequestMethod.POST)
-	  public String registPOST(MybookVO mybookVO, FilesVO filesVO,RedirectAttributes rttr) throws Exception {
+	  public String registPOST(MybookVO mybookVO, FilesVO filesVO, MultipartFile file,
+			  RedirectAttributes rttr) throws Exception {
 
-	    logger.info("regist post ...........");
-	    logger.info(mybookVO.toString());
-	    System.out.println("mybookVO : "+mybookVO.toString());
+	    logger.debug("regist post ...........");
+	    logger.debug(mybookVO.toString());
+	    logger.debug(filesVO.toString());
+	    filesVO.printFile();
 	    mybookService.writeMybook(mybookVO, filesVO);
 
 	    rttr.addFlashAttribute("msg", "SUCCESS");

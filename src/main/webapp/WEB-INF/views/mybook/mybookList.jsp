@@ -3,9 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
     <div class="agile-news-table">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 									<div class="w3ls-news-result">
-										<h4>Search Results : <span>${size}</span></h4>
+										<h4>Search Results : <span>${fn:length(list)}</span></h4>
 									</div>
 									<table id="table-breakpoint">
 										<thead>

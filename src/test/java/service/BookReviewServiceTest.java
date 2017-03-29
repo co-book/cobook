@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.ebook.cobook.board.domain.Criteria;
+import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.board.service.ReviewService;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,6 +34,7 @@ public class BookReviewServiceTest extends AbstractCommonConfTest{
 	}
 	*/
 	@Test
+	@Ignore
 	public void T()throws Exception{
 		
 		Criteria cri = new Criteria();
@@ -44,6 +46,14 @@ public class BookReviewServiceTest extends AbstractCommonConfTest{
 		}
 		
 		
+	}
+	
+	@Test
+	public void h() throws Exception{
+		List<ReviewVO> list = service.getlastedReviewList();
+		for(ReviewVO vo : list){
+			System.out.println(vo.toString());
+		}
 	}
 	
 	@Test

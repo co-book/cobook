@@ -3,6 +3,7 @@ package org.ebook.cobook.fileUpload.domain;
 import java.util.Arrays;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("FilesVO")
 public class FilesVO {
@@ -13,12 +14,20 @@ public class FilesVO {
 	private Integer book_no;
 	private String book_type;
 	private String filetype;
-
+	private MultipartFile uploadFile;
+	
 	private String[] files;
 
+	public void printFile(){
+		for(int i = 0; i < this.files.length; i++){
+			System.out.println("index : " + i + "파일 : " + files[i].toString());
+		}
+	}
+	
 	// 파일 등록,수정 하는경우에 파일 풀네임을 파싱하는 함수
 	public void parsingFileData(String fullnameFile) {
 
+			System.out.println("파일풀네임: "+fullnameFile);
 			// 파일 url추출
 			this.fileurl = fullnameFile.substring(fullnameFile.indexOf("=") + 1);
 			// 파일 이름 추출
@@ -89,6 +98,14 @@ public class FilesVO {
 
 	public void setFiles(String[] files) {
 		this.files = files;
+	}
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 
 }

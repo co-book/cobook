@@ -3,11 +3,10 @@ package org.ebook.cobook.fileUpload.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-
-import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.ebook.cobook.util.Incoding;
 import org.ebook.cobook.util.MediaUtils;
 import org.ebook.cobook.util.UploadFileUtils;
 import org.slf4j.Logger;
@@ -43,8 +42,10 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		logger.info("파일contentType : " + file.getContentType());
 		
 		String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-		
-		logger.info("uploadedName : " + uploadedName);
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("displayFile", "http://localhost:8080/files/displayFile?fileName="+uploadedName);
+		resultMap.put("uploadedName", uploadedName);
+		logger.debug("uploadedName : " + uploadedName);
 		
 		try{		
 			//http://localhost:8080을 본인의 서버port에 맞게 설정하시면 됩니다.
@@ -132,5 +133,11 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		}
 		return entity;
 	}
+	
+	
+	
+	
+	
+	
 	
 }
