@@ -19,17 +19,20 @@ FROM(
 	  )
 WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
              ]]>
-		<!-- <include refid="search"></include> -->
+		<include refid="search"></include>
 
 	</select>
 
 	<select id="getCriCount" resultType="int">
 	<![CDATA[
-	 SELECT count(mybook_no) 
- 	 FROM mybook
- 	 WHERE mybook_no > 0 
+	  SELECT count(m.mybook_no) 
+ 	 FROM mybook m, files f
+ 	 WHERE m.mybook_no > 0 
+   AND m.MYBOOK_NO = f.BOOK_NO
+   AND f.FILETYPE like 'COVER'
+   AND f.BOOK_TYPE like 'MYBOOK'
 	]]>
-		<!-- <include refid="search"></include> -->
+		<include refid="search"></include>
 
 	</select>
 

@@ -90,7 +90,7 @@ public class MybookController {
 
 	    rttr.addFlashAttribute("msg", "SUCCESS");
 
-	    return "redirect:/sboard/list";
+	    return "redirect:/mybook/";
 	  }
 
 	 // single페이지 요청
@@ -120,7 +120,7 @@ public class MybookController {
 
 	    logger.info(rttr.toString());
 
-	    return "redirect:/sboard/list";
+	    return "redirect:/mybook/";
 	  }
 
 	  @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -144,14 +144,10 @@ public class MybookController {
 			mybookService.writeMybook(mybookVO, filesVO);
 	    logger.debug("regist post ...........");
 	    logger.debug(mybookVO.toString());
-	    //filesVO.setCoverFile(coverFile);
-	    logger.debug(files.toString());
-	    logger.debug(coverFile.toString());
-	  
 
 	    rttr.addFlashAttribute("msg", "SUCCESS");
 
-	    return "redirect:/sboard/list";
+	    return "redirect:/mybook/";
 	  }
 	  
 	  @RequestMapping("/getAttach/{bno}")
