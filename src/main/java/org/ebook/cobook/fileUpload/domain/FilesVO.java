@@ -2,10 +2,8 @@ package org.ebook.cobook.fileUpload.domain;
 
 import java.util.Arrays;
 
-import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
-@Alias("FilesVO")
 public class FilesVO {
 
 	private Integer file_no;
@@ -14,7 +12,7 @@ public class FilesVO {
 	private Integer book_no;
 	private String book_type;
 	private String filetype;
-	private MultipartFile uploadFile;
+	private MultipartFile coverFile;
 	
 	private String[] files;
 
@@ -24,14 +22,17 @@ public class FilesVO {
 		}
 	}
 	
+	
+	
 	// 파일 등록,수정 하는경우에 파일 풀네임을 파싱하는 함수
 	public void parsingFileData(String fullnameFile) {
 
 			System.out.println("파일풀네임: "+fullnameFile);
+			 
 			// 파일 url추출
-			this.fileurl = fullnameFile.substring(fullnameFile.indexOf("=") + 1);
+			this.fileurl = "/resources/summernote_upload"+fullnameFile.substring(fullnameFile.indexOf("=") + 1);
 			// 파일 이름 추출
-			this.filename = fileurl.substring(fileurl.indexOf("_") + 1);
+			this.filename = fileurl.substring(fileurl.lastIndexOf("_") + 1);
 			// 확장자 추출
 			this.filetype = fileurl.substring(fileurl.indexOf(".") + 1);
 
@@ -40,8 +41,8 @@ public class FilesVO {
 	@Override
 	public String toString() {
 		return "FilesVO [file_no=" + file_no + ", filename=" + filename + ", fileurl=" + fileurl + ", book_no="
-				+ book_no + ", book_type=" + book_type + ", filetype=" + filetype + ", files=" + Arrays.toString(files)
-				+ "]";
+				+ book_no + ", book_type=" + book_type + ", filetype=" + filetype + ", coverFile=" + coverFile
+				+ ", files=" + Arrays.toString(files) + "]";
 	}
 
 	public Integer getFile_no() {
@@ -100,12 +101,14 @@ public class FilesVO {
 		this.files = files;
 	}
 
-	public MultipartFile getUploadFile() {
-		return uploadFile;
+	public MultipartFile getCoverFile() {
+		return coverFile;
 	}
 
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
+	public void setCoverFile(MultipartFile coverFile) {
+		this.coverFile = coverFile;
 	}
+
+	
 
 }

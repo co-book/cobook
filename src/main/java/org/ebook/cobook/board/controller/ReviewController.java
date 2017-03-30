@@ -32,23 +32,24 @@ public class ReviewController {
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
 	// 게시물 리스트 = 닉네임 + 파일정보 + 게시물목록
-	/*
-	 * @RequestMapping(value="/reviewList", method = RequestMethod.GET) public
-	 * String mybookList(@ModelAttribute("cri")Criteria cri, Model model)throws
-	 * Exception{
-	 * 
-	 * logger.debug("reviewList 호출"); PageMaker pageMaker = new PageMaker();
-	 * pageMaker.setCri(cri);
-	 * pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
-	 * 
-	 * List<Map<String, Object>> list = reviewService.getBookReviewList(cri);
-	 * 
-	 * logger.debug("사이즈 : "+list.size()); model.addAttribute("list",
-	 * reviewService.getBookReviewList(cri)); model.addAttribute("pageMaker",
-	 * pageMaker); model.addAttribute("size", list.size());
-	 * 
-	 * return "review/reviewList"; }
-	 */
+
+	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
+	public String mybookList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+
+		logger.debug("reviewList 호출");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+
+		List<Map<String, Object>> list = reviewService.getBookReviewList(cri);
+
+		logger.debug("사이즈 : " + list.size());
+		model.addAttribute("list", reviewService.getBookReviewList(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("size", list.size());
+		logger.debug(reviewService.getBookReviewList(cri).toString());
+		return "review/reviewList";
+	}
 
 	// 인기순 리스트
 	@RequestMapping(value = "/popularityList", method = RequestMethod.GET)
@@ -58,7 +59,7 @@ public class ReviewController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
-		
+
 		List<Map<String, Object>> list = reviewService.getReviewPopularity(cri);
 
 		logger.debug("사이즈 : " + list.size());

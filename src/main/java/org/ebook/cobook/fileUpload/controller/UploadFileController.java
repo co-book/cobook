@@ -134,7 +134,23 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		return entity;
 	}
 	
-	
+	@RequestMapping(value="/coverFile", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> coverUpload(MultipartFile coverFile)throws Exception{
+		
+		ResponseEntity<String> entity = null;
+		try{
+			logger.debug("커버파일 업로드");
+			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(), coverFile.getBytes());
+			entity = new ResponseEntity<String>(uploadedName, HttpStatus.OK);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
 	
 	

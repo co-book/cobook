@@ -136,7 +136,7 @@ public class HomeController {
 
 			 */
 
-			@RequestMapping(value = "/mybook", method = RequestMethod.GET)
+			/*@RequestMapping(value = "/mybook", method = RequestMethod.GET)
 
 			public String mybook(Locale locale, Model model) {
 
@@ -144,7 +144,7 @@ public class HomeController {
 
 				return "mybook";
 
-			}
+			}*/
 
 			//Mybook리스트 - 
 

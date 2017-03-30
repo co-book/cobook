@@ -13,4 +13,6 @@ public interface FilesDAO {
 	public void multiFile(String[] files, FilesVO filesVO)throws Exception;
 	
 	public List<String> getAttach(Integer mybook_no)throws Exception; 
+
+	public void insertCoverFile(FilesVO vo)throws Exception;
 }

@@ -78,7 +78,7 @@ margin:5px;
 
 		</c:forEach>
 		<c:if test="${pageMaker.next}">
-			<a id="gt" href="${pageMaker.endPage + 1}">&gt;</a>
+			<a id="gt" href="${pageMaker.makeSearch(pageMaker.endPage + 1)}">&gt;</a>
 		</c:if>
 
 

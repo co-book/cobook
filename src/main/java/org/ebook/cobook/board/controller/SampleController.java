@@ -4,13 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.ebook.cobook.board.domain.Criteria;
+import org.ebook.cobook.board.domain.MybookVO;
 import org.ebook.cobook.board.domain.PageMaker;
 import org.ebook.cobook.board.persistence.SampleDAOImpl;
 import org.ebook.cobook.board.service.MybookService;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
+import org.ebook.cobook.util.UploadFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,13 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value="/sample/*")
 public class SampleController {
 
 	 private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
-		
+     private String uploadPath = "C:\\workspace\\CoBook\\src\\main\\webapp\\resources\\summernote_upload";
+
 		@Inject
 		private MybookService mybookService;
 		
@@ -47,7 +52,7 @@ public class SampleController {
 			model.addAttribute("list", mybookService.getMybookList(cri));
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("size", list.size());
-			
+			logger.debug("페이징: "+pageMaker.toString());
 			return "/sample/board/mybookList";
 		}
 		
@@ -61,12 +66,32 @@ public class SampleController {
 		}
 		
 		@RequestMapping(value="/mWrite", method = RequestMethod.POST)
-		public void writePOST(MultipartFile file)throws Exception{
-			
-			System.out.println("체크");
-			logger.debug("파일 변수:"+file.getName());
-			logger.debug("파일 원본이름: " + file.getOriginalFilename());
-			logger.debug(""+file.getBytes());
-		}
+		  public String mWrtiePOST(@ModelAttribute("mybookVO")MybookVO mybookVO,
+					MultipartFile coverFile, HttpServletRequest req,
+					 RedirectAttributes rttr) throws Exception {
+				
+				    String[] files = req.getParameterValues("files");
+					FilesVO filesVO = new FilesVO();
+					filesVO.setFiles(files);
+					
+					String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(), coverFile.getBytes());
+					logger.debug("업로드네임: " + uploadedName);
+					filesVO.parsingFileData(uploadedName);
+					mybookService.writeMybook(mybookVO, filesVO);
+			    logger.debug("regist post ...........");
+			    logger.debug(mybookVO.toString());
+			    //filesVO.setCoverFile(coverFile);
+			    logger.debug(files.toString());
+			    logger.debug(coverFile.toString());
+			  
+
+			    rttr.addFlashAttribute("msg", "SUCCESS");
+
+			    return "redirect:/sample/board/mybookList";
+			  }
+		
+		
+		
 	
+		
 }

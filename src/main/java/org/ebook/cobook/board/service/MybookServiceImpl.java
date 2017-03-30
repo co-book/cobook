@@ -55,6 +55,9 @@ public class MybookServiceImpl implements MybookService {
 		// 파일테이블에 book_no값을 넣어줘야함
 		filesVO.setBook_no(mybookVO.getMybook_no());
 		filesVO.setBook_type("MYBOOK");
+
+		// 커버 파일 따로등록
+		filesDAO.insertCoverFile(filesVO);
 		// 파일등록 여부를 검사
 		String[] files = filesVO.getFiles();
 		if (files == null) {

@@ -46,6 +46,12 @@ public class FilesDAOImpl implements FilesDAO {
 		return session.selectList(namespace+".getAttach", mybook_no);
 	}
 
+	@Override
+	public void insertCoverFile(FilesVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.insert(namespace+".insertCoverFile", vo);
+	}
+
 
 	
 	

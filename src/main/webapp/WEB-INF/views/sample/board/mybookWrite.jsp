@@ -74,14 +74,30 @@ $(function(){
 		$("#display").text(ebook_no);
 	}); */
 
-	 $("#registerForm").submit(function(event){
+	 $("#save").on("click", function(event){
 		
 		event.preventDefault();
-		var that = $(this);
+		/* var that = $(this);
+		var formData = new FormData();
+		formData.append("coverFile", $("input[name=coverFile]")[0].files[0]);
 		
-		
-		
-		
+		$.ajax({
+			
+			url : '/files/coverFile',
+			processData:false,
+			contentType : false,
+			data : formData,
+			type : 'POST',
+			success : function(result){
+				alert(result);
+				console.log("cover : "+result);
+				var str = "<li><input type='text' name='files[0]' value='"+result+"' /></li>";
+				$(".list-group").append(str);
+			}
+			
+		});
+ */
+		$("#registerForm").submit();
 		
 	}); 
 	
@@ -91,11 +107,11 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
-	<form id="registerForm" action="/mybook/register" method="post" enctype="multipart/form-data">
+	<form id="registerForm" action="/sample/mWrite" method="post" enctype="multipart/form-data">
 	<input type="hidden" id="ebook_no" name="ebook_no" value="" >
 	<input type="hidden" name="member_no" value="${login}">
 	<p>작성자 : <input type="text" name="nickname" value="${nickname.NICKNAME}"></p>
-	<p>책 이미지파일 : <input type="file" name="file"> </p>
+	<p>책 이미지파일 : <input type="file" id="coverFile" name="coverFile"> </p>
 	<p>제목 : <input type="text" name="title"></p>
 <p>	내용 : <textarea id='summernote' name="contents" rows="" cols=""></textarea></p>
 	<button type="button" id="borrowList"  name="button">my book list</button>
@@ -103,7 +119,7 @@ $(function(){
 			<ul class="list-group">
 			</ul>
 	</div>
-	<input type="submit" value="저장하기">
+	<input type="button" id="save" value="저장하기">
 	</form>
 	<div id="display"></div>
 	

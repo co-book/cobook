@@ -70,9 +70,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript">
 $(document).ready(function(){
 	//리스트
+	var page = '${page}';
+	var perPageNum = '${perPageNum}';
+	var searchType = '${searchType}';
+	var keyword = '${keyword}';
+	var url = 'mybook/mybookList?page'+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword;
 	$.ajax({
 		type : "get",
-		url : 'mybook/mybookList',
+		url : url,
 		dataType : 'html',
 		success : function(data) {
 			$('#mybook_mybookList').append(data);

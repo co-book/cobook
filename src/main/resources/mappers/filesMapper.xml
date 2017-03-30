@@ -20,4 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select FILEURL from tbl_attach where book_no = #{book_no} order by regdate
   </select> 
 
+	<insert id="insertCoverFile">
+	insert into files(file_no, book_no, filename, fileurl, book_type, filetype)
+	values
+	(file_no_seq.nextval, #{book_no}, #{filename}, #{fileurl}, #{book_type}, 'COVER')
+	</insert>
+
+
 </mapper>
