@@ -125,7 +125,31 @@ public class MemberController {
 		return entity;
 	}
 
-	
+	// 이메일 보내는 ajax메서드 회원으로부터 이메일값을 받아서 전송한다
+		@ResponseBody
+		@RequestMapping(value="/sendEmail", method = RequestMethod.POST)
+		public ResponseEntity<String> sendEmailPOST(@RequestBody MemberVO vo){
+			
+			ResponseEntity<String> entity = null;
+			System.out.println(vo.toString());
+			try{
+				
+				String authString = "test";//JavaMail.sendMail(vo.getEmail(), "cobook회원님");
+				entity = new ResponseEntity<>(authString, HttpStatus.OK);
+				
+			}catch(Exception e){
+				
+				entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+			
+			return entity;
+		}
+		
+		@RequestMapping(value="/loginPOST", method = RequestMethod.POST)
+		public String loginPOST(){
+			
+			return "redirect:/test/replyTest";
+		}
 	
 	
 	
