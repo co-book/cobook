@@ -11,7 +11,7 @@ var cobookLogin = function(email, password, loginType){
 		  	"loginType" : loginType
 	  	},
 		dataType : 'json',
-		contentType : "application/json",
+		contentType : "application/json;charset=UTF-8",
 		success : function(result) {
 
 			//1. 로그인 성공 -> 로그인 OK 

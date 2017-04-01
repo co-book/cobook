@@ -11,7 +11,7 @@ import org.ebook.cobook.member.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +33,7 @@ public class MemberController {
 	 */
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<String> login(@RequestBody MemberVO vo, HttpSession session){
+	public ResponseEntity<String> login( @RequestBody MemberVO vo, HttpSession session){
 		System.out.println("login!!!!!!!111");
 
 		System.out.println(vo.toString());
