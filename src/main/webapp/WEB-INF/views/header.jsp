@@ -3,11 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- FaceBook sdk -->
 <script>
-var login_cobook1 = function(){
-	console.log("ddddddddddddddddddddddd");
-	cobookLogin($("#login_email").val(),$("#login_password").val(),"COBOOKLOGIN");
-} 
-
 window.fbAsyncInit = function() {
 	FB.init({
 		appId : '135805423595994',
@@ -254,7 +249,6 @@ $(document).ready(function(){
 
 		//Cobook 로그인 버튼   - form의 onsubmit에 등록
 		var login_cobook_function = function(){
-			console.log("ddddddddddddddddddddddd");
 			cobookLogin($("#login_email").val(),$("#login_password").val(),"COBOOKLOGIN");
 		} 
 		

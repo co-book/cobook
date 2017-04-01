@@ -1,17 +1,17 @@
 
 //로그인 , 회원가입 여부 판단. 
 var cobookLogin = function(email, password, loginType){
-	console.log(email+"/" + password);
+	console.log(email+"/" + password + "/" +loginType);
 	$.ajax({
 		type : 'POST',
 		url : 'member/login',
-		contentType : "application/json",
-		dataType : 'json',
 		data  : {
 			"email"  :  email,
 		  	"password" 	 :	password,
 		  	"loginType" : loginType
 	  	},
+		dataType : 'json',
+		contentType : "application/json",
 		success : function(result) {
 
 			//1. 로그인 성공 -> 로그인 OK 

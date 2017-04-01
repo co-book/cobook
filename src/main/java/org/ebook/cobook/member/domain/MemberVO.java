@@ -7,11 +7,11 @@ public class MemberVO {
 
 	private int member_no;
 	private String nickname;
-	private String password;
 	private String gender;
 	private int age;
 	private int myPoint;
 	private String email;
+	private String password;
 	private String loginType;
 	
 	
@@ -67,7 +67,7 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [member_no=" + member_no + ", nickname=" + nickname + ", password=" + password + ", gender=" + gender
-				+ ", age=" + age + ", myPoint=" + myPoint + ", email=" + email + "]";
+				+ ", age=" + age + ", myPoint=" + myPoint + ", email=" + email +", loginType=" + loginType + "]";
 	}
 	
 	

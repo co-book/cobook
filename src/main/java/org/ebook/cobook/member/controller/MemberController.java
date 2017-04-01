@@ -11,6 +11,7 @@ import org.ebook.cobook.member.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,15 +31,22 @@ public class MemberController {
 	 * @param session
 	 * @return
 	 */
-	@ResponseBody
+	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
+	@ResponseBody
 	public ResponseEntity<String> login(@RequestBody MemberVO vo, HttpSession session){
 		System.out.println("login!!!!!!!111");
+
+		
+		System.out.println(vo.toString());
+		System.out.println(vo.getEmail());
+		System.out.println(vo.getPassword());
+		System.out.println(vo.getLoginType());
+		
 		ResponseEntity<String> entity = null;
 		String result = "FAIL";
 		String msg="OK";
 		
-		System.out.println(vo.toString());
 		try{
 			MemberVO member = service.getMember(vo);
 			//회원가입여부 체크 
@@ -69,7 +77,6 @@ public class MemberController {
 		return entity;
 	}
 	
-
 	/**
 	 * 회원가입
 	 * @param vo
