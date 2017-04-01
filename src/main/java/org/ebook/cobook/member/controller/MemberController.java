@@ -37,7 +37,6 @@ public class MemberController {
 	public ResponseEntity<String> login(@RequestBody MemberVO vo, HttpSession session){
 		System.out.println("login!!!!!!!111");
 
-		
 		System.out.println(vo.toString());
 		System.out.println(vo.getEmail());
 		System.out.println(vo.getPassword());
