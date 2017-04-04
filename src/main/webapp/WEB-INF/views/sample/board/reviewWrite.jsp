@@ -10,9 +10,9 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script type="text/javascript"
-		src="/resources/test/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+		src="/cobook/resources/test/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 	<link rel="stylesheet"
-		href="/resources/test/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+		href="/cobook/resources/test/jquery-ui-1.12.1.custom/jquery-ui.min.css">
 		<link
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
 	rel="stylesheet">
@@ -21,9 +21,9 @@
 	<link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css"
 	rel="stylesheet">
-<script src="/resources/editor/dist/summernote.js"></script>
-<script src="/resources/editor/dist/lang/summernote-ko-KR.js"></script>
-<script src="/resources/js/editorFunction.js"></script>
+<script src="/cobook/resources/editor/dist/summernote.js"></script>
+<script src="/cobook/resources/editor/dist/lang/summernote-ko-KR.js"></script>
+<script src="/cobook/resources/js/editorFunction.js"></script>
 	<script type="text/javascript">
 $(function(){
 	callSummernote();
@@ -56,7 +56,7 @@ $(function(){
 				$("#dialog").show();
 				$("#dialog").dialog("open");
 				var member_no = 10;
-				$.getJSON("/ajax/borrowedBook/" + member_no, function(data) {
+				$.getJSON("/cobook/ajax/borrowedBook/" + member_no, function(data) {
 					
 					console.log(data);
 					var template=Handlebars.compile($("#books").html());
@@ -69,22 +69,31 @@ $(function(){
 	// 빌린책 리스트중 하나를 클릭 하면 히든값으로 배치됨
 	$("#bookList").on("click", "#book", function(){
 		console.log("책 클릭");
-		console.log($(this));
-		var ebook_no = $(this).data('data-ebookno');
-		var src = $(this).attr(src);
-		$("#ebook").val(ebook_no);
+		var imgObj = $(this).children().first();
+		var ebook_no = $(this).children().first().attr('data-ebookno');
+		console.log("ebook_no값: " + ebook_no);
+		var src = imgObj.attr('data-src');
+		console.log($('input[name=ebook_no]'));
+		$('input[name=ebook_no]').val(ebook_no);
 		$("#display").text(ebook_no);
 		$("#setImg").attr("src", src);
+		$("#dialog").dialog("close");
 	}); 
 
+	// 전송 submit
 	 $("#save").on("click", function(event){
 		
 		event.preventDefault();
 		
+		// 모달창 파일선택시 files 이름명에 값이 들어가는걸 제외함
+		$("input[multiple=multiple]").remove();
  
 		$("#registerForm").submit();
 		
 	}); 
+	 
+	 
+	 
 	
 });
 	</script>
@@ -92,14 +101,14 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
-	<form id="registerForm" action="/sample/reviewWrite" method="post">
-	<input type="hidden" id="ebook_no" name="ebook_no" value="" >
-	<input type="hidden" name="member_no" value="${login}">
-	<input type="text" name="evaluate" value="3.0">
-	<p>작성자 : <input type="text" name="nickname" value="${nickname.NICKNAME}"></p>
+	<form id="registerForm" action="/cobook/sample/Rregister" method="post">
+	<input type="hidden" id="ebook_no" name="ebook_no" />
+	<input type="hidden" name="member_no" value="${login.MEMBER_NO}" />
+	<p>작성자 : <input type="text" name="nickname" value="${login.NICKNAME}"></p>
 	<p>책 이미지파일 : <img id="setImg" alt="" src="">
 	<p>제목 : <input type="text" name="title"></p>
-<p>	내용 : <textarea id='summernote' name="contents" rows="" cols=""></textarea></p>
+	<p>평점 : <input type="text" name="evaluate" value="3.0"></p>
+	<p>	내용 : <textarea id='summernote' name="contents" rows="" cols=""></textarea></p>
 	<button type="button" id="borrowList"  name="button">my book list</button>
 	<div class="form-group">
 			<ul class="list-group">
@@ -108,9 +117,6 @@ $(function(){
 	<input type="button" id="save" value="저장하기">
 	</form>
 	<div id="display"></div>
-	
-	
-	
 	
 	<div id="dialog" title="대여한책">
 		<div id="bookList">
@@ -122,7 +128,7 @@ $(function(){
 	</div>
 <script id="books" type="text/x-handlebars-template">
 {{#each .}}
-<p><a id="book" href="#" data-ebookno={{EBOOK_NO}} data-src={{COVERURL}} ><img src='{{COVER_URL}}' alt="책이미지" />
+<p><a id="book" href="#" data-ebookno={{EBOOK_NO}} data-src={{COVERURL}} ><img src='{{COVER_URL}}' data-ebookno={{EBOOK_NO}} data-src={{COVERURL}}  alt="책이미지" />
 </a></p>
 			<p>{{TITLE}}</p>
 {{/each}}

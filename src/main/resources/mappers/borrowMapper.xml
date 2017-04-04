@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.BorrowedBookMapper">
 
 	<select id="bollowBookList" resultType="map">
-		  SELECT e.ebook_no, e.title, e.coverurl
+		SELECT e.ebook_no, e.title, e.coverurl
 		FROM ebook e
 		WHERE EXISTS(SELECT ebook_no FROM borrow b
 		WHERE member_no = #{member_no} AND e.ebook_no = b.ebook_no)

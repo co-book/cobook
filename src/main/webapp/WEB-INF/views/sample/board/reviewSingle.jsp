@@ -9,14 +9,16 @@
 <title>싱글페이지</title>
 </head>
 <body>
-
-	<p>제목 : ${mybookVO.TITLE}</p>
-	<p>작성자 : ${mybookVO.NICKNAME}</p>
-	<p>이미지 : <img src='${mybookVO.FILEURL}'></p>
-	<p>내용 : ${mybookVO.CONTENTS}</p>
-	<p>조회수 : ${mybookVO.HIT}</p>
-	<p>날짜 : ${mybookVO.REG_DATE}</p>
+	<p>글번호 : ${reviewVO.REVIEW_NO}</p>
+	<p>제목 : ${reviewVO.TITLE}</p>
+	<p>작성자 : ${reviewVO.NICKNAME}</p>
+	<p>이미지 : <img alt="" src="${reviewVO.COVERURL}"> </p>
+	<p>내용 : ${reviewVO.CONTENTS}</p>
+	<p>조회수 : ${reviewVO.HIT}</p>
+	<p>날짜 : ${reviewVO.REG_DATE}</p>
+	<p>평점 : ${reviewVO.EVALUATE}
 	<p>댓글 총 갯수 : ${REPLYCOUNT}</p>
+	
 	
 	
 	<button class="modBtn">수정</button>
@@ -25,7 +27,7 @@
 	
 	<!-- FormHtml -->
 <form class="singleForm" action="" method="post">
-	<input type="hidden" id="mybook_noTxt" name="mybook_no" value="">
+	<input type="hidden" id="review_noTxt" name="review_no" value="">
 	<input type="hidden" id="pageTxt"  name="page" value="">
 	<input type="hidden" id="perPageNumTxt" name="perPageNum"  value="">
 </form>	
@@ -33,7 +35,7 @@
 <script type="text/javascript">
 $(function(){
 	
-	var mybook_no = '${mybookVO.MYBOOK_NO}';
+	var review_no = '${reviewVO.REVIEW_NO}';
 	var page = '${cri.page}';
 	var perPageNum = '${cri.perPageNum}';
 	var searchType = '${cri.searchType}';
@@ -42,39 +44,41 @@ $(function(){
 	var formObj = $(".singleForm");
 	
 	console.log("값테스트");
-	console.log("mybook_no = " + mybook_no);
+	console.log("review_no = " + review_no);
 	console.log("page = " + page);
 	console.log("perPageNum = " + perPageNum);
 	
 	$(".modBtn").on("click", function(){
 		
-		 var url = "/cobook/sample/modifyPage";
+		 var url = "/cobook/sample/RmodifyPage?review_no="+review_no;
 		//$(location).attr("href", url);
 		formObj.attr("action", url);
 		formObj.attr("method", "get");
-		$("#mybook_noTxt").val(mybook_no);
+		$("#review_noTxt").val(review_no);
 		$("#pageTxt").val(page);
 		$("#perPageNumTxt").val(perPageNum);
 		formObj.submit();
 	});
 	
+	// 삭제버튼 처리
 	$(".rmBtn").on("click", function(){
 		console.log("삭제버튼 클릭");
-		var url = "/cobook/sample/MremovePage";
+		var url = "/cobook/sample/bRremovePage";
 		formObj.attr("action", url);
 		formObj.attr("method", "post");		
-		$("#mybook_noTxt").val(mybook_no);
+		$("#review_noTxt").val(review_no);
 		$("#pageTxt").val(page);
 		$("#perPageNumTxt").val(perPageNum);
 		// 에디터로 추가된 img태그들의 객체를 가져옴
 		var imgObj = $("img[src*='display']");
 		createFileInput(imgObj);
+		
 		formObj.submit();
 	});
 	
 	$(".listBtn").on("click", function(){
 		console.log("리스트버튼 클릭");
-		var url = "/cobook/sample/mybookList?page="+page+"&perPageNum="+perPageNum
+		var url = "/cobook/sample/reviewList?page="+page+"&perPageNum="+perPageNum
 				+ "&searchType="+searchType+"&keyword="+keyword;
 		$(location).attr("href", url);
 	});

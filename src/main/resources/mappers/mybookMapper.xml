@@ -5,8 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.MybookMapper">
 
+	<resultMap type="java.util.HashMap" id="ResMap">
+		<result property="CONTENTS" javaType="java.lang.String" jdbcType="CLOB" typeHandler="org.apache.ibatis.type.ClobTypeHandler" column="CONTENTS" />
 	
-	<select id="getMybookList" resultType="map" parameterType="org.ebook.cobook.board.domain.Criteria">
+	</resultMap>
+
+
+
+	<select id="getMybookList" resultType="map"
+		parameterType="org.ebook.cobook.board.domain.Criteria">
 <![CDATA[
 SELECT mybook_no, title, reg_date, nickname, hit, fileurl 
 FROM(
@@ -58,22 +65,26 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 
 	</insert>
 
-	<select id="getMybookSingle" resultType="map">
-		SELECT m.mybook_no, m.member_no, m.title, m.contents, m.hit, m.reg_date
-		, f.file_no, f.fileurl
-		FROM mybook m, files f
+	<select id="getMybookSingle" resultMap="ResMap">
+		SELECT m.mybook_no,
+		m.member_no, m.title, m.contents, m.hit, m.reg_date
+		, f.file_no, f.fileurl, m2.nickname
+		FROM mybook m, files f, member m2
 		WHERE m.mybook_no = #{mybook_no}
-		AND m.mybook_no = f.book_no
+		AND
+		m.mybook_no = f.book_no
 		AND f.BOOK_TYPE like 'MYBOOK'
-		AND f.FILETYPE like 'COVER'
-
+		AND f.FILETYPE
+		like 'COVER'
+		AND m.member_no = m2.member_no
 	</select>
 
 	<update id="update">
 		UPDATE MYBOOK
 		SET
 		TITLE = #{title},
-		CONTENTS = #{contents}
+		CONTENTS =
+		#{contents}
 		WHERE MYBOOK_NO = #{mybook_no}
 	</update>
 
@@ -87,7 +98,8 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		SET
 		hit = hit + 1
 		WHERE
-		mybook_no = #{mybook_no}
+		mybook_no =
+		#{mybook_no}
 
 	</update>
 

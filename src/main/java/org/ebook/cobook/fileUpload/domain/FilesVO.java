@@ -24,13 +24,14 @@ public class FilesVO {
 	
 	
 	
+	
 	// 파일 등록,수정 하는경우에 파일 풀네임을 파싱하는 함수
 	public void parsingFileData(String fullnameFile) {
 
 			System.out.println("파일풀네임: "+fullnameFile);
 			 
 			// 파일 url추출
-			this.fileurl = "/resources/summernote_upload"+fullnameFile.substring(fullnameFile.indexOf("=") + 1);
+			this.fileurl = "/cobook/resources/summernote_upload"+fullnameFile.substring(fullnameFile.indexOf("=") + 1);
 			// 파일 이름 추출
 			this.filename = fileurl.substring(fileurl.lastIndexOf("_") + 1);
 			// 확장자 추출

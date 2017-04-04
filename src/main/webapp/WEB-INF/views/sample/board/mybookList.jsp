@@ -5,16 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>
 $(function(){
 	
-	/* $("#paging").on("click", "#pageLink", function(event){
-		event.preventDefault();
-		
-		
-		
-	}); */
+	$("#write").on("click", function(){
+		var url = "/cobook/sample/mRegister";
+		$(location).attr('href', url);
+	});
 	
 	
 });
@@ -33,7 +31,7 @@ margin:5px;
 <title>게시판 Sample</title>
 </head>
 <body>
-
+	<button id="write">글쓰기</button>
 	<table>
 		<thead>
 			<tr>
@@ -49,7 +47,7 @@ margin:5px;
 				<tr>
 					<td>${vo.MYBOOK_NO}</td>
 					<td class="w3-list-img"><a
-						href="/mybook/single?mybook_no=${vo.MYBOOK_NO}&page=${cri.page}&perPageNum=${cri.perPageNum}"><img
+						href="/cobook/sample/mSingle?mybook_no=${vo.MYBOOK_NO}&page=${cri.page}&perPageNum=${cri.perPageNum}"><img
 							src="${vo.FILEURL}" alt="" /> <span>${vo.TITLE}</span></a></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${vo.REG_DATE}" /></td>

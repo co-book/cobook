@@ -15,6 +15,9 @@ import org.ebook.cobook.board.persistence.SampleDAOImpl;
 import org.ebook.cobook.board.service.MybookService;
 import org.ebook.cobook.board.service.ReviewService;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
+import org.ebook.cobook.member.domain.MemberVO;
+import org.ebook.cobook.member.service.MemberService;
+import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.util.UploadFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +45,10 @@ public class SampleController {
 
 	@Inject
 	private SampleDAOImpl sampleDAO;
+	
+	
 
-	@RequestMapping(value = "/mList", method = RequestMethod.GET)
+	@RequestMapping(value = "/mybookList", method = RequestMethod.GET)
 	public String testMybook(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
 		logger.debug("mybookList 호출");
@@ -61,16 +66,34 @@ public class SampleController {
 		return "/sample/board/mybookList";
 	}
 
-	@RequestMapping(value = "/mWrite", method = RequestMethod.GET)
-	public String write(Model model, HttpSession session) throws Exception {
+	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
+	public String mybookList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+
+		logger.debug("reviewList 호출");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+
+		List<Map<String, Object>> list = reviewService.getBookReviewList(cri);
+
+		logger.debug("사이즈 : " + list.size());
+		model.addAttribute("list", reviewService.getBookReviewList(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("size", list.size());
+		logger.debug(reviewService.getBookReviewList(cri).toString());
+		return "/sample/board/reviewList";
+	}
+	
+	
+	@RequestMapping(value = "/mRegister", method = RequestMethod.GET)
+	public String writeGET(Model model, HttpSession session) throws Exception {
 
 		Integer member_no = new Integer(3);
-		session.setAttribute("login", member_no);
-		model.addAttribute("nickname", sampleDAO.findNickName(member_no));
+		session.setAttribute("login", sampleDAO.findNickName(member_no));
 		return "/sample/board/mybookWrite";
 	}
 
-	@RequestMapping(value = "/mWrite", method = RequestMethod.POST)
+	@RequestMapping(value = "/mRegister", method = RequestMethod.POST)
 	public String mWrtiePOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
 			HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 
@@ -87,31 +110,174 @@ public class SampleController {
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/sample/mList";
+		return "redirect:/sample/mybookList";
 	}
 
-	@RequestMapping(value = "/reviewWrite", method = RequestMethod.GET)
+	@RequestMapping(value = "/Rregister", method = RequestMethod.GET)
 	public String reviewWGET(Model model, HttpSession session) throws Exception {
 
 		Integer member_no = new Integer(3);
-		session.setAttribute("login", member_no);
-		model.addAttribute("nickname", sampleDAO.findNickName(member_no));
+		session.setAttribute("login", sampleDAO.findNickName(member_no));
+		
 		return "/sample/board/reviewWrite";
 	}
 	
 	
-	@RequestMapping(value = "/reviewWrite", method = RequestMethod.POST)
-	public String reviewWPOST(ReviewVO reviewVO, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/Rregister", method = RequestMethod.POST)
+	public String reviewWPOST(HttpServletRequest req,ReviewVO reviewVO, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
 
-		logger.info("regist post ...........");
-		logger.info(reviewVO.toString());
-		System.out.println("reviewVO : " + reviewVO.toString());
-		System.out.println("filesVO : " + filesVO.toString());
+		logger.debug("regist post ...........");
+		logger.debug("파일명 확인" + filesVO.toString());
+		
 		reviewService.writeReview(reviewVO, filesVO);
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/sample/mList";
+		return "redirect:/sample/reviewList";
 	}
+	
+	@RequestMapping(value="/mSingle", method = RequestMethod.GET)
+	public String mybookSingle(@RequestParam("mybook_no") int mybook_no, @ModelAttribute("cri") Criteria cri, Model model)throws Exception{
+		
+		ReplyVO vo = new ReplyVO();
+		vo.setBoard_no(mybook_no);
+		vo.setParent_type("MYBOOK");
+		
+		model.addAttribute("mybookVO",mybookService.getMybookSingle(mybook_no));
+		model.addAttribute("REPLYCOUNT", mybookService.getReplyCount(vo));
+		
+		return "/sample/board/mybookSingle";
+	}
+	
+	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
+		 @RequestMapping(value = "/MremovePage", method = RequestMethod.POST)
+		  public String remove(@RequestParam("mybook_no") int mybook_no, Criteria cri, RedirectAttributes rttr) throws Exception {
 
+			 FilesVO filesVO = new FilesVO();
+			 filesVO.setBook_no(mybook_no);
+			 filesVO.setBook_type("MYBOOK");
+			 
+		    mybookService.deleteMybook(mybook_no, filesVO);
+		    
+		    rttr.addAttribute("page", cri.getPage());
+		    rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		    rttr.addAttribute("searchType", cri.getSearchType());
+		    rttr.addAttribute("keyword", cri.getKeyword());
+
+		    rttr.addFlashAttribute("msg", "SUCCESS");
+
+		    return "redirect:/sample/mybookList";
+		  }
+
+		 
+		 // single페이지 요청
+		  @RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
+		  public String modifyPagingGET(int mybook_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+
+		    model.addAttribute("mybookVO", mybookService.getMybookSingle(mybook_no));
+		    return "/sample/board/mybookModify";
+		  }
+
+		  // 게시물 수정처리
+		  // 한게시물의 그림파일을 전부 삭제하고 다시 넣어준다
+		  // 주의 cover파일일경우 처리
+		  @RequestMapping(value = "/MmodifyPage", method = RequestMethod.POST)
+		  public String modifyPagingPOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
+					@ModelAttribute("cri")Criteria cri,HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+
+			  String[] files = req.getParameterValues("files");
+			  FilesVO filesVO = new FilesVO();
+			  filesVO.setFiles(files);
+			  filesVO.setBook_no(mybookVO.getMybook_no());
+			  filesVO.setBook_type("MYBOOK");
+
+				String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
+						coverFile.getBytes());
+				logger.debug("업로드네임: " + uploadedName);
+				filesVO.parsingFileData(uploadedName);
+		    mybookService.modifyMybook(mybookVO, filesVO);
+
+		    rttr.addAttribute("page", cri.getPage());
+		    rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		    rttr.addAttribute("searchType", cri.getSearchType());
+		    rttr.addAttribute("keyword", cri.getKeyword());
+
+		    rttr.addFlashAttribute("msg", "SUCCESS");
+
+		    logger.info(rttr.toString());
+
+		    return "redirect:/sample/mybookList";
+		  }
+		  
+		  @RequestMapping(value = "/Rsingle", method = RequestMethod.GET)
+			public String read(@RequestParam("review_no") int review_no, @ModelAttribute("cri") Criteria cri,
+					@RequestParam(value = "reply_no", required = false) Integer reply_no, Model model) throws Exception {
+
+				ReplyVO vo = new ReplyVO();
+				vo.setBoard_no(review_no);
+				vo.setParent_type("BOOKREVIEW");
+				model.addAttribute("reviewVO", reviewService.getReviewSingle(review_no));
+				model.addAttribute("REPLYCOUNT", reviewService.getReplyCount(vo));
+				model.addAttribute("reply_no", reply_no);
+				
+				return "/sample/board/reviewSingle";
+			}
+		  
+			// single페이지 요청
+			@RequestMapping(value = "/RmodifyPage", method = RequestMethod.GET)
+			public String rModifyPagingGET(int review_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+
+				model.addAttribute("reviewVO",reviewService.getReviewSingle(review_no));
+				
+				return "/sample/board/reviewModify";
+			}
+
+			// 게시물 수정처리
+			// 한게시물의 그림파일을 전부 삭제하고 다시 넣어준다
+			// 주의 cover파일일경우 처리
+			@RequestMapping(value = "/RmodifyPage", method = RequestMethod.POST)
+			public String rModifyPagingPOST(ReviewVO reviewVO, Criteria cri, FilesVO filesVO, RedirectAttributes rttr)
+					throws Exception {
+
+				logger.info(cri.toString());
+				filesVO.setBook_no(reviewVO.getReview_no());
+				filesVO.setBook_type("BOOKREVIEW");
+				logger.debug("수정호출");
+				logger.debug("reviewVO : "+reviewVO.toString());
+				logger.debug("filesVO : "+filesVO.toString());
+				reviewService.modifyBookReview(reviewVO, filesVO);
+
+				rttr.addAttribute("page", cri.getPage());
+				rttr.addAttribute("perPageNum", cri.getPerPageNum());
+				rttr.addAttribute("searchType", cri.getSearchType());
+				rttr.addAttribute("keyword", cri.getKeyword());
+
+				rttr.addFlashAttribute("msg", "SUCCESS");
+
+				logger.info(rttr.toString());
+
+				return "redirect:/sample/Rsingle?review_no="+reviewVO.getReview_no();
+			}
+		  
+			// 리뷰
+			// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
+			@RequestMapping(value = "/bRremovePage", method = RequestMethod.POST)
+			public String bRremove(@RequestParam("review_no") int review_no, Criteria cri, RedirectAttributes rttr)
+					throws Exception {
+
+				FilesVO filesVO = new FilesVO();
+				filesVO.setBook_no(review_no);
+				filesVO.setBook_type("REVIEW");
+
+				reviewService.deleteReview(review_no, filesVO);
+
+				rttr.addAttribute("page", cri.getPage());
+				rttr.addAttribute("perPageNum", cri.getPerPageNum());
+				rttr.addAttribute("searchType", cri.getSearchType());
+				rttr.addAttribute("keyword", cri.getKeyword());
+
+				rttr.addFlashAttribute("msg", "SUCCESS");
+
+				return "redirect:/sample/board/reviewList";
+			}
 }

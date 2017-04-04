@@ -6,6 +6,7 @@ import java.util.Map;
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.MybookVO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
+import org.ebook.cobook.reply.domain.ReplyVO;
 
 public interface MybookService {
 
@@ -27,4 +28,6 @@ public interface MybookService {
 	 // 내가 작성한 마이북 리스트
 	 public List<Map<String, Object>> getUserMybookList(Map<String, Object> paramMap)throws Exception;
 
+	 // 리플 총 갯수
+	 public int getReplyCount(ReplyVO vo) throws Exception;
 }

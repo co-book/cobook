@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Co-Book World!</title>
+<title>Co-123Book World!</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,41 +16,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
 <!-- //for-mobile-apps -->
-<link href="resources/CoBookDesign/css/bootstrap.css" rel="stylesheet"
+<link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/style.css" rel="stylesheet"
+<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet"
 	type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/faqstyle.css" rel="stylesheet"
+<link href="/cobook/resources/CoBookDesign/css/faqstyle.css" rel="stylesheet"
 	type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/medile.css" rel='stylesheet'
+<link href="/cobook/resources/CoBookDesign/css/medile.css" rel='stylesheet'
 	type='text/css' />
-<link href="resources/CoBookDesign/css/single.css" rel='stylesheet'
+<link href="/cobook/resources/CoBookDesign/css/single.css" rel='stylesheet'
 	type='text/css' />
-<link href="resources/CoBookDesign/css/contactstyle.css"
+<link href="/cobook/resources/CoBookDesign/css/contactstyle.css"
 	rel="stylesheet" type="text/css" media="all" />
 <!-- news-css -->
-<link href="resources/CoBookDesign/news-css/news.css" rel="stylesheet"
+<link href="/cobook/resources/CoBookDesign/news-css/news.css" rel="stylesheet"
 	type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
-<link href="resources/CoBookDesign/list-css/list.css" rel="stylesheet"
+<link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet"
 	type="text/css" media="all" />
 <!-- //list-css -->
 <!-- font-awesome icons -->
-<link href="resources/CoBookDesign/css/font-awesome.min.css"
+<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css"
 	rel="stylesheet" />
 <!-- //font-awesome icons -->
 <!-- js -->
 <script type="text/javascript"
-	src="resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
+	src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <!-- //js -->
 <link
 	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
 	rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
 <script type="text/javascript"
-	src="resources/CoBookDesign/js/move-top.js"></script>
-<script type="text/javascript" src="resources/CoBookDesign/js/easing.js"></script>
+	src="/cobook/resources/CoBookDesign/js/move-top.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/easing.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -61,20 +61,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 <!-- start-smoth-scrolling -->
 <!-- tables -->
-<link href="resources/CoBookDesign/list-css/table-style.css"
+<link href="/cobook/resources/CoBookDesign/list-css/table-style.css"
 	rel="stylesheet" type="text/css" />
-<link href="resources/CoBookDesign/list-css/basictable.css"
+<link href="/cobook/resources/CoBookDesign/list-css/basictable.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
-	src="resources/CoBookDesign/list-js/jquery.basictable.min.js"></script>
+	src="/cobook/resources/CoBookDesign/list-js/jquery.basictable.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	//리스트
-	var page = '${page}';
-	var perPageNum = '${perPageNum}';
-	var searchType = '${searchType}';
-	var keyword = '${keyword}';
-	var url = 'mybook/mybookList?page'+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword;
+	var page = '${cri.page}';
+	var perPageNum = '${cri.perPageNum}';
+	var searchType = '${cri.searchType}';
+	var keyword = '${cri.keyword}';
+	var url = '/cobook/mybook/mybookList?page='+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword;
+	
 	$.ajax({
 		type : "get",
 		url : url,

@@ -27,6 +27,9 @@
 	<script type="text/javascript">
 $(function(){
 	callSummernote();
+	// file요소 삭제
+	$("input[multiple=multiple]").remove();
+	
 	$("#dialog").hide();
 	// 팝업창 초기화
 		$("#dialog").dialog({
@@ -50,28 +53,19 @@ $(function(){
 
 		});
 
- 	// 빌린책 팝업창 클릭
-	$("#borrowList").on("click", function(){
-				console.log("팝업창 클릭");
-				$("#dialog").show();
-				$("#dialog").dialog("open");
-				var member_no = 10;
-				$.getJSON("/ajax/borrowedBook/" + member_no, function(data) {
-					
-					console.log(data);
-					var template=Handlebars.compile($("#books").html());
-					var html = template(data);
-					$("#bookList").html(html);
-				});
-
-	});
-	
-	
 
 	 $("#save").on("click", function(event){
 		
+		 var imgObj = $("img[src*='display']");
 		event.preventDefault();
+		var str = "";
+		// textarea에 <img>태그객체를 가져와서 객체당 input요소를 생성
+		imgObj.each(function(index){
+			str += "<input type='hidden' name='files' value='"+$(this).
+			attr("src") +"'>";
+		});
 		
+		$("form").append(str);
 		$("#registerForm").submit();
 		
 	}); 
@@ -82,39 +76,29 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
-	<form id="registerForm" action="/cobook/sample/mRegister" method="post" enctype="multipart/form-data">
-	<input type="hidden" id="ebook_no" name="ebook_no" value="" >
+	<form id="registerForm" action="/cobook/sample/MmodifyPage" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="member_no" value="${login.MEMBER_NO}">
+	<input type="hidden" name="mybook_no" value="${mybookVO.MYBOOK_NO}">
+	<input type="hidden" name="fileurl" value="${mybookVO.FILEURL}">
 	<p>작성자 : <input type="text" name="nickname" value="${login.NICKNAME}"></p>
 	<p>책 이미지파일 : <input type="file" id="coverFile" name="coverFile"> </p>
-	<p>제목 : <input type="text" name="title"></p>
-<p>	내용 : <textarea id='summernote' name="contents" rows="" cols=""></textarea></p>
+	<img alt="" src="${mybookVO.FILEURL}">
+	<p>제목 : <input type="text" name="title" value="${mybookVO.TITLE}"></p>
+<p>	내용 : <textarea id='summernote' name="contents" rows="" cols="">${mybookVO.CONTENTS}</textarea></p>
 	<button type="button" id="borrowList"  name="button">my book list</button>
 	<div class="form-group">
 			<ul class="list-group">
 			</ul>
 	</div>
-	<input type="button" id="save" value="저장하기">
+	<input type="button" id="save" value="수정하기">
 	</form>
 	<div id="display"></div>
 	
 	
 	
 	
-	<div id="dialog" title="대여한책">
-		<div id="bookList">
-			<p><img src="" alt="책이미지" /></p>
-			<p>책이름</p>
-		</div>
+	
 
-	</div>
-<script id="books" type="text/x-handlebars-template">
-{{#each .}}
-<p><a id="book" href="#" data-ebookno='{{EBOOK_NO}}'><img src='{{COVER_URL}}' alt="책이미지" />
-</p>
-			<p>{{TITLE}}</p>
-{{/each}}
-</script>
 
 </body>
 </html>

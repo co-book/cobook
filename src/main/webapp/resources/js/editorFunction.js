@@ -24,7 +24,7 @@ function sendFile(file, editor) {
 	$
 			.ajax({
 				type : "POST",
-				url : '/files/uploadFile',
+				url : '/cobook/files/uploadFile',
 				data : formdata,
 				dataType : 'text',
 				cache : false,
@@ -35,6 +35,10 @@ function sendFile(file, editor) {
 				contentType : false,
 				success : function(data) {
 					console.log(data);
+					
+					
+					
+					
 					//서버명과 로컬호스트가 없어서 안된거였음.
 					var url = data;
 					var uploadPath = "";

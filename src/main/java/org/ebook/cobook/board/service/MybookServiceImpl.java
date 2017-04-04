@@ -1,5 +1,6 @@
 package org.ebook.cobook.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import org.ebook.cobook.board.persistence.MybookDAO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.fileUpload.persistence.FilesDAO;
 import org.ebook.cobook.mypage.persistence.MyPageDAO;
+import org.ebook.cobook.reply.domain.ReplyVO;
+import org.ebook.cobook.reply.persistence.ReplyDAO;
 import org.springframework.stereotype.Service;
 
 
@@ -25,6 +28,9 @@ public class MybookServiceImpl implements MybookService {
 
 	@Inject
 	private MyPageDAO myPageDAO;
+	
+	@Inject
+	private ReplyDAO replyDAO;
 	
 	@Override
 	public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception {
@@ -73,6 +79,8 @@ public class MybookServiceImpl implements MybookService {
 		filesDAO.deleteFile(filesVO);
 
 		mybookDAO.modifyMybook(mybookVO);
+		// 커버 파일등록
+		filesDAO.insertCoverFile(filesVO);
 		// 파일등록 여부를 검사
 		String[] files = filesVO.getFiles();
 		if (files == null) {
@@ -103,6 +111,15 @@ public class MybookServiceImpl implements MybookService {
 		return myPageDAO.getUserMybookList(paramMap);
 	}
 	
-	
+	// 해당 리뷰 게시물의 총 댓글수
+		@Override
+		public int getReplyCount(ReplyVO vo) throws Exception {
+			// TODO Auto-generated method stub
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("board_no", vo.getBoard_no());
+			paramMap.put("parent_type", vo.getParent_type());
+			
+			return replyDAO.getReplyCount(paramMap);
+		}
 
 }

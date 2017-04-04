@@ -108,7 +108,7 @@ public class HomeController {
 
 			}
 
-			//알라딘리스트
+			//알라딘리스트 지금 뜨는거 아니예요? 잘?
 
 			@RequestMapping(value = "/index/alladinList", method = RequestMethod.GET)
 
@@ -142,7 +142,8 @@ public class HomeController {
 
 				logger.info("mybook");
 
-				return "mybook";
+				return "mybook";잠시
+				
 
 			}*/
 

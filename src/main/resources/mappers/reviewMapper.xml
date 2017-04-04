@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</selectKey>
 	</insert>
 
-	<select id="getBookReviewList" resultType="ReviewVO" parameterType="org.ebook.cobook.board.domain.Criteria">
+	<select id="getBookReviewList" resultType="map" parameterType="org.ebook.cobook.board.domain.Criteria">
 <![CDATA[
 	SELECT review_no, title, contents, hit, reg_date, evaluate, coverurl, category, nickname
 FROM (
@@ -34,17 +34,20 @@ FROM (
                  ORDER BY review_no DESC
                 )
       )
-WHERE rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
+WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 ]]>
+	<include refid="search"></include>
 	</select>
 
 
 
-	<select id="getReviewCount" resultType="int">
+	<select id="getReviewCount" resultType="int" parameterType="org.ebook.cobook.board.domain.Criteria">
 	<![CDATA[  
-  select count(review_no) 
-  from bookreview
-  where review_no > 0 
+  select count(br.review_no) 
+  FROM bookreview br, ebook e, member m
+  where br.review_no > 0 
+  AND br.ebook_no = e.ebook_no
+  AND br.member_no = m.member_no
 	]]>
 		<include refid="search"></include>
 
@@ -52,7 +55,7 @@ WHERE rn >= #{pageStart} AND ROWNUM <= #{perPageNum}
 
 	<select id="getReviewSingle" resultType="map">
 		SELECT br.review_no, br.title, br.evaluate, br.contents, br.reg_date, br.hit, e.author,
-		e.publisher, e.coverurl, m.nickname
+		e.publisher, e.coverurl, m.nickname, br.ebook_no
 		FROM bookreview br, ebook e, member m
 		WHERE 
 			br.ebook_no = e.ebook_no
@@ -104,6 +107,7 @@ FROM (
 WHERE
 rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 ]]>
+<include refid="search"></include>
 </select>
 
 <!-- 좋아요 순위6 -->
@@ -141,25 +145,25 @@ WHERE rownum <= 10
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
-				AND title like CONCAT('%', #{keyword}) || '%'
+				AND br.title like CONCAT('%', #{keyword}) || '%'
 			</if>
 			<if test="searchType == 'c'.toString()">
-				AND contents like CONCAT('%', #{keyword}) || '%'
+				AND br.contents like CONCAT('%', #{keyword}) || '%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				AND member_no
+				AND br.member_no
 				IN(select member_no FROM member
 				WHERE
 				nickname like CONCAT('%', #{keyword}) || '%')
 			</if>
 			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}) || '%' OR
-				contents like
+				and ( br.title like CONCAT('%', #{keyword}) || '%' OR
+				br.contents like
 				CONCAT('%', #{keyword}) || '%')
 			</if>
 			<if test="searchType == 'cw'.toString()">
 				and
-				( contents like CONCAT('%', #{keyword}) || '%'
+				( br.contents like CONCAT('%', #{keyword}) || '%'
 				OR
 				member_no IN(select member_no FROM member
 				WHERE nickname like
@@ -168,15 +172,71 @@ WHERE rownum <= 10
 			</if>
 			<if test="searchType == 'tcw'.toString()">
 				AND
-				( title like CONCAT('%', #{keyword}) || '%'
+				( br.title like CONCAT('%', #{keyword}) || '%'
 				OR
-				contents
+				br.contents
 				like CONCAT('%', #{keyword}) || '%'
 				OR
 				member_no IN(select member_no
 				FROM member
 				WHERE nickname like CONCAT('%', #{keyword}) || '%')
 				)
+			</if>
+			<if test="searchType == 'ㄱ'.toString()">
+			AND br.title between '가' and '나'
+			OR br.title between 'ㄱ' AND 'ㄴ'
+			</if>
+			<if test="searchType == 'ㄴ'.toString()">
+			AND br.title between '나' and '다'
+			OR br.title between 'ㄴ' AND 'ㄷ'
+			</if>
+			<if test="searchType == 'ㄷ'.toString()">
+		AND br.title between '다' and '리'
+			OR br.title between 'ㄷ' AND 'ㄹ'
+			</if>
+			<if test="searchType == 'ㄹ'.toString()">
+			AND br.title between '라' and '마'
+			OR br.title between 'ㄹ' AND 'ㅁ'
+			</if>
+			<if test="searchType == 'ㅁ'.toString()">
+			AND br.title between '마' and '바'
+			OR br.title between 'ㅁ' AND 'ㅂ'
+			</if>
+			<if test="searchType == 'ㅂ'.toString()">
+			AND br.title between '바' and '사'
+			OR br.title between 'ㅂ' AND 'ㅅ'
+			</if>
+			<if test="searchType == 'ㅅ'.toString()">
+				AND br.title between '사' and '아'
+			OR br.title between 'ㅅ' AND 'ㅇ'
+			</if>
+			<if test="searchType == 'ㅇ'.toString()">
+			AND title between '아' and '자'
+			OR title between 'ㅇ' AND 'ㅈ'
+			</if>
+			<if test="searchType == 'ㅈ'.toString()">
+			AND title between '자' and '차'
+			OR title between 'ㅈ' AND 'ㅊ'
+			</if>
+			<if test="searchType == 'ㅊ'.toString()">
+			AND title between '차' and '카'
+			OR title between 'ㅊ' AND 'ㅋ'
+			</if>
+			<if test="searchType == 'ㅋ'.toString()">
+			AND title between '카' and '타'
+			OR title between 'ㅋ' AND 'ㅌ'
+			</if>
+			<if test="searchType == 'ㅌ'.toString()">
+			AND title between '타' and '파'
+			OR title between 'ㅌ' AND 'ㅍ'
+			</if>
+			<if test="searchType == 'ㅍ'.toString()">
+			AND title between '파' and '하'
+			OR title between 'ㅍ' AND 'ㅎ'
+			</if>
+			<if test="searchType == 'ㅎ'.toString()">
+			AND title between '하' and '가'
+			OR title between 'ㅎ' AND 'ㄱ'
 			</if>
 		</if>
 	</sql>

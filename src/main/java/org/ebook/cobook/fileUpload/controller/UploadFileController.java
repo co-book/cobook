@@ -28,8 +28,8 @@ public class UploadFileController {
 
 private static final Logger logger = LoggerFactory.getLogger(UploadFileController.class);
 	
-	private String uploadPath = "C:\\workspace\\CoBook\\src\\main\\webapp\\resources\\summernote_upload";
-	
+	private String uploadPath = "C:\\workspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
+
 	@ResponseBody
 	//"text/plain;charset=UTF-8 > 한국어를 정상적으로 전달하기 위함.
 	//이미지를 저장하기 위해서 사용되는 메서드
@@ -43,13 +43,13 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		
 		String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("displayFile", "http://localhost:8080/files/displayFile?fileName="+uploadedName);
+		resultMap.put("displayFile", "http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName);
 		resultMap.put("uploadedName", uploadedName);
 		logger.debug("uploadedName : " + uploadedName);
 		
 		try{		
 			//http://localhost:8080을 본인의 서버port에 맞게 설정하시면 됩니다.
-			entity = new ResponseEntity<String>("http://localhost:8080/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
+			entity = new ResponseEntity<String>("http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
 		}catch(Exception e){
 			logger.info("파일업로드 도중 에러발생: " + e.getMessage());
 			e.printStackTrace();

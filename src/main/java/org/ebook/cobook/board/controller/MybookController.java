@@ -6,12 +6,15 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.MybookVO;
 import org.ebook.cobook.board.domain.PageMaker;
+import org.ebook.cobook.board.persistence.SampleDAOImpl;
 import org.ebook.cobook.board.service.MybookService;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
+import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.util.UploadFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,16 +34,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MybookController {
 
 	 private static final Logger logger = LoggerFactory.getLogger(MybookController.class);
-	 private String uploadPath = "C:\\workspace\\CoBook\\src\\main\\webapp\\resources\\summernote_upload";
+	 private String uploadPath = "C:\\workspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
 			 
 	@Inject
 	private MybookService mybookService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@Inject
+	private SampleDAOImpl sampleDAO;
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 
-	public String mybook(@ModelAttribute("cri")Criteria cri) {
+	public String mybook(Criteria cri,Model model) {
 
+		if(cri == null){
+			cri = new Criteria();
+		}
+		logger.debug("페이지값확인 : " + cri.toString());
 		logger.info("mybook");
+		model.addAttribute("cri", cri);
 
 		return "mybook";
 
@@ -48,7 +59,7 @@ public class MybookController {
 	
 	// 게시물 리스트 = 닉네임 + 파일정보 + 게시물목록
 	@RequestMapping(value="/mybookList", method = RequestMethod.GET)
-	public String mybookList(@RequestParam(value="cri")Criteria cri, Model model)throws Exception{
+	public String mybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
 		logger.debug(cri.toString());
 		logger.debug("mybookList 호출");
 		PageMaker pageMaker = new PageMaker();
@@ -70,7 +81,8 @@ public class MybookController {
 	  public void read(@RequestParam("mybook_no") int mybook_no, @ModelAttribute("cri") Criteria cri, Model model)
 	      throws Exception {
 
-	    model.addAttribute(mybookService.getMybookSingle(mybook_no));
+		
+	    model.addAttribute("mybookVO",mybookService.getMybookSingle(mybook_no));
 	  }
 	
 	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
@@ -90,25 +102,33 @@ public class MybookController {
 
 	    rttr.addFlashAttribute("msg", "SUCCESS");
 
-	    return "redirect:/mybook/";
+	    return "redirect:/mybook/list";
 	  }
 
 	 // single페이지 요청
 	  @RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
 	  public void modifyPagingGET(int mybook_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
-	    model.addAttribute(mybookService.getMybookSingle(mybook_no));
+	    model.addAttribute("mybookVO",mybookService.getMybookSingle(mybook_no));
 	  }
 
 	  // 게시물 수정처리
 	  // 한게시물의 그림파일을 전부 삭제하고 다시 넣어준다
 	  // 주의 cover파일일경우 처리
 	  @RequestMapping(value = "/modifyPage", method = RequestMethod.POST)
-	  public String modifyPagingPOST(MybookVO mybookVO, Criteria cri, FilesVO filesVO,RedirectAttributes rttr) throws Exception {
+	  public String modifyPagingPOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
+				@ModelAttribute("cri")Criteria cri,HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 
-	    logger.info(cri.toString());
-	    filesVO.setBook_no(mybookVO.getMybook_no());
-	    filesVO.setBook_type("MYBOOK");
+		  String[] files = req.getParameterValues("files");
+		  FilesVO filesVO = new FilesVO();
+		  filesVO.setFiles(files);
+		  filesVO.setBook_no(mybookVO.getMybook_no());
+		  filesVO.setBook_type("MYBOOK");
+
+			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
+					coverFile.getBytes());
+			logger.debug("업로드네임: " + uploadedName);
+			filesVO.parsingFileData(uploadedName);
 	    mybookService.modifyMybook(mybookVO, filesVO);
 
 	    rttr.addAttribute("page", cri.getPage());
@@ -120,42 +140,43 @@ public class MybookController {
 
 	    logger.info(rttr.toString());
 
-	    return "redirect:/mybook/";
+	    return "redirect:/mybook/list";
 	  }
 
 	  @RequestMapping(value = "/register", method = RequestMethod.GET)
-	  public void registGET() throws Exception {
+		public String writeGET(Model model, HttpSession session) throws Exception {
 
-	    logger.info("regist get ...........");
-	  }
+			Integer member_no = new Integer(3);
+			session.setAttribute("login", sampleDAO.findNickName(member_no));
+			return "/mybook/mybookWrite";
+		}
 
-	  @RequestMapping(value = "/register", method = RequestMethod.POST)
-	  public String registPOST(@ModelAttribute("mybookVO")MybookVO mybookVO,
-			MultipartFile coverFile, HttpServletRequest req,
-			 RedirectAttributes rttr) throws Exception {
-		
-		    String[] files = req.getParameterValues("files");
+		@RequestMapping(value = "/register", method = RequestMethod.POST)
+		public String mWrtiePOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
+				HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+
+			String[] files = req.getParameterValues("files");
 			FilesVO filesVO = new FilesVO();
 			filesVO.setFiles(files);
-			
-			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(), coverFile.getBytes());
+
+			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
+					coverFile.getBytes());
 			logger.debug("업로드네임: " + uploadedName);
 			filesVO.parsingFileData(uploadedName);
 			mybookService.writeMybook(mybookVO, filesVO);
-	    logger.debug("regist post ...........");
-	    logger.debug(mybookVO.toString());
+			logger.debug("regist post ...........");
 
-	    rttr.addFlashAttribute("msg", "SUCCESS");
+			rttr.addFlashAttribute("msg", "SUCCESS");
 
-	    return "redirect:/mybook/";
-	  }
+			return "redirect:/mybook/list";
+		}
 	  
-	  @RequestMapping("/getAttach/{bno}")
+	  /*@RequestMapping("/getAttach/{bno}")
 	  @ResponseBody
 	  public List<String> getAttach(@PathVariable("bno")Integer bno)throws Exception{
 	    
 	    return mybookService.getAttach(bno);
-	  } 
+	  } */
 	  
 	  @RequestMapping(value="/getUserMybookList", method = RequestMethod.GET)
 	  public String getMybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
@@ -166,7 +187,7 @@ public class MybookController {
 		  
 		  model.addAttribute("mybookList", mybookService.getUserMybookList(paramMap));
 		  
-		  return "";
+		  return "/mybook/list";
 	  }
 	  
 }

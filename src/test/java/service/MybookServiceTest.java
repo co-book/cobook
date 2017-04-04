@@ -32,7 +32,7 @@ public class MybookServiceTest extends AbstractCommonConfTest{
 		
 		MybookVO mybookVO = new MybookVO();
 		FilesVO filesVO = new FilesVO();
-		mybookVO.setMember_no(3);
+		mybookVO.setMember_no(2);
 		mybookVO.setTitle("제목001");
 		mybookVO.setContents("내용001");
 		
@@ -48,8 +48,8 @@ public class MybookServiceTest extends AbstractCommonConfTest{
 	@Test
 	public void read() throws Exception{
 		
-		Integer mybook_no = 221;
-		logger.debug(service.getMybookSingle(mybook_no).toString());
+		Integer mybook_no = 2;
+		service.getMybookSingle(mybook_no).toString();
 	}
 	
 	@Test

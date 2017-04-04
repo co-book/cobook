@@ -26,7 +26,7 @@
 					<td>${vo.MYBOOK_NO}</td>
 					<td class="w3-list-img"><a
 						href="/mybook/single?mybook_no=${vo.MYBOOK_NO}&page=${cri.page}&perPageNum=${cri.perPageNum}"><img
-							src="resources/CoBookDesign/images/n1.jpg" alt="" /> <span>${vo.TITLE}</span></a></td>
+							src="/cobook/resources/CoBookDesign/images/n1.jpg" alt="" /> <span>${vo.TITLE}</span></a></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${vo.REG_DATE}" /></td>
 					<td>${vo.NICKNAME}</td>
@@ -37,23 +37,20 @@
 	</table>
 		<div id="paging">
 		<c:if test="${pageMaker.prev}">
-			<a id="lt" href="/mybook/mybookList?page=${pageMaker.startPage - 1}&perPageNum=${cri.perPageNum}">&lt;</a>
+			<a id="lt" href="/cobook/mybook/list?page=${pageMaker.startPage - 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
 			varStatus="i">
 
-			<c:choose>
-				<c:when test="${cri.page == i.current}">
-						${i.current}
-					</c:when>
-				<c:otherwise>
-					<a id="pageLink" href="/mybook/mybookList?page=${i.count}&perPageNum=${cri.perPageNum}">${i.count}</a>
-				</c:otherwise>
-			</c:choose>
-
+				<c:if test="${i.count == cri.page}">
+				${i.current}
+				</c:if>
+				<c:if test="${i.count != cri.page}">
+				<a href="/cobook/mybook/list?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">${i.count}</a>
+				</c:if>
 		</c:forEach>
 		<c:if test="${pageMaker.next}">
-			<a id="gt" href="/mybook/mybookList?page=${pageMaker.endPage + 1}">&gt;</a>
+			<a id="gt" href="/cobook/mybook/list?page=${pageMaker.endPage + 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">&gt;</a>
 		</c:if>
 
 
