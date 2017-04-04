@@ -183,17 +183,24 @@ public class SampleController {
 		  // 주의 cover파일일경우 처리
 		  @RequestMapping(value = "/MmodifyPage", method = RequestMethod.POST)
 		  public String modifyPagingPOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
-					@ModelAttribute("cri")Criteria cri,HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+					@ModelAttribute("cri")Criteria cri,HttpServletRequest req, RedirectAttributes rttr
+					,FilesVO filesVO) throws Exception {
 
+			  logger.debug("수정기능 실행");
 			  String[] files = req.getParameterValues("files");
-			  FilesVO filesVO = new FilesVO();
+			  logger.debug("파일 input 확인 : "+files.toString());
 			  filesVO.setFiles(files);
 			  filesVO.setBook_no(mybookVO.getMybook_no());
 			  filesVO.setBook_type("MYBOOK");
-
-				String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
+			  String uploadedName = filesVO.getFileurl();
+			  logger.debug(coverFile.getOriginalFilename());
+			 // 수정할시에 이미지파일 변경여부에 따라 분기함 
+			  if(!coverFile.getOriginalFilename().equals("")){
+				  logger.info("변경있음");
+				uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
 						coverFile.getBytes());
-				logger.debug("업로드네임: " + uploadedName);
+			  }
+			 
 				filesVO.parsingFileData(uploadedName);
 		    mybookService.modifyMybook(mybookVO, filesVO);
 
@@ -265,10 +272,10 @@ public class SampleController {
 			public String bRremove(@RequestParam("review_no") int review_no, Criteria cri, RedirectAttributes rttr)
 					throws Exception {
 
+				logger.debug("게시물 삭제 호출");
 				FilesVO filesVO = new FilesVO();
 				filesVO.setBook_no(review_no);
-				filesVO.setBook_type("REVIEW");
-
+				filesVO.setBook_type("BOOKREVIEW");
 				reviewService.deleteReview(review_no, filesVO);
 
 				rttr.addAttribute("page", cri.getPage());
@@ -278,6 +285,6 @@ public class SampleController {
 
 				rttr.addFlashAttribute("msg", "SUCCESS");
 
-				return "redirect:/sample/board/reviewList";
+				return "redirect:/sample/reviewList";
 			}
 }
