@@ -213,7 +213,7 @@ public class SampleController {
 
 		    logger.info(rttr.toString());
 
-		    return "redirect:/sample/mybookList";
+		    return "redirect:/sample/mSingle?mybook_no="+mybookVO.getMybook_no();
 		  }
 		  
 		  @RequestMapping(value = "/Rsingle", method = RequestMethod.GET)

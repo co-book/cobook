@@ -102,7 +102,7 @@ ORDER BY parent_no desc, r.reply_no asc
 		DELETE
 		reply
 		WHERE
-		reply_no = #{reply_no}
+		parent_no = #{parent_no}
 
 	</delete>
 

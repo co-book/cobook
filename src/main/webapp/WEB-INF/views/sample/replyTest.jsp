@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,29 +16,20 @@
  position: absolute; left: 500px; top: 150px;
 
 } */
-
-
-
 </style>
 
 <script
-
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <script
-
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <script>
-
 	$(function() {
 
-
-
-		var board_no = 2;
+		var board_no = 3;
 
 		var parent_type = 'BOOKREVIEW';
-
 
 		var member_no = 1;
 
@@ -51,27 +41,19 @@
 
 		var replyPage = 1;
 
-
-
 		getReplyList(1, 10);
 
 		console.log(test);
 
 		console.log("회원번호: " + member_no);
 
-		
-
 		// 좋아요 처리
 
-		function paramAjax(url, reply_no, member_no){
-
-
+		function paramAjax(url, reply_no, member_no) {
 
 			console.log(url);
 
 			$.ajax({
-
-			
 
 				type : "post",
 
@@ -79,11 +61,11 @@
 
 				headers : {
 
-	            	"Content-Type" : "application/json",
+					"Content-Type" : "application/json",
 
 					"X-HTTP-Method-Override" : "POST"
 
-	            },
+				},
 
 				dataType : "text",
 
@@ -95,21 +77,15 @@
 
 				}),
 
-				success : function(result){
+				success : function(result) {
 
 					console.log(result);
 
 				}
 
-	            
-
 			});
 
-			
-
 		}
-
-		
 
 		$("#addReply").on("click", function() {
 
@@ -120,14 +96,14 @@
 				type : 'post',
 
 				url : '/cobook/replies/',
-				
+
 				headers : {
 
-	            	"Content-Type" : "application/json",
+					"Content-Type" : "application/json",
 
 					"X-HTTP-Method-Override" : "POST"
 
-	            },
+				},
 
 				dataType : 'text',
 
@@ -149,25 +125,20 @@
 
 				}
 
-
-
 			});
 
 		});
-
-
 
 		// 댓글 리스트 출력
 
 		function getReplyList(replyPage, perPageNum) {
 
-			var replyURL = "/cobook/replies/" + parent_type + "/" + board_no + "/"
+			var replyURL = "/cobook/replies/" + parent_type + "/" + board_no
+					+ "/"
 
 					+ replyPage + "/" + perPageNum;
 
 			$.getJSON(replyURL, function(data) {
-
-
 
 				console.log(data);
 
@@ -179,37 +150,29 @@
 
 				// 그런다음 template = 틀 에 데이터를 끼워넣은 후 replies에 html 넣어줌
 
-
-
 				// 진입시 보여주는 리플이랑 더보기버튼이랑 분리시킴
 
 				if (replyPage == 1) {
 
 					printData(data.listMap.replyList, $("#replies"),
 
-							$("#reply-template"));
+					$("#reply-template"));
 
 				} else {
 
 					appendPrintData(data.listMap.replyList, $("#replies"),
 
-							$("#reply-template"));
+					$("#reply-template"));
 
 				}
 
-
-
 			});
-
-
 
 		}
 
-
-
 		// 좋아요 클릭시 이벤트처리
 
-		$("#replies").on("click", ".like",function() {
+		$("#replies").on("click", ".like", function() {
 
 			var linkObj = $(this);
 
@@ -225,11 +188,11 @@
 
 			console.log(likeObj);
 
-			console.log("reply_no : "+reply_no);
+			console.log("reply_no : " + reply_no);
 
 			if (isLike.indexOf("0") != -1) {
 
-				console.log("isLike 타입: "+ typeof isLike);
+				console.log("isLike 타입: " + typeof isLike);
 
 				paramAjax("/cobook/replies/addLike", reply_no, member_no);
 
@@ -239,7 +202,6 @@
 
 				likeObj.text(Number(likeVal) + 1);
 
-				
 			} else {
 
 				paramAjax("/cobook/replies/deleteLike", reply_no, member_no);
@@ -250,37 +212,23 @@
 
 				likeObj.text(Number(likeVal) - 1);
 
-				
-
 			}
 
-
-
 		});
-
-
 
 		// 더보기 버튼 클릭시 replyPage값 1씩 증가
 
 		$(".moreBtn").on("click", function() {
 
-
-
 			replyPage++;
 
 			getReplyList(replyPage, 10);
 
-
-
 		});
-
-
 
 		// 댓글쓰기 답글 창이 열림
 
 		$("#replies").on("click", "#openComment", function() {
-
-
 
 			var combox = $("#combox");
 
@@ -296,11 +244,7 @@
 
 			$("#commentTxt").focus();
 
-
-
 		});
-
-
 
 		// ajax로 답글 데이터 보냄
 
@@ -316,25 +260,21 @@
 
 			$.ajax({
 
-				
-
 				type : 'post',
 
 				url : '/cobook/replies/comment',
 
 				headers : {
 
-                	"Content-Type" : "application/json",
+					"Content-Type" : "application/json",
 
 					"X-HTTP-Method-Override" : "POST"
 
-                },
+				},
 
 				dataType : 'text',
 
 				data : JSON.stringify({
-
-					
 
 					member_no : member_no,
 
@@ -348,7 +288,7 @@
 
 				}),
 
-				success : function(result){
+				success : function(result) {
 
 					console.log(result);
 
@@ -358,35 +298,25 @@
 
 				}
 
-				
-
 			});
-
-		
 
 		});
 
-		
-
 		// 수정
 
-		$("#replies").on("click", "#modBtn",function(){
+		$("#replies").on("click", "#modBtn", function() {
 
-			
-
-			var contents = $("#replyCont").val();
-
+			var textAreaObj = $(this).parents("li").children().eq(2);
+			console.log(textAreaObj);
+			var contents = $(this).text();
+			console.log("수정값 확인: " + contents);
 			var reply_no = $(this).attr("data-parentNo");
-
-			
 
 			$.ajax({
 
-				
+				type : "PUT",
 
-				type:"PUT",
-
-				url : "/cobook/replies/"+reply_no,
+				url : "/cobook/replies/" + reply_no,
 
 				headers : {
 
@@ -404,68 +334,46 @@
 
 				}),
 
-				success : function(result){
+				success : function(result) {
 
 					console.log(result);
 
 				}
 
-				
-
-			});		
-
-			
+			});
 
 		});
 
-		
+		$("#replies").on("click", "#rmBtn", function() {
 
-		
+			
+			
+			
+			
+		});
 
 		function checkActivation(target, checkValue) {
 
-
-
 			if (checkValue == "false") {
-
-
 
 				target.attr("style", "display:block");
 
 				target.attr("data-activation", "true");
 
-
-
 			} else {
-
-
 
 				target.attr("style", "display:none");
 
 				target.attr("data-activation", "false");
 
-
-
 			}
-
-
 
 		}
 
-
-
-	
-
-		
-
-		
-
 	});
-
 </script>
 
 <script>
-
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 
 		var dateObj = new Date(timeValue);
@@ -480,19 +388,11 @@
 
 	});
 
-
-
-	
-
-	
-
 	// reply html을 동적으로 생성하는 메서드
 
 	// 리플 데이타, html추가시킬 타켓, 템플릿 html
 
 	function printData(replyArr, target, templateObject) {
-
-
 
 		var template = Handlebars.compile(templateObject.html());
 
@@ -502,11 +402,7 @@
 
 	}
 
-
-
 	function appendPrintData(replyArr, target, templateObject) {
-
-
 
 		var template = Handlebars.compile(templateObject.html());
 
@@ -515,11 +411,6 @@
 		target.append(html);
 
 	}
-
-	
-
-	
-
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -550,17 +441,18 @@
 
 	<button class="moreBtn">더보기</button>
 
-	
 
 
 
-	<div id="combox" data-activation="false"  style="position: absolute; left: 500px; top: 150px; display:none;">
+
+	<div id="combox" data-activation="false"
+		style="position: absolute; left: 500px; top: 150px; display: none;">
 
 		<div id="replyData" data-parentNo=""></div>
 
 		<textarea id="commentTxt" name="contents" rows="" cols=""></textarea>
 
-		<button id="commentBtn">답글입력</button>	
+		<button id="commentBtn">답글입력</button>
 
 	</div>
 
@@ -584,7 +476,7 @@
 
 				<div>No{{REPLY_NO}}:{{NICKNAME}}&nbsp;{{prettifyDate REG_DATE}}</div>
 
-				<textarea id="replyCont" rows="" cols="">{{CONTENTS}}</textarea>
+				<textarea id="replyCont">{{CONTENTS}}</textarea>
 
 				
 
@@ -620,39 +512,29 @@
 
 	</script>
 
-<script>
+	<script>
+		Handlebars.registerHelper('checkLike', function(isLike) {
 
-Handlebars.registerHelper('checkLike', function(isLike){
+			console.log("isLike : " + isLike);
 
-	  
+			var linkURL = "";
 
-	console.log("isLike : " + isLike);
+			if (isLike.indexOf("1") != -1) {
 
-	var linkURL = "";
+				linkURL = "/cobook/resources/img/light-like.png";
 
-	if(isLike.indexOf("1") != -1){
+			} else {
 
-		
+				linkURL = "/cobook/resources/img/like.png";
 
-		linkURL = "/cobook/resources/img/light-like.png";
+			}
 
-	}else{
+			console.log("링크값: " + linkURL);
 
-		
+			return linkURL;
 
-		linkURL = "/cobook/resources/img/like.png";
-
-	}
-
-	 
-
-	console.log("링크값: " + linkURL);
-
-	return linkURL;
-
-});
-
-</script>
+		});
+	</script>
 
 
 
