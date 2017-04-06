@@ -8,8 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>One Movies an Entertainment Category Flat Bootstrap
-	Responsive Website Template | Single :: w3layouts</title>
+<title>Cobook-single</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -23,9 +22,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style2.css?ver=6" rel="stylesheet" type="text/css" media="all"/>
 <link href="css/medile.css?ver=1" rel='stylesheet' type='text/css' />
-<link href="css/single.css?ver=4" rel='stylesheet' type='text/css' />
+<link href="css/single.css?ver=6" rel='stylesheet' type='text/css' />
+<link href="css/single-style.css?ver=4" rel="stylesheet" type="text/css" media="all"/>
 <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/faqstyle.css" type="text/css" media="all" />
 <!-- news-css -->
@@ -36,7 +35,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //list-css -->
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="css/font-awesome.min.css" />
-<!-- //font-awesome icons -->
+<!--별점 css -->
+<link rel="stylesheet" href="css/star-rating.css?ver=9" media="all" type="text/css"/>
+<link rel="stylesheet" href="css/star-theme.css?ver=10" media="all" type="text/css"/>
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
@@ -45,7 +46,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
-
+<!-- 별점 js -->
+<script src="js/star-rating.js?ver=8" type="text/javascript"></script>
+<script src="js/star-theme.js?ver=5" type="text/javascript"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <!-- start-smoth-scrolling -->
@@ -58,7 +61,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				scrollTop : $(this.hash).offset().top
 			}, 1000);
 		});
+		
+		
+		
+/* 		$("button[name='comment']").click(function () {
+			if($("#reply-comment").css("display") == "none")
+					{
+				console.log(this);
+						$("#reply-comment").show();
+					}else {
+						$("#reply-comment").hide();
+						console.log("hide??");
+					}
+		}); 
+		 $(".single-button").closest("div").click(function () {
+		*/
+		
+		 $(".single-button").click(function () {
+			 if($("#reply-comment").css("display") == "none")
+					{
+						$(this).next("#reply-comment").toggle();
+					}else {
+						$(this).next("#reply-comment").toggle();
+					} 
+		}); 
+			
+			var up = $("#up").hide();
+		$(".comment-regi").click(function () {
+			 $("#comment-up").add(up).show();
+		}); 
 	});
+	
+
 </script>
 <!-- start-smoth-scrolling -->
 <link href="css/owl.carousel.css" rel="stylesheet" type="text/css"
@@ -91,7 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header">
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="index.html"><h1>Coo<span>Boooks</span></h1></a>
+				<a href="index.html"><h1>CoBook<span></span></h1></a>
 			</div>
 			<div class="w3_search">
 				<form action="#" method="post">
@@ -99,17 +133,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="submit" value="Go">
 				</form>
 			</div>
-			<!-- <div class="wrapper-dropdown-2" tabindex="1">Wish List
-				<ul class="dropdown">
-					<li><a href="#">Edit Users<span class="icon"> </span></a></li>
-					<li><a href="#">Web Staticstics<span class="icon stat">
-						</span></a></li>
-					<li><a href="#">Upload Settings<span class="icon msg">
-						</span></a></li>
-					<li><a href="#">Edit Slider<span class="icon signout">
-						</span></a></li>
-				</ul>
-			</div> -->
+			
 			<div class="w3l_sign_in_register">
 				<ul>
 					<!-- <li><span class="glyphicons glyphicons-heart"></span>My Wish List</li> -->
@@ -192,82 +216,51 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="w3_home_act"><a href="index.html">Home</a></li>
+							<li class="active"><a href="index.html">Home</a></li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
+								<a href="genres.html" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Action</a></li>
-												<li><a href="genres.html">Biography</a></li>
-												<li><a href="genres.html">Crime</a></li>
-												<li><a href="genres.html">Family</a></li>
-												<li><a href="horror.html">Horror</a></li>
-												<li><a href="genres.html">Romance</a></li>
-												<li><a href="genres.html">Sports</a></li>
-												<li><a href="genres.html">War</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Adventure</a></li>
-												<li><a href="comedy.html">Comedy</a></li>
-												<li><a href="genres.html">Documentary</a></li>
-												<li><a href="genres.html">Fantasy</a></li>
-												<li><a href="genres.html">Thriller</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Animation</a></li>
-												<li><a href="genres.html">Costume</a></li>
-												<li><a href="genres.html">Drama</a></li>
-												<li><a href="genres.html">History</a></li>
-												<li><a href="genres.html">Musical</a></li>
-												<li><a href="genres.html">Psychological</a></li>
-											</ul>
-										</div>
-										<div class="clearfix"></div>
+									<div class="col-sm-4">
+										<ul class="multi-column-dropdown">
+											<li><a href="genres.html">Action</a></li>
+											<li><a href="genres.html">Biography</a></li>
+											<li><a href="genres.html">Crime</a></li>
+											<li><a href="genres.html">Family</a></li>
+											<li><a href="horror.html">Horror</a></li>
+											<li><a href="genres.html">Romance</a></li>
+											<li><a href="genres.html">Sports</a></li>
+											<li><a href="genres.html">War</a></li>
+										</ul>
+									</div>
+									<div class="col-sm-4">
+										<ul class="multi-column-dropdown">
+											<li><a href="genres.html">Adventure</a></li>
+											<li><a href="comedy.html">Comedy</a></li>
+											<li><a href="genres.html">Documentary</a></li>
+											<li><a href="genres.html">Fantasy</a></li>
+											<li><a href="genres.html">Thriller</a></li>
+										</ul>
+									</div>
+									<div class="col-sm-4">
+										<ul class="multi-column-dropdown">
+											<li><a href="genres.html">Animation</a></li>
+											<li><a href="genres.html">Costume</a></li>
+											<li><a href="genres.html">Drama</a></li>
+											<li><a href="genres.html">History</a></li>
+											<li><a href="genres.html">Musical</a></li>
+											<li><a href="genres.html">Psychological</a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
 									</li>
 								</ul>
 							</li>
-							<li><a href="series.html">tv - series</a></li>
-							<li><a href="news.html">news</a></li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
-								<ul class="dropdown-menu multi-column columns-3">
-									<li>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Asia</a></li>
-												<li><a href="genres.html">France</a></li>
-												<li><a href="genres.html">Taiwan</a></li>
-												<li><a href="genres.html">United States</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">China</a></li>
-												<li><a href="genres.html">HongCong</a></li>
-												<li><a href="genres.html">Japan</a></li>
-												<li><a href="genres.html">Thailand</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-4">
-											<ul class="multi-column-dropdown">
-												<li><a href="genres.html">Euro</a></li>
-												<li><a href="genres.html">India</a></li>
-												<li><a href="genres.html">Korea</a></li>
-												<li><a href="genres.html">United Kingdom</a></li>
-											</ul>
-										</div>
-										<div class="clearfix"></div>
-									</li>
-								</ul>
-							</li>
-							<li><a href="short-codes.html">Short Codes</a></li>
-							<li><a href="list.html">A - z list</a></li>
+							 <li><a href="news.html">Review</a></li> 
+							<li><a href="list.html">Mybook</a></li>
+							<li><a href="#">About</a></li>
+						 <li><a href="contact.html">Contact</a></li>
+							<li><a href="#">MyPage</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -352,25 +345,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<!-- modal -->
 									<div class="modal fade" id="coModal" role="dialog">
 										<div class="modal-dialog">
-											<!-- Modal content-->
 											<div class="modal-content">
-												<div class="modal-header">
+												<div class="modal-header-single">
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h4 class="modal-title">Modal Header</h4>
+													<h3 class="modal-title">dal2sis님의 대여 내역입니다</h3>
 												</div>
 												<div class="modal-body">
-													<p>Some text in the modal.</p>
-													<table class="table"></table>
+													<table class="modal-table">
+														<tr>
+																<th><img src="images/ove.jpg" alt=""/></th>
+																<th>
+																<h2>오베라는 남자</h2>
+																<p>프레드릭 배크만</p>
+																<a>대여기간</a> 30일
+																<ul class="order">
+																<li>총주문금액 &nbsp; 4900원</li>
+																<li>무료이용권&nbsp; 0개</li>
+																<li>할인쿠폰&nbsp; 0개</li>
+																<li>포인트 상품권&nbsp; 0개</li>
+																<li>코북포인트 &nbsp; 0원</li>
+																<li>코북캐시 &nbsp; 0원</li>
+																<li><a>총결제금액</a>&nbsp; 4900원</li>
+																</ul>
+																<br>
+																<p>dal2sis님의 현재 포인트는 3000원 입니다</p>
+																</th>
+														</tr>
+													</table>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default"
-														data-dismiss="modal">Close</button>
+													<!-- <button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button> -->
+														<ul class="modal-button">
+															<li><button class="modal-charge">충전하기</button>
+															<button class="modal-borrow">대여하기</button></li>					
+														</ul>
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> 
 									<!-- modal end -->
-											
 											<div class="wish-list">
 												<ul>
 													<li class="wish"><a href="#">Add to wishlist</a></li>
@@ -386,6 +400,121 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
 	           							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
 									</div>
+									</div>
+									<br></br>
+									<br></br>
+									<h3>이 책을 평가해주세요!</h3>
+									<div class="reply-control">
+									<input type="text" class="kv-fa rating-loading" value="4" data-size="lg" title="">
+        							<br>
+									<textarea class="reply-textarea" rows="10" id="reply" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+									<button type="button" class="reply-regi">리뷰남기기</button>
+									</div>
+									<br></br>
+									<br></br>
+									<h3>리뷰</h3>
+															<!-- first list start -->
+									<div id="wrap-media-list">
+									<div class="media_list">		
+										<div class="media-left">
+											<div class="detail-stars">
+												<ul class="detail-ratings">
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star-half-o"
+															aria-hidden="true"></i></a></li><br>
+													<li>dal2sis</li><br>
+													<li>2017-03-26</li>
+												</ul>
+											</div>
+										</div>
+										<div class="media-body-single">
+											<div class="single-reply-remove">
+												<button type="button" class="reply-remove">
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</button>
+											</div>
+											<br>
+											<p>흐라발의 소설은 완벽하게 역설적이다. 무한한 욕망과 유한한 만족감 사이에서 탁월하게 균형을 맞추고 있는 그의 글은,
+											순리를 따르면서도 지극히 반항적이며 지혜를 잃지 않으면서도 끊임없이 고뇌한다.</p>
+											<br>
+											<div class="single-button"  name="comment-btn">
+												<button type="button" class="btn btn-default btn-sm" id="comment">
+	  											<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 댓글
+												</button>
+												<button type="button" class="btn btn-default btn-sm" id="thumbs">
+	  											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 0
+	  											</button>
+											</div>
+											
+											<div class="reply-comment" id="reply-comment">
+												<div class="comment-up" id="comment-up">
+													<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
+													<p>nam*** /2017-04-03/ <a>삭제</a></p>
+												</div>
+												<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
+												<button type="button" class="comment-regi">등록하기</button>
+											</div>
+										</div>
+									</div>	
+														<!-- first list end -->
+									
+									<div class="media_list">
+										<div class="media-left">
+											<div class="detail-stars">
+												<ul class="detail-ratings">
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star"
+															aria-hidden="true"></i></a></li>
+													<li><a href="#"><i class="fa fa-star-half-o"
+															aria-hidden="true"></i></a></li><br>
+													<li>namjackson</li><br>
+													<li>2017-04-04</li>
+												</ul>
+											</div>
+										</div>
+										<div class="media-body-single">
+											<div class="single-reply-remove">
+												<button type="button" class="reply-remove">
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</button>
+											</div>
+											<br>
+											<p>깊이를 헤아릴 수 없을 정도로 경이로운 테드 창의 이야기들은 스위스 시계처럼 정교하게 째깍째깍
+											나아가다가 당신의 인식 안에서 충격적이고 파괴적으로 폭발한다.</p>
+											<br>
+											<div class="single-button">
+												<button type="button" class="btn btn-default btn-sm" id="comment" name="comment">
+	  											<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 댓글
+												</button>
+												<button type="button" class="btn btn-default btn-sm" id="thumbs">
+	  											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 0
+	  											</button>
+											</div>
+											<div class="reply-comment" id="reply-comment">
+												<div class="comment-up">
+													<p id="up">님아 어디서 약을 팔어</p>
+													<p>chacha /2017-04-05/ <a>삭제</a></p>
+												</div>
+												<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
+												<button type="button" class="comment-regi">등록하기</button>
+											</div>
+										</div>
+									</div>
+									</div>
+									<div class="reply-more">
+										<button type="button" class="btn-more">+ 더 보기</button>
 									</div>
 								<!-- </div> -->
 							</div>
@@ -514,47 +643,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- //w3l-medile-movies-grids -->
 
 		<!-- footer -->
-		<div class="footer">
-			<div class="container">
-				<div class="w3ls_footer_grid">
-					<div class="col-md-6 w3ls_footer_grid_left">
-						<div class="w3ls_footer_grid_left1">
-							<h2>Subscribe to us</h2>
-							<div class="w3ls_footer_grid_left1_pos">
-								<form action="#" method="post">
-									<input type="email" name="email" placeholder="Your email..."
-										required=""> <input type="submit" value="Send">
-								</form>
-							</div>
-						</div>
+<div class="footer">
+		<div class="container">
+			<div class="w3ls_footer_grid">
+				<div class="col-md-6 w3ls_footer_grid_left">
+					<div class="w3ls_footer_grid_left1">
+						<!-- <h2>Subscribe to us</h2>
+						<div class="w3ls_footer_grid_left1_pos">
+							<a href="index.html"><h2>CoBook<span></span></h2></a>
+						</div> -->
 					</div>
-					<div class="col-md-6 w3ls_footer_grid_right">
-						<a href="index.html"><h2>
-								One<span>Movies</span>
-							</h2></a>
-					</div>
-					<div class="clearfix"></div>
 				</div>
-				<div class="col-md-5 w3ls_footer_grid1_left">
-					<p>
-						&copy; 2016 One Movies. All rights reserved | Design by <a
-							href="http://w3layouts.com/">W3layouts</a>
-					</p>
+				<div class="col-md-6 w3ls_footer_grid_right">
+					<a href="index.html"><h2>CoBook<span></span></h2></a>
 				</div>
-				<div class="col-md-7 w3ls_footer_grid1_right">
-					<ul>
-						<li><a href="genres.html">Movies</a></li>
-						<li><a href="faq.html">FAQ</a></li>
-						<li><a href="horror.html">Action</a></li>
-						<li><a href="genres.html">Adventure</a></li>
-						<li><a href="comedy.html">Comedy</a></li>
-						<li><a href="icons.html">Icons</a></li>
-						<li><a href="contact.html">Contact Us</a></li>
-					</ul>
-				</div>
-				<div class="clearfix"></div>
+				<div class="clearfix"> </div>
 			</div>
+			<div class="col-md-5 w3ls_footer_grid1_left">
+				<p>&copy; 2016 One Movies. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+			</div>
+			<div class="col-md-7 w3ls_footer_grid1_right">
+				<ul>
+					<li>
+						<a href="genres.html">Movies</a>
+					</li>
+					<li>
+						<a href="faq.html">FAQ</a>
+					</li>
+					<li>
+						<a href="horror.html">Action</a>
+					</li>
+					<li>
+						<a href="genres.html">Adventure</a>
+					</li>
+					<li>
+						<a href="comedy.html">Comedy</a>
+					</li>
+					<li>
+						<a href="icons.html">Icons</a>
+					</li>
+					<li>
+						<a href="contact.html">Contact Us</a>
+					</li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
 		</div>
+	</div>
 		<!-- //footer -->
 		<!-- Bootstrap Core JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
@@ -573,6 +708,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									$(this).toggleClass('open');
 								});
 					});
+			
+			$(document).on('ready', function () {
+		        
+		        $('.kv-fa').rating({
+		            theme: 'krajee-fa',
+		            filledStar: '<i class="fa fa-star"></i>',
+		            emptyStar: '<i class="fa fa-star-o"></i>'
+		        });
+
+		        $('.rating,.kv-gly-star,.kv-uni-star,.kv-fa,.kv-svg').on(
+		                'change', function () {
+		                    console.log('Rating selected: ' + $(this).val());
+		                });
+		    	console.log($('.rating,.kv-gly-star,.kv-gly-heart,.kv-uni-star,.kv-uni-rook,.kv-fa,.kv-fa-heart,.kv-svg,.kv-svg-heart').val());
+		        if($('.rating,.kv-gly-star,.kv-gly-heart,.kv-uni-star,.kv-uni-rook,.kv-fa,.kv-fa-heart,.kv-svg,.kv-svg-heart').val()==0){
+		        
+		        }
+		    });
+			
 		</script>
+		<!-- <script src="js/bvelocity.min.js"></script>
+		<script src="js/borrowmain.js"></script>JS borrow jQuery -->
 </body>
 </html>
