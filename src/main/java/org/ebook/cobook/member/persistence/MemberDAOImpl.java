@@ -32,12 +32,6 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace+".getEmail", email);
 	}
 
-	@Override
-	public MemberVO getNickName(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".getNickName", nickname);
-	}
-	
 	public void modifyMember(MemberVO vo){
 		
 		sqlSession.update(namespace+".modifyMember", vo);

@@ -58,13 +58,12 @@
        * 	-실패 : 로그인창 띄워줌 -> 처리후 googleLogin()한번더 실행
        * @returns
        */
-      function googleLogin() {
-    	  console.log("gapi.auth2.getAuthInstance().isSignedIn.get() :" + gapi.auth2.getAuthInstance().isSignedIn.get());
-    	  
+      function googleLogin(loginType) {
     	  var isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+    	  //로그인 체크
         if (isSignedIn) {
         	//로그인 Ok - > 구글 정보 가져옴
-        	getGoogle();
+        	getGoogle(loginType);
         } else {
         	//로그인 No 
       	  	options = new gapi.auth2.SigninOptionsBuilder();
@@ -72,7 +71,7 @@
       	  	options.setScope('profile').setScope('email');
         	gapi.auth2.getAuthInstance().signIn(options).then(function(){//로그인 다시띄워줌
         		 if(gapi.auth2.getAuthInstance().isSignedIn.get()){
-            		 updateSigninStatus() //로그인 성공시 
+        			 googleLogin(loginType); //로그인 성공시 
             	 }
         	 });	
         	 
@@ -86,7 +85,7 @@
 
       // Load the API and make an API call.  Display the results on the screen.
 
-      function getGoogle() {
+      function getGoogle(loginType) {
         gapi.client.people.people.get({
 
           resourceName: 'people/me'
@@ -96,15 +95,15 @@
         	var gender = resp.result.genders[0].value;
     		var email = resp.result.emailAddresses[0].value;
     		var age = resp.result.ageRange;
-    		console.log(age);
-    		switch(age){
-    			case 'TWENTY_ONE_OR_OLDER' : age = 21; break;
-    		}
-    		
-    		console.log(gender);
-    		console.log(email);
-    		console.log(age);
-    		//cobookLogin(email,'google','google');
+    		var nickname =resp.result.names[0].displayName;
+
+    		coMember.loginType=loginType;
+    		coMember.email=email;
+    		coMember.age=age;
+    		coMember.gender=gender;
+    		coMember.nickname=nickname;
+     		
+    		coMember.cobookLogin();
         });
 
       }

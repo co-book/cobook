@@ -12,23 +12,25 @@
 		
 		// 비밀번호 찾기 버튼
 		// 이메일을 입력받아 메일보내기
-		$("#sendEmail").on("click", function(){
+		
+		var passwordModifyEmail = function(){
 			
 			var auth = firebase.auth();
-			//var emailAddress = prompt("이메일 주소를 입력하세요");
-			var emailAddress = $("#email").val();
+			var emailAddress = prompt("회원가입한 이메일 주소를 입력하세요.", "email@address");
+			//var emailAddress = $("#email").val();
 			console.log("이메일주소 체크: " + emailAddress);
-			
-			auth.sendPasswordResetEmail(emailAddress).then(function() {
-			  // Email sent.
-				console.log("이메일 보내기 성공");
-			}, function(error) {
-			  // An error happened.
-				console.log("이메일 보내기 실패")
-				
-			});
-		
-			
-		});
+			if(emailAddress != null){
+
+				auth.sendPasswordResetEmail(emailAddress).then(function() {
+				  // Email sent.
+					alert("해당 이메일로 메일을 전송하였습니다.");
+				}, function(error) {
+				  // An error happened.
+					alert("이메일 전송 실패. \n "+error);
+				});
+			}else{
+				alert("이메일을 입력하세요");
+			}
+		}
 		
 		

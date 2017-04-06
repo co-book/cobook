@@ -317,10 +317,10 @@ label.checkbox {
   font-size: 15px;
   font-weight: 600;
   color: #fff;
-  margin: 0px 1.5% 0px 0px;
+  margin: 0px 0px 0px  10%;
   border-radius: 4px;
   float:left;
-  width:32.33%;
+  width: 45%;
     padding: 0px 0;
 }
 .login-button a.tw {
@@ -328,15 +328,16 @@ label.checkbox {
  float: left;
  
 }
+
+
+.login-button a span {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
 .login-button a.fa {
   background:#3B5998;
  float: inherit;
-  
-}
-
-.login-button a span {
-  margin-top: 8px;
-  display: block;
 }
 .login-button a.go {
   background:#D34836;
@@ -372,7 +373,7 @@ float: left;
 } */
 i.anc-fa {
   background: url(../images/login/facebook.png)no-repeat 6px 9px #37528C;
-  width: 26px;
+  width: 30px;
   height: 36px;
   display: inline-block;
   padding: 10px 6px;
@@ -381,7 +382,7 @@ i.anc-fa {
 }
 i.anc-go {
   background: url(../images/login/google.png)no-repeat 9px 9px #C74534;
-  width: 26px;
+  width: 30px;
   height: 36px;
   display: inline-block;
   padding: 10px 6px;
@@ -446,6 +447,7 @@ h3 {
 }
 .login-button a span {
   margin-top: 10px;
+  text-align: center;
 }
 .reg-bwn a {
   font-size: 14px;
@@ -590,3 +592,5 @@ body {
 .radio-inline, .checkbox-inline {
 	padding : 10px;
 }
+.fa2{margin-top:10px;display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.go{margin-top:10px;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}

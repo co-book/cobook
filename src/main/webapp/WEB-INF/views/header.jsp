@@ -1,8 +1,17 @@
+<%@page import="org.ebook.cobook.member.domain.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String member_no=null;
+MemberVO vo = (MemberVO)session.getAttribute("member");
+if(vo!=null){
+	member_no=vo.getMember_no()+"";
+}
+%>
 <!-- FaceBook sdk -->
 <script>
+var member_no = <%=member_no%>;
 window.fbAsyncInit = function() {
 	FB.init({
 		appId : '135805423595994',
@@ -26,16 +35,23 @@ window.fbAsyncInit = function() {
 	onreadystatechange="if (this.readyState === 'complete') this.onload()">
 	
 </script>
-<!-- login -->
-<script type="text/javascript" src="resources/js/login.js"></script>
-<script type="text/javascript" src="resources/js/google.js"></script>
 
+<!-- fireBase -->
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-auth.js"></script>
+
+<!-- login -->
+<script type="text/javascript" src="/cobook/resources/js/member/member.js"></script>
+<script type="text/javascript" src="/cobook/resources/js/member/google.js"></script>
+<script type="text/javascript" src="/cobook/resources/js/member/facebook.js"></script>
+<script type="text/javascript" src="/cobook/resources/js/member/firebase.js"></script>
 
 <!-- header -->
 <div class="header">
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="index.html"><h1>CoBook<span></span></h1></a>
+				<a href="/cobook"><h1>CoBook<span></span></h1></a>
 			</div>
 			<div class="w3_search">
 				<form action="#" method="post">
@@ -62,7 +78,8 @@ window.fbAsyncInit = function() {
 									</li>
 								</ul>
 					</li>
-					<li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+					<li id="login_on"><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+					<li id="login_off"><a href="member/logout">Logout</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -85,9 +102,9 @@ window.fbAsyncInit = function() {
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="index.html">Home</a></li>
+							<li class="active"><a href="/cobook">Home</a></li>
 							<li class="dropdown">
-								<a href="genres.html" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
+								<a href="/cobook/genres" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
 									<div class="col-sm-4">
@@ -125,8 +142,8 @@ window.fbAsyncInit = function() {
 									</li>
 								</ul>
 							</li>
-							<li><a href="news.html">Review</a></li> 
-							<li><a href="list.html">Mybook</a></li>
+							<li><a href="/cobook/review">Review</a></li> 
+							<li><a href="/cobook/mybook">Mybook</a></li>
 							<li><a href="#">About</a></li>
 							<li><a href="contact.html">Contact</a></li>
 							<li><a href="#">MyPage</a></li>
@@ -170,46 +187,46 @@ $(document).ready(function(){
 					<div class="modal-body">
 						<div class="w3_login_module">
 							<div class="module form-module">
-							  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+							  <div class="toggle"><i class="fa2 fa-times fa-pencil"></i>
 								<div class="tooltip">Click it!</div>
 							  </div>
 							  <div class="form">
 								<h3>CoBook 로그인</h3>
-								<form class="login" onsubmit="login_cobook_function(); return false ">
+								<form name="login_form"class="login" onsubmit="login_cobook_function(); return false ">
 								  <input id="login_email" type="email" name="Email"  style="width:100%;"  placeholder="Email" required="">
 								  <input id="login_password" type="password" name="Password" placeholder="Password" required="">
 								  <input id="login_cobook" type="submit" value="Login">
 								</form>
 								<div class="social-icons">
 									<div class="login-button">
-											<a class="fa" id="login_facebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
 											<a class="go" id="login_google" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
-										<div class="clear"></div>
+											<a class="fa" id="login_facebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
+											<div class="clear"></div>
 									</div>
 								</div>
 							  </div>
-
 							  <div class="form">
 								<h3>CoBook 회원가입</h3>
-								<form class="login" onsubmit="join_cobook_function(); return false;">
+								<form name="join_form" class="login" onsubmit="join_cobook_function(); return false ">
 								<div>
 								  <input id="join_email" type="email" name="Email" placeholder="이메일" required="">
 								  <a id="join_email_check" class="emailCheck" href="#">인증</a>
+								  <a id="join_email_check_off" class="emailCheck" href="#"  style="background-color:#808080;border:#808080; ">인증</a>
 								 </div>
-								 <div>
-								  <input id="join_email_check_key" type=text name="EmailCheckKey"  style="width:80%;display:inline-block ;" placeholder="인증번호" required="" >
+								 <div id="join_email_check_form" style="display:none">
+								  <input id="join_email_check_key" type=text name="EmailCheckKey"  style="width:80%;display:inline-block ;" placeholder="인증번호" >
 								  <a id="join_email_check_key_btn" class="emailCheck" href="#" >확인</a>
 								 </div>
 								  <input id="join_password" type="password" name="Password" placeholder="비밀번호" required="">
-								  <input id="join_username" type="text" name="Username" placeholder="닉네임" required="">
+								  <input id="join_nickname" type="text" name="Username" placeholder="닉네임" required="">
 								   <div>
 								  <input id="join_age" type="number" name="Age" placeholder="나이" required="" >
 								  <a id="join_gender" class="genderSelect" href="#" >
 								  	<label class="radio-inline">
-								  			<input  type="radio" name="Gender" placeholder="성별" value="M" required="">남성
+								  			<input id="join_gender_m" type="radio" name="join_gender" placeholder="성별" value="M" required="">남성
 								  		</label>
 										<label class="radio-inline">
-											<input type="radio" name="Gender" placeholder="성별" value="W" required="">여성
+											<input id="join_gender_w" type="radio" name="join_gender" placeholder="성별" value="W" required="">여성
 								  		</label>
 								  </a>
 								 </div>
@@ -217,15 +234,15 @@ $(document).ready(function(){
 								</form>
 								<div class="social-icons">
 									<div class="login-button">
-											<a class="fa" id="join_facebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
-											<a class="go" id="join_google" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
+										<a class="go" id="join_google" href="#"><i class="anc-go"></i><span>Google+</span><div class="clear"></div></a>
+										<a class="fa" id="join_facebook" href="#"><i class="anc-fa"></i><span>Facebook</span><div class="clear"></div></a> 
 										<div class="clear"></div>
 									</div>
 								</div>
 							  </div>
 
 									<div class="cta">
-										<a id="forgotPassword" href="#">Forgot your password?</a>
+										<a id="forgotPassword" href="#">비밀번호 찾기</a>
 									</div>
 								</div>
 							</div>
@@ -235,6 +252,9 @@ $(document).ready(function(){
 		</div>
 	</div>
 	<script>
+		var coMember = new CobookMember();
+		
+		//토글 이벤트
 		$('.toggle').click(function(){
 		  // Switches the Icon
 		  $(this).children('i').toggleClass('fa-pencil');
@@ -245,39 +265,107 @@ $(document).ready(function(){
 			'padding-bottom': 'toggle',
 			opacity: "toggle"
 		  }, "slow");
+		  //초기화 
+		  initLogin();
 		});
-
+		
 		//Cobook 로그인 버튼   - form의 onsubmit에 등록
 		var login_cobook_function = function(){
-			cobookLogin($("#login_email").val(),$("#login_password").val(),"COBOOKLOGIN");
+			coMember.email=$("#login_email").val();
+			coMember.password=$("#login_password").val();
+			coMember.loginType="COBOOKLOGIN";
+			coMember.cobookLogin();
 		} 
-		
-		var join_cobook_function = function(){
-			console.log("ddddddddddddddddddddddd");
-		}
-		//Cobook 가입 버튼 
-		$("#join_cobook").on("click", function() {
-
+		//로그인 google 버튼
+		$("#login_google").on("click", function() {
+			googleLogin("GOOGLELOGIN");
 		});
-		
 		//로그인 facebook 버튼
 		$("#login_facebook").on("click", function() {
-
+			facebookLogin("FACEBOOKLOGIN");
+		});
+		
+		
+		//회원가입
+		var join_cobook_function = function(){
+			if(coMember.checkEmail!="OK"){
+				alert("이메일 인증하세요");
+			}else{
+				coMember.email=$("#join_email").val();
+				coMember.password=$("#join_password").val();
+				coMember.nickname=$("#join_nickname").val();
+				coMember.age=$("#join_age").val();
+				coMember.gender=$('[name="join_gender"]:checked').val();
+				coMember.cobookJoin();
+			}
+		}		
+		//가입 google 버튼
+		$("#join_google").on("click", function() {
+			googleLogin("GOOGLEJOIN");
 		});
 		//가입 facebook 버튼
 		$("#join_facebook").on("click", function() {
-
+			facebookLogin("FACEBOOKJOIN");
 		});
-		//로그인 google 버튼
-		$("#login_google").on("click", function() {
-
-		});
-		//가입 google 버튼
-		$("#join_google").on("click", function() {
-
+		//이메일 인증 보내기
+		$("#join_email_check").on("click", function() {
+			if($("#join_email").val()==null){
+				alret("이메일을 입력하세요");
+				return;
+			}
+			coMember.email=$("#join_email").val();
+			coMember.emailCheck();
+		} );
+		
+		//이메일 인증 체크 관련 로직
+		function openEmailCheckForm(authString){
+			$("#join_email_check_form").show();
+			
+			$("#join_email_check_key_btn").unbind("click");
+			$("#join_email_check_key_btn").on("click", function() {
+				console.log($("#join_email_check_key").val()+"/"+authString);
+				if($("#join_email_check_key").val()!=authString){
+					alert("인증번호를 잘못 입력하셨습니다.");
+				}else{
+					coMember.checkEmail="OK";
+					alert("성공");
+					$("#join_email_check_form").hide();
+					emailCheck_off();
+				}
+			});
+		}
+		
+		//로그오프
+		$("#login_off").on("click", function() {
+			coMember.cobookLogout();
 		});
 		
-		function ChangeJoinForm(){
+		//비밀번호 찾기
+		$("#forgotPassword").on("click", function() {
+			passwordModifyEmail();
+		});
+		
+		
+		//조인 -> 로그인 폼으로 변경
+		function ChangeLoginForm(){
+			  // Switches the Icon
+			  $('.toggle').children('i').toggleClass('fa-pencil');
+			  // Switches the forms  
+			  $('.form').animate({
+				height: "toggle",
+				'padding-top': 'toggle',
+				'padding-bottom': 'toggle',
+				opacity: "toggle"
+			  }, "slow");
+
+			  initLogin();
+			  $("form[name='join_form']").each(function() {
+			       this.reset();
+			  });
+			  
+		};
+		//로그인 ->조인 폼으로 변경
+		function ChangeJoinForm(coMember){
 				  // Switches the Icon
 				  $('.toggle').children('i').toggleClass('fa-pencil');
 				  // Switches the forms  
@@ -287,16 +375,88 @@ $(document).ready(function(){
 					'padding-bottom': 'toggle',
 					opacity: "toggle"
 				  }, "slow");
-				  
-				  SetJoinForm('test@test','M','ID');
+				  initLogin();
+				  $("form[name='login_form']").each(function() {
+				       this.reset();
+				  });
+				  //SetJoinForm(coMember);
 		};
-		function SetJoinForm(email,gender, id){
+		//가져온 정보로 조인 폼에 입력
+		function SetJoinForm(member){
+			if(member.email!=""&member.email!=null){
+				$("#join_email").val(member.email);
+			}
+			if(member.nickname!=""&member.nickname!=null){
+				$("#join_nickname").val(member.nickname);
+			}
+			if(member.age!=""&member.age!=null){
+				$("#join_age").val(member.age);
+			}
+			if(member.gender!=""&member.gender!=null){
+				if(member.gender=="male"){
+					$("#join_gender_m").attr('checked', 'checked');
+				}else{
+					$("#join_gender_w").attr('checked', 'checked');
+				}
+			}
 			
+			//이메일 체크 폼 삭제 및 인증 절차 생략
+			$("#join_email_check_form").hide();
+			emailCheck_off();
+			coMember.checkEmail="OK";
 		};
 
+
+		
 		//모달 닫을때, form 초기화 작업
 		$('.modal').on('hidden.bs.modal', function (e) {
 		    $(this).find('form')[0].reset();
 		    $(this).find('form')[1].reset();
+			initLogin();
 		});
+		//로그인, 조인 입력값  초기화
+		var initLogin = function(){
+			//로그인 초기화
+		    coMember = new CobookMember();
+			//인증 숨기기
+		    $("#join_email_check_form").val("");
+		    $("#join_email_check_form").hide();
+		    emailCheck_On();
+		    
+			  $("form[name='join_form']").each(function() {
+			       this.reset();
+			  });
+			  $("form[name='login_form']").each(function() {
+			       this.reset();
+			  });
+		}
+		
+		//Join email 잠금
+		var emailCheck_off =function(){
+			$("#join_email_check").hide();
+			$("#join_email_check_off").show();
+			$("#join_email").attr("readonly",true);
+		}
+		//Join email 오픈
+		var emailCheck_On =function(){
+			$("#join_email_check").show();
+			$("#join_email_check_off").hide();
+			$("#join_email").attr("readonly",false);
+		}
+		//로그인 상태
+		var login_on_func = function(){
+			$("#login_on").hide();
+			$("#login_off").show();
+		}
+		//로그오프 상태
+		var login_off_func = function(){
+			$("#login_on").show();
+			$("#login_off").hide();
+		}
+		if(member_no!=null){
+			login_on_func();
+		}else{
+			login_off_func();
+		}
+		
 	</script>

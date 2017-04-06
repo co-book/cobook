@@ -9,9 +9,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
+		
+<!-- font-awesome icons -->
+<link href="resources/CoBookDesign/css/font-awesome.min.css"  rel="stylesheet" />
 <!-- css -->
 <link href="resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/login.css?ver=11" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
+<link href="resources/CoBookDesign/css/login.css?ver=5" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
 <link href="resources/CoBookDesign/css/style.css?ver=13" rel="stylesheet" type="text/css" media="all" />
 <!-- 메인추가 -->
 <link href="resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
@@ -26,8 +29,6 @@
 <!-- pop-up -->
 <link href="resources/CoBookDesign/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //pop-up -->
-<!-- font-awesome icons -->
-<link href="resources/CoBookDesign/css/font-awesome.min.css"  rel="stylesheet" />
 <!-- banner-bottom-plugin -->
 <link href="resources/CoBookDesign/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
 

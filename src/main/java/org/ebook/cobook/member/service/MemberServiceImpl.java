@@ -36,17 +36,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean checkNickName(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		MemberVO member = memberDAO.getNickName(nickname);
-		if (member != null) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
 	public MemberVO getMember(MemberVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return memberDAO.getMember(vo);
