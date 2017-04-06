@@ -1,5 +1,7 @@
 package org.ebook.cobook.ebook.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sun.media.sound.ModelAbstractChannelMixer;
 
 import sun.print.resources.serviceui;
 
@@ -74,11 +79,12 @@ public class EbookController {
 	
 	
 	
-	
+	//ebook 상세페이지
 	@RequestMapping(value= "/getEbookDetail", method = RequestMethod.GET)
-	public void getEbookDetail(Model model) throws Exception{
+	public void getEbookDetail(@RequestParam("ebook_no") int ebook_no, Model model) throws Exception{
 		logger.info("getEbookDetail 호출");
-		
+		EbookVO evo = ebookService.eBookDetail(ebook_no);
+		model.addAttribute(evo);
 	}
 	
 	/**
@@ -86,13 +92,14 @@ public class EbookController {
 	 * @param model
 	 * @throws Exception
 	 */
+	//따로 이동해시켜줄 뷰가 없을때 responseBody를 씁니다;-!
 	@RequestMapping(value= "/getBookMarkList", method = RequestMethod.GET)
 	public @ResponseBody List<BookmarkVO> getBookMarkList(Model model , BorrowVo borrowVo ) throws Exception{
 		logger.info("getBookMarkList 호출");
 		//List<BookmarkVo> list = ebookService.getBookMarkList();
 		return null;
 	}
-	
+	 
 	/**
 	 * 북마크 추가
 	 * @param model

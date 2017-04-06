@@ -11,6 +11,8 @@ public interface EbookService {
 
 	public List<EbookVO> getEbookList(Model model)throws Exception;
 	
+	public EbookVO eBookDetail(int ebookn_no) throws Exception;
+	
 	public List<BookmarkVO> getBookmarkList(BorrowVo borrow)throws Exception;
 	
 	public void setBookMark(BookmarkVO bookmark) throws Exception;

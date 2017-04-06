@@ -14,9 +14,15 @@ public class EbookVO {
 	private String category;
 	private String cover;
 	private String epub;
+	private Date expiryDate;
 	
 	
-	
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 	public Integer getEbook_no() {
 		return ebook_no;
 	}
