@@ -26,7 +26,7 @@ FROM(
 	  )
 WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
              ]]>
-		<include refid="search"></include>
+		<include refid="searchTitle"></include>
 
 	</select>
 
@@ -147,6 +147,69 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 			</if>
 		</if>
 	</sql>
+
+	<sql id="searchTitle">
+		<if test="searchType != null">
+			<if test="keyword == 'ㄱ'.toString()">
+			AND title between '가' and '나'
+			OR title between 'ㄱ' AND 'ㄴ'
+			</if>
+			<if test="keyword == 'ㄴ'.toString()">
+			AND title between '나' and '다'
+			OR title between 'ㄴ' AND 'ㄷ'
+			</if>
+			<if test="keyword == 'ㄷ'.toString()">
+		AND title between '다' and '리'
+			OR title between 'ㄷ' AND 'ㄹ'
+			</if>
+			<if test="keyword == 'ㄹ'.toString()">
+			AND title between '라' and '마'
+			OR title between 'ㄹ' AND 'ㅁ'
+			</if>
+			<if test="keyword == 'ㅁ'.toString()">
+			AND title between '마' and '바'
+			OR title between 'ㅁ' AND 'ㅂ'
+			</if>
+			<if test="keyword == 'ㅂ'.toString()">
+			AND title between '바' and '사'
+			OR title between 'ㅂ' AND 'ㅅ'
+			</if>
+			<if test="keyword == 'ㅅ'.toString()">
+				AND title between '사' and '아'
+			OR title between 'ㅅ' AND 'ㅇ'
+			</if>
+			<if test="keyword == 'ㅇ'.toString()">
+			AND title between '아' and '자'
+			OR title between 'ㅇ' AND 'ㅈ'
+			</if>
+			<if test="keyword == 'ㅈ'.toString()">
+			AND title between '자' and '차'
+			OR title between 'ㅈ' AND 'ㅊ'
+			</if>
+			<if test="keyword == 'ㅊ'.toString()">
+			AND title between '차' and '카'
+			OR title between 'ㅊ' AND 'ㅋ'
+			</if>
+			<if test="keyword == 'ㅋ'.toString()">
+			AND title between '카' and '타'
+			OR title between 'ㅋ' AND 'ㅌ'
+			</if>
+			<if test="keyword == 'ㅌ'.toString()">
+			AND title between '타' and '파'
+			OR title between 'ㅌ' AND 'ㅍ'
+			</if>
+			<if test="keyword == 'ㅍ'.toString()">
+			AND title between '파' and '하'
+			OR title between 'ㅍ' AND 'ㅎ'
+			</if>
+			<if test="keyword == 'ㅎ'.toString()">
+			AND title between '하' and '가'
+			OR title between 'ㅎ' AND 'ㄱ'
+			</if>
+		</if>
+	
+	</sql>
+
 
 	<select id="listAll" resultType="MybookVO">
 		select * from mybook

@@ -5,7 +5,7 @@
   <div class="news-grids-bottom">
   								
 									<div class="top-news-grid">
-									<c:forEach items="${list}" var="vo">
+									<c:forEach items="${replies}" var="vo">
 										<div class="top-news-grid-heading">
 											<a href="/review/single?review_no=${vo.BOARD_NO}&reply_no=${vo.REPLY_NO}">${vo.CONTENTS}</a>
 										</div>

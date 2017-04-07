@@ -76,16 +76,19 @@ public class MybookController {
 		return "mybook/mybookList";
 	}
 	
-	// 게시물 읽어오기 file_no + fileurl + 게시물 정보
-	@RequestMapping(value = "/single", method = RequestMethod.GET)
-	  public void read(@RequestParam("mybook_no") int mybook_no, @ModelAttribute("cri") Criteria cri, Model model)
-	      throws Exception {
-
+	@RequestMapping(value="/single", method = RequestMethod.GET)
+	public String mybookSingle(@RequestParam("mybook_no") int mybook_no, @ModelAttribute("cri") Criteria cri, Model model)throws Exception{
 		
-	    model.addAttribute("mybookVO",mybookService.getMybookSingle(mybook_no));
-	  }
+		ReplyVO vo = new ReplyVO();
+		vo.setBoard_no(mybook_no);
+		vo.setParent_type("MYBOOK");
+		
+		model.addAttribute("mybookVO",mybookService.getMybookSingle(mybook_no));
+		model.addAttribute("REPLYCOUNT", mybookService.getReplyCount(vo));
+		
+		return "/mybook/mybookSingle";
+	}
 	
-	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
 	 @RequestMapping(value = "/removePage", method = RequestMethod.POST)
 	  public String remove(@RequestParam("mybook_no") int mybook_no, Criteria cri, RedirectAttributes rttr) throws Exception {
 
@@ -107,9 +110,10 @@ public class MybookController {
 
 	 // single페이지 요청
 	  @RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
-	  public void modifyPagingGET(int mybook_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+	  public String modifyPagingGET(int mybook_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
 	    model.addAttribute("mybookVO",mybookService.getMybookSingle(mybook_no));
+	    return "/mybook/modifyPage";
 	  }
 
 	  // 게시물 수정처리
@@ -117,17 +121,24 @@ public class MybookController {
 	  // 주의 cover파일일경우 처리
 	  @RequestMapping(value = "/modifyPage", method = RequestMethod.POST)
 	  public String modifyPagingPOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
-				@ModelAttribute("cri")Criteria cri,HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+				@ModelAttribute("cri")Criteria cri,HttpServletRequest req, RedirectAttributes rttr
+				,FilesVO filesVO) throws Exception {
 
+		  logger.debug("수정기능 실행");
 		  String[] files = req.getParameterValues("files");
-		  FilesVO filesVO = new FilesVO();
+		  logger.debug("파일 input 확인 : "+files.toString());
 		  filesVO.setFiles(files);
 		  filesVO.setBook_no(mybookVO.getMybook_no());
 		  filesVO.setBook_type("MYBOOK");
-
-			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
+		  String uploadedName = filesVO.getFileurl();
+		  logger.debug(coverFile.getOriginalFilename());
+		 // 수정할시에 이미지파일 변경여부에 따라 분기함 
+		  if(!coverFile.getOriginalFilename().equals("")){
+			  logger.info("변경있음");
+			uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
 					coverFile.getBytes());
-			logger.debug("업로드네임: " + uploadedName);
+		  }
+		 
 			filesVO.parsingFileData(uploadedName);
 	    mybookService.modifyMybook(mybookVO, filesVO);
 
@@ -140,9 +151,10 @@ public class MybookController {
 
 	    logger.info(rttr.toString());
 
-	    return "redirect:/mybook/list";
+	    return "redirect:/mybook/single?mybook_no="+mybookVO.getMybook_no();
 	  }
-
+	  
+	  
 	  @RequestMapping(value = "/register", method = RequestMethod.GET)
 		public String writeGET(Model model, HttpSession session) throws Exception {
 
@@ -151,7 +163,7 @@ public class MybookController {
 			return "/mybook/mybookWrite";
 		}
 
-		@RequestMapping(value = "/register", method = RequestMethod.POST)
+	  @RequestMapping(value = "/register", method = RequestMethod.POST)
 		public String mWrtiePOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
 				HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 
@@ -170,13 +182,6 @@ public class MybookController {
 
 			return "redirect:/mybook/list";
 		}
-	  
-	  /*@RequestMapping("/getAttach/{bno}")
-	  @ResponseBody
-	  public List<String> getAttach(@PathVariable("bno")Integer bno)throws Exception{
-	    
-	    return mybookService.getAttach(bno);
-	  } */
 	  
 	  @RequestMapping(value="/getUserMybookList", method = RequestMethod.GET)
 	  public String getMybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{

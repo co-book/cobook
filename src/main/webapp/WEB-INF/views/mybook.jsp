@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Co-123Book World!</title>
@@ -43,6 +44,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- js -->
 <script type="text/javascript"
 	src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
+<!-- 부트스트랩 cdn -->
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
 <!-- //js -->
 <link
 	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
@@ -67,7 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="/cobook/resources/CoBookDesign/list-js/jquery.basictable.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" charset="UTF-8">
 $(document).ready(function(){
 	//리스트
 	var page = '${cri.page}';
@@ -97,6 +104,7 @@ $(document).ready(function(){
 		console.log("클릭");
 		
 		var keyword = $(this).text();
+		console.log(keyword);
 		
 		$.ajax({
 			type : "get",
@@ -139,9 +147,11 @@ $(document).ready(function(){
 					<li class="active">List</li>
 				</ol>
 			</div>
+			
 			<div class="bs-example bs-example-tabs" role="tabpanel"
 				data-example-id="togglable-tabs">
 				<ul id="myTab" class="nav nav-tabs" role="tablist">
+					
 					<li role="presentation" class="active"><a href="#home"
 						id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
 						aria-expanded="true">0 - 9</a></li>
@@ -174,13 +184,13 @@ $(document).ready(function(){
 					<li role="presentation"><a href="#n" role="tab" id="n-tab"
 						data-toggle="tab" aria-controls="n">ㅎ</a></li>
 					<li role="presentation"><a href="#o" role="tab" id="o-tab"
-						data-toggle="tab" aria-controls="o">T</a></li>
+						data-toggle="tab" aria-controls="o">A</a></li>
 					<li role="presentation"><a href="#p" role="tab" id="p-tab"
-						data-toggle="tab" aria-controls="p">P</a></li>
+						data-toggle="tab" aria-controls="p">B</a></li>
 					<li role="presentation"><a href="#q" role="tab" id="q-tab"
-						data-toggle="tab" aria-controls="q">Q</a></li>
+						data-toggle="tab" aria-controls="q">C</a></li>
 					<li role="presentation"><a href="#r" role="tab" id="r-tab"
-						data-toggle="tab" aria-controls="r">R</a></li>
+						data-toggle="tab" aria-controls="r">D</a></li>
 				</ul>
 				<div id="myTabContent" class="tab-content">
 					<div role="tabpanel" class="tab-pane fade in active" id="home"

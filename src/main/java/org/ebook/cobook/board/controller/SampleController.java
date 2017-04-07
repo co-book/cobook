@@ -45,8 +45,6 @@ public class SampleController {
 
 	@Inject
 	private SampleDAOImpl sampleDAO;
-	
-	
 
 	@RequestMapping(value = "/mybookList", method = RequestMethod.GET)
 	public String testMybook(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {

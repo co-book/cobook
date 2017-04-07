@@ -65,9 +65,8 @@ $(function(){
 				});
 
 	});
-	
-	
 
+ 	// 저장
 	 $("#save").on("click", function(event){
 		
 		event.preventDefault();

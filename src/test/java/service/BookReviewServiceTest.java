@@ -64,6 +64,13 @@ public class BookReviewServiceTest extends AbstractCommonConfTest{
 		System.out.println(map.toString());
 	}
 	
+	@Test
+	public void getBestReply()throws Exception{
+		List<Map<String, Object>> list = service.getBestReply();
+		for(Map paramMap : list){
+			System.out.println(paramMap.toString());
+		}
+	}
 	
 	
 }

@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getBookReviewList" resultType="map" parameterType="org.ebook.cobook.board.domain.Criteria">
 <![CDATA[
-	SELECT review_no, title, contents, hit, reg_date, evaluate, coverurl, category, nickname
+	SELECT review_no, title, SUBSTR(contents, 1, 50) AS CONTENTS, hit, reg_date, evaluate, coverurl, category, nickname
 FROM (
         SELECT ROWNUM AS rn, review_no, title, contents, hit, reg_date, evaluate
       , coverurl, category, nickname
@@ -91,7 +91,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 <!-- 인기순 -->
 <select id="getReviewPopularity" resultType="map">
 <![CDATA[  
-SELECT review_no, title, contents, hit, reg_date, evaluate, coverurl, category, nickname
+SELECT review_no, title, SUBSTR(contents, 1, 50) AS CONTENTS, hit, reg_date, evaluate, coverurl, category, nickname
 FROM (
         SELECT ROWNUM AS rn, review_no, title, contents, hit, reg_date, evaluate
       , coverurl, category, nickname
@@ -113,7 +113,7 @@ rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 <!-- 좋아요 순위6 -->
 	<select id="getBestReply" resultType="map">
 <![CDATA[
-SELECT r.reply_no, r.board_no, r.contents,  m.nickname, likeCount
+SELECT r.reply_no, r.board_no, r.contents, r.reg_date,m.nickname, likeCount
 FROM
 (
   SELECT l.reply_no, count(like_it_no) AS likeCount
@@ -121,6 +121,7 @@ FROM
   WHERE l.reply_no = r.reply_no
   AND parent_type like 'BOOKREVIEW'
   GROUP BY l.reply_no
+  ORDER BY likecount desc
 ) l, reply r, member m
 WHERE l.reply_no = r.reply_no
 AND  r.member_no = m.member_no
@@ -182,62 +183,7 @@ WHERE rownum <= 10
 				WHERE nickname like CONCAT('%', #{keyword}) || '%')
 				)
 			</if>
-			<if test="searchType == 'ㄱ'.toString()">
-			AND br.title between '가' and '나'
-			OR br.title between 'ㄱ' AND 'ㄴ'
-			</if>
-			<if test="searchType == 'ㄴ'.toString()">
-			AND br.title between '나' and '다'
-			OR br.title between 'ㄴ' AND 'ㄷ'
-			</if>
-			<if test="searchType == 'ㄷ'.toString()">
-		AND br.title between '다' and '리'
-			OR br.title between 'ㄷ' AND 'ㄹ'
-			</if>
-			<if test="searchType == 'ㄹ'.toString()">
-			AND br.title between '라' and '마'
-			OR br.title between 'ㄹ' AND 'ㅁ'
-			</if>
-			<if test="searchType == 'ㅁ'.toString()">
-			AND br.title between '마' and '바'
-			OR br.title between 'ㅁ' AND 'ㅂ'
-			</if>
-			<if test="searchType == 'ㅂ'.toString()">
-			AND br.title between '바' and '사'
-			OR br.title between 'ㅂ' AND 'ㅅ'
-			</if>
-			<if test="searchType == 'ㅅ'.toString()">
-				AND br.title between '사' and '아'
-			OR br.title between 'ㅅ' AND 'ㅇ'
-			</if>
-			<if test="searchType == 'ㅇ'.toString()">
-			AND title between '아' and '자'
-			OR title between 'ㅇ' AND 'ㅈ'
-			</if>
-			<if test="searchType == 'ㅈ'.toString()">
-			AND title between '자' and '차'
-			OR title between 'ㅈ' AND 'ㅊ'
-			</if>
-			<if test="searchType == 'ㅊ'.toString()">
-			AND title between '차' and '카'
-			OR title between 'ㅊ' AND 'ㅋ'
-			</if>
-			<if test="searchType == 'ㅋ'.toString()">
-			AND title between '카' and '타'
-			OR title between 'ㅋ' AND 'ㅌ'
-			</if>
-			<if test="searchType == 'ㅌ'.toString()">
-			AND title between '타' and '파'
-			OR title between 'ㅌ' AND 'ㅍ'
-			</if>
-			<if test="searchType == 'ㅍ'.toString()">
-			AND title between '파' and '하'
-			OR title between 'ㅍ' AND 'ㅎ'
-			</if>
-			<if test="searchType == 'ㅎ'.toString()">
-			AND title between '하' and '가'
-			OR title between 'ㅎ' AND 'ㄱ'
-			</if>
+		
 		</if>
 	</sql>
 </mapper>

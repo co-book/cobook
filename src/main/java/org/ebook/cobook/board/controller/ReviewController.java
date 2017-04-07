@@ -2,6 +2,7 @@ package org.ebook.cobook.board.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -31,6 +32,26 @@ public class ReviewController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+
+	public String review(@ModelAttribute("cri") Criteria cri, Model model) {
+
+		if(cri == null){
+			cri = new Criteria();
+		}
+		
+		logger.debug("페이지값확인 : " + cri.toString());
+		logger.info("BOOKREVIEW");
+		model.addAttribute("cri", cri);
+
+		return "review";
+
+	}
+
+	
+	
+	
 	// 게시물 리스트 = 닉네임 + 파일정보 + 게시물목록
 
 	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
@@ -173,7 +194,7 @@ public class ReviewController {
 	public String bestReply(Model model) {
 
 		logger.info("bestReply");
-		model.addAttribute("list", reviewService.getBestReply());
+		model.addAttribute("replies", reviewService.getBestReply());
 
 		return "review/bestReply";
 

@@ -136,54 +136,13 @@ public class HomeController {
 
 			 */
 
-			/*@RequestMapping(value = "/mybook", method = RequestMethod.GET)
+		
 
-			public String mybook(Locale locale, Model model) {
-
-				logger.info("mybook");
-
-				return "mybook";잠시
-				
-
-			}*/
-
-			//Mybook리스트 - 
-
-			/*@RequestMapping(value = "/mybook/mybookList", method = RequestMethod.GET)
-
-			public String mybookList(Locale locale, Model model) {
-
-				logger.info("mybookList");
-
-				return "mybook/mybookList";
-
-			}*/
+		
 
 			
 
-			//****************************Review
-
-			/**
-
-			 * Review
-
-			 * @param locale
-
-			 * @param model
-
-			 * @return
-
-			 */
-
-			@RequestMapping(value = "/review", method = RequestMethod.GET)
-
-			public String review(Locale locale, Model model) {
-
-				logger.info("review");
-
-				return "review";
-
-			}
+			
 
 			//리뷰 리스트 최신순, 인기순  
 /*

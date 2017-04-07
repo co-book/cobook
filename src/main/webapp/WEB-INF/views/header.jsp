@@ -110,7 +110,7 @@
 
 <!-- //footer -->
 <!-- Bootstrap Core JavaScript-->
-<script src="resources/CoBookDesign/js/bootstrap.min.js"></script>
+<script src="/cobook/resources/CoBookDesign/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
     $(".dropdown").hover(            

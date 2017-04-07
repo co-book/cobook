@@ -35,25 +35,36 @@
 			</c:forEach>
 		</tbody>
 	</table>
-		<div id="paging">
-		<c:if test="${pageMaker.prev}">
-			<a id="lt" href="/cobook/mybook/list?page=${pageMaker.startPage - 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
-			varStatus="i">
 
-				<c:if test="${i.count == cri.page}">
-				${i.current}
-				</c:if>
-				<c:if test="${i.count != cri.page}">
-				<a href="/cobook/mybook/list?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">${i.count}</a>
-				</c:if>
-		</c:forEach>
-		<c:if test="${pageMaker.next}">
-			<a id="gt" href="/cobook/mybook/list?page=${pageMaker.endPage + 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">&gt;</a>
-		</c:if>
+	<nav>
+		<ul class="pagination">
+			<!-- 이전 -->
+			<li><c:if test="${pageMaker.prev}">
+					<a
+						href="/cobook/mybook/list?page=${pageMaker.startPage - 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a>
+				</c:if></li>
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
+				varStatus="i">
 
+				<c:choose>
+					<c:when test="${cri.page == i.current}">
+						${i.current}
+					</c:when>
+					<c:otherwise>
+						<a id="pageLink" href="/cobook/mybook/list?page=${i.count}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">${i.count}</a>
+					</c:otherwise>
+				</c:choose>
 
+			</c:forEach>
+			<c:if test="${pageMaker.next}">
+				<li><a
+					href="/cobook/mybook/list?page=${pageMaker.endPage + 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</c:if>
+		</ul>
+	</nav>
 
-	</div>
 </div>
