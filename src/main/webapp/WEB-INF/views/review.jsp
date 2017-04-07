@@ -66,24 +66,24 @@
 	$(document).ready(
 			function() {
 				//리스트
-				var endPage = 0;
-				var lPage = 1;
-				var pPage = 1;
+				var totalPage = '${pageMaker.totalPage}';
 				var page = '${cri.page}';
 				var perPageNum = '${cri.perPageNum}';
 				var searchType = '${cri.searchType}';
 				var keyword = '${cri.keyword}';
-				var listURL = '/cobook/review/reviewList?page=' + page
+				var listURL = '/cobook/review/reviewList?page=' + 1
 						+ "&perPageNum=" + perPageNum + "&searchType="
 						+ searchType + "&keyword=" + keyword;
 				var popularityURL = '/cobook/review/popularityList?page='
-						+ page + "&perPageNum=" + perPageNum + "&searchType="
+						+ 1 + "&perPageNum=" + perPageNum + "&searchType="
 						+ searchType + "&keyword=" + keyword;
 				var bestReplyURL = "/cobook/review/bestReply";
 				
 				// 페이지 접근시에 최신리뷰, 베플, 최근리뷰를 보여줌
 				getReviewList(listURL, '#review_reviewList', 'html');
 				getReviewList(bestReplyURL, '#review_bestReply', 'html');
+				// 페이지 접근시 더보기 버튼 유무 확인
+				listenerBtn(page);
 				
 				$.ajax({
 					type : "get",
@@ -113,43 +113,64 @@
 
 				// 인기리뷰 클릭버튼 이벤트처리
 				$("#w3bsd-tab").on("click", function() {
-
+					page = 1;
 					console.log("인기리뷰 클릭");
+					console.log("인기 page초기화 : " + page);
+					console.log(popularityURL);
 					getReviewList(popularityURL, '#review_reviewList', 'html');
+					// 페이지 체크해서 더보기 버튼 유무 확인
+					listenerBtn(page);
 				});
 				
 				// 최신리뷰 버튼 처리
 				$("#home1-tab").on("click", function(){
-					
+					page  = 1;
 					console.log("최신리뷰 클릭");
 					getReviewList(listURL, "#review_reviewList", 'html');
+					// 페이지 체크해서 더보기 버튼 유무 확인
+					listenerBtn(page);
 				});
 				
+				// 더보기 버튼을 눌럿을때 최신더보기인지,인기더보기인지 구분
 				$("#paging").on("click", ".moreBtn", function(){
-					
+
 					var isActive =$("#home1-tab").attr("aria-expanded");
 					console.log("엑티브 상태 체크: "+isActive);
 					if(isActive == "true"){
-						lPage++;
-						var url = '/cobook/review/reviewList?page=' + lPage
+						page++;
+						var url = '/cobook/review/reviewList?page=' + page
 						+ "&perPageNum=" + perPageNum + "&searchType="
 						+ searchType + "&keyword=" + keyword;						
-						console.log("최신 더보기 클릭 :" + lPage);
+						console.log("최신 더보기 클릭 :" + page);
+						console.log("최신 url값 : " + url);
 						getReviewList(url, "#review_reviewList", 'append');
-						
 					}else{
-						pPage++;
-						var url = '/cobook/review/popularityList?page=' + pPage
+						page++;
+						var url = '/cobook/review/popularityList?page=' + page
 						+ "&perPageNum=" + perPageNum + "&searchType="
 						+ searchType + "&keyword=" + keyword;
-						console.log("인기 더보기 클릭: " + pPage);
+						console.log("인기 더보기 클릭: " + page);
+						console.log("인기 url값 : " + url);
 						getReviewList(url, "#review_reviewList", 'append');
+						
 					}
-					
-					
+					// 페이지 체크해서 더보기 버튼 유무 확인
+					listenerBtn(page);
 					
 				});
 				
+				// 현재 페이지를 체크해서 더보기 버튼 유무 확인
+				function listenerBtn(page){
+					console.log("페이지 체크: " + page);
+					var btn = "<button class='moreBtn'>더보기</button>";
+					if(totalPage > page){
+						
+						$("#paging").html(btn);
+					}else{
+						$("#paging").html("");
+					}
+					
+				}
 				
 				
 				// AJAX 공통함수
@@ -210,8 +231,8 @@
 								<!-- 리뷰 리스트 -->
 								<div id="review_reviewList"></div>
 								<div id="paging">
-									<c:if test="${pageMaker.next || pageMaker.endPage >= cri.page}"></c:if>
-									<button class="moreBtn">더보기</button>
+						
+								
 								</div>
 							</div>
 						</div>
