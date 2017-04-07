@@ -35,22 +35,24 @@ public class ReviewController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 
-	public String review(@ModelAttribute("cri") Criteria cri, Model model) {
+	public String review(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
 		if(cri == null){
 			cri = new Criteria();
 		}
 		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+		
 		logger.debug("페이지값확인 : " + cri.toString());
-		logger.info("BOOKREVIEW");
+		logger.debug("pageMaker : " + pageMaker.toString());
 		model.addAttribute("cri", cri);
+		model.addAttribute("pageMaker", pageMaker);
 
 		return "review";
 
 	}
-
-	
-	
 	
 	// 게시물 리스트 = 닉네임 + 파일정보 + 게시물목록
 
@@ -64,10 +66,9 @@ public class ReviewController {
 
 		List<Map<String, Object>> list = reviewService.getBookReviewList(cri);
 
-		logger.debug("사이즈 : " + list.size());
 		model.addAttribute("list", reviewService.getBookReviewList(cri));
 		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("size", list.size());
+		
 		logger.debug(reviewService.getBookReviewList(cri).toString());
 		return "review/reviewList";
 	}
@@ -83,11 +84,9 @@ public class ReviewController {
 
 		List<Map<String, Object>> list = reviewService.getReviewPopularity(cri);
 
-		logger.debug("사이즈 : " + list.size());
 		model.addAttribute("list", reviewService.getReviewPopularity(cri));
 		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("size", list.size());
-
+		
 		return "review/reviewList";
 	}
 
