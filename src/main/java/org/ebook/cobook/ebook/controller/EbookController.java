@@ -174,4 +174,10 @@ public class EbookController {
 		resultMap.put("resultMsg", resultMsg);
 		return resultMap;
 	}
+	
+	@RequestMapping(value = "/single", method = RequestMethod.GET)
+	public String single( Model model) {
+		logger.info("single");
+		return "ebook/single";
+	}
 }
