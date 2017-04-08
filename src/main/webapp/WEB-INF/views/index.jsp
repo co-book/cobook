@@ -11,46 +11,45 @@
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 		
 <!-- font-awesome icons -->
-<link href="resources/CoBookDesign/css/font-awesome.min.css"  rel="stylesheet" />
+<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css"  rel="stylesheet" />
 <!-- css -->
-<link href="resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/login.css?ver=5" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
-<link href="resources/CoBookDesign/css/style.css?ver=13" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /><!--login CSS -->
+<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/login.css?ver=3" rel="stylesheet" type="text/css" media="all"/>
 <!-- 메인추가 -->
-<link href="resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="/cobook/resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
 <!-- 메인추가 
-<link href="resources/CoBookDesign/css/contactstyle.css"  rel="stylesheet" type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/faqstyle.css?ver=1" rel="stylesheet" type="text/css" media="all" />
-<link href="resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/contactstyle.css"  rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/faqstyle.css?ver=1" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
 -->
-<link href="resources/CoBookDesign/css/medile.css" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/medile.css" rel='stylesheet' type='text/css' />
 <!-- banner-slider -->
-<link href="resources/CoBookDesign/css/jquery.slidey.min.css" rel="stylesheet">
+<link href="/cobook/resources/CoBookDesign/css/jquery.slidey.min.css" rel="stylesheet">
 <!-- pop-up -->
-<link href="resources/CoBookDesign/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-<!-- //pop-up -->
+<link href="/cobook/resources/CoBookDesign/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 <!-- banner-bottom-plugin -->
-<link href="resources/CoBookDesign/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+<link href="/cobook/resources/CoBookDesign/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
 
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- aladinList -->
-<link rel="stylesheet" href="resources/CoBookDesign/css/flexslider.css" type="text/css" media="screen" property="" />
+<link href="/cobook/resources/CoBookDesign/css/flexslider.css" rel="stylesheet" type="text/css" media="screen" property="" />
 
+<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
-
-<script type="text/javascript" src="resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="resources/CoBookDesign/js/easing.js"></script>
-<script type="text/javascript" src="resources/CoBookDesign/js/move-top.js"></script>
-<script type="text/javascript" src="resources/CoBookDesign/js/owl.carousel.js"></script>
-<script type="text/javascript" src="resources/CoBookDesign/js/jquery.nivo.slider.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/easing.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/move-top.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/owl.carousel.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery.nivo.slider.js"></script>
 <!-- banner Script start -->
-<script src="resources/CoBookDesign/js/jquery.slidey.js"></script>
-<script src="resources/CoBookDesign/js/jquery.dotdotdot.min.js"></script>
+<script src="/cobook/resources/CoBookDesign/js/jquery.slidey.js"></script>
+<script src="/cobook/resources/CoBookDesign/js/jquery.dotdotdot.min.js"></script>
 <!-- banner Script end -->
 <!-- aladinList -->
-<script defer src="resources/CoBookDesign/js/jquery.flexslider.js"></script>
+<script defer src="/cobook/resources/CoBookDesign/js/jquery.flexslider.js"></script>
 <!-- aladinList popup -->
-<script src="resources/CoBookDesign/js/jquery.magnific-popup.js" type="text/javascript"></script>
+<script src="/cobook/resources/CoBookDesign/js/jquery.magnific-popup.js" type="text/javascript"></script>
 
 <!--  index Main 추가  -->
 <script type="text/javascript">
