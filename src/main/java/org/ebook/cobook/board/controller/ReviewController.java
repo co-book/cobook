@@ -215,16 +215,19 @@ public class ReviewController {
 
 	// 같은 사용자 다른 리뷰
 	@RequestMapping(value="/getSameWriterOtherReviews", method = RequestMethod.GET)
-	public void getOtherReviews(int member_no, Model model)throws Exception{
-		
+	public String getOtherReviews(int member_no, Model model)throws Exception{
+		logger.debug("같은작성자 다른 책 호출");
 		model.addAttribute("list", reviewService.getSameWriterOtherReviews(member_no));
+		return "/review/sameWriterOtherReviews";
 	}
 	
 	// same ebook other reviews
 	@RequestMapping(value="/getSameBookOtherReviews", method = RequestMethod.GET)
-	public void getOtherReviewsGET(int ebook_no, Model model)throws Exception{
-		
+	public String getOtherReviewsGET(int ebook_no, Model model)throws Exception{
+		logger.debug("같은책 다른 리뷰");
 		model.addAttribute("list", reviewService.getSameBookOtherReviews(ebook_no));
+		
+		return "/review/sameBookOtherReviews";
 	}
 	
 }

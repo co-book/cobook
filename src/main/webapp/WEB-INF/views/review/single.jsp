@@ -211,7 +211,7 @@
 						<!-- news-right-bottom -->
 						<div class="news-right-bottom">
 							<div class="wthree-news-right-heading">
-								<h3>Top News</h3>
+								<h3>같은책 다른리뷰</h3>
 							</div>
 							<div class="news-right-bottom-bg">
 								
@@ -514,11 +514,14 @@ $(function(){
 	
 	// AJAX 공통함수
 	function getReviewList(url, target, method) {
+		
+		console.log("공통 함수 호출");
 		$.ajax({
 			type : "get",
 			url : url,
 			dataType : 'html',
 			success : function(data) {
+				console.log("문자열 확인: "+data);
 				settingHtml(target, method, data);
 			}
 		});
