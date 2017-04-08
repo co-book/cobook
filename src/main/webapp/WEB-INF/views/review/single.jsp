@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Co-Book World!</title>
@@ -119,38 +119,7 @@
 							</div>
 						</div>
 						<div class="wthree-related-news-left">
-							<h4>Related News</h4>
-							<div class="wthree-news-top-left">
-								<div class="col-md-6 w3-agileits-news-left">
-									<div class="col-sm-5 wthree-news-img">
-										<a href="news-single.html"><img src="images/m1.jpg" alt="" /></a>
-									</div>
-									<div class="col-sm-7 wthree-news-info">
-										<h5><a href="news-single.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h5>
-										<p>Sed tristique mattis fermentum. Etiam semper aliquet massa, id tempus massa mattis eget.</p>
-										<ul>
-											<li><i class="fa fa-clock-o" aria-hidden="true"></i> 24/09/2016</li>
-											<li><i class="fa fa-eye" aria-hidden="true"></i> 2642</li>
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="col-md-6 w3-agileits-news-left">
-									<div class="col-sm-5 wthree-news-img">
-										<a href="news-single.html"><img src="images/m2.jpg" alt="" /></a>
-									</div>
-									<div class="col-sm-7 wthree-news-info">
-										<h5><a href="news-single.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h5>
-										<p>Sed tristique mattis fermentum. Etiam semper aliquet massa, id tempus massa mattis eget.</p>
-										<ul>
-											<li><i class="fa fa-clock-o" aria-hidden="true"></i> 24/09/2016</li>
-											<li><i class="fa fa-eye" aria-hidden="true"></i> 2642</li>
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
+							<!-- 다른리뷰 자리 -->
 						</div>
 						<!-- agile-comments -->
 						<div class="agile-news-comments">
@@ -245,52 +214,8 @@
 								<h3>Top News</h3>
 							</div>
 							<div class="news-right-bottom-bg">
-								<div class="news-grids-bottom">
-									<div class="top-news-grid">
-										<div class="top-news-grid-heading">
-											<a href="news-single.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean rutrum ac nulla</a>
-										</div>
-										<div class="w3ls-news-t-grid top-t-grid">
-											<ul>
-												<li><a href="#"><i class="fa fa-clock-o"></i> 1h</a></li>
-												<li><a href="#"><i class="fa fa-user"></i> Vivamus nibh</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="top-news-grid">
-										<div class="top-news-grid-heading">
-											<a href="news-single.html">Duis orci enim, rutrum vel sodales ut, tincidunt nec turpis.</a>
-										</div>
-										<div class="w3ls-news-t-grid top-t-grid">
-											<ul>
-												<li><a href="#"><i class="fa fa-clock-o"></i> 3h</a></li>
-												<li><a href="#"><i class="fa fa-user"></i> Cras pretium</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="top-news-grid">
-										<div class="top-news-grid-heading">
-											<a href="news-single.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean rutrum ac nulla</a>
-										</div>
-										<div class="w3ls-news-t-grid top-t-grid">
-											<ul>
-												<li><a href="#"><i class="fa fa-clock-o"></i> 1h</a></li>
-												<li><a href="#"><i class="fa fa-user"></i> Vivamus nibh</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="top-news-grid">
-										<div class="top-news-grid-heading">
-											<a href="news-single.html">Duis orci enim, rutrum vel sodales ut, tincidunt nec turpis.</a>
-										</div>
-										<div class="w3ls-news-t-grid top-t-grid">
-											<ul>
-												<li><a href="#"><i class="fa fa-clock-o"></i> 3h</a></li>
-												<li><a href="#"><i class="fa fa-user"></i> Cras pretium</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
+								
+							</div>
 							</div>
 						</div>
 						<!-- //news-right-bottom -->
@@ -497,54 +422,118 @@
 	<input type="hidden" id="review_noTxt" name="review_no" value="">
 	<input type="hidden" id="pageTxt"  name="page" value="">
 	<input type="hidden" id="perPageNumTxt" name="perPageNum"  value="">
+	<input type="hidden" id="searchTypeTxt" name="searchType" value="">
+	<input type="hidden" id="keywordTxt" name="keyword" value="">
 </form>	
 <!-- //faq-banner -->
 <c:import url="/WEB-INF/views/footer.jsp" charEncoding="UTF-8"/>
 <script type="text/javascript">
 $(function(){
-	
 	var review_no = '${reviewVO.REVIEW_NO}';
 	var page = '${cri.page}';
 	var perPageNum = '${cri.perPageNum}';
+	var searchType = '${cri.searchType}';
+	var keyword = '${cri.keyword}';
 	var formObj = $(".singleForm");
+	var replyCount = '${REPLYCOUNT}';
+	var member_no = '${reviewVO.MEMBER_NO}';
+	var ebook_no = '${reviewVO.EBOOK_NO}';
 	
 	console.log("값테스트");
 	console.log("review_no = " + review_no);
 	console.log("page = " + page);
 	console.log("perPageNum = " + perPageNum);
+	console.log("searchType = " + searchType);
+	console.log("keyword = " + keyword);
+	console.log("replyCount = " + replyCount);
+	console.log("member_no = " + member_no);
+	console.log("ebook_no = " + ebook_no);
 	
+	// 리뷰리스트 메서드 매개변수 url, target, method
+	var sameWriterOtherReviews = "/cobook/review/getSameWriterOtherReviews?member_no="+member_no;
+	var sameBookOtherReviews = "/cobook/review/getSameBookOtherReviews?ebook_no="+ebook_no;
+	getReviewList(sameWriterOtherReviews, '.wthree-related-news-left', 'html');
+	getReviewList(sameBookOtherReviews, '.news-right-bottom-bg', 'html');
+	
+	
+	// 수정버튼 이벤트처리
 	$(".modBtn").on("click", function(){
 		
-		 var url = "/review/modifyPage";
+		 var url = "/cobook/review/modifyPage";
 		//$(location).attr("href", url);
 		formObj.attr("action", url);
 		formObj.attr("method", "get");
 		$("#review_noTxt").val(review_no);
 		$("#pageTxt").val(page);
 		$("#perPageNumTxt").val(perPageNum);
+		$("#searchTypeTxt").val(searchType);
+		$("#keywordTxt").val(keyword);
+		
 		formObj.submit();
 	});
 	
-	$(".rmBtn").on("click", function(){
-		var url = "/review/removePage";
+	// 삭제 버튼 이벤트처리
+	$(".rmBtn").on("click", function(event){
+		
+		if(replyCount > 0){
+			alert("댓글이 달려있는 게시물은 삭제 할 수 없습니다"); 
+			return;
+		}
+		
+		var url = "/cobook/review/removePage";
 		formObj.attr("action", url);
 		formObj.attr("method", "post");		
 		$("#review_noTxt").val(review_no);
 		$("#pageTxt").val(page);
 		$("#perPageNumTxt").val(perPageNum);
+		$("#searchTypeTxt").val(searchType);
+		$("#keywordTxt").val(keyword);
+		
 		formObj.submit();
 	});
 	
+	// 리스트버튼 이벤트 처리
 	$(".listBtn").on("click", function(){
 		console.log("리스트버튼 클릭");
-		var url = "/review/replyList";
+		var url = "/cobook/review/list";
 		formObj.attr("action", url);
 		formObj.attr("method", "get");
+		
+		// 리뷰번호, 페이지, 페이지갯수
 		$("#review_noTxt").val(review_no);
 		$("#pageTxt").val(page);
 		$("#perPageNumTxt").val(perPageNum);
+		$("#searchTypeTxt").val(searchType);
+		$("#keywordTxt").val(keyword);
 		formObj.submit();
 	});
+	
+	
+	
+	
+	
+	// AJAX 공통함수
+	function getReviewList(url, target, method) {
+		$.ajax({
+			type : "get",
+			url : url,
+			dataType : 'html',
+			success : function(data) {
+				settingHtml(target, method, data);
+			}
+		});
+	}
+	
+	// append OR html 방식인지 선택
+	function settingHtml(target, method, data){
+		
+		if(method == 'append'){
+			$(target).append(data);
+		}else{
+			$(target).html(data);
+		}
+	}
+	
 	
 	
 });

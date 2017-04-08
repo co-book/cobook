@@ -7,7 +7,7 @@
 									<div class="top-news-grid">
 									<c:forEach items="${replies}" var="vo">
 										<div class="top-news-grid-heading">
-											<a href="/review/single?review_no=${vo.BOARD_NO}&reply_no=${vo.REPLY_NO}">${vo.CONTENTS}</a>
+											<a href="/cobook/review/single?review_no=${vo.BOARD_NO}&reply_no=${vo.REPLY_NO}">${vo.CONTENTS}</a>
 										</div>
 										<div class="w3ls-news-t-grid top-t-grid">
 											<ul>

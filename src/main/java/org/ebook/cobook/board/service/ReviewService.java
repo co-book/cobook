@@ -46,4 +46,10 @@ public interface ReviewService {
 	// 내가 쓴 후기 리스트
 	public List<Map<String, Object>> getMyBookReviewList(Map<String, Object> paramMap)throws Exception;
 
+	// same member other reviews
+	public List<ReviewVO> getSameWriterOtherReviews(int member_no) throws Exception;
+	
+	// same ebook other reviews
+    public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception;
+	
 }

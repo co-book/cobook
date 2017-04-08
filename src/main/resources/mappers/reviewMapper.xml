@@ -55,7 +55,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 
 	<select id="getReviewSingle" resultType="map">
 		SELECT br.review_no, br.title, br.evaluate, br.contents, br.reg_date, br.hit, e.author,
-		e.publisher, e.coverurl, m.nickname, br.ebook_no
+		e.publisher, e.coverurl, m.nickname, br.ebook_no, br.member_no
 		FROM bookreview br, ebook e, member m
 		WHERE 
 			br.ebook_no = e.ebook_no
@@ -141,7 +141,30 @@ WHERE rownum <= 10
 ]]>
 </select>
 
+<select id="getSameWriterOtherReviews" resultType="ReviewVO" parameterType="int">
+<![CDATA[
+SELECT * 
+FROM(  
+    SELECT br.review_no, br.title, SUBSTR(br.contents,1, 20) AS CONTENTS, br.reg_date, br.hit, e.coverurl, ROW_NUMBER() OVER (ORDER BY review_no desc) AS rn
+    FROM bookreview br, ebook e
+    WHERE br.ebook_no = e.ebook_no
+    AND br.member_no = #{member_no}
+    )
+WHERE rn <= 2
+]]>
+</select>
 
+<select id="getSameBookOtherReviews">
+<![CDATA[
+SELECT * FROM(
+SELECT br.review_no, br.title, SUBSTR(br.contents,1, 20) AS CONTENTS, br.reg_date, m.nickname, ROW_NUMBER() OVER(ORDER BY review_no DESC) AS rn
+FROM bookreview br, member m
+WHERE br.ebook_no = #{ebook_no}
+AND br.member_no = m.member_no
+)
+WHERE ROWNUM <= 10
+]]>
+</select>
 
 	<sql id="search">
 		<if test="searchType != null">

@@ -96,7 +96,18 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectList(reviewNamespace+".getBestReply");
 	}
 
-	
+    // same writer other reviews
+	@Override
+	public List<ReviewVO> getSameWriterOtherReviews(int member_no) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getSameWriterOtherReviews", member_no);
+	}
+
+	// same ebook other reviews
+		public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception{
+		
+			return sqlSession.selectList(reviewNamespace+".getSameBookOtherReviews", ebook_no);
+		};
 	
 	
 }

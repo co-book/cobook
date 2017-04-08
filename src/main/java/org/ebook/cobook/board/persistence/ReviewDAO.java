@@ -32,6 +32,10 @@ public interface ReviewDAO {
 	// 최근 리뷰
 	public List<ReviewVO> getlastedReviewList()throws Exception;
 	
+	// same writer other reviews
+	public List<ReviewVO> getSameWriterOtherReviews(int member_no)throws Exception;
 	
+	// same ebook other reviews
+	public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception;
 	
 }

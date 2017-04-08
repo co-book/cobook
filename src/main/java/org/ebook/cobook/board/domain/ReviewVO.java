@@ -17,6 +17,14 @@ public class ReviewVO {
      private String fileurl; 
      private String category; 
      private String ebook_title;
+     private String coverurl;
+     private String nickname;
+	public String getCoverurl() {
+		return coverurl;
+	}
+	public void setCoverurl(String coverurl) {
+		this.coverurl = coverurl;
+	}
 	public Integer getReview_no() {
 		return review_no;
 	}
@@ -83,12 +91,23 @@ public class ReviewVO {
 	public void setEbook_title(String ebook_title) {
 		this.ebook_title = ebook_title;
 	}
+
+	
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVO [review_no=" + review_no + ", ebook_no=" + ebook_no + ", member_no=" + member_no + ", title="
 				+ title + ", contents=" + contents + ", hit=" + hit + ", reg_date=" + reg_date + ", evaluate="
-				+ evaluate + ", fileurl=" + fileurl + ", category=" + category + ", ebook_title=" + ebook_title + "]";
+				+ evaluate + ", fileurl=" + fileurl + ", category=" + category + ", ebook_title=" + ebook_title
+				+ ", coverurl=" + coverurl + ", nickname=" + nickname + "]";
 	}
+	
      
      
    

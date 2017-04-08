@@ -142,6 +142,19 @@ public class ReviewServiceImpl implements ReviewService {
 			// TODO Auto-generated method stub
 			return myPageDAO.getMyBookReviewList(paramMap);
 		}
+		
+		// 같은 회원 다른 리뷰
+		@Override
+		public List<ReviewVO> getSameWriterOtherReviews(int member_no) throws Exception {
+			// TODO Auto-generated method stub
+			return reviewDAO.getSameWriterOtherReviews(member_no);
+		}
+
+		@Override
+		public List<ReviewVO> getSameBookOtherReviews(int ebook_no) throws Exception {
+			// TODO Auto-generated method stub
+			return reviewDAO.getSameBookOtherReviews(ebook_no);
+		}
 	
 	
 }

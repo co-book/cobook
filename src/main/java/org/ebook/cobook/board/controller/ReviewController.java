@@ -119,7 +119,6 @@ public class ReviewController {
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
-
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redirect:/sboard/list";
@@ -214,4 +213,18 @@ public class ReviewController {
 		return "/mybook/???";
 	}
 
+	// 같은 사용자 다른 리뷰
+	@RequestMapping(value="/getSameWriterOtherReviews", method = RequestMethod.GET)
+	public void getOtherReviews(int member_no, Model model)throws Exception{
+		
+		model.addAttribute("list", reviewService.getSameWriterOtherReviews(member_no));
+	}
+	
+	// same ebook other reviews
+	@RequestMapping(value="/getSameBookOtherReviews", method = RequestMethod.GET)
+	public void getOtherReviewsGET(int ebook_no, Model model)throws Exception{
+		
+		model.addAttribute("list", reviewService.getSameBookOtherReviews(ebook_no));
+	}
+	
 }

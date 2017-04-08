@@ -95,8 +95,8 @@
 									</li>
 								</ul>
 							</li>
-							<li><a href="news.html">Review</a></li> 
-							<li><a href="list.html">Mybook</a></li>
+							<li><a href="/cobook/review/list">Review</a></li> 
+							<li><a href="/cobook/mybook/list">Mybook</a></li>
 							<li><a href="#">About</a></li>
 							<li><a href="contact.html">Contact</a></li>
 							<li><a href="#">MyPage</a></li>

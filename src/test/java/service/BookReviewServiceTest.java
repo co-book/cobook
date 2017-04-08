@@ -57,7 +57,6 @@ public class BookReviewServiceTest extends AbstractCommonConfTest{
 	}
 	
 	@Test
-	@Ignore
 	public void getReviewSingle() throws Exception{
 		
 		Map map = service.getReviewSingle(1);
@@ -65,6 +64,7 @@ public class BookReviewServiceTest extends AbstractCommonConfTest{
 	}
 	
 	@Test
+	@Ignore
 	public void getBestReply()throws Exception{
 		List<Map<String, Object>> list = service.getBestReply();
 		for(Map paramMap : list){
