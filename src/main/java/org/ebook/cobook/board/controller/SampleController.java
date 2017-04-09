@@ -261,7 +261,7 @@ public class SampleController {
 
 				logger.info(rttr.toString());
 
-				return "redirect:/sample/Rsingle?review_no="+reviewVO.getReview_no();
+				return "redirect:/review/single?review_no="+reviewVO.getReview_no();
 			}
 		  
 			// 리뷰
@@ -285,4 +285,7 @@ public class SampleController {
 
 				return "redirect:/sample/reviewList";
 			}
+			
+			
+			
 }

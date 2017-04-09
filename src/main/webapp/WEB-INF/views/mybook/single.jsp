@@ -66,8 +66,8 @@
 					<div class="col-md-8 wthree-top-news-left">
 						<div class="wthree-news-left">
 							<div class="wthree-news-left-img">
-								<img src="${reviewVO.COVERURL}" alt="" />
-								<h4>${reviewVO.TITLE}</h4>
+								<img src="<%-- ${reviewVO.COVERURL} --%>" alt="" />
+								<h4><%-- ${reviewVO.TITLE} --%></h4>
 								<!-- 작성자, 날짜, 댓글갯수 -->
 								<div class="s-author">
 									<p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${reviewVO.NICKNAME}</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> ${reviewVO.REG_DATE} &nbsp;&nbsp; <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Comments (${REPLYCOUNT})</a></p>
@@ -114,7 +114,7 @@
 									</ul>
 								</div>
 								<div class="w3-agile-news-text">
-									<p><span>${reviewVO.CONTENTS}</span></p>
+									<p><span><%-- ${reviewVO.CONTENTS} --%></span></p>
 								</div>
 							</div>
 						</div>
@@ -531,8 +531,6 @@ $(function(){
 			$(target).html(data);
 		}
 	}
-	
-	
 	
 });
 

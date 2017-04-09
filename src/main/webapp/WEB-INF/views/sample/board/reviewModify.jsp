@@ -131,7 +131,20 @@ $(function(){
 	
 	
 	
+<div id="dialog" title="대여한책">
+		<div id="bookList">
+			<p><img src="" alt="책이미지" /></p>
+			<p>책이름</p>
+		</div>
 
 
+	</div>
+<script id="books" type="text/x-handlebars-template">
+{{#each .}}
+<p><a id="book" href="#" data-ebookno={{EBOOK_NO}} data-src={{COVERURL}} ><img src='{{COVER_URL}}' data-ebookno={{EBOOK_NO}} data-src={{COVERURL}}  alt="책이미지" />
+</a></p>
+			<p>{{TITLE}}</p>
+{{/each}}
+</script>
 </body>
 </html>

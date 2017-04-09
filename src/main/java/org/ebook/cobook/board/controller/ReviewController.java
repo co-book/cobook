@@ -109,19 +109,20 @@ public class ReviewController {
 	public String remove(@RequestParam("review_no") int review_no, Criteria cri, RedirectAttributes rttr)
 			throws Exception {
 
+		logger.debug("게시물 삭제 호출");
 		FilesVO filesVO = new FilesVO();
 		filesVO.setBook_no(review_no);
-		filesVO.setBook_type("REVIEW");
-
+		filesVO.setBook_type("BOOKREVIEW");
 		reviewService.deleteReview(review_no, filesVO);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
-		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/sboard/list";
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/review/list";
 	}
 
 	// single페이지 요청
@@ -229,5 +230,9 @@ public class ReviewController {
 		
 		return "/review/sameBookOtherReviews";
 	}
+	
+	
+	
+	
 	
 }

@@ -83,6 +83,8 @@ $(document).ready(function(){
 	var keyword = '${cri.keyword}';
 	var url = '/cobook/mybook/mybookList?page='+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword;
 	
+	
+	
 	$.ajax({
 		type : "get",
 		url : url,
@@ -125,6 +127,10 @@ $(document).ready(function(){
 		});
 	
 	});
+	
+	
+	
+	
 	
 });
 </script>

@@ -4,7 +4,7 @@
 <div class="agile-news-table">
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+	<button class="writeBtn">글쓰기</button>
 	<div class="w3ls-news-result">
 		<h4>
 			Search Results : <span>${fn:length(list)}</span>
@@ -25,8 +25,8 @@
 				<tr>
 					<td>${vo.MYBOOK_NO}</td>
 					<td class="w3-list-img"><a
-						href="/mybook/single?mybook_no=${vo.MYBOOK_NO}&page=${cri.page}&perPageNum=${cri.perPageNum}"><img
-							src="/cobook/resources/CoBookDesign/images/n1.jpg" alt="" /> <span>${vo.TITLE}</span></a></td>
+						href="/cobook/sample/mSingle?mybook_no=${vo.MYBOOK_NO}&page=${cri.page}&perPageNum=${cri.perPageNum}"><img
+							src="${vo.FILEURL}" alt="" /> <span>${vo.TITLE}</span></a></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${vo.REG_DATE}" /></td>
 					<td>${vo.NICKNAME}</td>
@@ -66,5 +66,4 @@
 			</c:if>
 		</ul>
 	</nav>
-
 </div>
