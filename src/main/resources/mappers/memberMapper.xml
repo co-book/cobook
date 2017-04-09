@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.MemberMapper">
+	
+	<insert id="joinMember">
+	insert into member(member_no, nickname, password, gender, age, mypoint, email)
+	values (member_no_seq.nextval, #{nickname}, #{password}, #{gender}, #{age},
+			#{myPoint}, #{email})
+	</insert>
+	
+	<update id="modifyMember">
+	update member 
+	set
+		password = #{password}
+	where
+		member_no = #{member_no} 
+	</update>
+	
+	<select id="getMember" resultType="MemberVO">
+	SELECT member_no, email, nickname, password,age,gender,myPoint FROM member
+	WHERE email = #{email}
+	</select>
+
+	<select id="getEmail" parameterType="String" resultType="MemberVO">
+	SELECT email FROM member
+	WHERE email = #{email}
+	</select>
+
+
+	
+
+</mapper>

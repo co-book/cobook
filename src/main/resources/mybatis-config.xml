@@ -6,6 +6,7 @@
 	<!-- <settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings> -->
+	
 
 	<typeAliases>
 		<package name="org.ebook.cobook.board.domain" />
@@ -14,6 +15,8 @@
 		<package name="org.ebook.cobook.good.domain" />
 		<package name="org.ebook.cobook.star.domain" />
 		<package name="org.ebook.cobook.mybook.domain"/>
+		<package name="org.ebook.cobook.ebook.domain"/>
+		<package name="org.ebook.cobook.member.domain"/>
 	</typeAliases>
 
 </configuration>
