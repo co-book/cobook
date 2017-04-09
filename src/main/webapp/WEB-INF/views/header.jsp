@@ -9,8 +9,6 @@ if(vo!=null){
 	member_no=vo.getMember_no()+"";
 }
 %>
-
-<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- FaceBook sdk -->
 <script>
 var member_no = <%=member_no%>;

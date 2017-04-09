@@ -567,7 +567,7 @@ p.fexi_header_para1 a i {
 }
 .form-module .form {
   display: none;
-  padding: 30px;
+  padding: 30px 20px 10px 20px;
 }
 .form-module .form:nth-child(2) {
   display: block;

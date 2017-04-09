@@ -12,8 +12,8 @@
 	
 <!-- //for-mobile-apps -->
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/login.css?ver=5" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
-<link href="/cobook/resources/CoBookDesign/css/style.css?ver=2" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/login.css?ver=3" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
+<link href="/cobook/resources/CoBookDesign/css/style.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single.css?ver=6" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=4" rel="stylesheet" type="text/css" media="all"/>
