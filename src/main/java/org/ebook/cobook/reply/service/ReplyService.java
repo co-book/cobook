@@ -3,7 +3,6 @@ package org.ebook.cobook.reply.service;
 import java.util.List;
 import java.util.Map;
 
-import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 
@@ -19,8 +18,11 @@ public interface ReplyService {
 
 	public void addComment(ReplyVO vo) throws Exception;
 
-	public void addLike_it(Like_itVO vo) throws Exception;
+	public void addLikeIt(Like_itVO vo) throws Exception;
 
-	public void removeLike_it(Integer like_it_no) throws Exception;
-
+	public void deleteLikeIt(Like_itVO vo)throws Exception;
+	
+	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception;
+	
+	public int getReplyCount(Map<String, Object> map)throws Exception;
 }

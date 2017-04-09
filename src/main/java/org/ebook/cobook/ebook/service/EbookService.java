@@ -1,6 +1,7 @@
 package org.ebook.cobook.ebook.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.ebook.cobook.ebook.domain.BookmarkVO;
 import org.ebook.cobook.ebook.domain.BorrowVo;
@@ -21,4 +22,7 @@ public interface EbookService {
 
 	void updateLastPage(BorrowVo borrowVo) throws Exception;
 	
+	// 내가 빌린 책 리스트
+	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap)throws Exception;
+
 }
