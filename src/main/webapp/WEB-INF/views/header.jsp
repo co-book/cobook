@@ -179,7 +179,6 @@ $(document).ready(function(){
     );
 });
 </script>
-<!-- //Bootstrap Core JavaScript -->
 	
 	
 <!-- login-pop-up -->
