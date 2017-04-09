@@ -121,7 +121,12 @@
 			<version>4.2</version>
 		</dependency>
 
-
+		<!-- 메일 API -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 
 		<!-- AspectJ -->
 		<dependency>

@@ -189,4 +189,10 @@ public class EbookController {
 		  return "";
 	  }
 	
+	
+	@RequestMapping(value = "/single", method = RequestMethod.GET)
+	public String single( Model model) {
+		logger.info("single");
+		return "ebook/single";
+	}
 }

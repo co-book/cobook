@@ -15,30 +15,19 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void joinMember(MemberVO vo) {
 		// TODO Auto-generated method stub
-		memberDAO.insertMember(vo);
+		memberDAO.joinMember(vo);
 	}
 
 	@Override
 	public void modifyMember(MemberVO vo) {
 		// TODO Auto-generated method stub
-		memberDAO.updatePassword(vo);
+		memberDAO.modifyMember(vo);
 	}
 
 	@Override
 	public boolean checkEmail(String email) throws Exception {
 		// TODO Auto-generated method stub
 		MemberVO member = memberDAO.getEmail(email);
-		if (member != null) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean checkNickName(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		MemberVO member = memberDAO.getNickName(nickname);
 		if (member != null) {
 			return true;
 		}

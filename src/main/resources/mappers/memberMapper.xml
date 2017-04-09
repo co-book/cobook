@@ -5,24 +5,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.MemberMapper">
 	
-	<insert id="insertMember">
-	insert into member(member_no, nickname, password, sex, age, mypoint, email)
-	values (member_no_seq.nextval, #{nickname}, #{password}, #{sex}, #{age},
-			#{mypoint}, #{email})
-	
+	<insert id="joinMember">
+	insert into member(member_no, nickname, password, gender, age, mypoint, email)
+	values (member_no_seq.nextval, #{nickname}, #{password}, #{gender}, #{age},
+			#{myPoint}, #{email})
 	</insert>
 	
-	<update id="updatePassword">
+	<update id="modifyMember">
 	update member 
 	set
 		password = #{password}
 	where
 		member_no = #{member_no} 
-	
 	</update>
 	
 	<select id="getMember" resultType="MemberVO">
-	SELECT member_no, email, nickname, password FROM member
+	SELECT member_no, email, nickname, password,age,gender,myPoint FROM member
 	WHERE email = #{email}
 	</select>
 
@@ -31,11 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE email = #{email}
 	</select>
 
-	<select id="getNickName" parameterType="String" resultType="MemberVO">
-	SELECT nickname FROM member
-	WHERE nickname = #{nickname}
-	</select>
-	
+
 	
 
 </mapper>

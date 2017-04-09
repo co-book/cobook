@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Co-Book World!</title>
@@ -9,10 +9,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
+		
+<!-- font-awesome icons -->
+<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css"  rel="stylesheet" />
 <!-- css -->
-<link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/login.css" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
+<link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /><!--login CSS -->
 <link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/login.css?ver=3" rel="stylesheet" type="text/css" media="all"/>
 <!-- 메인추가 -->
 <link href="/cobook/resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
 <!-- 메인추가 
@@ -25,17 +28,14 @@
 <link href="/cobook/resources/CoBookDesign/css/jquery.slidey.min.css" rel="stylesheet">
 <!-- pop-up -->
 <link href="/cobook/resources/CoBookDesign/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-<!-- //pop-up -->
-<!-- font-awesome icons -->
-<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css"  rel="stylesheet" />
 <!-- banner-bottom-plugin -->
 <link href="/cobook/resources/CoBookDesign/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
 
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- aladinList -->
-<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/flexslider.css" type="text/css" media="screen" property="" />
+<link href="/cobook/resources/CoBookDesign/css/flexslider.css" rel="stylesheet" type="text/css" media="screen" property="" />
 
-
+<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/easing.js"></script>

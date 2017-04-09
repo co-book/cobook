@@ -81,6 +81,18 @@ h1 {
   -webkit-appearance: none;
   color:#c0c0c0;
 }
+.login form input[type="email"] {
+  outline: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #c0c0c0;
+  padding: 10px 20px 10px 46px;
+  border: 1px solid #2DC2BC;
+  border-radius: 5px;
+  margin: 0 auto 15px;
+  width: 40%;
+  -webkit-appearance: none;
+}
 .login-bwn {
   text-align: center;
 }
@@ -90,13 +102,14 @@ h1 {
   font-size: 18px;
   font-weight: 400;
   padding: 6px 0px;
-  width: 20%;
+  width: 100%;
   cursor: pointer;
   outline: none;
   margin: 15px 0px 5px 0px;
   border: none;
   border-radius: 5px;
 }
+
 .login input[type="submit"]:hover {
 	background:rgb(160, 6, 6);
 	transition: 0.5s all;
@@ -304,10 +317,10 @@ label.checkbox {
   font-size: 15px;
   font-weight: 600;
   color: #fff;
-  margin: 0px 1.5% 0px 0px;
+  margin: 0px 0px 0px  10%;
   border-radius: 4px;
   float:left;
-  width:32.33%;
+  width: 45%;
     padding: 0px 0;
 }
 .login-button a.tw {
@@ -315,14 +328,16 @@ label.checkbox {
  float: left;
  
 }
+
+
+.login-button a span {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
 .login-button a.fa {
   background:#3B5998;
  float: inherit;
-  
-}
-.login-button a span {
-  margin-top: 8px;
-  display: block;
 }
 .login-button a.go {
   background:#D34836;
@@ -358,7 +373,7 @@ float: left;
 } */
 i.anc-fa {
   background: url(../images/login/facebook.png)no-repeat 6px 9px #37528C;
-  width: 26px;
+  width: 30px;
   height: 36px;
   display: inline-block;
   padding: 10px 6px;
@@ -367,7 +382,7 @@ i.anc-fa {
 }
 i.anc-go {
   background: url(../images/login/google.png)no-repeat 9px 9px #C74534;
-  width: 26px;
+  width: 30px;
   height: 36px;
   display: inline-block;
   padding: 10px 6px;
@@ -432,6 +447,7 @@ h3 {
 }
 .login-button a span {
   margin-top: 10px;
+  text-align: center;
 }
 .reg-bwn a {
   font-size: 14px;
@@ -484,6 +500,11 @@ form {
     padding: 9px 20px 9px 45px;
 	width: 66%;
 }
+.login form input[type="text"],.login input[type="email"] {
+  font-size: 13px;
+    padding: 9px 20px 9px 45px;
+	width: 44%;
+}
 .forgot {
   width: 90%;
 }
@@ -525,3 +546,51 @@ body {
   font-size: 0.9em;
 }
 }
+
+ a.emailCheck {  
+    outline: none;
+    width: 20%; 
+    border: 1px solid #2DC2BC;
+    border-radius: 5px;
+    margin: 0 0 20px;
+    padding: 10px 20px 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    font-size: 14px;
+    background: #2DC2BC;
+    color: #ffffff;
+}
+ button.emailCheck {  
+    outline: none;
+    width: 20%; 
+    border: 1px solid #2DC2BC;
+    border-radius: 5px;
+    margin: 0 0 20px;
+    padding: 10px 20px 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    font-size: 14px;
+    background: #2DC2BC;
+    color: #ffffff;
+}
+ a.genderSelect {
+ 	width: 50%; 
+    border-radius: 5px;
+    margin: 0 0 20px;
+    padding: 10px 20px 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    padding-left: 30px;
+    
+}
+.radio-inline, .checkbox-inline {
+	padding : 10px;
+}
+.fa2{margin-top:10px;display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.go{margin-top:10px;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}

@@ -15,9 +15,9 @@ public class MemberDAOImpl implements MemberDAO{
 	private final String namespace = "org.ebook.cobook.mapper.MemberMapper";
 	
 	@Override
-	public void insertMember(MemberVO vo) {
+	public void joinMember(MemberVO vo) {
 		// TODO Auto-generated method stub
-		sqlSession.insert(namespace+".insertMember", vo);
+		sqlSession.insert(namespace+".joinMember", vo);
 	}
 	
 	@Override
@@ -32,15 +32,9 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace+".getEmail", email);
 	}
 
-	@Override
-	public MemberVO getNickName(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".getNickName", nickname);
-	}
-	
-	public void updatePassword(MemberVO vo){
+	public void modifyMember(MemberVO vo){
 		
-		sqlSession.update(namespace+".updatePassword", vo);
+		sqlSession.update(namespace+".modifyMember", vo);
 	}
 	
 	
