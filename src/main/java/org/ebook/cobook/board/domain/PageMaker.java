@@ -3,12 +3,12 @@ package org.ebook.cobook.board.domain;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 public class PageMaker {
 	//페이지 정보
 	private int totalCount;
 	private int startPage;
 	private int endPage;
+	private int totalPage;
 	private boolean prev;
 	private boolean next;
 	
@@ -16,6 +16,14 @@ public class PageMaker {
 	
 	private Criteria cri;
 
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
 
 	public void setCri(Criteria cri) {
 		this.cri = cri;
@@ -33,10 +41,10 @@ public class PageMaker {
 		
 		startPage = (endPage - displayPageNum) + 1;
 		
-		int tempEndPage = (int)(Math.ceil(totalCount / (double)cri.getPerPageNum()));
+		totalPage = (int)(Math.ceil(totalCount / (double)cri.getPerPageNum()));
 		
-		if(endPage > tempEndPage){
-			endPage = tempEndPage;
+		if(endPage > totalPage){
+			endPage = totalPage;
 		}
 		
 		prev = startPage ==1 ? false : true;
@@ -95,15 +103,16 @@ public class PageMaker {
 	            .build();	            
 		
 		return uriComponents.toUriString();
-	}	
-	
+	}
+
 	@Override
 	public String toString() {
-		return "PageMaker [totalCount=" + totalCount + ", startPage="
-				+ startPage + ", endPage=" + endPage + ", prev=" + prev
-				+ ", next=" + next + ", displayPageNum=" + displayPageNum
-				+ ", cri=" + cri + "]";
-	}
+		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage
+				+ ", totalPage=" + totalPage + ", prev=" + prev + ", next=" + next + ", displayPageNum="
+				+ displayPageNum + ", cri=" + cri + "]";
+	}	
+	
+	
 	
 	
 }

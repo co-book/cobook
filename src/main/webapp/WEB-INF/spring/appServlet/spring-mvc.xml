@@ -14,20 +14,28 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
-	<mvc:view-controller path="/test/replyTest" view-name="/test/replyTest" />
-	<mvc:view-controller path="/test/loginTest" view-name="/test/loginTest" />
-	<mvc:view-controller path="/index" view-name="/CoBookTest0.1/index" />
+	<mvc:view-controller path="/sample/replyTest" view-name="/sample/replyTest" />
+	<mvc:view-controller path="/sample/loginTest" view-name="/sample/loginTest" />
+	<mvc:view-controller path="/index" view-name="/index" />
 	<mvc:view-controller path="/login/facebook" view-name="/login/facebook"  />
+	<mvc:view-controller path="/list" view-name="/CoBookTest0.1/list" />
+	<mvc:view-controller path="/news" view-name="/CoBookTest0.1/news" />
+	<mvc:view-controller path="/cobookTest" view-name="/sample/cobookTest" />
+	<mvc:view-controller path="/loginPop" view-name="/sample/loginPop" />
+	<mvc:view-controller path="/sample/handlebarsTest" view-name="/sample/handlebarsTest" />
 	
-	<bean id="LoginInterceptor" class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
+	<util:properties id="url" location="/WEB-INF/url.properties" />
 	
-	<!-- 
-	<mvc:interceptors>
+	
+	<bean id="AuthInterceptor" class="org.ebook.cobook.interceptor.AuthInterceptor"></bean>
+	
+	<!-- <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/member/loginPOST"/>
-			<ref bean="LoginInterceptor" />
+			<ref bean="AuthInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors> -->
+	<util:properties id="url" location="/WEB-INF/url.properties" />
 
 
 </beans>

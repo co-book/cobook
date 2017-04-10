@@ -17,5 +17,7 @@ public interface EbookDAO {
 	public void removeBookmark(BookmarkVO vo) throws Exception;
 	public void updateLastPage(BorrowVo vo) throws Exception;
 	
-
+	
+	
+	
 }

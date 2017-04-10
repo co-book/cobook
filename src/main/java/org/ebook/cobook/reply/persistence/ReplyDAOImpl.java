@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.springframework.stereotype.Repository;
@@ -50,15 +49,28 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public void insertLike_it(Like_itVO vo) throws Exception {
+	public void addLikeIt(Like_itVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		session.insert(namespace+".insertLike_it", vo);
+		session.insert(namespace+".addLikeIt", vo);
 	}
 
 	@Override
-	public void deleteLike_it(Integer like_it_no) throws Exception {
+	public void deleteLikeIt(Like_itVO vo)throws Exception{;
 		// TODO Auto-generated method stub
-		session.delete(namespace+".deleteLike_it", like_it_no);
+		session.delete(namespace+".deleteLikeIt", vo);
+	}
+
+	// 댓글 총 갯수
+	@Override
+	public int getReplyCount(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".getReplyCount", map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getLikeList", paramMap);
 	}
 	
 	

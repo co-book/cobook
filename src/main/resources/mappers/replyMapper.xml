@@ -5,78 +5,133 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ReplyMapper">
 
+	<!-- 댓글 총갯수 -->
+	<select id="getReplyCount" resultType="int" parameterType="map">
+		SELECT COUNT(*) FROM reply
+		WHERE board_no = #{board_no}
+		AND parent_type like #{parent_type}
+	</select>
+
 	<!-- 댓글 + 좋아요 리스트 -->
-	<select id="replyList" resultType="map">
+	<!-- <select id="replyList" resultType="map">
 		<![CDATA[	
 		
-SELECT ROWNUM row_no, rp.reply_no, rp.member_no AS reply_member_no, rp.parent_no, rp.parent_type, rp.board_no, rp.contents, rp.reg_date,
-l.like_it_no, l.member_no AS like_member_no, m.nickname
-from (
-  SELECT ROWNUM AS rn, reply_no, member_no, parent_no, parent_type, board_no, contents, reg_date
-  from 
-        (
-        SELECT * FROM reply
-        ORDER BY parent_no asc, reply_no asc
-        )
-) rp, like_it l, member m
-WHERE rn >= #{cri.pageStart} AND rownum <= #{cri.perPageNum}
-AND rp.reply_no = l.reply_no(+)
-AND rp.member_no = m.member_no
-AND rp.board_no = #{vo.board_no}
-AND rp.PARENT_TYPE = #{vo.parent_type}
+SELECT reply_no, member_no, parent_no, parent_type, board_no, contents, reg_date, like_it_no, l_member, nickname
+FROM(
+	  SELECT ROWNUM rn, reply_no, member_no, parent_no, parent_type, board_no, contents, reg_date, like_it_no, l_member, nickname
+	  FROM
+	  	  (
+			SELECT r.reply_no, r.member_no, r.parent_no, r.parent_type, r.board_no, r.contents, r.reg_date, l.like_it_no, l.member_no AS l_member, m.nickname 
+			FROM reply r, member m, like_it l
+			WHERE r.member_no = m.member_no
+			AND
+      			r.reply_no = l.reply_no
+			AND 
+      			r.board_no = #{board_no}
+			AND
+      			r.parent_type like #{parent_type}
+			ORDER BY parent_no asc, reply_no asc
+		   )
+	)
+WHERE rn >= #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 	]]>
 
-	</select>
+	</select> -->
+	
+<select id="replyList" resultType="map" parameterType="map">
+<![CDATA[
+SELECT r.*, l.reply_no AS lReply_no, NVL(l.likeCount, 0) AS likeCount, m.nickname FROM
+	(
+  		SELECT r.reply_no, r.parent_no, r.member_no, r.board_no, r.contents, r.reg_date, ROW_NUMBER() OVER(ORDER BY parent_no DESC, r.REPLY_NO ASC) rn
+  		FROM reply r
+  		WHERE r.board_no = #{board_no}
+ 		 AND r.parent_type like #{parent_type}
+	) r, 
+	(
+		SELECT l.reply_no,COUNT(l.like_it_no) AS likeCount
+		FROM like_it l, reply r
+		WHERE l.reply_no = r.reply_no
+		AND r.board_no = #{board_no}
+		AND r.parent_type like #{parent_type}
+		GROUP BY l.reply_no
+	 ) l, member m
+WHERE r.reply_no = l.reply_no(+)
+AND r.member_no = m.member_no
+AND r.rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
+ORDER BY parent_no desc, r.reply_no asc
+]]>
+</select>
 
 	<!-- 댓글 입력 -->
 	<insert id="insertReply">
-INSERT INTO reply
-	(reply_no, member_no, parent_no, parent_type, board_no,
-	contents, reg_date)
-VALUES
-	(reply_no_seq.nextval, #{member_no}, reply_no_seq.currval,
-	#{parent_type}, #{board_no}, #{contents}, sysdate)
+		INSERT INTO reply
+		(reply_no, member_no, parent_no,
+		parent_type, board_no,
+		contents, reg_date)
+		VALUES
+		(reply_no_seq.nextval,
+		#{member_no}, reply_no_seq.currval,
+		#{parent_type}, #{board_no},
+		#{contents}, sysdate)
 	</insert>
 
 	<!-- 답글 입력 -->
-<insert id="insertComment">
-INSERT INTO reply 
-	(reply_no, member_no, parent_no,parent_type,
- 	board_no,contents, reg_date)
-VALUES
-	(reply_no_seq.nextval, #{member_no}, #{parent_no}, #{parent_type},
-	 #{board_no}, #{contents}, sysdate)
-</insert>
-	
+	<insert id="insertComment">
+		INSERT INTO reply
+		(reply_no, member_no,
+		parent_no,parent_type,
+		board_no,contents, reg_date)
+		VALUES
+		(reply_no_seq.nextval, #{member_no}, #{parent_no}, #{parent_type},
+		#{board_no}, #{contents}, sysdate)
+	</insert>
+
 	<!-- 댓글수정 -->
-<update id="updateReply">
-UPDATE 
-  		reply 
-SET 
-  		contents = #{contents}
-WHERE
- 		reply_no = #{reply_no}
+	<update id="updateReply">
+		UPDATE
+		reply
+		SET
+		contents = #{contents}
+		WHERE
+		reply_no =#{reply_no}
 
-</update>
+	</update>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply">
+		DELETE
+		reply
+		WHERE
+		parent_no = #{parent_no}
+
+	</delete>
+
+	<!-- 좋아요 추가 -->
+	<insert id="addLikeIt" parameterType="org.ebook.cobook.likeIt.domain.Like_itVO">
+		insert into LIKE_IT (like_it_no, member_no, reply_no)
+		values (like_it_no_seq.nextval, #{member_no}, #{reply_no})
+	</insert>
+
+	<!-- 좋아요 삭제 -->
+	<delete id="deleteLikeIt" parameterType="org.ebook.cobook.likeIt.domain.Like_itVO">
+		delete like_it 
+		where reply_no = #{reply_no} AND member_no = #{member_no}
+	</delete>
+
+	<!-- 특정 게시판의 특정게시물에 좋아요를 누른 댓글 리스트-->
+<select id="getLikeList" resultType="map" parameterType="map">
+SELECT l.reply_no FROM like_it l, reply r
+WHERE l.member_no = #{member_no}
+AND l.reply_no = r.reply_no
+AND r.BOARD_NO = #{board_no}
+AND r.PARENT_TYPE like #{parent_type}
+</select>
+
+<!--  -->	
 	
-<!-- 댓글 삭제 -->
-<delete id="deleteReply">
-DELETE 
-  reply
-WHERE 
-  reply_no = #{reply_no}
+	
+	<!-- 별점 + 댓글 -->
+	
 
-</delete>
-
-<!-- 좋아요 추가 -->
-<insert id="insertLike_it">
-insert into LIKE_IT (like_it_no, member_no, reply_no)
-values (like_it_no_seq.nextval, #{member_no}, #{reply_no})
-</insert>
-
-<!-- 좋아요 삭제 -->
-<delete id="deleteLike_it">
-delete like_it where like_it_no = #{like_it_no}
-</delete>
 
 </mapper>

@@ -11,16 +11,12 @@ import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.board.persistence.ReviewDAO;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-		locations = {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
-public class DAOTest {
+import utils.AbstractCommonConfTest;
+
+public class DAOTest extends AbstractCommonConfTest{
 
 	@Inject
 	private ReviewDAO dao;
@@ -30,10 +26,9 @@ public class DAOTest {
 
 	
 	@Test
-	@Ignore
 	public void listTest() throws Exception{
 		
-		Criteria cri = new Criteria();
+		/*Criteria cri = new Criteria();
 		cri.setPage(1);
 		cri.setPerPageNum(10);
 		cri.setKeyword("TITLE");
@@ -45,7 +40,7 @@ public class DAOTest {
 		List<ReviewVO> list = dao.bookReviewList(cri);
 		logger.info(list.toString());
 		logger.info(pageMaker.toString());
-		logger.info(pageMaker.makeSearch(1));
+		logger.info(pageMaker.makeSearch(1));*/
 		
 	}
 	
@@ -53,9 +48,9 @@ public class DAOTest {
 	@Ignore
 	public void read()throws Exception{
 		
-		Map<String, Object> map = dao.readBookReview(103);
+	/*	Map<String, Object> map = dao.readBookReview(103);
 		logger.debug("debug: "+map.toString());
-		logger.info("info: "+map.toString());
+		logger.info("info: "+map.toString());*/
 	}
 	
 	@Test
@@ -68,14 +63,14 @@ public class DAOTest {
 		vo.setReview_no(101);
 		vo.setEbook_no(5);
 		
-		dao.updateBookReview(vo);
+		/*dao.updateBookReview(vo);*/
 	}
 	
 	@Test
 	@Ignore
 	public void delete()throws Exception{
 		
-		dao.deleteBookReview(99);
+//		dao.deleteBookReview(99);
 		
 		
 	}

@@ -1,5 +1,8 @@
 package org.ebook.cobook.likeIt.domain;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Like_itVO")
 public class Like_itVO {
 
 	private Integer like_it_no;
@@ -24,6 +27,10 @@ public class Like_itVO {
 	public void setReply_no(Integer reply_no) {
 		this.reply_no = reply_no;
 	}
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "like_itVO [like_it_no=" + like_it_no + ", member_no=" + member_no + ", reply_no=" + reply_no + "]";

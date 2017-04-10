@@ -5,86 +5,106 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.MybookMapper">
 
-	<select id="listCri" resultType="MybookVO">
-	<![CDATA[
-		SELECT a.mybook_no, a.member_no, a.title, a.contents, a.hit, a.reg_date,
-			   b.nickname
-		FROM (
-				SELECT rownum as rn,
-				mybook_no, member_no, title, contents, hit, reg_date
-				FROM mybook
-				WHERE mybook_no > 0
-	]]>		
-				<include refid="search"></include>
+	<resultMap type="java.util.HashMap" id="ResMap">
+		<result property="CONTENTS" javaType="java.lang.String" jdbcType="CLOB" typeHandler="org.apache.ibatis.type.ClobTypeHandler" column="CONTENTS" />
 	
-	<![CDATA[
-				ORDER BY mybook_no DESC) a, member b
-		WHERE rn >= #{pageStart} AND rownum <= #{perPageNum}
-		AND 
-			  a.member_no = b.member_no
-	]]>
+	</resultMap>
+
+
+
+	<select id="getMybookList" resultType="map"
+		parameterType="org.ebook.cobook.board.domain.Criteria">
+<![CDATA[
+SELECT mybook_no, title, reg_date, nickname, hit, fileurl 
+FROM(
+	 SELECT m1.mybook_no, m1.title, m1.reg_date, m2.nickname, m1.hit, f.fileurl, ROW_NUMBER() OVER(ORDER BY m1.mybook_no desc) AS rn
+             FROM mybook m1, member m2, files f
+             WHERE m1.MEMBER_NO = m2.MEMBER_NO
+             AND m1.MYBOOK_NO = f.BOOK_NO
+             AND f.BOOK_TYPE like 'MYBOOK'
+             AND f.FILETYPE like 'COVER'
+	  )
+WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
+             ]]>
+		<include refid="searchTitle"></include>
+
 	</select>
 
 	<select id="getCriCount" resultType="int">
 	<![CDATA[
-	 SELECT count(mybook_no) 
- 	 FROM mybook
- 	 WHERE mybook_no > 0 
+	  SELECT count(m.mybook_no) 
+ 	 FROM mybook m, files f
+ 	 WHERE m.mybook_no > 0 
+   AND m.MYBOOK_NO = f.BOOK_NO
+   AND f.FILETYPE like 'COVER'
+   AND f.BOOK_TYPE like 'MYBOOK'
 	]]>
 		<include refid="search"></include>
-	
+
 	</select>
 
 	<insert id="insert">
-	INSERT INTO MYBOOK
-    (MYBOOK_NO, 
-    MEMBER_NO, 
-    TITLE, 
-    CONTENTS, 
-    HIT, 
-    Reg_date)
-VALUES
-    (mybook_no_seq.nextval, 
-    #{member_no}, 
-    #{title}, 
-    #{contents}, 
-    0, 
-    sysdate)
+		INSERT INTO MYBOOK
+		(MYBOOK_NO,
+		MEMBER_NO,
+		TITLE,
+		CONTENTS,
+		HIT,
+		Reg_date)
+		VALUES
+		(mybook_no_seq.nextval,
+		#{member_no},
+		#{title},
+		#{contents},
+		0,
+		sysdate)
+
+		<selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
+			SELECT mybook_no_seq.currval FROM dual
+		</selectKey>
+
 	</insert>
 
-	<select id="read" resultType="MybookVO">
-	SELECT 
-			*
-	FROM
-			mybook
-	WHERE 
-			mybook_no = #{mybook_no}
+	<select id="getMybookSingle" resultMap="ResMap">
+		SELECT m.mybook_no,
+		m.member_no, m.title, m.contents, m.hit, m.reg_date
+		, f.file_no, f.fileurl, m2.nickname
+		FROM mybook m, files f, member m2
+		WHERE m.mybook_no = #{mybook_no}
+		AND
+		m.mybook_no = f.book_no
+		AND f.BOOK_TYPE like 'MYBOOK'
+		AND f.FILETYPE
+		like 'COVER'
+		AND m.member_no = m2.member_no
 	</select>
 
 	<update id="update">
-	UPDATE MYBOOK
-	SET
-    TITLE = #{title}, 
-    CONTENTS = #{contents}
-	WHERE MYBOOK_NO = #{mybook_no}
+		UPDATE MYBOOK
+		SET
+		TITLE = #{title},
+		CONTENTS =
+		#{contents}
+		WHERE MYBOOK_NO = #{mybook_no}
 	</update>
 
 	<delete id="delete">
-	DELETE FROM mybook
-	WHERE mybook_no = #{mybook_no}
+		DELETE FROM mybook
+		WHERE mybook_no = #{mybook_no}
 	</delete>
-	
+
 	<update id="increseHit">
-	UPDATE mybook 
-	SET
+		UPDATE mybook
+		SET
 		hit = hit + 1
-	WHERE
-		mybook_no = #{mybook_no}
-	
+		WHERE
+		mybook_no =
+		#{mybook_no}
+
 	</update>
-	
-	
-	
+
+
+
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
@@ -128,5 +148,71 @@ VALUES
 		</if>
 	</sql>
 
+	<sql id="searchTitle">
+		<if test="searchType != null">
+			<if test="keyword == 'ㄱ'.toString()">
+			AND title between '가' and '나'
+			OR title between 'ㄱ' AND 'ㄴ'
+			</if>
+			<if test="keyword == 'ㄴ'.toString()">
+			AND title between '나' and '다'
+			OR title between 'ㄴ' AND 'ㄷ'
+			</if>
+			<if test="keyword == 'ㄷ'.toString()">
+		AND title between '다' and '리'
+			OR title between 'ㄷ' AND 'ㄹ'
+			</if>
+			<if test="keyword == 'ㄹ'.toString()">
+			AND title between '라' and '마'
+			OR title between 'ㄹ' AND 'ㅁ'
+			</if>
+			<if test="keyword == 'ㅁ'.toString()">
+			AND title between '마' and '바'
+			OR title between 'ㅁ' AND 'ㅂ'
+			</if>
+			<if test="keyword == 'ㅂ'.toString()">
+			AND title between '바' and '사'
+			OR title between 'ㅂ' AND 'ㅅ'
+			</if>
+			<if test="keyword == 'ㅅ'.toString()">
+				AND title between '사' and '아'
+			OR title between 'ㅅ' AND 'ㅇ'
+			</if>
+			<if test="keyword == 'ㅇ'.toString()">
+			AND title between '아' and '자'
+			OR title between 'ㅇ' AND 'ㅈ'
+			</if>
+			<if test="keyword == 'ㅈ'.toString()">
+			AND title between '자' and '차'
+			OR title between 'ㅈ' AND 'ㅊ'
+			</if>
+			<if test="keyword == 'ㅊ'.toString()">
+			AND title between '차' and '카'
+			OR title between 'ㅊ' AND 'ㅋ'
+			</if>
+			<if test="keyword == 'ㅋ'.toString()">
+			AND title between '카' and '타'
+			OR title between 'ㅋ' AND 'ㅌ'
+			</if>
+			<if test="keyword == 'ㅌ'.toString()">
+			AND title between '타' and '파'
+			OR title between 'ㅌ' AND 'ㅍ'
+			</if>
+			<if test="keyword == 'ㅍ'.toString()">
+			AND title between '파' and '하'
+			OR title between 'ㅍ' AND 'ㅎ'
+			</if>
+			<if test="keyword == 'ㅎ'.toString()">
+			AND title between '하' and '가'
+			OR title between 'ㅎ' AND 'ㄱ'
+			</if>
+		</if>
+	
+	</sql>
+
+
+	<select id="listAll" resultType="MybookVO">
+		select * from mybook
+	</select>
 
 </mapper>

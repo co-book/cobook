@@ -2,6 +2,9 @@ package org.ebook.cobook.reply.domain;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("ReplyVO")
 public class ReplyVO {
  // 댓글번호, 회원번호, 부모번호, 게시물번호, 부모타입, 내용, 날짜
 	private Integer reply_no;	//댓글번호
@@ -57,6 +60,11 @@ public class ReplyVO {
 	}
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
+	}
+	@Override
+	public String toString() {
+		return "ReplyVO [reply_no=" + reply_no + ", member_no=" + member_no + ", parent_no=" + parent_no + ", board_no="
+				+ board_no + ", parent_type=" + parent_type + ", contents=" + contents + ", reg_date=" + reg_date + "]";
 	}
 	
 	

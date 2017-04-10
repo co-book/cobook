@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ReviewMapper">
 
-	<insert id="create">
+	<insert id="writeReview" parameterType="ReviewVO">
 		insert into bookreview(review_no, member_no, title,
 		contents, ebook_no,
 		reg_date, evaluate)
@@ -13,66 +13,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(review_no_seq.nextval,
 		#{member_no}, #{title},
 		#{contents}, #{ebook_no}, sysdate, #{evaluate})
+		
+		<selectKey resultType="int" keyProperty="review_no" order="AFTER">
+		SELECT review_no_seq.currval from dual
+		</selectKey>
 	</insert>
 
-	<select id="bookReviewList" resultType="ReviewVO">
-	<![CDATA[	
-		SELECT br.review_no, br.ebook_no, br.member_no, br.title, br.contents, br.hit, br.reg_date,
-		br.evaluate, f.fileurl, e.category
-		FROM 
-		(
-			SELECT ROWNUM AS rn,
-			review_no, ebook_no, member_no, title, contents, hit, reg_date, evaluate
-			FROM bookreview
-			WHERE review_no > 0
-	]]>
-
-		<include refid="search"></include>
-		ORDER BY review_no desc
-		) br, files f, ebook e
-	<![CDATA[
-	WHERE rn >= #{pageStart} AND rownum <= #{perPageNum}
-	AND
-	br.ebook_no = f.book_no
-	AND
-	f.book_type like 'ebook'
-	AND
-	br.ebook_no = e.ebook_no
-	]]>
-
+	<select id="getBookReviewList" resultType="map" parameterType="org.ebook.cobook.board.domain.Criteria">
+<![CDATA[
+	SELECT review_no, title, SUBSTR(contents, 1, 50) AS CONTENTS, hit, reg_date, evaluate, coverurl, category, nickname
+FROM (
+        SELECT ROWNUM AS rn, review_no, title, contents, hit, reg_date, evaluate
+      , coverurl, category, nickname
+          FROM (
+                 SELECT br.review_no,  br.title, br.contents, br.hit, br.reg_date, br.evaluate,
+                 e.coverurl, e.category, m.nickname
+                 FROM bookreview br, ebook e, member m
+                 WHERE br.ebook_no = e.ebook_no
+                 AND br.member_no = m.member_no
+                 ORDER BY review_no DESC
+                )
+      )
+WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
+]]>
+	<include refid="search"></include>
 	</select>
 
 
 
-	<select id="boardReviewCount" resultType="int">
+	<select id="getReviewCount" resultType="int" parameterType="org.ebook.cobook.board.domain.Criteria">
 	<![CDATA[  
-  select count(review_no) 
-  from bookreview
-  where review_no > 0 
+  select count(br.review_no) 
+  FROM bookreview br, ebook e, member m
+  where br.review_no > 0 
+  AND br.ebook_no = e.ebook_no
+  AND br.member_no = m.member_no
 	]]>
 		<include refid="search"></include>
 
 	</select>
 
-	<select id="readBookReview" resultType="map">
-		SELECT br.title,
-		br.evaluate, br.contents, e.author,
-		e.publisher, f.fileurl, m.nickname
-		FROM bookreview br, ebook e, files f,
-		member m
-		WHERE br.ebook_no =
-		e.ebook_no
+	<select id="getReviewSingle" resultType="map">
+		SELECT br.review_no, br.title, br.evaluate, br.contents, br.reg_date, br.hit, e.author,
+		e.publisher, e.coverurl, m.nickname, br.ebook_no, br.member_no
+		FROM bookreview br, ebook e, member m
+		WHERE 
+			br.ebook_no = e.ebook_no
 		AND
-		br.ebook_no = f.book_no
+  			br.member_no = m.member_no
 		AND
-		f.book_type LIKE 'ebook'
-		AND
-		br.member_no = m.member_no
-		AND
-		br.review_no = #{review_no}
+			br.review_no = #{review_no}
 	</select>
 
-	<update id="updateBookReview">
+	<update id="modifyReview">
 		update bookreview
 		set title = #{title}, contents = #{contents},
 		ebook_no = #{ebook_no}
@@ -80,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</update>
 
-	<delete id="deleteBookReview">
+	<delete id="deleteReview">
 		delete from bookreview
 		where review_no = #{review_no}
 
@@ -91,42 +84,110 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SET
 		hit = hit + 1
 	WHERE
-		mybook_no = #{mybook_no}
+		review_no = #{review_no}
 	
 	</update>
 
+<!-- 인기순 -->
+<select id="getReviewPopularity" resultType="map">
+<![CDATA[  
+SELECT review_no, title, SUBSTR(contents, 1, 50) AS CONTENTS, hit, reg_date, evaluate, coverurl, category, nickname
+FROM (
+        SELECT ROWNUM AS rn, review_no, title, contents, hit, reg_date, evaluate
+      , coverurl, category, nickname
+          FROM (
+                 SELECT br.review_no,  br.title, br.contents, br.hit, br.reg_date, br.evaluate,
+                 e.coverurl, e.category, m.nickname
+                 FROM bookreview br, ebook e, member m
+                 WHERE br.ebook_no = e.ebook_no
+                 AND br.member_no = m.member_no
+                 ORDER BY hit DESC
+                )
+      )
+WHERE
+rn > #{pageStart} AND ROWNUM <= #{perPageNum}
+]]>
+<include refid="search"></include>
+</select>
 
+<!-- 좋아요 순위6 -->
+	<select id="getBestReply" resultType="map">
+<![CDATA[
+SELECT r.reply_no, r.board_no, r.contents, r.reg_date,m.nickname, likeCount
+FROM
+(
+  SELECT l.reply_no, count(like_it_no) AS likeCount
+  FROM like_it l, reply r
+  WHERE l.reply_no = r.reply_no
+  AND parent_type like 'BOOKREVIEW'
+  GROUP BY l.reply_no
+  ORDER BY likecount desc
+) l, reply r, member m
+WHERE l.reply_no = r.reply_no
+AND  r.member_no = m.member_no
+AND ROWNUM <= 6
+]]>
+	</select>
 
+<select id="getlastedReviewList" resultType="ReviewVO">
+<![CDATA[
+SELECT review_no, title, ebook_title, reg_date FROM(
+SELECT br.review_no, br.title, e.title AS ebook_title, br.reg_date
+FROM bookreview br, ebook e
+WHERE br.ebook_no = e.ebook_no
+ORDER BY reg_date desc
+)
+WHERE rownum <= 10
+]]>
+</select>
 
+<select id="getSameWriterOtherReviews" resultType="ReviewVO" parameterType="int">
+<![CDATA[
+SELECT * 
+FROM(  
+    SELECT br.review_no, br.title, SUBSTR(br.contents,1, 20) AS CONTENTS, br.reg_date, br.hit, e.coverurl, ROW_NUMBER() OVER (ORDER BY review_no desc) AS rn
+    FROM bookreview br, ebook e
+    WHERE br.ebook_no = e.ebook_no
+    AND br.member_no = #{member_no}
+    )
+WHERE rn <= 2
+]]>
+</select>
 
-
-
-
-
-
+<select id="getSameBookOtherReviews" resultType="ReviewVO">
+<![CDATA[
+SELECT * FROM(
+SELECT br.review_no, br.title, SUBSTR(br.contents,1, 20) AS CONTENTS, br.reg_date, m.nickname, ROW_NUMBER() OVER(ORDER BY review_no DESC) AS rn
+FROM bookreview br, member m
+WHERE br.ebook_no = #{ebook_no}
+AND br.member_no = m.member_no
+)
+WHERE ROWNUM <= 10
+]]>
+</select>
 
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
-				AND title like CONCAT('%', #{keyword}) || '%'
+				AND br.title like CONCAT('%', #{keyword}) || '%'
 			</if>
 			<if test="searchType == 'c'.toString()">
-				AND contents like CONCAT('%', #{keyword}) || '%'
+				AND br.contents like CONCAT('%', #{keyword}) || '%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				AND member_no
+				AND br.member_no
 				IN(select member_no FROM member
 				WHERE
 				nickname like CONCAT('%', #{keyword}) || '%')
 			</if>
 			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}) || '%' OR
-				contents like
+				and ( br.title like CONCAT('%', #{keyword}) || '%' OR
+				br.contents like
 				CONCAT('%', #{keyword}) || '%')
 			</if>
 			<if test="searchType == 'cw'.toString()">
 				and
-				( contents like CONCAT('%', #{keyword}) || '%'
+				( br.contents like CONCAT('%', #{keyword}) || '%'
 				OR
 				member_no IN(select member_no FROM member
 				WHERE nickname like
@@ -135,9 +196,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="searchType == 'tcw'.toString()">
 				AND
-				( title like CONCAT('%', #{keyword}) || '%'
+				( br.title like CONCAT('%', #{keyword}) || '%'
 				OR
-				contents
+				br.contents
 				like CONCAT('%', #{keyword}) || '%'
 				OR
 				member_no IN(select member_no
@@ -145,6 +206,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				WHERE nickname like CONCAT('%', #{keyword}) || '%')
 				)
 			</if>
+		
 		</if>
 	</sql>
 </mapper>

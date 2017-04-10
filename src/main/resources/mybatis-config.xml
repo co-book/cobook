@@ -7,6 +7,7 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings> -->
 	
+	
 
 	<typeAliases>
 		<package name="org.ebook.cobook.board.domain" />
@@ -17,6 +18,11 @@
 		<package name="org.ebook.cobook.mybook.domain"/>
 		<package name="org.ebook.cobook.ebook.domain"/>
 		<package name="org.ebook.cobook.member.domain"/>
-	</typeAliases>
+	</typeAliases>	
+
+	<typeHandlers>
+		<typeHandler  handler="org.apache.ibatis.type.ClobTypeHandler" javaType="java.lang.String" jdbcType="CLOB" />
+	</typeHandlers>
+
 
 </configuration>
