@@ -16,11 +16,11 @@ public interface EbookService {
 	
 	public List<BookmarkVO> getBookmarkList(BorrowVo borrow)throws Exception;
 	
-	public void setBookMark(BookmarkVO bookmark) throws Exception;
+	public void writeBookMark(BookmarkVO bookmark) throws Exception;
 	
-	public void removeBookmark(BookmarkVO bookmark) throws Exception;
+	public void deleteBookmark(BookmarkVO bookmark) throws Exception;
 
-	void updateLastPage(BorrowVo borrowVo) throws Exception;
+	void setLastPage(BorrowVo borrowVo) throws Exception;
 	
 	// 내가 빌린 책 리스트
 	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap)throws Exception;

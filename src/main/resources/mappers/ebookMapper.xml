@@ -28,14 +28,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values( BOOKMARK_no_seq.nextval, #{member_no} , #{ebook_no} , #{ebookPage} , SYSDATE , #{chapter} , #{mybookmark})
 	</insert>
 	
-	<delete id="removeBookmark" parameterType="EbookVO">	
+	<delete id="removeBookmark" parameterType="EbookVO" >	
 		DELETE FROM BOOKMARK
 		WHERE EBOOKPAGE = #{ebookPage} and MEMBER_NO = #{member_no} and EBOOK_NO = #{ebook_no}
 	</delete>
 	
 	
-	<select id="getBookmarkList">	
-	
+	<select id="getBookmarkList" parameterType="BorrowVO" resultType="BorrowVO">	
+		select
+		BOOKMARK_NO,
+		MEMBER_NO,
+		EBOOK_NO,
+		EBOOKPAGE,
+		READDATE,
+		CHAPTER,
+		MYBOOKMARK
+		from bookmark where member_no=#{member_no} and ebook_no=#{ebook_no};
 	</select>
 
 	<update id="updateLastPage" parameterType="BorrowVO">

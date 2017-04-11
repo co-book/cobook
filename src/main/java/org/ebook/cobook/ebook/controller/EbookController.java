@@ -96,10 +96,11 @@ public class EbookController {
 	 */
 	//따로 이동해시켜줄 뷰가 없을때 responseBody를 씁니다;-!
 	@RequestMapping(value= "/getBookMarkList", method = RequestMethod.GET)
-	public @ResponseBody List<BookmarkVO> getBookMarkList(Model model , BorrowVo borrowVo ) throws Exception{
+	@ResponseBody
+	public List<BookmarkVO> getBookMarkList(Model model , BorrowVo borrowVo ) throws Exception{
 		logger.info("getBookMarkList 호출");
-		//List<BookmarkVo> list = ebookService.getBookMarkList();
-		return null;
+		List<BookmarkVO> list = ebookService.getBookmarkList(borrowVo);
+		return list;
 	}
 	 
 	/**
@@ -108,15 +109,15 @@ public class EbookController {
 	 * @throws Exception
 	 */
 	//추가 ? ebook_no, member_no , cfi 모두 같은 경우 에러처리? 
-	@RequestMapping(value= "/setBookMark", method = RequestMethod.GET)
+	@RequestMapping(value= "/writeBookMark", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> setBookMark(Model model , BookmarkVO bookmark) throws Exception{
-		logger.info("setBookMark 호출");
+	public Map<String, Object> writeBookMark(Model model , BookmarkVO bookmark) throws Exception{
+		logger.info("writeBookMark 호출");
 		Map<String, Object> resultMap = new HashMap<>();
 		boolean result = false;
 		String resultMsg = "";
 		try{
-			ebookService.setBookMark(bookmark);
+			ebookService.writeBookMark(bookmark);
 			result = true;
 		} catch (Exception e) {
 			 result = false;
@@ -133,16 +134,16 @@ public class EbookController {
 	 * @param model
 	 * @throws Exception
 	 */
-	@RequestMapping(value= "/removeBookmark", method = RequestMethod.GET)
+	@RequestMapping(value= "/deleteBookmark", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> removeBookmark(Model model , BookmarkVO bookmark) throws Exception{
-		logger.info("removeBookmark 호출");
+	public Map<String, Object> deleteBookmark(Model model , BookmarkVO bookmark) throws Exception{
+		logger.info("deleteBookmark 호출");
 		Map<String, Object> resultMap = new HashMap<>();
 		boolean result = false;
 		String resultMsg = "";
 
 		try{
-			ebookService.removeBookmark(bookmark);
+			ebookService.deleteBookmark(bookmark);
 			result = true;
 		} catch (Exception e) {
 			 result = false;
@@ -155,16 +156,16 @@ public class EbookController {
 	}
 	
 
-	@RequestMapping(value= "/updateLastPage", method = RequestMethod.GET)
+	@RequestMapping(value= "/setLastPage", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> updateLastPage(Model model , BorrowVo borrowVo) throws Exception{
-		logger.info("updateLastPage 호출");
+	public Map<String, Object> setLastPage(Model model , BorrowVo borrowVo) throws Exception{
+		logger.info("setLastPage 호출");
 		Map<String, Object> resultMap = new HashMap<>();
 		boolean result = false;
 		String resultMsg = "";
 		
 		try{
-			ebookService.updateLastPage(borrowVo);
+			ebookService.setLastPage(borrowVo);
 			result = true;
 			System.out.println(result);
 		} catch (Exception e) {
@@ -195,4 +196,11 @@ public class EbookController {
 		logger.info("single");
 		return "ebook/single";
 	}
+	@RequestMapping(value = "/readEBook", method = RequestMethod.GET)
+	public String readEBook( Model model) {
+		logger.info("readEBook");
+		return "test/viewer";
+	}
+	
+	///////////////////////////////
 }

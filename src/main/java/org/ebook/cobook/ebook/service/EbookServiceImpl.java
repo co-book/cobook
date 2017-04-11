@@ -36,21 +36,21 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public void setBookMark(BookmarkVO bookmark) throws Exception {
+	public void writeBookMark(BookmarkVO bookmark) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.setBookmark(bookmark);
+		ebookDAO.writeBookmark(bookmark);
 	}
 
 	@Override
-	public void removeBookmark(BookmarkVO bookmark) throws Exception {
+	public void deleteBookmark(BookmarkVO bookmark) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.removeBookmark(bookmark);
+		ebookDAO.deleteBookmark(bookmark);
 	}
 
 	@Override
-	public void updateLastPage(BorrowVo borrowVo) throws Exception {
+	public void setLastPage(BorrowVo borrowVo) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.updateLastPage(borrowVo);
+		ebookDAO.setLastPage(borrowVo);
 	}
 
 	@Override

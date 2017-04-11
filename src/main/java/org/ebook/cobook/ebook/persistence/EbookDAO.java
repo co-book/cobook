@@ -13,9 +13,9 @@ public interface EbookDAO {
 	
 	//bookMark
 	public List<BookmarkVO> getBookmarkList(BorrowVo vo) throws Exception;
-	public void setBookmark(BookmarkVO vo) throws Exception;
-	public void removeBookmark(BookmarkVO vo) throws Exception;
-	public void updateLastPage(BorrowVo vo) throws Exception;
+	public void writeBookmark(BookmarkVO vo) throws Exception;
+	public void deleteBookmark(BookmarkVO vo) throws Exception;
+	public void setLastPage(BorrowVo vo) throws Exception;
 	
 	
 	
