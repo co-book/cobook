@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 
 public interface EbookService {
 
-	public List<EbookVO> getEbookList(Model model)throws Exception;
+	public List<EbookVO> getEbookList(String category)throws Exception;
 	
 	public EbookVO eBookDetail(int ebookn_no) throws Exception;
 	

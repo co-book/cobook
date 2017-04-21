@@ -12,11 +12,32 @@ public class EbookVO {
 	private String intro;
 	private Integer cash;
 	private String category;
-	private String cover;
+	private String coverURL;
 	private String epub;
+	private Integer starCount;
+	private Integer starAvg;
 	private Date expiryDate;
 	
 	
+	
+	public String getCoverURL() {
+		return coverURL;
+	}
+	public void setCoverURL(String coverURL) {
+		this.coverURL = coverURL;
+	}
+	public Integer getStarCount() {
+		return starCount;
+	}
+	public void setStarCount(Integer starCount) {
+		this.starCount = starCount;
+	}
+	public Integer getStarAvg() {
+		return starAvg;
+	}
+	public void setStarAvg(Integer starAvg) {
+		this.starAvg = starAvg;
+	}
 	public Date getExpiryDate() {
 		return expiryDate;
 	}
@@ -72,10 +93,10 @@ public class EbookVO {
 		this.category = category;
 	}
 	public String getCover() {
-		return cover;
+		return coverURL;
 	}
 	public void setCover(String cover) {
-		this.cover = cover;
+		this.coverURL = cover;
 	}
 	public String getEpub() {
 		return epub;

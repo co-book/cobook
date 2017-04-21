@@ -19,9 +19,9 @@ public class EbookDAOImpl implements EbookDAO {
 	
 
 	@Override
-	public List<EbookVO> getEbookList() throws Exception {
+	public List<EbookVO> getEbookList(String category) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(ebookNamespace+".getEbookList" );
+		return sqlSession.selectList(ebookNamespace+".getEbookList" , category);
 	}
 
 

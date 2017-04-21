@@ -2,8 +2,10 @@ package org.ebook.cobook.ebook.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,10 +25,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sun.media.sound.ModelAbstractChannelMixer;
 
@@ -42,30 +46,6 @@ public class EbookController {
 	private static final Logger logger = 
 			LoggerFactory.getLogger(EbookController.class);
 	
-	@RequestMapping(value= "/getEbookList", method = RequestMethod.POST)
-	public ResponseEntity<List<EbookVO>> getEbookList(Model model) throws Exception{
-		logger.info("EBook List 호출");
-		//Set pathSet = request.getSession().getServletContext().getResourcePaths("/");
-		//System.out.println(pathSet);	
-	
-		List<EbookVO> list = ebookService.getEbookList(model);
-		model.addAttribute("list", list);
-		
-		logger.info("Ebook List : "+list.toString());
-		
-	    //HashMap<String, Object> hashmap = new HashMap<String, Object>();
-	    // hashmap.put("EbookList", list);
-	    
-		ResponseEntity<List<EbookVO>> entity = null;
-		try{
-			entity=new ResponseEntity<>(list, HttpStatus.OK);
-		}catch(Exception e){
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-
-	}
 	
 	/*
 	@RequestMapping(value= "/getEbookDetail", method = RequestMethod.GET)
@@ -202,5 +182,73 @@ public class EbookController {
 		return "test/viewer";
 	}
 	
+
+	//메인페이지 광고 + 추천도서 (코북에서 선정한 책 5권)
+	@RequestMapping(value = "/banner", method = RequestMethod.GET)
+
+	public String banner(Locale locale, Model model) {
+		logger.info("index/banner");
+		return "index/banner";
+
+	}
+
+	//월간 베스트 도서 - 한달동안 대여가 많이된책 Top 10
+
+	@RequestMapping(value = "/cobookList", method = RequestMethod.GET)
+
+	public String cobookList(Locale locale, Model model) {
+
+		logger.info("index/cobookList");
+
+		return "index/cobookList";
+
+	}
+
+	//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 
+
+	@RequestMapping(value = "/monthlyList", method = RequestMethod.GET)
+
+	public String monthlyList(Locale locale, Model model) {
+
+		logger.info("index/monthlyList");
+
+		return "index/monthlyList";
+
+	}
+
+	//알라딘리스트 지금 뜨는거 아니예요? 잘?
+
+	@RequestMapping(value = "/alladinList", method = RequestMethod.GET)
+
+	public String alladinList(Locale locale, Model model) {
+
+		logger.info("index/alladinList");
+
+		return "index/alladinList";
+
+	}
+
 	///////////////////////////////
+	
+	
+	@RequestMapping("/genres/{category}")
+	public ModelAndView genres(@PathVariable String category) {	  
+	  ModelAndView mav = new ModelAndView("/ebook/genres");
+	  logger.info("/genres/"+category);
+	  mav.addObject("category", category);
+	  return mav;
+	}
+	
+	@RequestMapping(value= "/getEbookList", method = RequestMethod.POST)
+	public ModelAndView getEbookList(@RequestParam("category") String category ,Model model) throws Exception{
+		logger.info("EBook List 호출");
+		List<EbookVO> list = new ArrayList<>();
+		ModelAndView mav = new ModelAndView("/ebook/genres/getEbookList");	
+		mav.addObject("ebookList",  ebookService.getEbookList(category));
+		
+		return mav;
+	}
+	
+	
+	
 }

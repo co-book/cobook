@@ -24,9 +24,9 @@ public class EbookServiceImpl implements EbookService {
 	private MyPageDAO myPageDAO;	
 	
 	@Override
-	public List<EbookVO> getEbookList(Model model) throws Exception {
+	public List<EbookVO> getEbookList(String category) throws Exception {
 		// TODO Auto-generated method stub
-		return ebookDAO.getEbookList();
+		return ebookDAO.getEbookList(category);
 	}
 
 	@Override
