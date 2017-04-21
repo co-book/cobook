@@ -27,3 +27,4 @@ $RECYCLE.BIN/
 
 # tmp 디렉토리 전체를 무시하는 경우.
 summernote_upload/
+/target/

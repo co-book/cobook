@@ -9,7 +9,7 @@ public class BorrowVo {
 	private Integer ebook_no;
 	private Date borrowDate;
 	private Integer period;
-	private Integer cash;
+	private Integer price;
 	private String status;
 	private String readPage;
 	
@@ -43,11 +43,11 @@ public class BorrowVo {
 	public void setPeriod(Integer period) {
 		this.period = period;
 	}
-	public Integer getCash() {
-		return cash;
+	public Integer getPrice() {
+		return price;
 	}
-	public void setCash(Integer cash) {
-		this.cash = cash;
+	public void setPrcie(Integer price) {
+		this.price = price;
 	}
 	public String getStatus() {
 		return status;

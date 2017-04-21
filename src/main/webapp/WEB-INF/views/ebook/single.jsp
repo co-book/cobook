@@ -12,11 +12,11 @@
 	
 <!-- //for-mobile-apps -->
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/login.css?ver=3" rel="stylesheet" type="text/css" media="all"/><!--login CSS -->
+<!--<link href="/cobook/resources/CoBookDesign/css/login.css?ver=3" rel="stylesheet" type="text/css" media="all"/>login CSS -->
 <link href="/cobook/resources/CoBookDesign/css/style.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single.css?ver=6" rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=4" rel="stylesheet" type="text/css" media="all"/>
+<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=5" rel="stylesheet" type="text/css" media="all"/>
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css" media="all" />
 <!-- news-css -->
@@ -104,12 +104,6 @@
 
 	});
 </script>
-<!-- <script src="js/simplePlayer.js"></script>
-<script>
-	$("document").ready(function() {
-		$("#video").simplePlayer();
-	});
-</script> -->
 
 </head>
 <body>
@@ -126,8 +120,8 @@
 			<!-- /w3l-medile-movies-grids -->
 			<div class="agileits-single-top">
 				<ol class="breadcrumb">
-					<li><a href="index.html">Home</a></li>
-					<li class="active">Single</li>
+					<li><a href="index.html">소설</a></li>
+					<li class="active">책소개</li>
 				</ol>
 			</div>
 			
@@ -138,7 +132,8 @@
 					<div class="col-sm-8 single-left">
 						<div class="song">
 							<div class="song-info">
-								<h3>A MAN CALLED OVE</h3>
+							<!-- login.css h3를 먹고있움...분리 -->
+								<h3 align="left">너무 시끄러운 고독</h3>
 							</div>
 						</div> <!-- song -->
 							<div class="section group">
@@ -148,8 +143,8 @@
 											<img src="/cobook/resources/CoBookDesign/images/ove.jpg" alt="" />
 										</div>
 										<div class="desc span_3_of_2">
-											<h2>A MAN CALLED OVE</h2>
-											<p>프레드릭 배크만 | 최민우역</p>
+											<h2>너무 시끄러운 고독</h2>
+											<p>보후밀 흐라발 | 이창실 옮김</p>
 											<div class="detail-stars">
 												<ul class="detail-ratings">
 													<li><a href="#"><i class="fa fa-star"
@@ -164,17 +159,16 @@
 															aria-hidden="true"></i></a></li>
 												</ul>
 											</div>
-											<p></p>
+											
 											<div class="price">
-												<p>
-													Price: <span>$500</span>
-												</p>
+												<p>Price: <span>12,000</span></p>
 											</div>
+											
 											<div class="available">
 												<ul>
-													<li><span>도서정보:</span> &nbsp;다산책방 | 2015년 05월 15일 출간 | EPUB | 20.3 MB </li>
-													<li><span>지원기기:</span>&nbsp; 5lbs</li>
-													<li><span>듣기가능:</span>&nbsp; 566</li>
+													<li><span>도서정보:</span> &nbsp;문학동네 | 2016년 7월 8일 | epub | 15.8MB </li>
+													<li><span>지원기기:</span>&nbsp; android | ios | PC | Mac</li>
+													<li><span>듣기가능:</span>&nbsp; 듣기가능</li>
 												</ul>
 											</div>
 											<div class="share-desc">
@@ -188,9 +182,9 @@
 														<option value="1year">1년</option>
 													</select>
 												</div>
-												<div class="button" data-toggle="modal" data-target="#coModal">
+												 <div class="button" data-toggle="modal" data-target="#coModal">
 													<span><a href="#">대여하기</a></span>
-												</div>
+												</div> 
 												<div class="clear"></div>
 											</div>
 									<!-- modal -->
