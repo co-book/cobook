@@ -1,7 +1,7 @@
 package org.ebook.cobook.star.domain;
 
 import org.apache.ibatis.type.Alias;
-
+// like it 참고
 @Alias("StarVO")
 public class StarVO {
 

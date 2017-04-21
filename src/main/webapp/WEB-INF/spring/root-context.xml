@@ -22,13 +22,13 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
-		<property name="driverClassName" value="${local.driverClassName}" />
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
 
-		<property name="url" value="${local.url}" />
+		<property name="url" value="${jdbc.url}" />
 
-		<property name="username" value="${local.user}" />
+		<property name="username" value="${jdbc.user}" />
 
-		<property name="password" value="${local.password}" />
+		<property name="password" value="${jdbc.password}" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -10,7 +10,7 @@ public class EbookVO {
 	private String publisher;
 	private Date publishedDate;
 	private String intro;
-	private Integer cash;
+	private Integer price;
 	private String category;
 	private String cover;
 	private String epub;
@@ -59,11 +59,11 @@ public class EbookVO {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-	public Integer getCash() {
-		return cash;
+	public Integer getPrice() {
+		return price;
 	}
-	public void setCash(Integer cash) {
-		this.cash = cash;
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 	public String getCategory() {
 		return category;
