@@ -35,7 +35,6 @@
 			<ref bean="AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors> -->
-	<util:properties id="url" location="/WEB-INF/url.properties" />
 
 
 </beans>

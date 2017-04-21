@@ -52,7 +52,7 @@ $(function(){
 											</div>
 											<div class="col-md-6 w3-agileits-news-left">
 												<div class="col-sm-5 wthree-news-img">
-													<a href="news-single.html"><img src="resources/CoBookDesign/images/m2.jpg" alt="" /></a>
+													<a href="news-single.html"><img src="/cobook/resources/CoBookDesign/images/m2.jpg" alt="" /></a>
 												</div>
 												<div class="col-sm-7 wthree-news-info">
 													<h5><a href="news-single.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h5>

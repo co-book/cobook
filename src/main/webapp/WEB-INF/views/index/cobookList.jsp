@@ -13,7 +13,7 @@
 							</a>
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
-									<h6><a href="single.html">안나카레리나</a></h6>							
+									<h6><a href="sigle.jsp">안나카레리나</a></h6>							
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 									<p>2016</p>

@@ -14,8 +14,9 @@
 <link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css"  rel="stylesheet" />
 <!-- css -->
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /><!--login CSS -->
-<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/login.css?ver=3" rel="stylesheet" type="text/css" media="all"/>
+<link href="/cobook/resources/CoBookDesign/css/login.css?ver=6" rel="stylesheet" type="text/css" media="all"/>
+<link href="/cobook/resources/CoBookDesign/css/style.css?ver=6" rel="stylesheet" type="text/css" media="all" />
+
 <!-- 메인추가 -->
 <link href="/cobook/resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
 <!-- 메인추가 
@@ -34,8 +35,6 @@
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- aladinList -->
 <link href="/cobook/resources/CoBookDesign/css/flexslider.css" rel="stylesheet" type="text/css" media="screen" property="" />
-
-<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/easing.js"></script>
