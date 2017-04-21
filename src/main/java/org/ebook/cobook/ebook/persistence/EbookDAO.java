@@ -8,14 +8,14 @@ import org.ebook.cobook.ebook.domain.EbookVO;
 
 public interface EbookDAO {
 	//Ebook
-	public List<EbookVO> getEbookList() throws Exception;
+	public List<EbookVO> getEbookList(String category) throws Exception;
 	public EbookVO eBookDetail(int ebookn_no) throws Exception;
 	
 	//bookMark
 	public List<BookmarkVO> getBookmarkList(BorrowVo vo) throws Exception;
-	public void setBookmark(BookmarkVO vo) throws Exception;
-	public void removeBookmark(BookmarkVO vo) throws Exception;
-	public void updateLastPage(BorrowVo vo) throws Exception;
+	public void writeBookmark(BookmarkVO vo) throws Exception;
+	public void deleteBookmark(BookmarkVO vo) throws Exception;
+	public void setLastPage(BorrowVo vo) throws Exception;
 	
 	
 	

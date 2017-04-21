@@ -56,7 +56,7 @@ $(document).ready(function(){
 	//배너
 	$.ajax({
 		type : "get",
-		url : 'index/banner',
+		url : 'ebook/banner',
 		dataType : 'html',
 		success : function(data) {
 			$('#index_banner').append(data);
@@ -67,7 +67,7 @@ $(document).ready(function(){
 	//cobook 추천 리스트
 	$.ajax({
 		type : "get",
-		url : 'index/cobookList',
+		url : 'ebook/cobookList',
 		dataType : 'html',
 		success : function(data) {
 			$('#index_cobookList').append(data);
@@ -78,7 +78,7 @@ $(document).ready(function(){
 	//Monthly 리스트
 	$.ajax({
 		type : "get",
-		url : 'index/monthlyList',
+		url : 'ebook/monthlyList',
 		dataType : 'html',
 		success : function(data) {
 			$('#index_monthlyList').append(data);
@@ -88,7 +88,7 @@ $(document).ready(function(){
 	//Alladin 리스트
 	$.ajax({
 		type : "get",
-		url : 'index/alladinList',
+		url : 'ebook/alladinList',
 		dataType : 'html',
 		success : function(data) {
 			$('#index_alladinList').append(data);

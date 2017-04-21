@@ -19,9 +19,9 @@ public class EbookDAOImpl implements EbookDAO {
 	
 
 	@Override
-	public List<EbookVO> getEbookList() throws Exception {
+	public List<EbookVO> getEbookList(String category) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(ebookNamespace+".getEbookList" );
+		return sqlSession.selectList(ebookNamespace+".getEbookList" , category);
 	}
 
 
@@ -33,21 +33,21 @@ public class EbookDAOImpl implements EbookDAO {
 
 
 	@Override
-	public void setBookmark(BookmarkVO vo) throws Exception {
+	public void writeBookmark(BookmarkVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.insert(ebookNamespace+".setBookmark", vo);
 	}
 
 
 	@Override
-	public void removeBookmark(BookmarkVO vo) throws Exception {
+	public void deleteBookmark(BookmarkVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.delete(ebookNamespace+".removeBookmark", vo);
 		
 	}
 	
 	@Override
-	public void updateLastPage(BorrowVo vo) throws Exception {
+	public void setLastPage(BorrowVo vo) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.update(ebookNamespace+".updateLastPage", vo);
 		

@@ -6,20 +6,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.ebookMapper">
 
 	<select id="getEbookList" resultType="EbookVO">
-	select 
-		ebook_no,
-		title,
-		author,
-<!--	cover,
-		 files.filename,
-		 files.filetype,		 -->
-		files.fileurl as cover
-	from EBOOK  
-		LEFT OUTER JOIN files  ON
-		 (cover= files.file_no 
-		 and files.filetype= 'COVER' 
-		 and files.book_type='EBOOK')
-	ORDER BY ebook_no
+  select 
+		e.ebook_no,
+		e.title,
+		e.author,
+    e.publisher,
+    e.PUBLISHEDDATE,
+    e.CATEGORY,
+    e.coverURL,
+    NVL(starPoint.starCount,0) as starCount,
+    NVL(starPoint.starAvg,0) as starAvg
+	from EBOOK e 
+		LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARPOINT) starAvg from star GROUP BY star.ebook_no ) starPoint
+    ON  (starPoint.ebook_no = e.ebook_no)
+    <if test="category != null">
+ 		where e.CATEGORY=#{category}
+    </if>
+    
 	</select>
 
 
@@ -28,14 +31,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values( BOOKMARK_no_seq.nextval, #{member_no} , #{ebook_no} , #{ebookPage} , SYSDATE , #{chapter} , #{mybookmark})
 	</insert>
 	
-	<delete id="removeBookmark" parameterType="EbookVO">	
+	<delete id="removeBookmark" parameterType="EbookVO" >	
 		DELETE FROM BOOKMARK
 		WHERE EBOOKPAGE = #{ebookPage} and MEMBER_NO = #{member_no} and EBOOK_NO = #{ebook_no}
 	</delete>
 	
 	
-	<select id="getBookmarkList">	
-	
+	<select id="getBookmarkList" parameterType="BorrowVO" resultType="BorrowVO">	
+		select
+		BOOKMARK_NO,
+		MEMBER_NO,
+		EBOOK_NO,
+		EBOOKPAGE,
+		READDATE,
+		CHAPTER,
+		MYBOOKMARK
+		from bookmark where member_no=#{member_no} and ebook_no=#{ebook_no};
 	</select>
 
 	<update id="updateLastPage" parameterType="BorrowVO">

@@ -1,7 +1,5 @@
 package org.ebook.cobook;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 /**
  * Handles requests for the application home page.
  */
@@ -22,19 +19,15 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+	public String index( Model model) {	
+		logger.info("Welcome home! ");
+		return "index";
 	}
-	
+	@RequestMapping(value="/index", method = RequestMethod.GET)
+	public String index(){
+		logger.info("Welcome home! ");
+		return "index";	
+	}
 	@RequestMapping(value="/ajaxTest", method = RequestMethod.GET)
 	public void ajaxTest(){
 		
@@ -45,17 +38,8 @@ public class HomeController {
 		
 	}
 	
-	@RequestMapping(value="/ebookList", method = RequestMethod.GET)
-	public String ebooklist(){
-		logger.info("Welcome home! ");
-		return "ebooklist";	
-	}
-	
-	@RequestMapping(value="/index", method = RequestMethod.GET)
-	public String index(){
-		logger.info("Welcome home! ");
-		return "index";	
-	}
+
+
 	
 	@RequestMapping(value="/hello", method = RequestMethod.GET)
 	public void hello(String name, Model model)throws Exception{
@@ -70,55 +54,6 @@ public class HomeController {
 		return "redirect:/editorCopy";
 	}
 	
-	//메인페이지 광고 + 추천도서 (코북에서 선정한 책 5권)
-
-			@RequestMapping(value = "/index/banner", method = RequestMethod.GET)
-
-			public String banner(Locale locale, Model model) {
-
-				logger.info("index/banner");
-
-				return "index/banner";
-
-			}
-
-			//월간 베스트 도서 - 한달동안 대여가 많이된책 Top 10
-
-			@RequestMapping(value = "/index/cobookList", method = RequestMethod.GET)
-
-			public String cobookList(Locale locale, Model model) {
-
-				logger.info("index/cobookList");
-
-				return "index/cobookList";
-
-			}
-
-			//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 
-
-			@RequestMapping(value = "/index/monthlyList", method = RequestMethod.GET)
-
-			public String monthlyList(Locale locale, Model model) {
-
-				logger.info("index/monthlyList");
-
-				return "index/monthlyList";
-
-			}
-
-			//알라딘리스트 지금 뜨는거 아니예요? 잘?
-
-			@RequestMapping(value = "/index/alladinList", method = RequestMethod.GET)
-
-			public String alladinList(Locale locale, Model model) {
-
-				logger.info("index/alladinList");
-
-				return "index/alladinList";
-
-			}
-
-			
 
 			//****************************mybook
 

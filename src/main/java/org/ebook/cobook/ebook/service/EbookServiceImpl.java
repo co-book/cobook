@@ -24,9 +24,9 @@ public class EbookServiceImpl implements EbookService {
 	private MyPageDAO myPageDAO;	
 	
 	@Override
-	public List<EbookVO> getEbookList(Model model) throws Exception {
+	public List<EbookVO> getEbookList(String category) throws Exception {
 		// TODO Auto-generated method stub
-		return ebookDAO.getEbookList();
+		return ebookDAO.getEbookList(category);
 	}
 
 	@Override
@@ -36,21 +36,21 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public void setBookMark(BookmarkVO bookmark) throws Exception {
+	public void writeBookMark(BookmarkVO bookmark) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.setBookmark(bookmark);
+		ebookDAO.writeBookmark(bookmark);
 	}
 
 	@Override
-	public void removeBookmark(BookmarkVO bookmark) throws Exception {
+	public void deleteBookmark(BookmarkVO bookmark) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.removeBookmark(bookmark);
+		ebookDAO.deleteBookmark(bookmark);
 	}
 
 	@Override
-	public void updateLastPage(BorrowVo borrowVo) throws Exception {
+	public void setLastPage(BorrowVo borrowVo) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.updateLastPage(borrowVo);
+		ebookDAO.setLastPage(borrowVo);
 	}
 
 	@Override
