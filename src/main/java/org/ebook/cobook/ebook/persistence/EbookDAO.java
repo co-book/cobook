@@ -9,7 +9,7 @@ import org.ebook.cobook.ebook.domain.EbookVO;
 public interface EbookDAO {
 	//Ebook
 	public List<EbookVO> getEbookList(String category) throws Exception;
-	public EbookVO eBookDetail(int ebookn_no) throws Exception;
+	public EbookVO eBookDetail(int ebook_no) throws Exception;
 	
 	//bookMark
 	public List<BookmarkVO> getBookmarkList(BorrowVo vo) throws Exception;

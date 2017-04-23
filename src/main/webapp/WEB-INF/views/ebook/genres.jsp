@@ -10,12 +10,10 @@
 <meta name="keywords"
 	content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript">
-	
+<!-- <script type="application/x-javascript">
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
-
-</script>
+</script> -->
 <!-- //for-mobile-apps -->
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css"
 	rel="stylesheet" type="text/css" media="all" />
@@ -72,17 +70,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="/cobook/resources/CoBookDesign/js/owl.carousel.js"></script>
 <script>
 	$(document).ready(function() {
+		var categry= "${category}";
+		console.log('category : '+ categry);
 		$.ajax({
-			type : "post",
+			type : "POST",
 			url : '/cobook/ebook/getEbookList',
-			 data  : {	
-			  		"category"	 :  ""	
-		  		},
+			data  :{	
+	  		"category":categry
+  			}, 
+			/*  data  :JSON.stringify({	
+			  		"category": "ddd"	
+		  		}), */
+			//contentType : "application/json;charset=UTF-8",
 			dataType : 'html',
-			contentType : "application/json", 
 			success : function(data) {
 				$('#ebookList').append(data);
-				banner();
 			}
 		});
 		
@@ -114,19 +116,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!--/browse-agile-w3ls -->
 				<div class="browse-agile-w3ls general-w3ls">
 					<div class="tittle-head">
-						<h4 class="latest-text">Family Movies</h4>
+						<h4 class="latest-text">${category} Movies</h4>
 						<div class="container">
 							<div class="agileits-single-top">
 								<ol class="breadcrumb">
-									<li><a href="/cobook/">Home</a></li>
-									<li class="active">Genres</li>
+									<li><a href="/cobook/ebook/genres">Home</a></li>
+									<li class="active">${category}</li>
 								</ol>
 							</div>
 						</div>
 					</div>
-					<div id="ebookList" class="container">
 					
+					<div id="ebookList" class="container">
 					</div>
+					
 				</div>
 				<!--//browse-agile-w3ls -->
 				<div class="blog-pagenat-wthree">

@@ -109,38 +109,38 @@ window.fbAsyncInit = function() {
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="/cobook">Home</a></li>
 							<li class="dropdown">
-								<a href="/cobook/genres" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
+								<a href="/cobook/ebook/genres" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="genres.html">Action</a></li>
-											<li><a href="genres.html">Biography</a></li>
-											<li><a href="genres.html">Crime</a></li>
-											<li><a href="genres.html">Family</a></li>
-											<li><a href="horror.html">Horror</a></li>
-											<li><a href="genres.html">Romance</a></li>
-											<li><a href="genres.html">Sports</a></li>
-											<li><a href="genres.html">War</a></li>
+											<li><a href="/cobook/ebook/genres/소설">소설</a></li>
+											<li><a href="/cobook/ebook/genres/2">경영/경제</a></li>
+											<li><a href="/cobook/ebook/genres/3">시/에세이</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Family</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Horror</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Romance</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Sports</a></li>
+											<li><a href="/cobook/ebook/genres/genres">War</a></li>
 										</ul>
 									</div>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="genres.html">Adventure</a></li>
-											<li><a href="comedy.html">Comedy</a></li>
-											<li><a href="genres.html">Documentary</a></li>
-											<li><a href="genres.html">Fantasy</a></li>
-											<li><a href="genres.html">Thriller</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Adventure</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Comedy</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Documentary</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Fantasy</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Thriller</a></li>
 										</ul>
 									</div>
 									<div class="col-sm-4">
 										<ul class="multi-column-dropdown">
-											<li><a href="genres.html">Animation</a></li>
-											<li><a href="genres.html">Costume</a></li>
-											<li><a href="genres.html">Drama</a></li>
-											<li><a href="genres.html">History</a></li>
-											<li><a href="genres.html">Musical</a></li>
-											<li><a href="genres.html">Psychological</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Animation</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Costume</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Drama</a></li>
+											<li><a href="/cobook/ebook/genres/genres">History</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Musical</a></li>
+											<li><a href="/cobook/ebook/genres/genres">Psychological</a></li>
 										</ul>
 									</div>
 									<div class="clearfix"></div>
@@ -150,7 +150,7 @@ window.fbAsyncInit = function() {
 							<li><a href="/cobook/review">Review</a></li> 
 							<li><a href="/cobook/mybook">Mybook</a></li>
 							<li><a href="#">About</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="#">Contact</a></li>
 							<li><a href="#">MyPage</a></li>
 						</ul>
 					</nav>

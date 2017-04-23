@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -169,11 +170,11 @@ public class EbookController {
 		  
 		  return "";
 	  }
-	
-	
-	@RequestMapping(value = "/single", method = RequestMethod.GET)
-	public String single( Model model) {
-		logger.info("single");
+
+
+	@RequestMapping(value = "/single/{ebook_no}", method = RequestMethod.GET)
+	public String single(@PathVariable String ebook_no,  Model model) {
+		logger.info("single"+ebook_no);
 		return "ebook/single";
 	}
 	@RequestMapping(value = "/readEBook", method = RequestMethod.GET)
@@ -230,21 +231,30 @@ public class EbookController {
 
 	///////////////////////////////
 	
-	
-	@RequestMapping("/genres/{category}")
+
+
+	@RequestMapping(value = "/genres/{category}", method = RequestMethod.GET)
 	public ModelAndView genres(@PathVariable String category) {	  
 	  ModelAndView mav = new ModelAndView("/ebook/genres");
 	  logger.info("/genres/"+category);
 	  mav.addObject("category", category);
 	  return mav;
 	}
-	
+	@RequestMapping(value = "/genres", method = RequestMethod.GET)
+	public ModelAndView genresM() {	  
+	  ModelAndView mav = new ModelAndView("/ebook/genres");
+	  logger.info("/genres/genres");
+	  mav.addObject("category","genres");
+	  return mav;
+	}
+	//@RequestParam("category")
 	@RequestMapping(value= "/getEbookList", method = RequestMethod.POST)
-	public ModelAndView getEbookList(@RequestParam("category") String category ,Model model) throws Exception{
-		logger.info("EBook List 호출");
-		List<EbookVO> list = new ArrayList<>();
+	public ModelAndView getEbookList(@RequestParam("category") String category) throws Exception{
+		logger.info("EBook List 호출  - category : "+category);
 		ModelAndView mav = new ModelAndView("/ebook/genres/getEbookList");	
-		mav.addObject("ebookList",  ebookService.getEbookList(category));
+		List<EbookVO> ebookList =ebookService.getEbookList(category);
+		mav.addObject("ebookListCnt",  ebookList.size());
+		mav.addObject("ebookList", ebookList );
 		
 		return mav;
 	}
