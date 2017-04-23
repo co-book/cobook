@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
-import org.ebook.cobook.ebook.domain.BorrowVo;
+import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +26,7 @@ public class EbookDAOImpl implements EbookDAO {
 
 
 	@Override
-	public List<BookmarkVO> getBookmarkList(BorrowVo vo) throws Exception {
+	public List<BookmarkVO> getBookmarkList(BorrowVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(ebookNamespace+".getBookmarkList" , vo);
 	}
@@ -47,7 +47,7 @@ public class EbookDAOImpl implements EbookDAO {
 	}
 	
 	@Override
-	public void setLastPage(BorrowVo vo) throws Exception {
+	public void setLastPage(BorrowVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.update(ebookNamespace+".updateLastPage", vo);
 		
@@ -58,6 +58,13 @@ public class EbookDAOImpl implements EbookDAO {
 	public EbookVO eBookDetail(int ebookn_no) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(ebookNamespace+".eBookDetail", ebookn_no);
+	}
+
+
+	@Override
+	public void borrowEbook(BorrowVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert(ebookNamespace+".borrowEbook", vo);
 	}
 
 	

@@ -58,7 +58,7 @@ img{
 	border: 1px solid #DFDFDF;
 } */
 .modal-borrow{
-	border-radius: 0.25em;
+  border-radius: 0.25em;
   border: none;
   padding: .6em 1.2em;
   background-color: #FC7D01;
@@ -232,6 +232,20 @@ img{
 	user-select: none;
 	border: 1px solid transparent;
 	border-radius: 4px;
+}
+
+.borrow-button {
+  border-radius: 0.25em;
+  border: none;
+  padding: .6em 1.2em;
+  background-color: #FC7D01;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "PT Sans", sans-serif;
+  font-size: 16px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 /*end reset*/
 @font-face {

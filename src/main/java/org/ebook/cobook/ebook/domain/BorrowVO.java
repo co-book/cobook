@@ -2,7 +2,7 @@ package org.ebook.cobook.ebook.domain;
 
 import java.util.Date;
 
-public class BorrowVo {
+public class BorrowVO {
 	
 	private Integer borrow_no;
 	private Integer member_no;

@@ -16,7 +16,7 @@
 <link href="/cobook/resources/CoBookDesign/css/style.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single.css?ver=6" rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=5" rel="stylesheet" type="text/css" media="all"/>
+<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=7" rel="stylesheet" type="text/css" media="all"/>
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css" media="all" />
 <!-- news-css -->
@@ -47,14 +47,13 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
+		
 		$(".scroll").click(function(event) {
 			event.preventDefault();
 			$('html,body').animate({
 				scrollTop : $(this.hash).offset().top
 			}, 1000);
-		});
-		
-		
+		});	//scroll
 		
 /* 		$("button[name='comment']").click(function () {
 			if($("#reply-comment").css("display") == "none")
@@ -66,7 +65,7 @@
 						console.log("hide??");
 					}
 		}); 
-		 $(".single-button").closest("div").click(function () {
+		 $(".single-button").closest("div").click(function () 
 		*/
 		
 		 $(".single-button").click(function () {
@@ -76,12 +75,43 @@
 					}else {
 						$(this).next("#reply-comment").toggle();
 					} 
-		}); 
+		}); 	//single
 			
 			var up = $("#up").hide();
 		$(".comment-regi").click(function () {
 			 $("#comment-up").add(up).show();
-		}); 
+		}); 	//comment
+		
+		
+		$(".borrow-button").click(function name() {
+			console.log($("#price").html());
+			var selectDay = $("#borrow option:selected").val();
+			console.log(selectDay);
+			console.log("member_no"+member_no);
+			$("#borrowDays").val(selectDay);
+			$.ajax({
+	    		type : 'POST',
+	    		url : '/cobook/ebook/borrowEbook',
+	    		data  :{
+	    			"member_no" : member_no,
+	    			"ebook_no" : "232",
+	    			"period" : selectDay,
+	    			"price" : $("#price").html()
+	    			
+	    		},
+	    		dataType : 'json',
+	    		//contentType : "application/json",
+	    		success : function(result) {
+	    			console.log(result);
+	    		}
+			});
+			
+		});	//borrow days modal 확인
+		
+		
+		
+		
+		
 	});
 	
 
@@ -110,6 +140,7 @@
 	<!-- header login, wishList, navibar start -->
 <c:import url="/WEB-INF/views/header.jsp" charEncoding="UTF-8" >
 	<c:param name="loginId" value="loginId" />
+
 </c:import>
 <!-- //bootstrap-pop-up -->
 
@@ -161,7 +192,7 @@
 											</div>
 											
 											<div class="price">
-												<p>Price: <span>12,000</span></p>
+												<p>Price: <span id="price">12,000</span></p>
 											</div>
 											
 											<div class="available">
@@ -175,15 +206,17 @@
 												<div class="share">
 													<p>대여기간 :</p>
 													<!-- <input class="text_box" type="text"> -->
-													<select name="borrow">
-														<option value="14days">14일</option>
-														<option value="30days" selected="selected">30일</option>
-														<option value="60days">60일</option>
-														<option value="1year">1년</option>
+													<select id="borrow">
+														<option value="14">14일</option>
+														<option value="30" selected="selected">30일</option>
+														<option value="60">60일</option>
+														<option value="365">1년</option>
 													</select>
 												</div>
 												 <div class="button" data-toggle="modal" data-target="#coModal">
-													<span><a href="#">대여하기</a></span>
+													<!-- <span><a href="#">대여하기</a></span> -->
+													<!--<button class="borrow-button">대여하기</button>-->
+												 	<input type="submit" value="대여하기" class="borrow-button"> 
 												</div> 
 												<div class="clear"></div>
 											</div>
@@ -202,7 +235,7 @@
 																<th>
 																<h2>오베라는 남자</h2>
 																<p>프레드릭 배크만</p>
-																<a>대여기간</a> 30일
+																<a>대여기간</a> <input type="text" id="borrowDays" readonly="readonly" >일
 																<ul class="order">
 																<li>총주문금액 &nbsp; 4900원</li>
 																<li>무료이용권&nbsp; 0개</li>
@@ -223,7 +256,7 @@
 														data-dismiss="modal">Close</button> -->
 														<ul class="modal-button">
 															<li><button class="modal-charge">충전하기</button>
-															<button class="modal-borrow">대여하기</button></li>					
+															<input type="submit" id="borrowEbook" value="대여하기" class="borrow-button" >					
 														</ul>
 												</div>
 											</div>

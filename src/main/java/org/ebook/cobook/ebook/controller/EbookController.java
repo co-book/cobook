@@ -10,12 +10,14 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.ebook.cobook.board.controller.ReviewController;
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
-import org.ebook.cobook.ebook.domain.BorrowVo;
+import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.ebook.service.EbookService;
 import org.slf4j.Logger;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,9 +80,9 @@ public class EbookController {
 	//따로 이동해시켜줄 뷰가 없을때 responseBody를 씁니다;-!
 	@RequestMapping(value= "/getBookMarkList", method = RequestMethod.GET)
 	@ResponseBody
-	public List<BookmarkVO> getBookMarkList(Model model , BorrowVo borrowVo ) throws Exception{
+	public List<BookmarkVO> getBookMarkList(Model model , BorrowVO borrowVO ) throws Exception{
 		logger.info("getBookMarkList 호출");
-		List<BookmarkVO> list = ebookService.getBookmarkList(borrowVo);
+		List<BookmarkVO> list = ebookService.getBookmarkList(borrowVO);
 		return list;
 	}
 	 
@@ -138,14 +141,14 @@ public class EbookController {
 
 	@RequestMapping(value= "/setLastPage", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> setLastPage(Model model , BorrowVo borrowVo) throws Exception{
+	public Map<String, Object> setLastPage(Model model , BorrowVO borrowVO) throws Exception{
 		logger.info("setLastPage 호출");
 		Map<String, Object> resultMap = new HashMap<>();
 		boolean result = false;
 		String resultMsg = "";
 		
 		try{
-			ebookService.setLastPage(borrowVo);
+			ebookService.setLastPage(borrowVO);
 			result = true;
 			System.out.println(result);
 		} catch (Exception e) {
@@ -185,7 +188,6 @@ public class EbookController {
 
 	//메인페이지 광고 + 추천도서 (코북에서 선정한 책 5권)
 	@RequestMapping(value = "/banner", method = RequestMethod.GET)
-
 	public String banner(Locale locale, Model model) {
 		logger.info("index/banner");
 		return "index/banner";
@@ -195,37 +197,25 @@ public class EbookController {
 	//월간 베스트 도서 - 한달동안 대여가 많이된책 Top 10
 
 	@RequestMapping(value = "/cobookList", method = RequestMethod.GET)
-
 	public String cobookList(Locale locale, Model model) {
-
 		logger.info("index/cobookList");
-
 		return "index/cobookList";
 
 	}
 
 	//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 
-
 	@RequestMapping(value = "/monthlyList", method = RequestMethod.GET)
-
 	public String monthlyList(Locale locale, Model model) {
-
 		logger.info("index/monthlyList");
-
 		return "index/monthlyList";
 
 	}
 
 	//알라딘리스트 지금 뜨는거 아니예요? 잘?
-
 	@RequestMapping(value = "/alladinList", method = RequestMethod.GET)
-
 	public String alladinList(Locale locale, Model model) {
-
 		logger.info("index/alladinList");
-
 		return "index/alladinList";
-
 	}
 
 	///////////////////////////////
@@ -245,10 +235,27 @@ public class EbookController {
 		List<EbookVO> list = new ArrayList<>();
 		ModelAndView mav = new ModelAndView("/ebook/genres/getEbookList");	
 		mav.addObject("ebookList",  ebookService.getEbookList(category));
-		
 		return mav;
 	}
 	
+	//borrow 날짜를 가져가야 하는건가
+	
+	@RequestMapping(value="/borrowEbook", method = RequestMethod.POST)
+	public ModelAndView borrowEbook( BorrowVO borrow) throws Exception
+	{
+		logger.info("borrow ebook");
+		logger.info("borrow ebook"+borrow.getEbook_no());
+		logger.info("borrow ebook"+borrow.getMember_no());
+		logger.info("borrow ebook"+borrow.getPrice());
+		logger.info("borrow ebook"+borrow.getPeriod());
+
+		String result = "대여";
+		String fail = "대여실패";
+		//String days = request.getParameter("borrowDays");
+		
+		//ebookService.borrowEbook(borrow);
+		return new ModelAndView("redirect:/ebook/single");
+	}
 	
 	
 }

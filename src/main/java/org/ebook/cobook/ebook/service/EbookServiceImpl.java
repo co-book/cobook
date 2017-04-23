@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ebook.cobook.ebook.domain.BookmarkVO;
-import org.ebook.cobook.ebook.domain.BorrowVo;
+import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.ebook.persistence.EbookDAO;
 import org.ebook.cobook.mypage.persistence.MyPageDAO;
@@ -30,7 +30,7 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public List<BookmarkVO> getBookmarkList(BorrowVo borrow) throws Exception {
+	public List<BookmarkVO> getBookmarkList(BorrowVO borrow) throws Exception {
 		// TODO Auto-generated method stub
 		return ebookDAO.getBookmarkList(borrow);
 	}
@@ -48,7 +48,7 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public void setLastPage(BorrowVo borrowVo) throws Exception {
+	public void setLastPage(BorrowVO borrowVo) throws Exception {
 		// TODO Auto-generated method stub
 		ebookDAO.setLastPage(borrowVo);
 	}
@@ -63,6 +63,12 @@ public class EbookServiceImpl implements EbookService {
 	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
 		return myPageDAO.getMyborrowList(paramMap);
+	}
+
+	@Override
+	public void borrowEbook(BorrowVO borrowVo) throws Exception {
+		// TODO Auto-generated method stub
+		ebookDAO.borrowEbook(borrowVo);
 	}
 
 

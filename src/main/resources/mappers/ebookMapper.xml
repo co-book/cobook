@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		READDATE,
 		CHAPTER,
 		MYBOOKMARK
-		from bookmark where member_no=#{member_no} and ebook_no=#{ebook_no};
+		from bookmark where member_no=#{member_no} and ebook_no=#{ebook_no}
 	</select>
 
 	<update id="updateLastPage" parameterType="BorrowVO">
@@ -54,9 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
-	<insert id="setBorrow" parameterType="BorrowVO">
-		insert into BORROW ( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,CASH ,STATUS ,READPAGE )
-		values(borrow_no_seq.nextval, #{member_no} , #{ebook_no},  SYSDATE , #{period}, #{cash}, 'NEW' ,'NEW')
+	<insert id="borrowEbook" parameterType="BorrowVO">
+		insert into BORROW ( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,PRICE ,STATUS ,READPAGE )
+		values(borrow_no_seq.nextval, #{member_no} , #{ebook_no},  SYSDATE , #{period}, #{price}, 'NEW' ,'NEW')
 	</insert>
 	
 	<!-- 
@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		e.publisher,
 	 		e.publishedDate,
 	 		e.intro,
-	 		e.cash,
+	 		e.price,
 	 		e.category,
 	 		files.fileurl as cover,
     		(b.BORROWDATE+b.period) as expiryDate
