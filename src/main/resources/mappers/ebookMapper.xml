@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ebookMapper">
 
-	<select id="getEbookList" resultType="EbookVO">
+	<select id="getEbookList" parameterType="String" resultType="EbookVO">
   select 
 		e.ebook_no,
 		e.title,
@@ -19,8 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from EBOOK e 
 		LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARPOINT) starAvg from star GROUP BY star.ebook_no ) starPoint
     ON  (starPoint.ebook_no = e.ebook_no)
-    <if test="category != null">
- 		where e.CATEGORY=#{category}
+    <if test="_parameter != null and !_parameter.equals('') and !_parameter.equals('genres') ">
+ 		where e.CATEGORY=#{_parameter}
     </if>
     
 	</select>
