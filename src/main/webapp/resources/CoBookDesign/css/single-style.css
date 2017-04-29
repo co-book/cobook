@@ -247,6 +247,13 @@ img{
   font-size: 1rem;
   cursor: pointer;
 }
+
+.starAvg{
+	color: #FC7D01;
+    font-size: 0.9em;
+    font-family: 'ambleregular';
+    padding-left: 5px;
+}
 /*end reset*/
 @font-face {
     font-family: 'ambleregular';
@@ -789,7 +796,9 @@ body {
 	padding: 1.5%;
 }
 .images_3_of_2  img {
-	max-width: 100%;
+	
+	max-width: 182px;
+	max-height: 268px;
 	/* display:block; */
 	border: 1px solid #DFDFDF;
 }
@@ -810,7 +819,7 @@ body {
 }
 .price p {
 	font-size: 0.85em;
-	padding:20px 0;
+	
 	color: #666;
 	vertical-align: top;
 }

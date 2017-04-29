@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 public interface EbookService {
 
 	public List<EbookVO> getEbookList(String category)throws Exception;
-	public EbookVO eBookDetail(int ebookn_no) throws Exception;
+	
+	public EbookVO eBookDetail(int ebookn_no ,int member_no) throws Exception;
+	
 	public List<BookmarkVO> getBookmarkList(BorrowVO borrow)throws Exception;
 	public void writeBookMark(BookmarkVO bookmark) throws Exception;
 	public void deleteBookmark(BookmarkVO bookmark) throws Exception;

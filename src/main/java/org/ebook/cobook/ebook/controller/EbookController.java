@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.ebook.cobook.board.controller.ReviewController;
 import org.ebook.cobook.board.domain.Criteria;
@@ -20,6 +21,7 @@ import org.ebook.cobook.ebook.domain.BookmarkVO;
 import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.ebook.service.EbookService;
+import org.ebook.cobook.member.domain.MemberVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -65,12 +67,12 @@ public class EbookController {
 	
 	
 	//ebook 상세페이지
-	@RequestMapping(value= "/getEbookDetail", method = RequestMethod.GET)
+	/*@RequestMapping(value= "/getEbookDetail", method = RequestMethod.GET)
 	public void getEbookDetail(@RequestParam("ebook_no") int ebook_no, Model model) throws Exception{
 		logger.info("getEbookDetail 호출");
 		EbookVO evo = ebookService.eBookDetail(ebook_no);
 		model.addAttribute(evo);
-	}
+	}*/
 	
 	/**
 	 * 북마크 리스트 불러오기 
@@ -173,10 +175,26 @@ public class EbookController {
 		  return "";
 	  }
 
-
+	 //
 	@RequestMapping(value = "/single/{ebook_no}", method = RequestMethod.GET)
-	public String single(@PathVariable String ebook_no,  Model model) {
+	public String getEbookSingle(@PathVariable int ebook_no,  Model model, HttpSession session) {
 		logger.info("single"+ebook_no);
+		EbookVO vo=null;
+		int member_no =0;
+		try {
+			MemberVO mvo= (MemberVO) session.getAttribute("member");
+			if(mvo!=null)
+			{
+				//로그인된 상태
+				member_no = mvo.getMember_no();
+			}
+			//서비스실행
+			vo= ebookService.eBookDetail(ebook_no,member_no);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("evo", vo);
 		return "ebook/single";
 	}
 	@RequestMapping(value = "/readEBook", method = RequestMethod.GET)
@@ -250,22 +268,39 @@ public class EbookController {
 	}
 	
 	//borrow 날짜를 가져가야 하는건가
-	
+	 
 	@RequestMapping(value="/borrowEbook", method = RequestMethod.POST)
-	public ModelAndView borrowEbook( BorrowVO borrow) throws Exception
+	public ResponseEntity<Map<String, Object>> borrowEbook(@RequestBody BorrowVO borrow)
 	{
-		logger.info("borrow ebook");
-		logger.info("borrow ebook"+borrow.getEbook_no());
-		logger.info("borrow ebook"+borrow.getMember_no());
-		logger.info("borrow ebook"+borrow.getPrice());
-		logger.info("borrow ebook"+borrow.getPeriod());
-
-		String result = "대여";
-		String fail = "대여실패";
-		//String days = request.getParameter("borrowDays");
+		logger.info("ebook_no : "+borrow.getEbook_no());
+		logger.info("member_no : "+borrow.getMember_no());
+		logger.info("price : "+borrow.getPrice());
+		logger.info("period : "+borrow.getPeriod());
 		
-		//ebookService.borrowEbook(borrow);
-		return new ModelAndView("redirect:/ebook/single");
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<>();
+ 
+		String result = "Fail";
+		String msg = "ok";
+		try
+		{	
+			ebookService.borrowEbook(borrow);
+			
+			result = "SUCCESS";
+			map.put("result", result);
+			map.put("msg", msg);
+			map.put("borrow", borrow);
+			entity = new ResponseEntity<>(map, HttpStatus.OK);
+		}catch (Exception e) {
+			msg = e.getMessage();
+			map.put("result", "Fail");
+			map.put("msg", msg);
+			entity = new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+		}
+		
+		System.out.println(result+ " : "+msg);
+		
+		return entity;
 	}
 	
 	

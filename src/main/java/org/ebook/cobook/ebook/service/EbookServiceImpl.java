@@ -1,5 +1,6 @@
 package org.ebook.cobook.ebook.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,9 +55,23 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public EbookVO eBookDetail(int ebookn_no) throws Exception {
+	public EbookVO eBookDetail(int ebook_no, int member_no) throws Exception {
 		// TODO Auto-generated method stub
-		return ebookDAO.eBookDetail(ebookn_no);
+		EbookVO vo = ebookDAO.eBookDetail(ebook_no);
+		
+		if(member_no !=0){	
+			BorrowVO bvo = new BorrowVO();
+			bvo.setEbook_no(ebook_no); 
+			bvo.setMember_no(member_no);
+			
+			float remainDate =ebookDAO.getMemberBorrow(bvo);
+			//bvo의 대여 유효성 체크
+			
+			
+			vo.setRemainDate(remainDate); //만료날짜, 유효한 대여여부를 
+			
+		}
+		return vo;
 	}
 
 	@Override

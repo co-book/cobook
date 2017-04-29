@@ -9,8 +9,10 @@ import org.ebook.cobook.ebook.domain.EbookVO;
 public interface EbookDAO {
 	//Ebook
 	public List<EbookVO> getEbookList(String category) throws Exception;
+	//ebook single
 	public EbookVO eBookDetail(int ebook_no) throws Exception;
-	
+	public float getMemberBorrow(BorrowVO bvo) throws Exception;
+ 	
 	//bookMark
 	public List<BookmarkVO> getBookmarkList(BorrowVO vo) throws Exception;
 	public void writeBookmark(BookmarkVO vo) throws Exception;
@@ -20,6 +22,8 @@ public interface EbookDAO {
 	
 	//borrow
 	public void borrowEbook(BorrowVO vo) throws Exception;
+	
+	
 	
 	
 	

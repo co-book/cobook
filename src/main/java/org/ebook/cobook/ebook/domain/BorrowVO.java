@@ -46,7 +46,7 @@ public class BorrowVO {
 	public Integer getPrice() {
 		return price;
 	}
-	public void setPrcie(Integer price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	public String getStatus() {

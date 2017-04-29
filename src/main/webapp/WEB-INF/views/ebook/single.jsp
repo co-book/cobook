@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +17,7 @@
 <link href="/cobook/resources/CoBookDesign/css/style.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single.css?ver=6" rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=7" rel="stylesheet" type="text/css" media="all"/>
+<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=14" rel="stylesheet" type="text/css" media="all"/>
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css" media="all" />
 <!-- news-css -->
@@ -48,25 +49,13 @@
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		
+		
 		$(".scroll").click(function(event) {
 			event.preventDefault();
 			$('html,body').animate({
 				scrollTop : $(this.hash).offset().top
 			}, 1000);
 		});	//scroll
-		
-/* 		$("button[name='comment']").click(function () {
-			if($("#reply-comment").css("display") == "none")
-					{
-				console.log(this);
-						$("#reply-comment").show();
-					}else {
-						$("#reply-comment").hide();
-						console.log("hide??");
-					}
-		}); 
-		 $(".single-button").closest("div").click(function () 
-		*/
 		
 		 $(".single-button").click(function () {
 			 if($("#reply-comment").css("display") == "none")
@@ -82,33 +71,60 @@
 			 $("#comment-up").add(up).show();
 		}); 	//comment
 		
+		var selectDay = $("#borrow option:selected").val();
+		var price = $("#price").html();
 		
-		$(".borrow-button").click(function name() {
-			console.log($("#price").html());
-			var selectDay = $("#borrow option:selected").val();
-			console.log(selectDay);
-			console.log("member_no"+member_no);
+		//borrow modal function
+		$("#borrow-modal").click(function name() {
+			selectDay = $("#borrow option:selected").val();
+			price = $("#price").html();
 			$("#borrowDays").val(selectDay);
-			$.ajax({
-	    		type : 'POST',
-	    		url : '/cobook/ebook/borrowEbook',
-	    		data  :{
-	    			"member_no" : member_no,
-	    			"ebook_no" : "232",
-	    			"period" : selectDay,
-	    			"price" : $("#price").html()
-	    			
-	    		},
-	    		dataType : 'json',
-	    		//contentType : "application/json",
-	    		success : function(result) {
-	    			console.log(result);
-	    		}
-			});
 			
-		});	//borrow days modal 확인
+			if(member_no==null)
+			{
+				$("#myModal").modal();
+			}else {
+				$("#coModal").modal();
+			}
+		});
 		
-		
+		//borrow method start
+		 $("#borrowEbook").click(function name() {
+			console.log(selectDay);
+			console.log("member_no : "+member_no);
+			console.log(price);
+			if(member_no==null)
+			{
+				$("#myModal").modal();
+			}else {
+				$.ajax({
+		    		type : 'POST',
+		    		url : '/cobook/ebook/borrowEbook',
+		    		data  :JSON.stringify({
+		    			"price" : price,
+		    			"member_no" : member_no,
+		    			"ebook_no" : "232",
+		    			"period" : selectDay
+		    			
+		    		}),
+		    		dataType : 'json',
+		    		contentType : "application/json",
+		    		success : function(result) {
+		    			
+							//대여 성공시 새로고침
+							if(result.result=="SUCCESS"){
+								location.reload();
+							}else{
+								//실패시 alert
+								alert("다시 대여해주세요");
+							}
+					//	}	    			
+		    		}
+				});
+			}
+			
+			
+		});	 
 		
 		
 		
@@ -151,7 +167,7 @@
 			<!-- /w3l-medile-movies-grids -->
 			<div class="agileits-single-top">
 				<ol class="breadcrumb">
-					<li><a href="index.html">소설</a></li>
+					<li><a href="index.html">${evo.category}</a></li>
 					<li class="active">책소개</li>
 				</ol>
 			</div>
@@ -161,45 +177,61 @@
 				<!-- /movie-browse-agile -->
 				<div class="show-top-grids-w3lagile">
 					<div class="col-sm-8 single-left">
-						<div class="song">
+						<!--<div class="song">
 							<div class="song-info">
-							<!-- login.css h3를 먹고있움...분리 -->
-								<h3 align="left">너무 시끄러운 고독</h3>
+								<h3 align="left">${evo.title}</h3>
 							</div>
-						</div> <!-- song -->
+						</div>  song -->
 							<div class="section group">
 								<!-- <div class="cont-desc span_1_of_2"> -->
 									<div class="product-details">
 										<div class="grid images_3_of_2">
-											<img src="/cobook/resources/CoBookDesign/images/ove.jpg" alt="" />
+											<img src="${evo.coverURL}" alt="" />
 										</div>
 										<div class="desc span_3_of_2">
-											<h2>너무 시끄러운 고독</h2>
-											<p>보후밀 흐라발 | 이창실 옮김</p>
+											<h2>${evo.title}</h2>
+											<p>${evo.author} | ${evo.translator}</p>
+               
 											<div class="detail-stars">
 												<ul class="detail-ratings">
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star-half-o"
-															aria-hidden="true"></i></a></li>
+													<c:forEach var="i" begin="1" end="5" varStatus="statusCnt"> 
+									                     <c:choose>
+									                           <c:when test="${evo.starAvg>=statusCnt.current}">  
+									                              <!-- 별점  -->
+									                              <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li> 
+									                           </c:when>
+									                           <c:when test="${evo.starAvg<statusCnt.current}">
+									                           <li><a href="#"><i class="fa fa-star-o"   aria-hidden="true"></i></a></li>
+									                           </c:when>
+									                           <c:otherwise>
+									                           <li><a href="#"><i class="fa fa-star-half-o"aria-hidden="true"></i></a></li>
+									                           </c:otherwise>
+									                     </c:choose>
+									              	 </c:forEach>
+									              		<li class="starAvg">${evo.starAvg}점 | (${evo.starCount}명)</li>
 												</ul>
 											</div>
-											
+											<br>
+											<br>
 											<div class="price">
-												<p>Price: <span id="price">12,000</span></p>
+												<p>대여가: <span id="price"><fmt:formatNumber value="${evo.price}" pattern="##,###"/></span><a class="starAvg">원</a></p>
 											</div>
 											
 											<div class="available">
 												<ul>
-													<li><span>도서정보:</span> &nbsp;문학동네 | 2016년 7월 8일 | epub | 15.8MB </li>
-													<li><span>지원기기:</span>&nbsp; android | ios | PC | Mac</li>
-													<li><span>듣기가능:</span>&nbsp; 듣기가능</li>
+													<li><span>도서정보:</span> &nbsp;${evo.publisher} | <fmt:formatDate value="${evo.publishedDate}" pattern="yyyy년 MM월 dd일"/> | ${evo.fileType} | ${evo.fileSize} </li>
+													<li><span>지원기기:</span>&nbsp; Android | ios | PC | Mac</li>
+													<li><span>듣기가능:</span>&nbsp; 
+														<c:choose>
+															<c:when test="${evo.listening==1}">
+																듣기가능
+															</c:when>
+															<c:otherwise>
+																듣기없음
+															</c:otherwise>														
+														</c:choose>
+														
+													</li>
 												</ul>
 											</div>
 											<div class="share-desc">
@@ -213,14 +245,14 @@
 														<option value="365">1년</option>
 													</select>
 												</div>
-												 <div class="button" data-toggle="modal" data-target="#coModal">
-													<!-- <span><a href="#">대여하기</a></span> -->
-													<!--<button class="borrow-button">대여하기</button>-->
-												 	<input type="submit" value="대여하기" class="borrow-button"> 
+												 <div class="button" id="borrow-modal"><!--  data-toggle="modal" data-target="#coModal" -->
+													 <!-- <span id="borrow-start"><a>대여하기</a></span> -->
+													<button id="borrow-start" class="borrow-button">대여하기</button>
+												 	<!-- <input type="submit" value="대여하기" class="borrow-button">  -->
 												</div> 
 												<div class="clear"></div>
 											</div>
-									<!-- modal -->
+		<!-- modal -->							
 									<div class="modal fade" id="coModal" role="dialog">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -262,7 +294,7 @@
 											</div>
 										</div>
 									</div> 
-									<!-- modal end -->
+			<!-- modal end -->						
 											<div class="wish-list">
 												<ul>
 													<li class="wish"><a href="#">Add to wishlist</a></li>
@@ -275,8 +307,7 @@
 									<div class="all-comments">
 									<div class="product_desc">
 										<h2>Details :</h2>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-	           							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+										<p>${evo.intro}</p>
 									</div>
 									</div>
 									<br></br>
