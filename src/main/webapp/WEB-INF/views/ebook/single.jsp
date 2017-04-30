@@ -144,11 +144,11 @@
 						"parent_type": "EBOOK"
 						
 		    		}),
-		    		dataType : 'json',
+		    		dataType : 'text',
 		    		contentType : "application/json",
 		    		success : function(result) {
 							console.log(result);	
-							if (result.result=="SUCCESS") {
+							if (result=="SUCCESS") {
 								//성공시
 								$('#replyContents').val("");
 							}else {
