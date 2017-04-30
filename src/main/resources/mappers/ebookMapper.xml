@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     NVL(STARRATING.starAvg,0) as starAvg
 	from EBOOK e 
 		LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no ) STARRATING
-    ON  (starPoint.ebook_no = e.ebook_no)
+    ON  (STARRATING.ebook_no = e.ebook_no)
     <if test="_parameter != null and !_parameter.equals('') and !_parameter.equals('genres') ">
  		where e.CATEGORY=#{_parameter}
     </if>
@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		
 			from EBOOK e 
 			LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no ) STARRATING
-    		ON  (starPoint.ebook_no = e.ebook_no)
+    		ON  (STARRATING.ebook_no = e.ebook_no)
 	 
      	
      	
