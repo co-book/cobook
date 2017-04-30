@@ -19,9 +19,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 	private final String namespace = "org.ebook.cobook.mapper.ReplyMapper";
 
 	@Override
-	public void insertReply(ReplyVO vo) throws Exception {
+	public void addReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		session.insert(namespace+".insertReply", vo);
+		session.insert(namespace+".addReply", vo);
 	}
 
 	@Override

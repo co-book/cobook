@@ -14,11 +14,15 @@ public class ReplyVO {
 	private String parent_type;	//어떤 게시판인지
 	private String contents;	//내용
 	private Date reg_date;		//작성날짜
+	private Integer starRating; //별점 
 	
 	
-	
-	
-	
+	public Integer getStarRating() {
+		return starRating;
+	}
+	public void setStarRating(Integer starRating) {
+		this.starRating = starRating;
+	}
 	public Integer getReply_no() {
 		return reply_no;
 	}

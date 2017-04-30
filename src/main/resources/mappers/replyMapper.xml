@@ -63,7 +63,7 @@ ORDER BY parent_no desc, r.reply_no asc
 </select>
 
 	<!-- 댓글 입력 -->
-	<insert id="insertReply">
+	<insert id="addReply">
 		INSERT INTO reply
 		(reply_no, member_no, parent_no,
 		parent_type, board_no,
