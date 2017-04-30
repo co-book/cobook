@@ -47,8 +47,9 @@
 <!-- start-smoth-scrolling -->
 
 <script type="text/javascript">
+	var ebook_no = ${evo.ebook_no};
+	
 	jQuery(document).ready(function($) {
-		
 		
 		$(".scroll").click(function(event) {
 			event.preventDefault();
@@ -124,9 +125,33 @@
 		});	 //borrow
 		
 		$('#addReply').click(function () {
-			console.log('#starRating');
+			console.log($('#starRating').val());
+			console.log($('#replyContents').val());
+			console.log(ebook_no);
+			console.log(member_no);
 			
-			
+			if(member_no==null)
+			{
+				$("#myModal").modal();
+			}else {
+				$.ajax({
+		    		type : 'POST',
+		    		url : '/cobook/replies/addReply',
+		    		data  :JSON.stringify({
+		    			"member_no" : member_no,
+		    			"ebook_no" : ebook_no,
+						"contents" : $('#replyContents').val(),
+						"parent_type": "EBOOK"
+						
+		    		}),
+		    		dataType : 'json',
+		    		contentType : "application/json",
+		    		success : function(result) {
+		    			
+							console.log(result);			
+		    		}
+				});
+			}	
 		});
 		
 		
@@ -319,7 +344,7 @@
 									<div class="reply-control">
 									<input type="text" id="starRating" class="kv-fa rating-loading" value="4" data-size="lg" title="">
         							<br>
-									<textarea class="reply-textarea" rows="10" id="reply" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+									<textarea class="reply-textarea" rows="10" id="replyContents" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
 									<button type="button" id="addReply" class="reply-regi">리뷰남기기</button>
 									</div>
 									<br></br>
