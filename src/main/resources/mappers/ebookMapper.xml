@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	where e.ebook_no=#{ebook_no}
 	 </select>
 	 
-	 <select id="getMemberBorrow" parameterType="BorrowVO">
+	 <select id="getMemberBorrow" parameterType="BorrowVO" resultType="BorrowVO">
 	 	select * from 
 	 		(select 
 	 		borrowDate+period-sysdate as remainDate 

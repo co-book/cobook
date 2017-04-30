@@ -139,7 +139,7 @@
 		    		url : '/cobook/replies/addReply',
 		    		data  :JSON.stringify({
 		    			"member_no" : member_no,
-		    			"ebook_no" : ebook_no,
+		    			"board_no" : ebook_no,
 						"contents" : $('#replyContents').val(),
 						"parent_type": "EBOOK"
 						
@@ -147,8 +147,13 @@
 		    		dataType : 'json',
 		    		contentType : "application/json",
 		    		success : function(result) {
-		    			
-							console.log(result);			
+							console.log(result);	
+							if (result.result=="SUCCESS") {
+								//성공시
+								$('#replyContents').val("");
+							}else {
+								alert("다시 작성해주세요");
+							}
 		    		}
 				});
 			}	
