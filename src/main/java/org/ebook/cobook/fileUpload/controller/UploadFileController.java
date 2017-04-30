@@ -28,7 +28,7 @@ public class UploadFileController {
 
 private static final Logger logger = LoggerFactory.getLogger(UploadFileController.class);
 	
-	private String uploadPath = "C:\\workspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
+	private String uploadPath = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
 
 	@ResponseBody
 	//"text/plain;charset=UTF-8 > 한국어를 정상적으로 전달하기 위함.

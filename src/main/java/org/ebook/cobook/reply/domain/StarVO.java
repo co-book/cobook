@@ -1,4 +1,4 @@
-package org.ebook.cobook.star.domain;
+package org.ebook.cobook.reply.domain;
 
 import org.apache.ibatis.type.Alias;
 @Alias("StarVO")
