@@ -43,6 +43,7 @@ public class ReplyController {
 		try{
 			result = replyService.addReply(vo);
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
+
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

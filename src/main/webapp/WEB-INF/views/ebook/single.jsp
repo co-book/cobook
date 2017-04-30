@@ -147,14 +147,15 @@
 		    		dataType : 'text',
 		    		contentType : "application/json",
 		    		success : function(result,status) {
-
-						console.log(status);	
-							console.log(result);			
-		    		},
-		    		 error:function(request,status,error){
-		    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		    		       }
-
+							console.log(status);
+							console.log(result);	
+							if (result=="SUCCESS") {
+								//성공시
+								$('#replyContents').val("");
+							}else {
+								alert("다시 작성해주세요");
+							}
+		    		}
 				});
 			}	
 		});
