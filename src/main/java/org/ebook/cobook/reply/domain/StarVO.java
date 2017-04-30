@@ -5,7 +5,7 @@ import org.apache.ibatis.type.Alias;
 public class StarVO {
 
 	private Integer star_no;	//no
-	private int starpoint;		//점수
+	private int starRating;		//점수
 	private int user_no;		//사용자
 	private int reply_no;		//어떤 리플인지 리플번호
 	private int ebook_no;		//어떤 ebook 인지 ebookno
@@ -15,11 +15,11 @@ public class StarVO {
 	public void setStar_no(Integer star_no) {
 		this.star_no = star_no;
 	}
-	public int getStarpoint() {
-		return starpoint;
+	public int getStarRating() {
+		return starRating;
 	}
-	public void setStarpoint(int starpoint) {
-		this.starpoint = starpoint;
+	public void setStarRating(int starRating) {
+		this.starRating = starRating;
 	}
 	public int getUser_no() {
 		return user_no;
@@ -42,7 +42,7 @@ public class StarVO {
 	
 	@Override
 	public String toString() {
-		return "StarVO [star_no=" + star_no + ", starpoint=" + starpoint + ", user_no=" + user_no + ", reply_no="
+		return "StarVO [star_no=" + star_no + ", starRating=" + starRating + ", user_no=" + user_no + ", reply_no="
 				+ reply_no + ", ebook_no=" + ebook_no + "]";
 	}
 
