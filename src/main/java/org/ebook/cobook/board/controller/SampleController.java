@@ -35,7 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class SampleController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
-	private String uploadPath = "C:\\workspace\\CoBook\\src\\main\\webapp\\resources\\summernote_upload";
+	private String uploadPath = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
 
 	@Inject
 	private ReviewService reviewService;

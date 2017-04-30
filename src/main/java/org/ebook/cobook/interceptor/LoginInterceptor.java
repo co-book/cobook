@@ -15,7 +15,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		
 		// 로그인이 되어있지 않으면 로그인페이지로 이동
-		if(session.getAttribute("login") == null){
+		if(session.getAttribute("member") == null){
 			
 			System.out.println("로그인 세션 없음");
 			

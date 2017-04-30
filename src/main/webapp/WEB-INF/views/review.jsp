@@ -211,7 +211,7 @@
 		<div class="container">
 			<div class="agileits-news-top">
 				<ol class="breadcrumb">
-					<li><a href="index.html">COBOOK</a></li>
+					<li><a href="/cobook/">COBOOK</a></li>
 					<li class="active">리뷰게시판</li>
 				</ol>
 			</div>
@@ -221,11 +221,14 @@
 						<div class="bs-example bs-example-tabs" role="tabpanel"
 							data-example-id="togglable-tabs">
 							<ul id="myTab" class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active"><a href="#home1"
-									id="home1-tab" role="tab" data-toggle="tab"
-									aria-controls="home1" aria-expanded="true">최신 리뷰</a></li>
-								<li role="presentation"><a href="#w3bsd" role="tab"
-									id="w3bsd-tab" data-toggle="tab" aria-controls="w3bsd">인기리뷰</a></li>
+								<li role="presentation" class="active">
+									<a href="#home1"	id="home1-tab" role="tab" data-toggle="tab"
+									aria-controls="home1" aria-expanded="true">최신 리뷰</a>
+								</li>
+								<li role="presentation">
+									<a href="#w3bsd"	id="w3bsd-tab" role="tab" data-toggle="tab" 
+									 aria-controls="w3bsd">인기리뷰</a>
+								</li>
 							</ul>
 							<div id="myTabContent" class="tab-content">
 								<!-- 리뷰 리스트 -->
