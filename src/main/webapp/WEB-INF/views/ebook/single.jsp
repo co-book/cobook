@@ -89,7 +89,7 @@
 		});
 		
 		//borrow method start
-		 $("#borrowEbook").click(function name() {
+		 $("#borrowEbook").click(function () {
 			console.log(selectDay);
 			console.log("member_no : "+member_no);
 			console.log(price);
@@ -117,15 +117,17 @@
 							}else{
 								//실패시 alert
 								alert("다시 대여해주세요");
-							}
-					//	}	    			
+							}    			
 		    		}
 				});
-			}
-			
-			
-		});	 
+			}	
+		});	 //borrow
 		
+		$('#addReply').click(function () {
+			console.log('#starRating');
+			
+			
+		});
 		
 		
 	});
@@ -312,12 +314,13 @@
 									</div>
 									<br></br>
 									<br></br>
+		<!-- reply -->
 									<h3>이 책을 평가해주세요!</h3>
 									<div class="reply-control">
-									<input type="text" class="kv-fa rating-loading" value="4" data-size="lg" title="">
+									<input type="text" id="starRating" class="kv-fa rating-loading" value="4" data-size="lg" title="">
         							<br>
 									<textarea class="reply-textarea" rows="10" id="reply" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
-									<button type="button" class="reply-regi">리뷰남기기</button>
+									<button type="button" id="addReply" class="reply-regi">리뷰남기기</button>
 									</div>
 									<br></br>
 									<br></br>
