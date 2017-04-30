@@ -71,8 +71,14 @@ public class EbookDAOImpl implements EbookDAO {
 	@Override
 	public float getMemberBorrow(BorrowVO bvo) throws Exception {
 		// TODO Auto-generated method stub
-		
-		return sqlSession.selectOne(ebookNamespace+".getMemberBorrow", bvo);
+		Object result = sqlSession.selectOne(ebookNamespace+".getMemberBorrow", bvo);
+		float resultFloat;
+		if(result==null){
+			resultFloat=-9999;
+		}else{
+			resultFloat=(float)result;
+		}
+		return resultFloat;
 	}
 
 	
