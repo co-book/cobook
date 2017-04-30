@@ -32,6 +32,7 @@ public class ReplyController {
 	private static final Logger logger =
 			LoggerFactory.getLogger(ReplyController.class);
 	
+	//댓글 등록
 	@RequestMapping(value="/", method = RequestMethod.POST)
 	public ResponseEntity<String> registerPOST(@RequestBody ReplyVO vo) throws Exception{
 		
@@ -50,6 +51,7 @@ public class ReplyController {
 		return entity;
 	}
 	
+	//댓글 리스트 뽑아오기
 	@ResponseBody
 	@RequestMapping(value="/{parent_type}/{board_no}/{page}/{perPageNum}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> listAll(
@@ -103,7 +105,7 @@ public class ReplyController {
 		return entity;
 	}
 
-	// 댓글 수정 필요한값 contents, reply_no
+	// 댓글수정(댓글 수정 필요한값 contents, reply_no) 
 	@RequestMapping(value = "/{reply_no}", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> reply_modify(@PathVariable("reply_no") Integer reply_no,
 			@RequestBody ReplyVO vo)throws Exception{
@@ -122,6 +124,7 @@ public class ReplyController {
 		return entity;
 	}
 	
+	//댓글 삭제
 	@RequestMapping(value = "/{rno}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> reply_delete(@PathVariable("rno")Integer rno)throws Exception{
 		
@@ -137,7 +140,7 @@ public class ReplyController {
 		return entity;
 	}
 	
-	
+	//댓글의 자식 코멘트
 	@RequestMapping(value="/comment", method = RequestMethod.POST)
 	public ResponseEntity<String> reply_comment(@RequestBody ReplyVO vo)throws Exception{
 		
@@ -157,6 +160,7 @@ public class ReplyController {
 		return entity;
 	}
 	
+	//좋아요 추가
 	@RequestMapping(value="/addLike", method = RequestMethod.POST)
 	public ResponseEntity<String> addLike(@RequestBody Like_itVO vo){
 		
@@ -174,6 +178,7 @@ public class ReplyController {
 		return entity;
 	}
 	
+	//좋아요 삭제
 	@RequestMapping(value="/deleteLike", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteLike(@RequestBody Like_itVO vo){
 		

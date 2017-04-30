@@ -1,15 +1,14 @@
 package org.ebook.cobook.star.domain;
 
 import org.apache.ibatis.type.Alias;
-// like it 참고
 @Alias("StarVO")
 public class StarVO {
 
-	private Integer star_no;
-	private int starpoint;
-	private int user_no;
-	private int reply_no;
-	private int ebook_no;
+	private Integer star_no;	//no
+	private int starpoint;		//점수
+	private int user_no;		//사용자
+	private int reply_no;		//어떤 리플인지 리플번호
+	private int ebook_no;		//어떤 ebook 인지 ebookno
 	public Integer getStar_no() {
 		return star_no;
 	}
