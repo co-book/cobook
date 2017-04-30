@@ -9,6 +9,7 @@ import org.ebook.cobook.reply.domain.ReplyVO;
 public interface ReplyDAO {
 
 	public void addReply(ReplyVO vo)throws Exception;
+	public ReplyVO addReplyCheck(ReplyVO vo)throws Exception;
 	
 	public List<Map<String, Object>> replyList(Map<String, Object> map)throws Exception;
 	

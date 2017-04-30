@@ -17,9 +17,22 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyDAO replyDao;
 
 	@Override
-	public void addReply(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		replyDao.addReply(vo);
+	public String addReply(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub 
+		String result="FAIL";
+		//이미 작성한댓글이있는지 체크 select 
+		if(vo.getParent_type().equals("EBOOK")){
+			if(replyDao.addReplyCheck(vo)==null){
+				replyDao.addReply(vo);
+				result="SUCCES";
+			}else{
+				result="FAIL";
+			}
+		}else{
+			replyDao.addReply(vo);
+			result="SUCCES";
+		}
+		return result;
 	}
 
 	@Override

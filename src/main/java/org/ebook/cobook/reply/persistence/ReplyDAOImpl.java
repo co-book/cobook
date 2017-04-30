@@ -72,6 +72,12 @@ public class ReplyDAOImpl implements ReplyDAO {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".getLikeList", paramMap);
 	}
+
+	@Override
+	public ReplyVO addReplyCheck(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".addReplyCheck", vo);
+	}
 	
 	
 

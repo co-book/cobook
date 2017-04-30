@@ -74,6 +74,13 @@ ORDER BY parent_no desc, r.reply_no asc
 		#{parent_type}, #{board_no},
 		#{contents}, sysdate)
 	</insert>
+	<select id="addReplyCheck" resultType="ReplyVO">
+select * from reply 
+where member_no=#{member_no}
+and	 board_no= #{board_no}
+and  parent_type= #{parent_type}
+and  parent_no= reply_no
+	</select>
 
 	<!-- 답글 입력 -->
 	<insert id="insertComment">

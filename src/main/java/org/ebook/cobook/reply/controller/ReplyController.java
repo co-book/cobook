@@ -34,13 +34,15 @@ public class ReplyController {
 	
 	//댓글 등록
 	@RequestMapping(value="/addReply", method = RequestMethod.POST)
+	@ResponseBody
 	public ResponseEntity<String> addReply(@RequestBody ReplyVO vo) throws Exception{
 		
 		logger.info("댓글저장: " + vo.toString());
 		ResponseEntity<String> entity = null;
+		String result="";
 		try{
-			replyService.addReply(vo);
-			entity = new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
+			result = replyService.addReply(vo);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

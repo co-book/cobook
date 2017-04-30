@@ -8,7 +8,7 @@ import org.ebook.cobook.reply.domain.ReplyVO;
 
 public interface ReplyService {
 
-	public void addReply(ReplyVO vo) throws Exception;
+	public String addReply(ReplyVO vo) throws Exception;
 
 	public List<Map<String, Object>> replyAndLike_itList(Map<String, Object> map) throws Exception;
 

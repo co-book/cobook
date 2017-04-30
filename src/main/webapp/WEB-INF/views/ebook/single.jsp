@@ -139,17 +139,22 @@
 		    		url : '/cobook/replies/addReply',
 		    		data  :JSON.stringify({
 		    			"member_no" : member_no,
-		    			"ebook_no" : ebook_no,
+		    			"board_no" : ebook_no,
 						"contents" : $('#replyContents').val(),
 						"parent_type": "EBOOK"
 						
 		    		}),
-		    		dataType : 'json',
+		    		dataType : 'text',
 		    		contentType : "application/json",
-		    		success : function(result) {
-		    			
+		    		success : function(result,status) {
+
+						console.log(status);	
 							console.log(result);			
-		    		}
+		    		},
+		    		 error:function(request,status,error){
+		    		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    		       }
+
 				});
 			}	
 		});
