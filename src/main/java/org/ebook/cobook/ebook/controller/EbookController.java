@@ -10,14 +10,18 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.ebook.cobook.board.controller.ReviewController;
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
-import org.ebook.cobook.ebook.domain.BorrowVo;
+import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.ebook.service.EbookService;
+import org.ebook.cobook.member.domain.MemberVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -63,12 +67,12 @@ public class EbookController {
 	
 	
 	//ebook 상세페이지
-	@RequestMapping(value= "/getEbookDetail", method = RequestMethod.GET)
+	/*@RequestMapping(value= "/getEbookDetail", method = RequestMethod.GET)
 	public void getEbookDetail(@RequestParam("ebook_no") int ebook_no, Model model) throws Exception{
 		logger.info("getEbookDetail 호출");
 		EbookVO evo = ebookService.eBookDetail(ebook_no);
 		model.addAttribute(evo);
-	}
+	}*/
 	
 	/**
 	 * 북마크 리스트 불러오기 
@@ -78,9 +82,9 @@ public class EbookController {
 	//따로 이동해시켜줄 뷰가 없을때 responseBody를 씁니다;-!
 	@RequestMapping(value= "/getBookMarkList", method = RequestMethod.GET)
 	@ResponseBody
-	public List<BookmarkVO> getBookMarkList(Model model , BorrowVo borrowVo ) throws Exception{
+	public List<BookmarkVO> getBookMarkList(Model model , BorrowVO borrowVO ) throws Exception{
 		logger.info("getBookMarkList 호출");
-		List<BookmarkVO> list = ebookService.getBookmarkList(borrowVo);
+		List<BookmarkVO> list = ebookService.getBookmarkList(borrowVO);
 		return list;
 	}
 	 
@@ -139,14 +143,14 @@ public class EbookController {
 
 	@RequestMapping(value= "/setLastPage", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> setLastPage(Model model , BorrowVo borrowVo) throws Exception{
+	public Map<String, Object> setLastPage(Model model , BorrowVO borrowVO) throws Exception{
 		logger.info("setLastPage 호출");
 		Map<String, Object> resultMap = new HashMap<>();
 		boolean result = false;
 		String resultMsg = "";
 		
 		try{
-			ebookService.setLastPage(borrowVo);
+			ebookService.setLastPage(borrowVO);
 			result = true;
 			System.out.println(result);
 		} catch (Exception e) {
@@ -171,10 +175,26 @@ public class EbookController {
 		  return "";
 	  }
 
-
+	 //
 	@RequestMapping(value = "/single/{ebook_no}", method = RequestMethod.GET)
-	public String single(@PathVariable String ebook_no,  Model model) {
+	public String getEbookSingle(@PathVariable int ebook_no,  Model model, HttpSession session) {
 		logger.info("single"+ebook_no);
+		EbookVO vo=null;
+		int member_no =0;
+		try {
+			MemberVO mvo= (MemberVO) session.getAttribute("member");
+			if(mvo!=null)
+			{
+				//로그인된 상태
+				member_no = mvo.getMember_no();
+			}
+			//서비스실행
+			vo= ebookService.eBookDetail(ebook_no,member_no);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("evo", vo);
 		return "ebook/single";
 	}
 	@RequestMapping(value = "/readEBook", method = RequestMethod.GET)
@@ -186,7 +206,6 @@ public class EbookController {
 
 	//메인페이지 광고 + 추천도서 (코북에서 선정한 책 5권)
 	@RequestMapping(value = "/banner", method = RequestMethod.GET)
-
 	public String banner(Locale locale, Model model) {
 		logger.info("index/banner");
 		return "index/banner";
@@ -196,37 +215,25 @@ public class EbookController {
 	//월간 베스트 도서 - 한달동안 대여가 많이된책 Top 10
 
 	@RequestMapping(value = "/cobookList", method = RequestMethod.GET)
-
 	public String cobookList(Locale locale, Model model) {
-
 		logger.info("index/cobookList");
-
 		return "index/cobookList";
 
 	}
 
 	//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 
-
 	@RequestMapping(value = "/monthlyList", method = RequestMethod.GET)
-
 	public String monthlyList(Locale locale, Model model) {
-
 		logger.info("index/monthlyList");
-
 		return "index/monthlyList";
 
 	}
 
 	//알라딘리스트 지금 뜨는거 아니예요? 잘?
-
 	@RequestMapping(value = "/alladinList", method = RequestMethod.GET)
-
 	public String alladinList(Locale locale, Model model) {
-
 		logger.info("index/alladinList");
-
 		return "index/alladinList";
-
 	}
 
 	///////////////////////////////
@@ -252,6 +259,7 @@ public class EbookController {
 	public ModelAndView getEbookList(@RequestParam("category") String category) throws Exception{
 		logger.info("EBook List 호출  - category : "+category);
 		ModelAndView mav = new ModelAndView("/ebook/genres/getEbookList");	
+		
 		List<EbookVO> ebookList =ebookService.getEbookList(category);
 		mav.addObject("ebookListCnt",  ebookList.size());
 		mav.addObject("ebookList", ebookList );
@@ -259,6 +267,41 @@ public class EbookController {
 		return mav;
 	}
 	
+	//borrow 날짜를 가져가야 하는건가
+	 
+	@RequestMapping(value="/borrowEbook", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> borrowEbook(@RequestBody BorrowVO borrow)
+	{
+		logger.info("ebook_no : "+borrow.getEbook_no());
+		logger.info("member_no : "+borrow.getMember_no());
+		logger.info("price : "+borrow.getPrice());
+		logger.info("period : "+borrow.getPeriod());
+		
+		ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<>();
+ 
+		String result = "Fail";
+		String msg = "ok";
+		try
+		{	
+			ebookService.borrowEbook(borrow);
+			
+			result = "SUCCESS";
+			map.put("result", result);
+			map.put("msg", msg);
+			map.put("borrow", borrow);
+			entity = new ResponseEntity<>(map, HttpStatus.OK);
+		}catch (Exception e) {
+			msg = e.getMessage();
+			map.put("result", "Fail");
+			map.put("msg", msg);
+			entity = new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+		}
+		
+		System.out.println(result+ " : "+msg);
+		
+		return entity;
+	}
 	
 	
 }

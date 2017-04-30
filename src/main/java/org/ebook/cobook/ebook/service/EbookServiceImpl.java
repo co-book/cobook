@@ -1,5 +1,6 @@
 package org.ebook.cobook.ebook.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ebook.cobook.ebook.domain.BookmarkVO;
-import org.ebook.cobook.ebook.domain.BorrowVo;
+import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.ebook.persistence.EbookDAO;
 import org.ebook.cobook.mypage.persistence.MyPageDAO;
@@ -30,7 +31,7 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public List<BookmarkVO> getBookmarkList(BorrowVo borrow) throws Exception {
+	public List<BookmarkVO> getBookmarkList(BorrowVO borrow) throws Exception {
 		// TODO Auto-generated method stub
 		return ebookDAO.getBookmarkList(borrow);
 	}
@@ -48,21 +49,41 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public void setLastPage(BorrowVo borrowVo) throws Exception {
+	public void setLastPage(BorrowVO borrowVo) throws Exception {
 		// TODO Auto-generated method stub
 		ebookDAO.setLastPage(borrowVo);
 	}
 
 	@Override
-	public EbookVO eBookDetail(int ebookn_no) throws Exception {
+	public EbookVO eBookDetail(int ebook_no, int member_no) throws Exception {
 		// TODO Auto-generated method stub
-		return ebookDAO.eBookDetail(ebookn_no);
+		EbookVO vo = ebookDAO.eBookDetail(ebook_no);
+		
+		if(member_no !=0){	
+			BorrowVO bvo = new BorrowVO();
+			bvo.setEbook_no(ebook_no); 
+			bvo.setMember_no(member_no);
+			
+			float remainDate =ebookDAO.getMemberBorrow(bvo);
+			//bvo의 대여 유효성 체크
+			
+			
+			vo.setRemainDate(remainDate); //만료날짜, 유효한 대여여부를 
+			
+		}
+		return vo;
 	}
 
 	@Override
 	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
 		return myPageDAO.getMyborrowList(paramMap);
+	}
+
+	@Override
+	public void borrowEbook(BorrowVO borrowVo) throws Exception {
+		// TODO Auto-generated method stub
+		ebookDAO.borrowEbook(borrowVo);
 	}
 
 

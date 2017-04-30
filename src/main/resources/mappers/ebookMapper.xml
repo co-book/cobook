@@ -46,45 +46,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		READDATE,
 		CHAPTER,
 		MYBOOKMARK
-		from bookmark where member_no=#{member_no} and ebook_no=#{ebook_no};
+		from bookmark where member_no=#{member_no} and ebook_no=#{ebook_no}
 	</select>
 
 	<update id="updateLastPage" parameterType="BorrowVO">
 		UPDATE BORROW SET READPAGE = #{readPage} WHERE BORROW_NO = #{borrow_no}
 	</update>
 	
-	
-	<insert id="setBorrow" parameterType="BorrowVO">
-		insert into BORROW ( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,CASH ,STATUS ,READPAGE )
-		values(borrow_no_seq.nextval, #{member_no} , #{ebook_no},  SYSDATE , #{period}, #{cash}, 'NEW' ,'NEW')
+	<!-- 대여하기 -->
+	<insert id="borrowEbook" parameterType="BorrowVO">
+		insert into BORROW ( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,PRICE ,STATUS ,READPAGE )
+		values(borrow_no_seq.nextval, #{ebook_no}, #{member_no} ,  SYSDATE , #{period}, #{price}, 'NEW' ,'NEW')
 	</insert>
 	
 	<!-- 
 	select *  from BORROW  where EBOOK_NO='1' and MEMBER_NO='1' and BORROWDATE+period>sysdate  order by BORROWDATE desc 
 	 -->
-	 
-	 <select id="getEbookDetail" parameterType="EbookVO">
+	 <!-- single상세페이지 -->
+	 <select id="getEbookDetail" parameterType="EbookVO" resultType="EbookVO">
 	 	select
 			e.ebook_no,
 	 		e.title,
 	 		e.author,
 	 		e.publisher,
+	 		e.translator,
 	 		e.publishedDate,
 	 		e.intro,
-	 		e.cash,
+	 		e.price,
 	 		e.category,
-	 		files.fileurl as cover,
-    		(b.BORROWDATE+b.period) as expiryDate
-		from EBOOK e 
-		LEFT OUTER JOIN files  ON
-		(cover= files.file_no 
-		 and files.filetype= 'COVER' 
-		 and files.book_type='EBOOK')
-		 
-     	left outer join borrow b on
-     	(b.ebook_no = e.ebook_no)
+	 		e.coverURL,
+	 		e.fileSize,
+	 		e.fileType,
+	 		e.listening,
+	 		NVL(starPoint.starCount,0) as starCount,
+   			NVL(starPoint.starAvg,0) as starAvg
+    		
+			from EBOOK e 
+			LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARPOINT) starAvg from star GROUP BY star.ebook_no ) starPoint
+    		ON  (starPoint.ebook_no = e.ebook_no)
+	 
+     	
      	
      	where e.ebook_no=#{ebook_no}
+	 </select>
+	 
+	 <select id="getMemberBorrow" parameterType="BorrowVO">
+	 	select * from 
+	 		(select 
+	 		borrowDate+period-sysdate as remainDate 
+	 		from borrow
+	 		where ebook_no=#{ebook_no} and member_no=#{member_no}
+	 		order by borrowDate desc)
+	 	where rownum=1
+	 
 	 </select>
 	 
 	 

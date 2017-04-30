@@ -22,7 +22,7 @@ CobookMember.prototype.cobookLogin = function(){
     	console.log(this.email+"/" + this.password +"/"+ this.loginType);
     	$.ajax({
     		type : 'POST',
-    		url : 'member/login',
+    		url : '/cobook/member/login',
     		data  :JSON.stringify(this),
     		dataType : 'json',
     		contentType : "application/json;charset=UTF-8",
@@ -78,7 +78,7 @@ CobookMember.prototype.cobookLogin = function(){
 CobookMember.prototype.cobookLogout = function(){
 	$.ajax({
 		type : 'GET',
-		url : 'member/logout',
+		url : '/cobook/member/logout',
 		dataType : 'json',
 		contentType : "application/json;charset=UTF-8",
 		success : function(result) {
@@ -91,7 +91,7 @@ CobookMember.prototype.cobookLogout = function(){
 CobookMember.prototype.emailCheck = function(){
 	$.ajax({
 		type : 'POST',
-		url : 'member/emailCheck',
+		url : '/cobook/member/emailCheck',
 		data  :JSON.stringify(this),
 		dataType : 'json',
 		contentType : "application/json;charset=UTF-8",
@@ -111,7 +111,7 @@ CobookMember.prototype.emailCheck = function(){
 CobookMember.prototype.cobookJoin = function(){
 	$.ajax({
 		type : 'POST',
-		url : 'member/joinMember',
+		url : '/cobook/member/joinMember',
 		data  :JSON.stringify(this),
 		dataType : 'json',
 		 async: false,

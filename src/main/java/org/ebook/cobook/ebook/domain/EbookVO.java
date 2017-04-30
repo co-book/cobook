@@ -8,17 +8,51 @@ public class EbookVO {
 	private String title;
 	private String author;
 	private String publisher;
+	private String translator;
 	private Date publishedDate;
 	private String intro;
 	private Integer price;
 	private String category;
-	private String coverURL;
+	private String coverURL;	
 	private String epub;
+	private String fileSize;
+	private String fileType;
+	private int listening;
 	private Integer starCount;
 	private Integer starAvg;
-	private Date expiryDate;
+	private float remainDate;	//
+		
 	
-	
+	public float getRemainDate() {
+		return remainDate;
+	}
+	public void setRemainDate(float remainDate) {
+		this.remainDate = remainDate;
+	}
+	public String getTranslator() {
+		return translator;
+	}
+	public void setTranslator(String translator) {
+		this.translator = translator;
+	}
+	public String getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+	public int getListening() {
+		return listening;
+	}
+	public void setListening(int listening) {
+		this.listening = listening;
+	}
 	
 	public String getCoverURL() {
 		return coverURL;
@@ -37,12 +71,6 @@ public class EbookVO {
 	}
 	public void setStarAvg(Integer starAvg) {
 		this.starAvg = starAvg;
-	}
-	public Date getExpiryDate() {
-		return expiryDate;
-	}
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
 	}
 	public Integer getEbook_no() {
 		return ebook_no;
