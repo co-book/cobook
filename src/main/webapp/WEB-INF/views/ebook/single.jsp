@@ -225,8 +225,8 @@
 				}	
 		}); 	//comment
 		
-		//리플 삭제
-		$('#reply-delete').click(function () {
+		
+		var deleteReply = function(reply_no){
 			if(member_no==null)		//member_no = 해당 작성자가 다를때 삭제버튼 hide;
 			{	
 				$("#reply-delete").hide();
@@ -235,7 +235,7 @@
 				console.log()
 				$.ajax({
 		    		type : 'DELETE',
-		    		url : '/cobook/replies/'+221,
+		    		url : '/cobook/replies/'+reply_no,
 		    		data  :JSON.stringify({
 		    			"member_no" : member_no
 						
@@ -254,6 +254,10 @@
 		    		}
 				});
 			}	
+		}
+		//리플 삭제
+		$('#reply-delete').click(function () {
+			
 			
 		});
 		

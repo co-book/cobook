@@ -26,16 +26,16 @@
 						</c:choose>
 					</c:forEach>
 					<br>
-					<li>replyList.nickName</li>
+					<li>${replyList.nickName}</li>
 					<br>
-					<li><fmt:formatDate value="${replyList.reg_date}" pattern="yyyy년 MM월 dd일"/> </li>
+					<li><fmt:formatDate value="${replyList.reg_date}" pattern="yyyy-MM-dd"/> </li>
 				</ul>
 			</div>
 		</div>
 		<div class="media-body-single">
 			<!-- reply delete -->
 			<div class="single-reply-remove">
-				<button type="button" id="reply-delete" class="reply-remove">
+				<button type="button" id="reply-delete" class="reply-remove" onclick="deleteReply(${replyList.reply_no})">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
 			</div>
