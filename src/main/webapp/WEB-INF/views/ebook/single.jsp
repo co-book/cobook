@@ -92,15 +92,59 @@
 		});	//scroll
 		
 		//single
-		 $(".single-button").click(function () {
-			 if($("#reply-comment").css("display") == "none")
-					{
-						$(this).next("#reply-comment").toggle();
-					}else {
-						$(this).next("#reply-comment").toggle();
-					} 
-		}); 	//single
-		
+		var commentVisible = function(reply_no){
+			if( $(this).next("#reply-comment").css("display") == "none"){
+				 //코멘트 보여줌
+				 console.log("코멘트 염");
+				 console.log(this);
+				 $(this).next("#reply-comment").toggle();
+				 getCommentList(reply_no);
+			 }else {
+				 //코멘트 안보여줌
+				 console.log("코멘트 닫음");
+				 console.log(this);
+				 $(this).next("#reply-comment").toggle();
+			 } 
+		}
+/* 		 $(".single-button").click(function () {
+			 
+			 if( $(this).next("#reply-comment").css("display") == "none"){
+				 //코멘트 보여줌
+				 console.log("코멘트 염");
+				 console.log(this);
+				 $(this).next("#reply-comment").toggle();
+			 }else {
+				 //코멘트 안보여줌
+				 console.log("코멘트 닫음");
+				 console.log(this);
+				 $(this).next("#reply-comment").toggle();
+			 } 
+		 }); 	//single */
+		var getCommentList = function(parent_no){
+			$.ajax({
+				type : 'get',
+				url : '/cobook/replies/getCommentList',
+				data  :{
+					"board_no" : ebook_no,
+					"parent_type" : "EBOOK",
+					"parent_no" : parent_no
+				},
+				dataType : 'html',
+				//contentType : "application/json",
+				success : function(result) {
+					console.log(result);
+					$('#comment'+parent_no).append(result);
+						/* //대여 성공시 새로고침
+						if(result.result=="SUCCESS"){
+							location.reload();
+						}else{
+							//실패시 alert
+							alert("다시 대여해주세요");
+						}     */			
+				}
+			});
+			
+		}
 		//대여하기 전 로그인 체크
 		$("#borrow-modal").click(function name() {
 			selectDay = $("#borrow option:selected").val();

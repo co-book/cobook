@@ -151,19 +151,15 @@ ORDER BY parent_no desc, r.reply_no asc
 		ORDER BY r.reg_date desc
 		) where rownum <![CDATA[<]]> 4
 	</select>
-<<<<<<< HEAD
+	
 	<!-- 코멘트 리스트 -->
-	<select id="getCommentList">
-=======
-
 	<select id="getCommentList" resultType="ReplyVO">
->>>>>>> 8e91acad3b1e9a3b974b7a79a120ce1311d4f4ae
 		select
 		m.NICKNAME,m.member_no,r.parent_no,r.reply_no,r.reg_date ,r.contents
 		from reply r
 		LEFT OUTER JOIN member m
 		ON m.member_no = r.member_no
-		where r.PARENT_TYPE='EBOOK' and r.parent_no!=r.reply_no and Board_no =#{board_no}
+		where r.PARENT_TYPE=#{parent_type} and r.parent_no!=r.reply_no and Board_no =#{board_no}
 		and parent_no=#{parent_no}
 		ORDER BY r.reg_date
 	</select>

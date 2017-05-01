@@ -42,8 +42,8 @@
 			<br>
 			<p>${replyList.contents}</p>
 			<br>
-			<div class="single-button" name="comment-btn">
-				<button type="button" class="btn btn-default btn-sm" id="comment">
+			<div class="single-button" name="comment-btn" >
+				<button type="button" class="btn btn-default btn-sm" id="comment" onclick="commentVisible(${replyList.reply_no})">
 					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
 					댓글(${replyList.commentCount})
 				</button>
@@ -54,12 +54,21 @@
 			</div>
 			<!-- comment -->
 			<div class="reply-comment" id="reply-comment">
-				<div class="comment-up" id="comment-up">
-					<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
-					<!-- comment-delete -->
-					<p>
-						nam*** /2017-04-03/ <a id="comment-delete">삭제</a>
-					</p>
+				<div id="comment${replyList.reply_no}">
+					<div class="comment-up" id="comment-up">
+						<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
+						<!-- comment-delete -->
+						<p>
+							nam*** /2017-04-03/ <a id="comment-delete">삭제</a>
+						</p>
+					</div>
+					<div class="comment-up" id="comment-up">
+						<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
+						<!-- comment-delete -->
+						<p>
+							nam*** /2017-04-03/ <a id="comment-delete">삭제</a>
+						</p>
+					</div>
 				</div>
 				<textarea class="comment-textarea" rows="5" id="comment-area"
 					placeholder="이 곳에 댓글을 남겨주세요"></textarea>
