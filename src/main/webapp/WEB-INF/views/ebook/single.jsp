@@ -126,6 +126,7 @@
 				});
 			}	
 		});	 //borrow
+		
 		//리플등록
 		$('#addReply').click(function () {
 			console.log($('#starRating').val());
@@ -180,7 +181,7 @@
 			    		data  :JSON.stringify({
 			    			"member_no" : member_no,
 			    			"board_no" : ebook_no,
-			    			"parent_no" : 218,
+			    			"parent_no" : 222,
 							"contents" : $('#comment-area').val(),
 							"parent_type": "EBOOK"
 							
@@ -213,11 +214,7 @@
 		    		type : 'DELETE',
 		    		url : '/cobook/replies/'+221,
 		    		data  :JSON.stringify({
-		    			"member_no" : member_no,
-		    			"board_no" : ebook_no,
-		    			"parent_no" : 218,
-						"contents" : $('#comment-area').val(),
-						"parent_type": "EBOOK"
+		    			"member_no" : member_no
 						
 		    		}),
 		    		dataType : 'text',
@@ -227,7 +224,7 @@
 							console.log(result);	
 							if (result=="SUCCESS") {
 								//성공시
-								$('#comment-area').val("");
+								console.log("삭제했어요");
 							}else {
 								alert("다시 시도해 주세용~");
 							}
@@ -432,7 +429,7 @@
 									<br></br>
 									<br></br>
 									<h3>리뷰</h3>
-															<!-- first list start -->
+		<!-- reply list start -->													
 									<div id="wrap-media-list">
 									<div class="media_list">		
 										<div class="media-left">
@@ -475,14 +472,14 @@
 											<div class="reply-comment" id="reply-comment">
 												<div class="comment-up" id="comment-up">
 													<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
-		<!-- comment-delete -->						<p>nam*** /2017-04-03/ <a id="comment-delete">삭제</a></p>
+		<!-- comment-delete -->						<p>nam*** /2017-04-03/ <a id="reply-delete">삭제</a></p>
 												</div>
 												<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
 												<button type="button" class="comment-regi" id="addComment">등록하기</button>
 											</div>
 										</div>
 									</div>	
-														<!-- first list end -->
+		<!-- first list end -->												
 									
 									<div class="media_list">
 										<div class="media-left">
@@ -505,7 +502,7 @@
 										</div>
 										<div class="media-body-single">
 											<div class="single-reply-remove">
-												<button type="button" class="reply-remove">
+												<button type="button" id="reply-delete"class="reply-remove">
 													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 												</button>
 											</div>

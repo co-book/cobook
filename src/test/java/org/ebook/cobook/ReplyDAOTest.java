@@ -72,13 +72,13 @@ public class ReplyDAOTest {
 	}
 	
 	//삭제
-	@Test
+	//@Test
 	@Ignore
-	public void deleteReply()throws Exception{
+	/*public void deleteReply()throws Exception{
 		
 		replyDAO.deleteReply(104);
 	}
-	
+	*/
 	// 검색
 	@Test
 	public void selectReply()throws Exception{
