@@ -50,6 +50,16 @@
 	var ebook_no = ${evo.ebook_no};
 	
 	jQuery(document).ready(function($) {
+		var selectDay = $("#borrow option:selected").val();
+		var price = $("#price").html();
+		var up = $("#up").hide();
+		if(member_no==null){
+			$("#reply-delete").hide();
+		}else {
+
+			$("#reply-delete").show();
+		}
+		
 		
 		$(".scroll").click(function(event) {
 			event.preventDefault();
@@ -58,6 +68,7 @@
 			}, 1000);
 		});	//scroll
 		
+		//single
 		 $(".single-button").click(function () {
 			 if($("#reply-comment").css("display") == "none")
 					{
@@ -66,16 +77,8 @@
 						$(this).next("#reply-comment").toggle();
 					} 
 		}); 	//single
-			
-			var up = $("#up").hide();
-		$(".comment-regi").click(function () {
-			 $("#comment-up").add(up).show();
-		}); 	//comment
 		
-		var selectDay = $("#borrow option:selected").val();
-		var price = $("#price").html();
-		
-		//borrow modal function
+		//대여하기 전 로그인 체크
 		$("#borrow-modal").click(function name() {
 			selectDay = $("#borrow option:selected").val();
 			price = $("#price").html();
@@ -89,7 +92,7 @@
 			}
 		});
 		
-		//borrow method start
+		//대여하기
 		 $("#borrowEbook").click(function () {
 			console.log(selectDay);
 			console.log("member_no : "+member_no);
@@ -123,7 +126,7 @@
 				});
 			}	
 		});	 //borrow
-		
+		//리플등록
 		$('#addReply').click(function () {
 			console.log($('#starRating').val());
 			console.log($('#replyContents').val());
@@ -153,13 +156,86 @@
 								//성공시
 								$('#replyContents').val("");
 							}else {
-								alert("다시 작성해주세요");
+								alert("이미 작성하셨습니다");
 							}
 		    		}
 				});
 			}	
-		});
+		});	//리플달기
 		
+		//코멘트 등록
+		$("#addComment").click(function () {
+			// $("#comment-up").add(up).show();
+			 console.log(ebook_no);
+			 console.log(member_no);
+				
+				if(member_no==null)
+				{
+					$("#myModal").modal();
+				}else {
+					console.log()
+					$.ajax({
+			    		type : 'POST',
+			    		url : '/cobook/replies/addComment',
+			    		data  :JSON.stringify({
+			    			"member_no" : member_no,
+			    			"board_no" : ebook_no,
+			    			"parent_no" : 218,
+							"contents" : $('#comment-area').val(),
+							"parent_type": "EBOOK"
+							
+			    		}),
+			    		dataType : 'text',
+			    		contentType : "application/json",
+			    		success : function(result,status) {
+								console.log(status);
+								console.log(result);	
+								if (result=="SUCCESS") {
+									//성공시
+									$('#comment-area').val("");
+								}else {
+									alert("다시 시도해 주세용~");
+								}
+			    		}
+					});
+				}	
+		}); 	//comment
+		
+		//리플 삭제
+		$('#reply-delete').click(function () {
+			if(member_no==null)		//member_no = 해당 작성자가 다를때 삭제버튼 hide;
+			{	
+				$("#reply-delete").hide();
+				$("#myModal").modal();
+			}else {
+				console.log()
+				$.ajax({
+		    		type : 'DELETE',
+		    		url : '/cobook/replies/'+221,
+		    		data  :JSON.stringify({
+		    			"member_no" : member_no,
+		    			"board_no" : ebook_no,
+		    			"parent_no" : 218,
+						"contents" : $('#comment-area').val(),
+						"parent_type": "EBOOK"
+						
+		    		}),
+		    		dataType : 'text',
+		    		contentType : "application/json",
+		    		success : function(result,status) {
+							console.log(status);
+							console.log(result);	
+							if (result=="SUCCESS") {
+								//성공시
+								$('#comment-area').val("");
+							}else {
+								alert("다시 시도해 주세용~");
+							}
+		    		}
+				});
+			}	
+			
+		});
 		
 	});
 	
@@ -378,8 +454,8 @@
 											</div>
 										</div>
 										<div class="media-body-single">
-											<div class="single-reply-remove">
-												<button type="button" class="reply-remove">
+	<!-- reply delete -->					<div class="single-reply-remove">
+												<button type="button" id="reply-delete" class="reply-remove">
 													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 												</button>
 											</div>
@@ -395,14 +471,14 @@
 	  											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 0
 	  											</button>
 											</div>
-											
+		<!-- comment -->									
 											<div class="reply-comment" id="reply-comment">
 												<div class="comment-up" id="comment-up">
 													<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
-													<p>nam*** /2017-04-03/ <a>삭제</a></p>
+		<!-- comment-delete -->						<p>nam*** /2017-04-03/ <a id="comment-delete">삭제</a></p>
 												</div>
 												<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
-												<button type="button" class="comment-regi">등록하기</button>
+												<button type="button" class="comment-regi" id="addComment">등록하기</button>
 											</div>
 										</div>
 									</div>	

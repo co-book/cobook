@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
+import org.ebook.cobook.reply.domain.StarVO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -43,9 +44,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public void insertComment(ReplyVO vo) throws Exception {
+	public void addComment(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		session.insert(namespace+".insertComment", vo);
+		session.insert(namespace+".addComment", vo);
 	}
 
 	@Override
@@ -72,11 +73,18 @@ public class ReplyDAOImpl implements ReplyDAO {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".getLikeList", paramMap);
 	}
-
+	
+	//해당 사용자의 리플이 등록되어 있는지 확인
 	@Override
 	public ReplyVO addReplyCheck(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+".addReplyCheck", vo);
+	}
+	//별점 등록
+	@Override
+	public void addStarRating(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.insert(namespace+".addStarRating", vo);
 	}
 	
 	

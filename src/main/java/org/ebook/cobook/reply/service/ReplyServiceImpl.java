@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
+import org.ebook.cobook.reply.domain.StarVO;
 import org.ebook.cobook.reply.persistence.ReplyDAO;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,11 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
 	private ReplyDAO replyDao;
-
+	/*
+	 * (non-Javadoc)
+	 * @see org.ebook.cobook.reply.service.ReplyService#addReply(org.ebook.cobook.reply.domain.ReplyVO)
+	 * 리플과 코멘트 등록
+	 */
 	@Override
 	public String addReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub 
@@ -24,15 +29,21 @@ public class ReplyServiceImpl implements ReplyService {
 		if(vo.getParent_type().equals("EBOOK")){
 			if(replyDao.addReplyCheck(vo)==null){
 				replyDao.addReply(vo);
-				result="SUCCES";
+				replyDao.addStarRating(vo);
+				result="SUCCESS";
 			}else{
 				result="FAIL";
 			}
 		}else{
 			replyDao.addReply(vo);
-			result="SUCCES";
+			result="SUCCESS";
 		}
 		return result;
+	}
+	@Override
+	public void addComment(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.addComment(vo);
 	}
 
 	@Override
@@ -48,17 +59,12 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void removeReply(Integer rno) throws Exception {
+	public void deleteReply(Integer rno) throws Exception {
 		// TODO Auto-generated method stub
 		replyDao.deleteReply(rno);
 	}
 
-	@Override
-	public void addComment(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		replyDao.insertComment(vo);
-	}
-
+	
 	@Override
 	public void addLikeIt(Like_itVO vo) throws Exception {
 		// TODO Auto-generated method stub

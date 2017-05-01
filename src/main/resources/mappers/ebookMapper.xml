@@ -84,10 +84,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from EBOOK e 
 			LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no ) STARRATING
     		ON  (STARRATING.ebook_no = e.ebook_no)
-	 
-     	
-     	
      	where e.ebook_no=#{ebook_no}
+     	<!-- NVL이 전자가 널이면 후자로 넣어준다 NVL2는 첫번째가 널이면 세번째꺼 사용 아니면 두번째 사용-->
 	 </select>
 
 	 <select id="getMemberBorrow" parameterType="BorrowVO" resultType="java.lang.Float">

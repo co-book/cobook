@@ -74,16 +74,17 @@ ORDER BY parent_no desc, r.reply_no asc
 		#{parent_type}, #{board_no},
 		#{contents}, sysdate)
 	</insert>
+	<!-- 사용자 댓글 확인 -->
 	<select id="addReplyCheck" resultType="ReplyVO">
-select * from reply 
-where member_no=#{member_no}
-and	 board_no= #{board_no}
-and  parent_type= #{parent_type}
-and  parent_no= reply_no
+		select * from reply 
+		where member_no=#{member_no}
+		and	 board_no= #{board_no}
+		and  parent_type= #{parent_type}
+		and  parent_no= reply_no
 	</select>
 
-	<!-- 답글 입력 -->
-	<insert id="insertComment">
+	<!-- 코멘트 입력 -->
+	<insert id="addComment">
 		INSERT INTO reply
 		(reply_no, member_no,
 		parent_no,parent_type,
@@ -92,7 +93,14 @@ and  parent_no= reply_no
 		(reply_no_seq.nextval, #{member_no}, #{parent_no}, #{parent_type},
 		#{board_no}, #{contents}, sysdate)
 	</insert>
-
+	
+	<!-- 별점등록 -->
+	<insert id="addStarRating">
+	INSERT INTO star
+      (star_no, starRating, member_no , ebook_no)    VALUES
+      (star_no_seq.nextval, #{starRating}, #{member_no} ,#{board_no} )
+	</insert>
+	
 	<!-- 댓글수정 -->
 	<update id="updateReply">
 		UPDATE
@@ -101,7 +109,6 @@ and  parent_no= reply_no
 		contents = #{contents}
 		WHERE
 		reply_no =#{reply_no}
-
 	</update>
 
 	<!-- 댓글 삭제 -->
@@ -109,8 +116,9 @@ and  parent_no= reply_no
 		DELETE
 		reply
 		WHERE
-		parent_no = #{parent_no}
-
+		reply_no = #{reply_no} and member_no = #{member_no}
+		or
+		parent_no = #{reply_no}
 	</delete>
 
 	<!-- 좋아요 추가 -->
