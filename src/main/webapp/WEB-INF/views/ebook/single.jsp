@@ -92,9 +92,19 @@
 		});	//scroll
 		
 		//single
-		 $(".single-button").click(function () {
+		 $("#comment").click(function () {
 			 if($("#reply-comment").css("display") == "none")
 					{
+				 
+						 $.ajax({
+								type : 'get',
+								url : '/cobook/replies/getCommentList',
+								data :{
+									"board_no" : ebook_no,
+									"parent_no" : 
+								}
+							});
+				 
 						$(this).next("#reply-comment").toggle();
 					}else {
 						$(this).next("#reply-comment").toggle();
