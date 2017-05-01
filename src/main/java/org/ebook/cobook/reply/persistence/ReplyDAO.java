@@ -15,7 +15,7 @@ public interface ReplyDAO {
 	//star rating 별점 등록
 	public void addStarRating(ReplyVO vo) throws Exception;
 	
-	//리플리스트(코멘트) 뽑기
+	//리플리스트(코멘트)
 	public List<ReplyVO> getReplyList(ReplyVO vo)throws Exception;
 	public List<ReplyVO> getCommentList(ReplyVO vo)throws Exception;
 	
