@@ -145,6 +145,26 @@
 			});
 			
 		}
+/* 지연 진행중
+		 $("#comment").click(function () {
+			 if($("#reply-comment").css("display") == "none")
+					{
+				 
+						 $.ajax({
+								type : 'get',
+								url : '/cobook/replies/getCommentList',
+								data :{
+									"board_no" : ebook_no,
+									"parent_no" : 
+								}
+							});
+				 
+						$(this).next("#reply-comment").toggle();
+					}else {
+						$(this).next("#reply-comment").toggle();
+					} 
+		}); 	*///single
+		
 		//대여하기 전 로그인 체크
 		$("#borrow-modal").click(function name() {
 			selectDay = $("#borrow option:selected").val();
