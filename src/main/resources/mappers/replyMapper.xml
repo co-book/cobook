@@ -38,7 +38,7 @@ WHERE rn >= #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 
 	</select> -->
 	
-<select id="replyList" resultType="map" parameterType="map">
+<!-- <select id="replyList" resultType="map" parameterType="map">
 <![CDATA[
 SELECT r.*, l.reply_no AS lReply_no, NVL(l.likeCount, 0) AS likeCount, m.nickname FROM
 	(
@@ -60,7 +60,7 @@ AND r.member_no = m.member_no
 AND r.rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 ORDER BY parent_no desc, r.reply_no asc
 ]]>
-</select>
+</select> -->
 
 	<!-- 댓글 입력 -->
 	<insert id="addReply">
@@ -120,6 +120,47 @@ ORDER BY parent_no desc, r.reply_no asc
 		or
 		parent_no = #{reply_no}
 	</delete>
+
+	<select id="getReplyList">
+		select * from (
+		select
+			m.NICKNAME,
+			m.member_no,
+			s.STARRATING,
+			r.reply_no,
+			r.reg_Date,
+			r.contents,
+			NVL(l.LikeCount,0) as LikeCount,
+			NVL(c.commentCount,0) as commentCount
+		from reply r
+		
+		LEFT OUTER JOIN member m
+		ON m.member_no = r.member_no
+		
+		LEFT OUTER JOIN star s
+		ON ( r.MEMBER_NO = s.MEMBER_NO and r.board_no= s.ebook_no)
+		
+		LEFT OUTER JOIN (select reply_no, count(*) as LikeCount from like_it GROUP BY reply_no ) l
+		ON l.REPLY_NO = r.REPLY_NO
+		LEFT OUTER JOIN (select parent_no, count(*) as commentCount from reply
+		where parent_no!=reply_no GROUP BY parent_no ) c
+		ON c.parent_no = r.REPLY_NO
+		
+		where r.PARENT_TYPE=#{parent_type} and r.parent_no=r.reply_no and Board_no =#{board_no}
+		ORDER BY r.REG_DATE desc
+		) where rownum <![CDATA[<]]> 4
+	</select>
+
+	<select id="getCommentList">
+		select
+		m.NICKNAME,m.member_no,r.parent_no,r.reply_no,r.reg_Date ,r.contents
+		from reply r
+		LEFT OUTER JOIN member m
+		ON m.member_no = r.member_no
+		where r.PARENT_TYPE='EBOOK' and r.parent_no!=r.reply_no and Board_no =#{board_no}
+		and parent_no=#{parent_no}
+		ORDER BY r.REG_DATE
+	</select>
 
 	<!-- 좋아요 추가 -->
 	<insert id="addLikeIt" parameterType="org.ebook.cobook.likeIt.domain.Like_itVO">

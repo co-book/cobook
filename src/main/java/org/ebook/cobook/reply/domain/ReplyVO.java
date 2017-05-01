@@ -16,8 +16,23 @@ public class ReplyVO {
 	private Date reg_date;		//작성날짜
 	private Integer starRating; //별점 
 	private String nickName; //닉네임
+	private int likeCount; //좋아요 갯수
+	private int commentCount; //코멘트 갯수
 	
 	
+	
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 	public String getNickName() {
 		return nickName;
 	}
