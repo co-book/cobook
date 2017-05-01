@@ -49,7 +49,30 @@
 <script type="text/javascript">
 	var ebook_no = ${evo.ebook_no};
 	
+	
 	jQuery(document).ready(function($) {
+		$.ajax({
+			type : 'get',
+			url : '/cobook/replies/getReplyList',
+			data  :{
+				"board_no" : ebook_no,
+				"parent_type" : "EBOOK"
+			},
+			dataType : 'html',
+			//contentType : "application/json",
+			success : function(result) {
+				console.log(result);
+				$('#wrap-media-list').append(result);
+					/* //대여 성공시 새로고침
+					if(result.result=="SUCCESS"){
+						location.reload();
+					}else{
+						//실패시 alert
+						alert("다시 대여해주세요");
+					}     */			
+			}
+		});
+		
 		var selectDay = $("#borrow option:selected").val();
 		var price = $("#price").html();
 		var up = $("#up").hide();

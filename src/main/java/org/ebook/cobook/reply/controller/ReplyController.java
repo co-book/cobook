@@ -82,7 +82,7 @@ public class ReplyController {
 	 * @return
 	 */
 	@RequestMapping(value="/getReplyList", method = RequestMethod.GET)
-	public ModelAndView getReplyList(@RequestBody ReplyVO vo)
+	public ModelAndView getReplyList(ReplyVO vo)
 	{
 		logger.info("리플리스트 불러오기: " + vo.toString());
 		ModelAndView mav = new ModelAndView("replies/getReplyList");
@@ -96,7 +96,7 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value="/getCommentList", method = RequestMethod.GET)
-	public ModelAndView getCommentList(@RequestBody ReplyVO rvo)
+	public ModelAndView getCommentList( ReplyVO rvo)
 	{
 		logger.info("리플리스트 불러오기: " + rvo.toString());
 		ModelAndView mav = new ModelAndView("replies/getCommentList");
