@@ -32,7 +32,12 @@ public class ReplyController {
 	private static final Logger logger =
 			LoggerFactory.getLogger(ReplyController.class);
 	
-	//댓글 등록
+	/**
+	 * 리플과 코멘트 등록
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/addReply", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> addReply(@RequestBody ReplyVO vo) throws Exception{
@@ -43,6 +48,23 @@ public class ReplyController {
 		try{
 			result = replyService.addReply(vo);
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
+
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+	@RequestMapping(value="/addComment", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> addComent(@RequestBody ReplyVO vo) throws Exception{
+		
+		logger.info("댓글저장: " + vo.toString());
+		ResponseEntity<String> entity = null;
+		try{
+			replyService.addComment(vo);
+			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 
 		}catch(Exception e){
 			e.printStackTrace();
@@ -127,11 +149,11 @@ public class ReplyController {
 	
 	//댓글 삭제
 	@RequestMapping(value = "/{rno}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> reply_delete(@PathVariable("rno")Integer rno)throws Exception{
+	public ResponseEntity<String> deleteReply(@PathVariable("rno")Integer rno)throws Exception{
 		
 		ResponseEntity<String> entity = null;
 		try{
-			replyService.removeReply(rno);
+			replyService.deleteReply(rno);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

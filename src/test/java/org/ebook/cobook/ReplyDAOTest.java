@@ -56,7 +56,7 @@ public class ReplyDAOTest {
 		vo.setBoard_no(1);
 		vo.setContents("답글내용");
 		
-		replyDAO.insertComment(vo);
+		replyDAO.addComment(vo);
 	}
 	
 	// 수정
