@@ -121,6 +121,7 @@ ORDER BY parent_no desc, r.reply_no asc
 		parent_no = #{reply_no}
 	</delete>
 
+	<!-- 댓글 리스트 -->
 	<select id="getReplyList">
 		select * from (
 		select
@@ -150,7 +151,7 @@ ORDER BY parent_no desc, r.reply_no asc
 		ORDER BY r.REG_DATE desc
 		) where rownum <![CDATA[<]]> 4
 	</select>
-
+	<!-- 코멘트 리스트 -->
 	<select id="getCommentList">
 		select
 		m.NICKNAME,m.member_no,r.parent_no,r.reply_no,r.reg_Date ,r.contents
@@ -184,9 +185,6 @@ AND r.PARENT_TYPE like #{parent_type}
 </select>
 
 <!--  -->	
-	
-	
-	<!-- 별점 + 댓글 -->
 	
 
 
