@@ -19,7 +19,7 @@ public class ReplyServiceImpl implements ReplyService {
 	/*
 	 * (non-Javadoc)
 	 * @see org.ebook.cobook.reply.service.ReplyService#addReply(org.ebook.cobook.reply.domain.ReplyVO)
-	 * 리플과 코멘트 등록
+	 * reply, comment 등록
 	 */
 	@Override
 	public String addReply(ReplyVO vo) throws Exception {
@@ -45,24 +45,36 @@ public class ReplyServiceImpl implements ReplyService {
 	public void addComment(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		replyDao.addComment(vo);
-	}
+	}	
 
+	/**
+	 * reply, comment 리스트 뽑아오기
+	 */
 	@Override
-	public List<Map<String, Object>> replyAndLike_itList(Map<String, Object> map) throws Exception {
+	public List<ReplyVO> getReplyList(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return replyDao.replyList(map);
+		return replyDao.getReplyList(vo);
 	}
-
+	@Override
+	public List<ReplyVO> getCommentList(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return replyDao.getCommentList(vo);
+	}
+	
+	
 	@Override
 	public void modifyReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		replyDao.updateReply(vo);
 	}
-
+	
+	/**
+	 * reply 삭제
+	 */
 	@Override
-	public void deleteReply(Integer rno) throws Exception {
+	public void deleteReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		replyDao.deleteReply(rno);
+		replyDao.deleteReply(vo);
 	}
 
 	
@@ -89,6 +101,7 @@ public class ReplyServiceImpl implements ReplyService {
 		// TODO Auto-generated method stub
 		return replyDao.getReplyCount(map);
 	}
+	
 	
 	
 

@@ -8,7 +8,9 @@ import javax.inject.Inject;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.PageMaker;
+import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.likeIt.domain.Like_itVO;
+import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.reply.service.ReplyService;
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping(value="/replies/*")
@@ -73,12 +76,43 @@ public class ReplyController {
 
 		return entity;
 	}
+	/**
+	 * 리플과 코멘트 리스트 뽑아오기
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value="/getReplyList", method = RequestMethod.GET)
+	public ModelAndView getReplyList(@RequestBody ReplyVO vo)
+	{
+		logger.info("리플리스트 불러오기: " + vo.toString());
+		ModelAndView mav = new ModelAndView("replies/getReplyList");
+		try {
+			mav.addObject("replyList", replyService.getReplyList(vo));
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return mav;
+	}
 	
-	//댓글 리스트 뽑아오기
-	@ResponseBody
+	@RequestMapping(value="/getCommentList", method = RequestMethod.GET)
+	public ModelAndView getCommentList(@RequestBody ReplyVO rvo)
+	{
+		logger.info("리플리스트 불러오기: " + rvo.toString());
+		ModelAndView mav = new ModelAndView("replies/getCommentList");
+		try {
+			mav.addObject("commentList", replyService.getCommentList(rvo));
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	/*@ResponseBody
 	@RequestMapping(value="/{parent_type}/{board_no}/{page}/{perPageNum}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> listAll(
-			@PathVariable("parent_type") String parent_type,
+			@PathVariable("parent_type") String parent_type,	//데이터에 넣지 않은것  예를 들면 페이지 이동시 바로 나올 수있는것
 			@PathVariable("board_no") Integer board_no,
 		    @PathVariable("page") Integer page,
 			@PathVariable("perPageNum") Integer perPageNum)throws Exception{
@@ -126,10 +160,10 @@ public class ReplyController {
 		}
 		
 		return entity;
-	}
+	}*/
 
 	// 댓글수정(댓글 수정 필요한값 contents, reply_no) 
-	@RequestMapping(value = "/{reply_no}", method = {RequestMethod.PUT, RequestMethod.PATCH})
+	/*@RequestMapping(value = "/{reply_no}", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> reply_modify(@PathVariable("reply_no") Integer reply_no,
 			@RequestBody ReplyVO vo)throws Exception{
 		logger.debug("댓글 수정호출");
@@ -145,15 +179,21 @@ public class ReplyController {
 		}
 		
 		return entity;
-	}
+	}*/
 	
-	//댓글 삭제
+	/**
+	 * reply 삭제
+	 * @param rno
+	 * @param rvo
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/{rno}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteReply(@PathVariable("rno")Integer rno)throws Exception{
-		
+	public ResponseEntity<String> deleteReply(@PathVariable("rno")Integer rno, @RequestBody ReplyVO rvo)throws Exception{
 		ResponseEntity<String> entity = null;
+		rvo.setReply_no(rno);
 		try{
-			replyService.deleteReply(rno);
+			replyService.deleteReply(rvo);
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -163,28 +203,10 @@ public class ReplyController {
 		return entity;
 	}
 	
-	//댓글의 자식 코멘트
-	@RequestMapping(value="/comment", method = RequestMethod.POST)
-	public ResponseEntity<String> reply_comment(@RequestBody ReplyVO vo)throws Exception{
-		
-		logger.info("댓글의 답글기능 호출");
-		logger.info("답글: " + vo.toString());
-		
-		ResponseEntity<String> entity = null;
-		try{
-			replyService.addComment(vo);
-			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-			
-		}catch(Exception e){
-			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
+	
 	
 	//좋아요 추가
-	@RequestMapping(value="/addLike", method = RequestMethod.POST)
+	/*@RequestMapping(value="/addLike", method = RequestMethod.POST)
 	public ResponseEntity<String> addLike(@RequestBody Like_itVO vo){
 		
 		ResponseEntity<String> entity = null;
@@ -242,7 +264,7 @@ public class ReplyController {
 		}
 		
 		return replyList;
-	}
+	}*/
 	
 	
 	

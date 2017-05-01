@@ -11,10 +11,11 @@ public interface ReplyService {
 	public String addReply(ReplyVO vo) throws Exception;
 	public void addComment(ReplyVO vo) throws Exception;
 
-	public List<Map<String, Object>> replyAndLike_itList(Map<String, Object> map) throws Exception;
+	public List<ReplyVO> getReplyList(ReplyVO vo) throws Exception;
+	public List<ReplyVO> getCommentList(ReplyVO vo)throws Exception;
+	
 	public void modifyReply(ReplyVO vo) throws Exception;
-
-	public void deleteReply(Integer rno) throws Exception;
+	public void deleteReply(ReplyVO vo) throws Exception;
 
 	public void addLikeIt(Like_itVO vo) throws Exception;
 	public void deleteLikeIt(Like_itVO vo)throws Exception;

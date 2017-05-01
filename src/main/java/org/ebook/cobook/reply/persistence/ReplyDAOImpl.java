@@ -16,7 +16,6 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Inject
 	private SqlSession session;
-	
 	private final String namespace = "org.ebook.cobook.mapper.ReplyMapper";
 
 	@Override
@@ -24,13 +23,27 @@ public class ReplyDAOImpl implements ReplyDAO {
 		// TODO Auto-generated method stub
 		session.insert(namespace+".addReply", vo);
 	}
-
+	
 	@Override
-	public List<Map<String, Object>> replyList(Map<String, Object> map) throws Exception {
+	public void addComment(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectList(namespace+".replyList", map);
+		session.insert(namespace+".addComment", vo);
 	}
-
+	/**
+	 * reply, comment 리스트 불러오기
+	 */
+	@Override
+	public List<ReplyVO> getReplyList(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getReplyList", vo);
+	}
+	@Override
+	public List<ReplyVO> getCommentList(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getCommentList", vo);
+	}
+	
+	
 	@Override
 	public void updateReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
@@ -38,16 +51,12 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public void deleteReply(Integer rno) throws Exception {
+	public void deleteReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		session.delete(namespace+".deleteReply", rno);
+		session.delete(namespace+".deleteReply", vo);
 	}
 
-	@Override
-	public void addComment(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		session.insert(namespace+".addComment", vo);
-	}
+	
 
 	@Override
 	public void addLikeIt(Like_itVO vo) throws Exception {
@@ -86,6 +95,8 @@ public class ReplyDAOImpl implements ReplyDAO {
 		// TODO Auto-generated method stub
 		session.insert(namespace+".addStarRating", vo);
 	}
+
+	
 	
 	
 
