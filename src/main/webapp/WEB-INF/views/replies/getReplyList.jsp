@@ -28,7 +28,7 @@
 					<br>
 					<li>replyList.nickName</li>
 					<br>
-					<li><fmt:formatDate value="${replyList.reg_Date}" pattern="yyyy년 MM월 dd일"/> </li>
+					<li><fmt:formatDate value="${replyList.reg_date}" pattern="yyyy년 MM월 dd일"/> </li>
 				</ul>
 			</div>
 		</div>
