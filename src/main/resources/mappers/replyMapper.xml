@@ -81,7 +81,6 @@ and	 board_no= #{board_no}
 and  parent_type= #{parent_type}
 and  parent_no= reply_no
 	</select>
-
 	<!-- 답글 입력 -->
 	<insert id="insertComment">
 		INSERT INTO reply

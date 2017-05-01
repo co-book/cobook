@@ -15,8 +15,15 @@ public class ReplyVO {
 	private String contents;	//내용
 	private Date reg_date;		//작성날짜
 	private Integer starRating; //별점 
+	private String nickName; //닉네임
 	
 	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public Integer getStarRating() {
 		return starRating;
 	}

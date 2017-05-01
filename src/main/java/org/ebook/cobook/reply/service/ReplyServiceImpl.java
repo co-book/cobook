@@ -24,6 +24,7 @@ public class ReplyServiceImpl implements ReplyService {
 		if(vo.getParent_type().equals("EBOOK")){
 			if(replyDao.addReplyCheck(vo)==null){
 				replyDao.addReply(vo);
+				//
 				result="SUCCES";
 			}else{
 				result="FAIL";
