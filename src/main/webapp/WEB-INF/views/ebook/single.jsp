@@ -145,26 +145,7 @@
 			});
 			
 		}
-/* 지연 진행중
-		 $("#comment").click(function () {
-			 if($("#reply-comment").css("display") == "none")
-					{
-				 
-						 $.ajax({
-								type : 'get',
-								url : '/cobook/replies/getCommentList',
-								data :{
-									"board_no" : ebook_no,
-									"parent_no" : 
-								}
-							});
-				 
-						$(this).next("#reply-comment").toggle();
-					}else {
-						$(this).next("#reply-comment").toggle();
-					} 
-		}); 	*///single
-		
+
 		//대여하기 전 로그인 체크
 		$("#borrow-modal").click(function name() {
 			selectDay = $("#borrow option:selected").val();
@@ -319,11 +300,7 @@
 				});
 			}	
 		}
-		//리플 삭제
-		$('#reply-delete').click(function () {
-			
-			
-		});
+		
 		
 	});
 	
@@ -521,7 +498,7 @@
 									<br></br>
 									<h3>리뷰</h3>
 		<!-- reply list start -->													
-									<div id="wrap-media-list">
+								<div id="wrap-media-list">
 									<div class="media_list">		
 										<div class="media-left">
 											<div class="detail-stars">
