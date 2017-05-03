@@ -175,9 +175,9 @@
 			
 		}
 
-		
 		//대여하기 전
 		//로그인 체크 , 대여하기 모달 Modal open
+		//대여하기 전 로그인 체크
 		$("#borrow-modal").click(function name() {
 			//선택한 날짜 , 가격 
 			selectDay = $("#borrow option:selected").val();
@@ -329,11 +329,7 @@
 				});
 			}	
 		}
-		//리플 삭제
-		$('#reply-delete').click(function () {
-			
-			
-		});
+		
 		
 	});
 	
@@ -531,7 +527,7 @@
 									<br></br>
 									<h3>리뷰</h3>
 		<!-- reply list start -->													
-									<div id="wrap-media-list">
+								<div id="wrap-media-list">
 									<div class="media_list">		
 										<div class="media-left">
 											<div class="detail-stars">
