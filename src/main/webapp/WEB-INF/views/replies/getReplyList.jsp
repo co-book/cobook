@@ -43,7 +43,7 @@
 			<p>${replyList.contents}</p>
 			<br>
 			<div class="single-button" name="comment-btn" >
-				<button type="button" class="btn btn-default btn-sm" id="comment" onclick="commentVisible(${replyList.reply_no})">
+				<button type="button" class="btn btn-default btn-sm" id="comment" onclick="commentVisible(${replyList.reply_no}, this)">
 					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
 					댓글(${replyList.commentCount})
 				</button>

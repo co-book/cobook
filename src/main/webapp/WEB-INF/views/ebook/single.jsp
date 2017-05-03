@@ -49,8 +49,10 @@
 <script type="text/javascript">
 	var ebook_no = ${evo.ebook_no};
 	
-	
+	var commentVisible;
 	jQuery(document).ready(function($) {
+		
+		//리플리스트 
 		$.ajax({
 			type : 'get',
 			url : '/cobook/replies/getReplyList',
@@ -73,46 +75,72 @@
 			}
 		});
 		
-		var selectDay = $("#borrow option:selected").val();
-		var price = $("#price").html();
-		var up = $("#up").hide();
+		//로그인 && 현재 로그인 사용자 != 작성자
+		//삭제버튼 추가 / 제거
 		if(member_no==null){
 			$("#reply-delete").hide();
 		}else {
-
 			$("#reply-delete").show();
 		}
 		
 		
+		var selectDay = $("#borrow option:selected").val();
+		var price = $("#price").html();
+		var up = $("#up").hide();
+		
+		
+		/*  ?? 템플릿 		
 		$(".scroll").click(function(event) {
 			event.preventDefault();
 			$('html,body').animate({
 				scrollTop : $(this.hash).offset().top
 			}, 1000);
-		});	//scroll
+		});	//scroll */
 		
+		/* 지연 진행중
+		 $("#comment").click(function () {
+			 if($("#reply-comment").css("display") == "none")
+					{
+				 
+						 $.ajax({
+								type : 'get',
+								url : '/cobook/replies/getCommentList',
+								data :{
+									"board_no" : ebook_no,
+									"parent_no" : 
+								}
+							});
+				 
+						$(this).next("#reply-comment").toggle();
+					}else {
+						$(this).next("#reply-comment").toggle();
+					} 
+		}); 	*///single
 		//single
-		var commentVisible = function(reply_no){
+		commentVisible = function(reply_no,thisComment){
+			console.log("commentVisible"+reply_no);
+			console.log(thisComment);
+			console.log($(thisComment).next("#reply-comment"));
 			if( $(this).next("#reply-comment").css("display") == "none"){
 				 //코멘트 보여줌
 				 console.log("코멘트 염");
 				 console.log(this);
-				 $(this).next("#reply-comment").toggle();
+				 $(thisComment).next("#reply-comment").toggle();
 				 getCommentList(reply_no);
 			 }else {
 				 //코멘트 안보여줌
 				 console.log("코멘트 닫음");
 				 console.log(this);
-				 $(this).next("#reply-comment").toggle();
+				 $(thisComment).next("#reply-comment").toggle();
 			 } 
 		}
-/* 		 $(".single-button").click(function () {
-			 
+	 $(".single-button").click(function () {
 			 if( $(this).next("#reply-comment").css("display") == "none"){
 				 //코멘트 보여줌
 				 console.log("코멘트 염");
 				 console.log(this);
 				 $(this).next("#reply-comment").toggle();
+				 
 			 }else {
 				 //코멘트 안보여줌
 				 console.log("코멘트 닫음");
@@ -121,6 +149,7 @@
 			 } 
 		 }); 	//single */
 		var getCommentList = function(parent_no){
+			 console.log("getCommentList");
 			$.ajax({
 				type : 'get',
 				url : '/cobook/replies/getCommentList',
@@ -145,28 +174,12 @@
 			});
 			
 		}
-/* 지연 진행중
-		 $("#comment").click(function () {
-			 if($("#reply-comment").css("display") == "none")
-					{
-				 
-						 $.ajax({
-								type : 'get',
-								url : '/cobook/replies/getCommentList',
-								data :{
-									"board_no" : ebook_no,
-									"parent_no" : 
-								}
-							});
-				 
-						$(this).next("#reply-comment").toggle();
-					}else {
-						$(this).next("#reply-comment").toggle();
-					} 
-		}); 	*///single
+
 		
-		//대여하기 전 로그인 체크
+		//대여하기 전
+		//로그인 체크 , 대여하기 모달 Modal open
 		$("#borrow-modal").click(function name() {
+			//선택한 날짜 , 가격 
 			selectDay = $("#borrow option:selected").val();
 			price = $("#price").html();
 			$("#borrowDays").val(selectDay);
@@ -179,11 +192,8 @@
 			}
 		});
 		
-		//대여하기
+		//대여하기 
 		 $("#borrowEbook").click(function () {
-			console.log(selectDay);
-			console.log("member_no : "+member_no);
-			console.log(price);
 			if(member_no==null)
 			{
 				$("#myModal").modal();
@@ -310,7 +320,7 @@
 							console.log(status);
 							console.log(result);	
 							if (result=="SUCCESS") {
-								//성공시
+								//성공시 요소 지움
 								console.log("삭제했어요");
 							}else {
 								alert("다시 시도해 주세용~");
