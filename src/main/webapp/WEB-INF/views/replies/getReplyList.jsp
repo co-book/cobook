@@ -35,7 +35,7 @@
 		<div class="media-body-single">
 			<!-- reply delete -->
 			<div class="single-reply-remove">
-				<button type="button" id="reply-delete" class="reply-remove" data-reply_no="${replyList.reply_no}">
+				<button type="button" id="reply-delete" class="reply-remove" data-reply_no="${replyList.reply_no}" data-member_no="${replyList.member_no}">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
 			</div>

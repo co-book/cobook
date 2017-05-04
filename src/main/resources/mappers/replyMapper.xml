@@ -101,6 +101,12 @@ ORDER BY parent_no desc, r.reply_no asc
       (star_no_seq.nextval, #{starRating}, #{member_no} ,#{board_no} )
 	</insert>
 	
+	<!-- 별점삭제 -->
+	<delete id="deleteStarRating" >
+		delete star
+		where ebook_no = #{board_no} AND member_no = #{member_no}
+	</delete>
+	
 	<!-- 댓글수정 -->
 	<update id="updateReply">
 		UPDATE
@@ -163,7 +169,7 @@ ORDER BY parent_no desc, r.reply_no asc
 		
 		where r.PARENT_TYPE=#{parent_type}
 		and r.parent_no!=r.reply_no
-		and Board_no =#{board_no}
+		and board_no =#{board_no}
 		and parent_no=#{parent_no}
 		ORDER BY r.reg_date
 	</select>

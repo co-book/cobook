@@ -15,6 +15,7 @@ public interface ReplyDAO {
 	
 	//star rating
 	public void addStarRating(ReplyVO vo) throws Exception;
+	public void deleteStarRating(ReplyVO vo) throws Exception;
 	
 	//replyList(commentList)
 	public List<ReplyVO> getReplyList(ReplyVO vo)throws Exception;

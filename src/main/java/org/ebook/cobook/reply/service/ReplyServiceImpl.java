@@ -74,6 +74,9 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void deleteReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
+		if(vo.getParent_type()!=null&&vo.getParent_type().equals("EBOOK")){
+			replyDao.deleteStarRating(vo);
+		}
 		replyDao.deleteReply(vo);
 	}
 
