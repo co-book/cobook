@@ -328,7 +328,39 @@
 		    		}
 				});
 			}	
-		}
+		}	//deleteReply
+		
+		//addWishList check는 서비스단에서 확인!
+		$("#addWishList").click(function () {
+			if (member_no==null) {
+				$("#myModal").modal();
+			}else {
+				$.ajax({
+					type:'GET',
+					url:'/cobook/ebook/addWishList',
+					data: {
+						"member_no" : member_no,
+						"ebook_no" : ebook_no
+					},
+					dataType : 'text' ,
+				//	contentType:
+					success : function(result,status) {
+						console.log(result);
+						console.log(status);
+						if (result=="SUCCESS") {
+							//성공시 요소 지움
+							console.log("위시리스트에 추가!");
+							
+							alert("위시리스트에 추가 되었습니다");
+						}else {
+							alert("이미 등록된 책입니다");
+							console.log("이미등록한 책!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						}
+					}
+				});
+			}
+		});	//addWishList
+		
 		
 		
 	});
@@ -500,7 +532,7 @@
 			<!-- modal end -->						
 											<div class="wish-list">
 												<ul>
-													<li class="wish"><a href="#">Add to wishlist</a></li>
+													<li class="wish"><a href="" id="addWishList" class="wish">Add to wishlist</a></li>
 													<li class="compare"><a href="#">Add to Compare</a></li>
 												</ul>
 											</div>
