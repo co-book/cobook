@@ -21,6 +21,16 @@ Reply.prototype.reply = function() {
 			+ this.likeCount + "/" + this.likeCount + "/" + this.commentCount);
 }
 
+//Single 페이지
+//리플, 코멘트 추가/제거시 ( single 별점, commet 수 증감 해야함)
+//현재는 로그인 되어있으면 삭제버튼 모두 활성화 -> 글쓴이 = 멤버넘이 같을때만 활성화 해야함
+//더보기 처리해야함 
+//댓글 좋아요 처리 ..
+//날짜 선택시 가격 변경해야함
+//UP NEXT 가져오기
+//to compare?  
+
+
 // 리플 등록하기
 Reply.prototype.addReply = function() {
 	var getReplyList=this.getReplyList;
