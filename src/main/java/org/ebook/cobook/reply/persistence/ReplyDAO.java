@@ -8,18 +8,19 @@ import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.reply.domain.StarVO;
 
 public interface ReplyDAO {
-	//리플(코멘트)등록
+	//reply registered
 	public void addReply(ReplyVO vo)throws Exception;
 	public ReplyVO addReplyCheck(ReplyVO vo)throws Exception;
 	public void addComment(ReplyVO vo)throws Exception;
-	//star rating 별점 등록
+	
+	//star rating
 	public void addStarRating(ReplyVO vo) throws Exception;
 	
-	//리플리스트(코멘트)
+	//replyList(commentList)
 	public List<ReplyVO> getReplyList(ReplyVO vo)throws Exception;
 	public List<ReplyVO> getCommentList(ReplyVO vo)throws Exception;
 	
-	////
+	
 	public int getReplyCount(Map<String, Object> map)throws Exception;
 	
 	

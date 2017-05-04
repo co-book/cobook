@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
 import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
+import org.ebook.cobook.ebook.domain.WishListVO;
 import org.ebook.cobook.ebook.persistence.EbookDAO;
 import org.ebook.cobook.mypage.persistence.MyPageDAO;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,24 @@ public class EbookServiceImpl implements EbookService {
 	public void borrowEbook(BorrowVO borrowVo) throws Exception {
 		// TODO Auto-generated method stub
 		ebookDAO.borrowEbook(borrowVo);
+	}
+
+	@Override
+	public String addWishList(WishListVO evo) throws Exception {
+		// TODO Auto-generated method stub
+		String result="FAIL";
+		//이미 위시리스트한 책인지 체크 select 
+			if(ebookDAO.wishListCheck(evo)==null){
+				System.out.println("1");
+				ebookDAO.addWishList(evo);
+
+				result="SUCCESS";
+			}else{
+
+				System.out.println("3");
+				result="FAIL";
+			}
+		return result;
 	}
 
 

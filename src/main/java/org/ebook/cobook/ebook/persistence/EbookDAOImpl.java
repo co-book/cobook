@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
 import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
+import org.ebook.cobook.ebook.domain.WishListVO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -79,6 +80,20 @@ public class EbookDAOImpl implements EbookDAO {
 			resultFloat=(float)result;
 		}
 		return resultFloat;
+	}
+
+
+	@Override
+	public void addWishList(WishListVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert(ebookNamespace+".addWishList", vo);
+	}
+
+
+	@Override
+	public WishListVO wishListCheck(WishListVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ebookNamespace+".wishListCheck", vo);
 	}
 
 	

@@ -20,6 +20,7 @@ import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
 import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
+import org.ebook.cobook.ebook.domain.WishListVO;
 import org.ebook.cobook.ebook.service.EbookService;
 import org.ebook.cobook.member.domain.MemberVO;
 import org.slf4j.Logger;
@@ -302,6 +303,20 @@ public class EbookController {
 		
 		return entity;
 	}
-	
+	@RequestMapping(value="/addWishList", method = RequestMethod.GET)
+	public ResponseEntity<String> addWishList(WishListVO wvo)
+	{
+		ResponseEntity<String> entity = null;
+		String result="";
+		try {
+			result = ebookService.addWishList(wvo);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
 }

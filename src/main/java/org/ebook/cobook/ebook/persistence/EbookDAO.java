@@ -5,6 +5,7 @@ import java.util.List;
 import org.ebook.cobook.ebook.domain.BookmarkVO;
 import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
+import org.ebook.cobook.ebook.domain.WishListVO;
 
 public interface EbookDAO {
 	//Ebook
@@ -23,7 +24,9 @@ public interface EbookDAO {
 	//borrow
 	public void borrowEbook(BorrowVO vo) throws Exception;
 	
-	
+	//add wishList
+	public void addWishList(WishListVO vo) throws Exception;
+	public WishListVO wishListCheck(WishListVO vo) throws Exception;
 	
 	
 	

@@ -55,8 +55,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 대여하기 -->
 	<insert id="borrowEbook" parameterType="BorrowVO">
-		insert into BORROW ( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,PRICE ,STATUS ,READPAGE )
-		values(borrow_no_seq.nextval, #{ebook_no}, #{member_no} ,  SYSDATE , #{period}, #{price}, 'NEW' ,'NEW')
+		insert into BORROW 
+		( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,PRICE ,STATUS ,READPAGE )
+		values
+		(borrow_no_seq.nextval, #{ebook_no}, #{member_no} ,  SYSDATE , #{period}, #{price}, 'NEW' ,'NEW')
 	</insert>
 	
 	<!-- 
@@ -99,6 +101,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	 </select>
 	 
+	 <!-- 위시리스트 추가, -->
+	 <insert id="addWishList" parameterType="WishListVO">
+	 	INSERT INTO WISHLIST
+	 	(WISHLIST_NO, MEMBER_NO, EBOOK_NO)
+	 	VALUES
+	 	(wishList_no_seq.nextval, #{member_no}, #{ebook_no})
+	 </insert>
+	 <!-- 위시리스트 체크합니다 -->
+	 <select id="wishListCheck" resultType="WishListVO">
+	 	select * from WISHLIST
+	 	where member_no=#{member_no}
+	 	and ebook_no=#{ebook_no}
+	 </select>
 	 
 	 
 </mapper>
