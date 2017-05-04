@@ -35,7 +35,7 @@
 		<div class="media-body-single">
 			<!-- reply delete -->
 			<div class="single-reply-remove">
-				<button type="button" id="reply-delete" class="reply-remove" onclick="deleteReply(${replyList.reply_no})">
+				<button type="button" id="reply-delete" class="reply-remove" data-reply_no="${replyList.reply_no}">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</button>
 			</div>
@@ -43,7 +43,7 @@
 			<p>${replyList.contents}</p>
 			<br>
 			<div class="single-button" name="comment-btn" >
-				<button type="button" class="btn btn-default btn-sm" id="comment" onclick="commentVisible(${replyList.reply_no}, this)">
+				<button type="button" class="btn btn-default btn-sm commentBtn" id="comment" data-parent_no="${replyList.reply_no}">
 					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
 					댓글(${replyList.commentCount})
 				</button>
@@ -54,9 +54,10 @@
 			</div>
 			<!-- comment -->
 
-			<div class="reply-comment" id="reply-comment">
-				<div id="comment${replyList.reply_no}">
-					
-				</div>
+			<div class="reply-comment" id="comment${replyList.reply_no}">
+			
 			</div>
+		</div>
+	</div>
+			
 </c:forEach>

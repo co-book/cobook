@@ -97,7 +97,7 @@ ORDER BY parent_no desc, r.reply_no asc
 	<!-- 별점등록 -->
 	<insert id="addStarRating">
 	INSERT INTO star
-      (star_no, starRating, member_no , ebook_no)    VALUES
+      (star_no           , starRating    , member_no   , ebook_no)    VALUES
       (star_no_seq.nextval, #{starRating}, #{member_no} ,#{board_no} )
 	</insert>
 	
@@ -123,7 +123,7 @@ ORDER BY parent_no desc, r.reply_no asc
 
 	<!-- 댓글 리스트 -->
 	<select id="getReplyList" resultType="ReplyVO">
-		select * from (
+	select * from (
 		select
 			m.NICKNAME,
 			m.member_no,
@@ -143,23 +143,27 @@ ORDER BY parent_no desc, r.reply_no asc
 		
 		LEFT OUTER JOIN (select reply_no, count(*) as LikeCount from like_it GROUP BY reply_no ) l
 		ON l.REPLY_NO = r.REPLY_NO
-		LEFT OUTER JOIN (select parent_no, count(*) as commentCount from reply
-		where parent_no!=reply_no GROUP BY parent_no ) c
+		
+		LEFT OUTER JOIN (select parent_no, count(*) as commentCount from reply where parent_no!=reply_no GROUP BY parent_no ) c
 		ON c.parent_no = r.REPLY_NO
 		
 		where r.PARENT_TYPE=#{parent_type} and r.parent_no=r.reply_no and Board_no =#{board_no}
 		ORDER BY r.reg_date desc
-		) where rownum <![CDATA[<]]> 4
+	) where rownum <![CDATA[<]]> 4
 	</select>
 
 	<!-- 코멘트 리스트 -->
 	<select id="getCommentList" resultType="ReplyVO">
 		select
-		m.NICKNAME,m.member_no,r.parent_no,r.reply_no,r.reg_date ,r.contents
-		from reply r
+			m.NICKNAME,m.member_no,r.parent_no,r.reply_no,r.reg_date ,r.contents
+			from reply r
+			
 		LEFT OUTER JOIN member m
 		ON m.member_no = r.member_no
-		where r.PARENT_TYPE=#{parent_type} and r.parent_no!=r.reply_no and Board_no =#{board_no}
+		
+		where r.PARENT_TYPE=#{parent_type}
+		and r.parent_no!=r.reply_no
+		and Board_no =#{board_no}
 		and parent_no=#{parent_no}
 		ORDER BY r.reg_date
 	</select>

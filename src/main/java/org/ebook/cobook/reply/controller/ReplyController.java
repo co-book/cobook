@@ -102,6 +102,7 @@ public class ReplyController {
 		ModelAndView mav = new ModelAndView("replies/getCommentList");
 		try {
 			mav.addObject("commentList", replyService.getCommentList(rvo));
+			mav.addObject("parent_no", rvo.getParent_no());
 		} catch (Exception e) {
 			
 			e.printStackTrace();
