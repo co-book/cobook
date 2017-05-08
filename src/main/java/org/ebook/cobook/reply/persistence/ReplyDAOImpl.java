@@ -96,6 +96,12 @@ public class ReplyDAOImpl implements ReplyDAO {
 		session.insert(namespace+".addStarRating", vo);
 	}
 
+	@Override
+	public void deleteStarRating(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.delete(namespace+".deleteStarRating", vo);
+	}
+
 	
 	
 	

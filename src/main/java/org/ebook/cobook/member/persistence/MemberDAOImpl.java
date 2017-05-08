@@ -36,6 +36,18 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		sqlSession.update(namespace+".modifyMember", vo);
 	}
+
+	@Override
+	public void getMyPoint(int myPoint) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void chargePoint(MemberVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

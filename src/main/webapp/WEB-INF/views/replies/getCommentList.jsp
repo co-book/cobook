@@ -11,10 +11,10 @@
 						<p>
 							${commentList.nickName}/
 							<fmt:formatDate value="${commentList.reg_date}" pattern="yyyy-MM-dd"/>/ 
-							<a class="comment-delete" id="comment-delete"  data-member_no="${commentList.member_no}"  data-reply_no="${commentList.reply_no}">삭제</a>
+							<a href="#" onclick="return false;" class="comment-delete" id="comment-delete"  data-parent_no="${parent_no}"  data-member_no="${commentList.member_no}"  data-reply_no="${commentList.reply_no}">삭제</a>
 						</p>
 				</div>
 </c:forEach>
-				<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
-				<button type="button" class="comment-regi" id="addComment"  data-parent_no="${parent_no}">등록하기</button>
+				<textarea class="comment-textarea" rows="5" id="commentContents${parent_no}" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
+				<button type="button" class="comment-regi addComment" id="addComment"  data-parent_no="${parent_no}">등록하기</button>
 			
