@@ -5,7 +5,34 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-04-28T14:51:10Z</updated>
+  <updated>2017-05-02T03:30:00Z</updated>
+  <entry>
+    <title>This Week in Spring - May 2nd, 2017</title>
+    <link rel="alternate" href="https://spring.io/blog/2017/05/02/this-week-in-spring-may-2nd-2017" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2017-05-02:2915</id>
+    <updated>2017-05-02T03:30:00Z</updated>
+    <content type="html">&lt;p&gt;Welcome to another installment of &lt;em&gt;This Week in Spring&lt;/em&gt;! This week I&amp;rsquo;m in Perth, Australia, for the &lt;a href="http://west.yowconference.com.au/speakers/josh-long/"&gt;amazing YOW! West conference&lt;/a&gt;, talking to developers about building cloud native Java applications. If you&amp;rsquo;re around, say &lt;a href="http://twitter.com/starbuxman"&gt;hi&lt;/a&gt;. As usual, we&amp;rsquo;ve got a lot to cover so let&amp;rsquo;s get to it! &lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m super excited about our first &lt;a href="https://www.springdays.io/ehome/spring-days/chicago#melendez"&gt;Spring Days&lt;/a&gt; event, on May 30-31, in Chicago. I&amp;rsquo;ll be there along with other Spring gurus like Eddu Melendez, Anupama Pradhan, and Michael Minella. I hope you&amp;rsquo;ll join us!&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Spring IO lead &lt;a href="https://spring.io/blog/2017/04/28/spring-io-platform-athens-sr5"&gt;Any Wilkinson has announced Spring IO Platform Athens-SR5&lt;/a&gt;. He &lt;a href="https://spring.io/blog/2017/04/28/spring-io-platform-brussels-sr2"&gt;also announced Spring IO Platform Brussels-SR2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Spring Session lead &lt;a href="https://spring.io/blog/2017/04/27/spring-session-1-3-1-released"&gt;Rob Winch just announced Spring Session 1.3.1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Spring Integration lead and all around great human &lt;a href="https://spring.io/blog/2017/04/27/spring-for-apache-kafka-2-0-milestone-1-available"&gt;Gary Russell just announced Spring for Apache Kafka 2.0M1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Spring Cloud ninja Glenn Renfro &lt;a href="https://spring.io/blog/2017/04/25/spring-cloud-task-1-2-0-release-is-now-available"&gt;just announced Spring Cloud Task 1.2.0&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;I &lt;em&gt;loved&lt;/em&gt; (in case you were unclear about the sentiment I have for this post!) this look at real time sentiment &lt;a href="https://www.youtube.com/watch?v=QzF2Iii4s5c"&gt;analysis with TensorFlow and Spring Cloud Data Flow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;the results of this months&amp;rsquo; ZeroTurnaround web framework report are not too surprising: &lt;a href="https://zeroturnaround.com/wp-content/uploads/2017/03/RebelLabs-WFI-Index-table-April-v3.png"&gt;Spring MVC is in a distant lead, then JSF and GWT, then Spring Boot&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;this post, &amp;ldquo;&lt;a href="http://developer.okta.com/blog/2017/04/26/bootiful-development-with-spring-boot-and-angular"&gt;Bootiful Development with Spring Boot and Angular&lt;/a&gt;,&amp;rdquo; on the Okta blog, is another gem by our buddy Matt Raible.&lt;/li&gt;
+  &lt;li&gt;Check out the ZT (short for ZeroTurnaround) Live replay for an epic look at &lt;a href="http://pages.zeroturnaround.com/Reactive-Spring-Webinar_On-Demand-Gated-Landing-Page.html?utm_campaign=reactivespringwebinar&amp;utm_medium=social&amp;utm_source=twitter"&gt;Reactive Spring by Spring WebFlux engineer Sebastien Deleuze&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Spring Cloud engineer Jon Schneider is cooking up some very cool stuff, and it might be an indication of future direction. Who knows!? But you should &lt;a href="https://github.com/jkschneider/spring-metrics"&gt;definitely check out his project, Spring Metrics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;My buddy Matt Raible and I looked at building progressive web applications with Spring Boot and Angular at our recent two-parter talks at Devoxx France 2017: &lt;a href="https://www.youtube.com/watch?v=0MBsfdQiS64&amp;feature=youtu.be"&gt;part 1&lt;/a&gt; and &lt;a href="https://www.youtube.com/watch?v=xo7djiUBMpU"&gt;part 2&lt;/a&gt;. This was &lt;em&gt;so&lt;/em&gt; much fun! Merci mille fois, Devoxx France! Thank you Devoxx France for letting us do these sessions!&lt;/li&gt;
+  &lt;li&gt;I did an interview with the amazing &lt;a href="https://softwareengineeringdaily.com/2017/04/26/spring-boot-with-josh-long/"&gt;Software Engineering Daily Podcast on Spring Boot&lt;/a&gt;. It was a lot of fun being on there. I listen to the podcast regularly and really appreciate the opportunity!&lt;/li&gt;
+  &lt;li&gt;I liked this post by Alex Soto on &lt;a href="http://www.lordofthejars.com/2017/04/testing-spring-data-spring-boot.html"&gt;using Arquillian to test Spring Data applications&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;this is an interesting post on discovering an microservices &lt;a href="https://040code.github.io/2017/04/20/discovery-agent/"&gt;exposed port in a Docker container&lt;/a&gt;. Seems.. painful. I&amp;rsquo;m glad it&amp;rsquo;s so thoroughly documented and articulated here, though! Good stuff!&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
   <entry>
     <title>Spring IO Platform Brussels-SR2</title>
     <link rel="alternate" href="https://spring.io/blog/2017/04/28/spring-io-platform-brussels-sr2" />
@@ -828,40 +855,5 @@ dependencies {&#xD;
     ...&#xD;
 }
 &lt;/code&gt;&lt;/pre&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Vault 1.0 goes GA</title>
-    <link rel="alternate" href="https://spring.io/blog/2017/04/12/spring-vault-1-0-goes-ga" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Mark Paluch</name>
-    </author>
-    <id>tag:spring.io,2017-04-10:2893</id>
-    <updated>2017-04-12T12:11:00Z</updated>
-    <content type="html">&lt;p&gt;On behalf of the community, it&amp;rsquo;s my pleasure to announce the general availability of Spring Vault 1.0 ? the very first GA release of Spring Vault after almost a year of development.&lt;/p&gt;
-&lt;p&gt;The artifacts are available from Maven Central and Bintray.&lt;/p&gt;
-&lt;pre&gt;&lt;code class="prettyprint xml"&gt;&amp;lt;dependency&amp;gt;&#xD;
-  &amp;lt;groupId&amp;gt;org.springframework.vault&amp;lt;/groupId&amp;gt;&#xD;
-  &amp;lt;artifactId&amp;gt;spring-vault-core&amp;lt;/artifactId&amp;gt;&#xD;
-  &amp;lt;version&amp;gt;1.0.0.RELEASE&amp;lt;/version&amp;gt;&#xD;
-&amp;lt;/dependency&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The release ships more than 50 tickets fixed in total. Here¡¯s a very truncated list of the most important features shipping with the release:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Pluggable application authentication via AppRole, AWS-EC2, client certificates, Cubbyhole (wrapped tokens) and static tokens.&lt;/li&gt;
-  &lt;li&gt;Support for renewable &lt;code&gt;@VaultPropertySource&lt;/code&gt; with credentials rotation.&lt;/li&gt;
-  &lt;li&gt;Lifecycle-aware session management with token renewal and re-login after terminal token expiry.&lt;/li&gt;
-  &lt;li&gt;Template API to interact with Vault directly.&lt;/li&gt;
-  &lt;li&gt;Compatibility with Vault 0.5 to 0.7.&lt;/li&gt;
-&lt;/ul&gt;&lt;h2&gt;&lt;a href="#contributions" class="anchor" name="contributions"&gt;&lt;/a&gt;Contributions&lt;/h2&gt;
-&lt;p&gt;Without the community, we couldn¡¯t be the successful project we are today. I¡¯d like to thank everyone that created issues &amp;amp; provided feedback.&lt;/p&gt;&lt;h2&gt;&lt;a href="#feedback-please" class="anchor" name="feedback-please"&gt;&lt;/a&gt;Feedback Please&lt;/h2&gt;
-&lt;p&gt;If you have feedback on this release, I encourage you to reach out via &lt;a href="http://stackoverflow.com/questions/tagged/spring-vault"&gt;StackOverflow&lt;/a&gt;, &lt;a href="https://github.com/spring-projects/spring-vault/issues"&gt;GitHub Issues&lt;/a&gt;, or via the comments section. You can also ping me &lt;a href="https://twitter.com/mp911de"&gt;@mp911&lt;/a&gt; or the &lt;a href="https://twitter.com/SpringCloud"&gt;@SpringCloud&lt;/a&gt; team on Twitter.&lt;/p&gt;&lt;h2&gt;&lt;a href="#next-steps" class="anchor" name="next-steps"&gt;&lt;/a&gt;Next Steps&lt;/h2&gt;
-&lt;p&gt;The upcoming Spring Cloud Vault Config 1.0 GA release will pick up Spring Vault GA and ship as part of the Spring Cloud Dalston release train.&lt;/p&gt;
-&lt;p&gt;Check out any of these links for more details:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://projects.spring.io/spring-vault/"&gt;Spring Vault Project page&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://docs.spring.io/spring-vault/docs/1.0.0.RELEASE/reference/html/"&gt;Spring Vault Project documentation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="https://github.com/mp911de/spring-cloud-vault-config-samples"&gt;Examples&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content>
   </entry>
 </feed>

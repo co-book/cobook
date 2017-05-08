@@ -258,8 +258,11 @@
 		
 		//addWishList check는 서비스단에서 확인!
 		$("#addWishList").click(function () {
+			console.log("1");
 			if (member_no==null) {
+				console.log("12");
 				$("#myModal").modal();
+				console.log("123");
 			}else {
 				$.ajax({
 					type:'GET',
@@ -460,13 +463,12 @@
 												</div>
 											</div>
 										</div>
-<<<<<<< HEAD
-=======
+
 									</div> 
 			<!-- modal end -->						
 											<div class="wish-list">
 												<ul>
-													<li class="wish"><a href="" id="addWishList" class="wish">Add to wishlist</a></li>
+													<li class="wish"><a href="#" id="addWishList" class="wish">Add to wishlist</a></li>
 													<li class="compare"><a href="#">Add to Compare</a></li>
 												</ul>
 											</div>
@@ -477,25 +479,12 @@
 									<div class="product_desc">
 										<h2>Details :</h2>
 										<p>${evo.intro}</p>
->>>>>>> d777ac2130334c2acd25d7d643066d7edf62d9dd
 									</div>
-									<!-- modal end -->
-									<div class="wish-list">
-										<ul>
-											<li class="wish"><a href="#">Add to wishlist</a></li>
-											<li class="compare"><a href="#">Add to Compare</a></li>
-										</ul>
-									</div>
+									
 								</div>
 								<div class="clear"></div>
 							</div>
-							<!-- product detail -->
-							<div class="all-comments">
-								<div class="product_desc">
-									<h2>Details :</h2>
-									<p>${evo.intro}</p>
-								</div>
-							</div>
+							
 							<br></br> <br></br>
 							<!-- reply -->
 							<h3>이 책을 평가해주세요!</h3>
