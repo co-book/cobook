@@ -13,6 +13,6 @@ public interface MemberService {
 	public MemberVO getMember(MemberVO vo)throws Exception;
 
 	//포인트 충전하기 
-	/*public void getMyPoint(int myPoint) throws Exception;
-	public void chargePoint(MemberVO vo) throws Exception;*/
+	/*public MemberVO getMyPoint(MemberVO vo) throws Exception;*/
+	public MemberVO chargePoint(MemberVO vo) throws Exception;
 }

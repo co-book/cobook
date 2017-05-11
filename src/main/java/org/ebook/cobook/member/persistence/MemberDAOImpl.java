@@ -38,15 +38,15 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void getMyPoint(int myPoint) throws Exception {
+	public MemberVO getMyPoint(MemberVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		
+		return sqlSession.selectOne(namespace+".getMyPoint", vo);
 	}
 
 	@Override
 	public void chargePoint(MemberVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		
+		sqlSession.insert(namespace+".chargePoint", vo);
 	}
 	
 	

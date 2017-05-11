@@ -85,6 +85,8 @@
 		reply.member_no=member_no;
 		reply.ebook_no=ebook_no;
 		reply.parent_type=parent_type;
+		$(".member-nickname").prepend(nickname);
+		$("#mypoint").prepend(myPoint);
 		//리플리스트 불러오기 
 		reply.getReplyList();
 		
@@ -192,8 +194,9 @@
 		var selectDay = $("#borrow option:selected").val();
 		var price = $("#price").html();
 		var up = $("#up").hide();
-		$("#borrow-modal").click(function name() {
-			//선택한 날짜 , 가격 
+		
+		$("#borrow-modal").click(function () {
+			//선택한 날짜 , 가격 , member nickname
 			selectDay = $("#borrow option:selected").val();
 			price = $("#price").html();
 			$("#borrowDays").val(selectDay);
@@ -202,9 +205,39 @@
 				$("#myModal").modal();
 			} else {
 				$("#coModal").modal();
+				
 			}
-		});
-
+		});	//end
+		
+		/////////////////////////////////////////////////////charge
+		 var chargePoint = function () {
+				//여기서 충전버튼 unable 시켜줘야한다
+				$("#chargePoint").unbind("click");
+				
+				$.ajax({
+					type : 'GET',
+					url : '/cobook/member/chargePoint',
+					dataType : 'json' ,
+					//async: false,
+					success : function(result, status) {
+						console.log(result);
+						//var obj = eval("("+result+")");
+						console.log(result);
+						console.log(result.myPoint);
+						
+						console.log(status);
+						alert("충전하였습니다.");
+						$("#mypoint").html(result.myPoint);
+						myPoint=result.myPoint;
+						$("#chargePoint").bind("click",chargePoint);
+						
+					}
+				});
+				//여기서 다시 able상태로 확인
+			}
+		 
+		$("#chargePoint").bind("click",chargePoint);
+		
 		//대여하기 
 		$("#borrowEbook").click(function() {
 			if (member_no == null) {
@@ -215,6 +248,10 @@
 					"member_no" : member_no,
 					"ebook_no" : ebook_no,
 					"period" : selectDay}));
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 08dac048e511b707a61f661c7965d497f06c4419
 				$.ajax({
 					type : 'POST',
 					url : '/cobook/ebook/borrowEbook',
@@ -267,7 +304,6 @@
 							alert("위시리스트에 추가 되었습니다");
 						}else {
 							alert("이미 등록된 책입니다");
-							console.log("이미등록한 책!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 						}
 					}
 				});
@@ -284,7 +320,7 @@
 	rel="stylesheet" type="text/css" media="all">
 <script src="/cobook/resources/CoBookDesign/js/owl.carousel.js"></script>
 <script>
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 		$("#owl-demo").owlCarousel({
 
 			autoPlay : 3000, //Set AutoPlay to 3 seconds
@@ -295,7 +331,7 @@
 
 		});
 
-	});
+	}); */
 </script>
 
 </head>
@@ -404,34 +440,32 @@
 										</div>
 										<div class="clear"></div>
 									</div>
-									<!-- modal -->
+				<!-- modal -->
 									<div class="modal fade" id="coModal" role="dialog">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header-single">
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h3 class="modal-title">dal2sis님의 대여 내역입니다</h3>
+													<h3 class="modal-title member-nickname" id="member-nickname">님의 대여 내역입니다</h3>
 												</div>
 												<div class="modal-body">
 													<table class="modal-table">
 														<tr>
-															<th><img
-																src="/cobook/resources/CoBookDesign/images/ove.jpg"
-																alt="" /></th>
+															<th><img src="${evo.coverURL}" style="max-width: 182px; max-height: 268px;"/></th>
 															<th>
-																<h2>오베라는 남자</h2>
-																<p>프레드릭 배크만</p> <a>대여기간</a> <input type="text"
+																<h2>${evo.title}</h2>
+																<p>${evo.author}</p> <a>대여기간</a> <input type="text"
 																id="borrowDays" readonly="readonly">일
 																<ul class="order">
-																	<li>총주문금액 &nbsp; 4900원</li>
+																	<li>총주문금액 &nbsp; <fmt:formatNumber value="${evo.price}" pattern="##,###" /><a class="starAvg">원</a></li>
 																	<li>무료이용권&nbsp; 0개</li>
 																	<li>할인쿠폰&nbsp; 0개</li>
 																	<li>포인트 상품권&nbsp; 0개</li>
 																	<li>코북포인트 &nbsp; 0원</li>
 																	<li>코북캐시 &nbsp; 0원</li>
-																	<li><a>총결제금액</a>&nbsp; 4900원</li>
+																	<li><a>총결제금액</a>&nbsp; <fmt:formatNumber value="${evo.price}" pattern="##,###" /><a class="starAvg">원</a></li>
 																</ul> <br>
-																<p>dal2sis님의 현재 포인트는 3000원 입니다</p>
+																<p class="member-nickname">님의 현재 포인트는 <a id="mypoint"></a>원 입니다</p>
 															</th>
 														</tr>
 													</table>
@@ -440,9 +474,8 @@
 													<!-- <button type="button" class="btn btn-default"
 														data-dismiss="modal">Close</button> -->
 													<ul class="modal-button">
-														<li><button class="modal-charge">충전하기</button> <input
-															type="submit" id="borrowEbook" value="대여하기"
-															class="borrow-button">
+														<li><button class="modal-charge" id="chargePoint" >충전하기</button> 
+														<input type="submit" id="borrowEbook" value="대여하기" class="borrow-button">
 													</ul>
 												</div>
 											</div>
