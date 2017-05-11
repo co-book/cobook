@@ -29,7 +29,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE email = #{email}
 	</select>
 
-
+	<select id="getMyPoint" parameterType="MemberVO" resultType="MemberVO">
+		SELECT * from member
+		where member_no = #{member_no}
+	</select>
 	
+	<update id="chargePoint">
+		update MEMBER 
+		set mypoint= mypoint+10000
+		where
+		member_no = #{member_no}
+	</update>
 
 </mapper>

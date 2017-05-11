@@ -41,4 +41,18 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getMember(vo);
 	}
 
+/*	@Override
+	public MemberVO getMyPoint(MemberVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		 
+		return memberDAO.getMyPoint(vo);
+	}
+*/
+	@Override
+	public MemberVO chargePoint(MemberVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		memberDAO.chargePoint(vo);
+		return memberDAO.getMyPoint(vo);
+	}
+
 }

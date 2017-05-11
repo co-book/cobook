@@ -13,6 +13,7 @@ import org.ebook.cobook.util.JavaMail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -201,6 +202,32 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	/**
+	 * 포인트 정보 가져오기
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value="/chargePoint", method = RequestMethod.GET)
+	public ResponseEntity<MemberVO> chargePoint( HttpSession session)
+	{	
+		//MemberVO vo = null;
+		ResponseEntity<MemberVO> entity = null;
+		MemberVO vo= (MemberVO) session.getAttribute("member");
+		try {
+			vo = service.chargePoint(vo);
+			entity =  new ResponseEntity<>(vo, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			entity =  new ResponseEntity<>(vo, HttpStatus.BAD_REQUEST);
+		}
+		session.setAttribute("member", vo); 
+		/*
+		 * session에 있는 멤버정보를 초기화한다. 그래서 충전할때마다 멤버에 있는 마이포인트를 업뎃해주는것 흥
+		 */
+		
+		return entity;
+	}
 	
 	
 	

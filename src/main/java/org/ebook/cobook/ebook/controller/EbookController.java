@@ -181,9 +181,10 @@ public class EbookController {
 	public String getEbookSingle(@PathVariable int ebook_no,  Model model, HttpSession session) {
 		logger.info("single"+ebook_no);
 		EbookVO vo=null;
+		MemberVO mvo=null;
 		int member_no =0;
 		try {
-			MemberVO mvo= (MemberVO) session.getAttribute("member");
+			mvo= (MemberVO) session.getAttribute("member");
 			if(mvo!=null)
 			{
 				//로그인된 상태
@@ -195,6 +196,8 @@ public class EbookController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//model.addAttribute("mvo", mvo);
 		model.addAttribute("evo", vo);
 		return "ebook/single";
 	}

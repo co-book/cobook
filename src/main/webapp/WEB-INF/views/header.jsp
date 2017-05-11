@@ -4,14 +4,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String member_no=null;
+String nickname="비회원님";
+String myPoint="0";
 MemberVO vo = (MemberVO)session.getAttribute("member");
 if(vo!=null){
 	member_no=vo.getMember_no()+"";
+	nickname=vo.getNickname();
+	myPoint=vo.getMyPoint()+"";
 }
 %>
 <!-- FaceBook sdk -->
 <script>
 var member_no = <%=member_no%>;
+var nickname= "<%=nickname %>";
+var myPoint= <%=myPoint %>;
 window.fbAsyncInit = function() {
 	FB.init({
 		appId : '135805423595994',
