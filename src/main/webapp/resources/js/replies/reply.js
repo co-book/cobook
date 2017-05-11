@@ -11,6 +11,7 @@ function Reply(){
 	this.nickname = "";
 	this.likeCount = "";
 	this.commentCount = "";
+	this.moreCnt=1;
 }
 
 Reply.prototype.reply = function() {
@@ -63,12 +64,14 @@ Reply.prototype.addReply = function() {
 
 // 리플리스트 불러오기
 Reply.prototype.getReplyList = function() {
+	console.log(this.moreCnt);
 	$.ajax({
 		type : 'get',
 		url : '/cobook/replies/getReplyList',
 		data  :{
 			"board_no" : this.ebook_no,
-			"parent_type" : this.parent_type
+			"parent_type" : this.parent_type,
+			"moreCnt" : this.moreCnt
 		},
 		dataType : 'html',
 		success : function(result) {

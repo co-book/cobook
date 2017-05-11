@@ -74,7 +74,7 @@ ORDER BY parent_no desc, r.reply_no asc
 		#{parent_type}, #{board_no},
 		#{contents}, sysdate)
 	</insert>
-	<!-- 사용자 댓글 확인 -->
+	<!-- 사용자 댓글 확인 ebook만 사용 -->
 	<select id="addReplyCheck" resultType="ReplyVO">
 		select * from reply 
 		where member_no=#{member_no}
@@ -129,7 +129,7 @@ ORDER BY parent_no desc, r.reply_no asc
 
 	<!-- 댓글 리스트 -->
 	<select id="getReplyList" resultType="ReplyVO">
-	select * from (
+<!-- 	select * from (   query page처리방봅 -->
 		select
 			m.NICKNAME,
 			m.member_no,
@@ -155,8 +155,17 @@ ORDER BY parent_no desc, r.reply_no asc
 		
 		where r.PARENT_TYPE=#{parent_type} and r.parent_no=r.reply_no and Board_no =#{board_no}
 		ORDER BY r.reg_date desc
-	) where rownum <![CDATA[<]]> 4
+<!-- 	) where rownum <![CDATA[<]]> (3*#{getMoreCnt}) -->
 	</select>
+	
+		<!-- 전체 댓글 리스트  수-->
+	<select id="getReplyListCnt" resultType="int">
+		select
+			count(*)
+		from reply r
+		where r.PARENT_TYPE=#{parent_type} and r.parent_no=r.reply_no and Board_no =#{board_no}
+	</select>
+	
 
 	<!-- 코멘트 리스트 -->
 	<select id="getCommentList" resultType="ReplyVO">

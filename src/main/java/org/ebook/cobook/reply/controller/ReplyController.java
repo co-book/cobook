@@ -1,5 +1,6 @@
 package org.ebook.cobook.reply.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +88,10 @@ public class ReplyController {
 		logger.info("리플리스트 불러오기: " + vo.toString());
 		ModelAndView mav = new ModelAndView("replies/getReplyList");
 		try {
-			mav.addObject("replyList", replyService.getReplyList(vo));
+			List<ReplyVO> replyList =replyService.getReplyList(vo);
+			mav.addObject("replyList",replyList );
+			mav.addObject("replyListCnt",replyList.size());
+			mav.addObject("moreCnt",vo.getMoreCnt());
 		} catch (Exception e) {
 			
 			e.printStackTrace();

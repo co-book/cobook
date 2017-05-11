@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
+
+
 
 <c:forEach items="${replyList}" var="replyList" varStatus="status">
 	<div class="media_list">
@@ -61,3 +65,14 @@
 	</div>
 			
 </c:forEach>
+
+<c:if test="${replyListCnt== 0}" >
+<br/>
+첫번째 댓글을 달아주세요!!
+<br/>
+</c:if>
+<c:if test="${replyListCnt > (replyList.limit*replyList.moreCnt) }">
+							<div class="reply-more"  >
+								<button type="button" id="moreCnt" class="btn-more" style="display:hide;">+ 더 보기</button>
+							</div>
+</c:if>

@@ -109,14 +109,11 @@
 				var parent_no = $(this).data("parent_no");
 				if ($("#comment" + parent_no).css("display") == "none") {
 					//해당 리플의 코멘트 불러옴
-					console.log();
 					reply.getCommentList(parent_no);
 					$("#comment" + parent_no).toggle();	//코멘트 목록 Show
 
-					console.log("check3");
 				} else {
 
-					console.log("check4");
 					$("#comment" + parent_no).toggle(); //코멘트 목록 hide
 				}
 			});
@@ -132,6 +129,13 @@
 					reply.deleteReply(delete_reply_no);
 				}	
 			});
+			
+			
+			//더보기 
+			$('#moreCnt').click(function() {
+				reply.moreCnt=(reply.moreCnt+1);
+				reply.getReplyList();
+			}); 
 		}
 		commentEventInit = function() {
 			//삭제버튼 Visible
@@ -161,7 +165,6 @@
 				if (member_no == null) {
 					$("#myModal").modal();
 				} else if(writer != member_no){
-					console.log("??");
 					alert("작성자만 삭제가 가능합니다.");
 				} else {
 					reply.deleteComment(reply_no,parent_no);
@@ -179,6 +182,8 @@
 				reply.addReply();
 			}
 		}); //리플달기
+		
+
 		
 		////////////////////////대여//////////////////
 		//대여하기 전
@@ -205,6 +210,11 @@
 			if (member_no == null) {
 				$("#myModal").modal();
 			} else {
+				console.log(JSON.stringify({
+					"price" : price,
+					"member_no" : member_no,
+					"ebook_no" : ebook_no,
+					"period" : selectDay}));
 				$.ajax({
 					type : 'POST',
 					url : '/cobook/ebook/borrowEbook',
@@ -212,9 +222,7 @@
 						"price" : price,
 						"member_no" : member_no,
 						"ebook_no" : ebook_no,
-						"period" : selectDay
-
-					}),
+						"period" : selectDay}),
 					dataType : 'json',
 					contentType : "application/json",
 					success : function(result) {
@@ -573,11 +581,10 @@
 											</div>
 										</div>
 									</div> -->
+
 							</div>
 							</div>
-							<div class="reply-more">
-								<button type="button" class="btn-more">+ 더 보기</button>
-							</div>
+
 							<!-- </div> -->
 						</div>
 						<!-- <div class="song-grid-right"></div>

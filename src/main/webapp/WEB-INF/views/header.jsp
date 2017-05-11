@@ -83,8 +83,8 @@ window.fbAsyncInit = function() {
 							</li>
 						</ul>
 					</li>
-					<li id="login_on"><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
-					<li id="login_off"><a href="/cobook/member/logout">Logout</a></li>
+					<li id="login_on"><a href="#" data-toggle="modal" data-target="#myModal" style="display:hide;" >Login</a></li>
+					<li id="login_off"><a href="/cobook/member/logout" style="display:hide;" >Logout</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>

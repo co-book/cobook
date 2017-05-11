@@ -3,9 +3,12 @@ package org.ebook.cobook.reply.domain;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.context.support.StaticApplicationContext;
 
 @Alias("ReplyVO")
 public class ReplyVO {
+	public static final int limit = 3 ;	//더보기 페이징 단위 
+	
  // 댓글번호, 회원번호, 부모번호, 게시물번호, 부모타입, 내용, 날짜
 	private Integer reply_no;	//댓글번호
 	private Integer member_no;	//작성자 번호
@@ -18,9 +21,19 @@ public class ReplyVO {
 	private String nickName; //닉네임
 	private int likeCount; //좋아요 갯수
 	private int commentCount; //코멘트 갯수
+	private int moreCnt; //더보기 카운트
 	
 	
 	
+	public int getMoreCnt() {
+		return moreCnt;
+	}
+	public void setMoreCnt(int moreCnt) {
+		this.moreCnt = moreCnt;
+	}
+	public static int getLimit() {
+		return limit;
+	}
 	public int getLikeCount() {
 		return likeCount;
 	}

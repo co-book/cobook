@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
@@ -35,7 +36,16 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public List<ReplyVO> getReplyList(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectList(namespace+".getReplyList", vo);
+		int offset = 0;
+		System.out.println("vo.limit"+vo.limit);
+		System.out.println("vo.getMoreCnt()"+vo.getMoreCnt());
+		int limit=(vo.limit*vo.getMoreCnt());
+		RowBounds rowBounds = new RowBounds(offset,limit );
+
+		System.out.println("offset"+offset);
+		System.out.println("limit"+limit);
+
+		return session.selectList(namespace+".getReplyList", vo ,rowBounds);
 	}
 	@Override
 	public List<ReplyVO> getCommentList(ReplyVO vo) throws Exception {
