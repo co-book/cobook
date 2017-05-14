@@ -51,7 +51,7 @@
 					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
 					댓글${replyList.commentCount}
 				</button>
-				<button type="button" class="btn btn-default btn-sm" id="thumbs" data-reply_no="${replyList.reply_no}">
+				<button type="button" class="btn btn-default btn-sm thumbs" id="thumbs" data-reply_no="${replyList.reply_no}">
 					<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
 					${replyList.likeCount}
 				</button>

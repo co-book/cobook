@@ -139,7 +139,7 @@
 			}); 
 
 			//add like - 좋아요
-			$("#thumbs").click(function () {
+			$(".thumbs").click(function () {
 				if (member_no == null) {
 					$("#myModal").modal();
 				} else {
