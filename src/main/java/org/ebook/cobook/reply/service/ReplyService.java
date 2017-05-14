@@ -22,5 +22,5 @@ public interface ReplyService {
 	
 	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception;
 	
-	public int getReplyCount(Map<String, Object> map)throws Exception;
+	public int getReplyCount(ReplyVO vo) throws Exception;
 }

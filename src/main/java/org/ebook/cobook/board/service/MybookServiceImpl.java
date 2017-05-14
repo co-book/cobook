@@ -121,7 +121,7 @@ public class MybookServiceImpl implements MybookService {
 			paramMap.put("board_no", vo.getBoard_no());
 			paramMap.put("parent_type", vo.getParent_type());
 			
-			return replyDAO.getReplyCount(paramMap);
+			return replyDAO.getReplyCount(vo);
 		}
 
 }

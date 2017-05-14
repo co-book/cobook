@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.PageMaker;
@@ -82,16 +83,29 @@ public class ReplyController {
 	 * @param vo
 	 * @return
 	 */
-	@RequestMapping(value="/getReplyList", method = RequestMethod.GET)
-	public ModelAndView getReplyList(ReplyVO vo)
+	@RequestMapping(value="/getReplyList", method = RequestMethod.GET )
+	public ModelAndView getReplyList(ReplyVO vo, HttpSession session)
 	{
+		
 		logger.info("리플리스트 불러오기: " + vo.toString());
 		ModelAndView mav = new ModelAndView("replies/getReplyList");
 		try {
 			List<ReplyVO> replyList =replyService.getReplyList(vo);
-			mav.addObject("replyList",replyList );
-			mav.addObject("replyListCnt",replyList.size());
-			mav.addObject("moreCnt",vo.getMoreCnt());
+			mav.addObject("replyList",replyList );	 //리플 리스트
+			mav.addObject("replyListCnt",replyService.getReplyCount(vo));	//리플 전체 리스트
+			mav.addObject("moreCnt",vo.getMoreCnt());	//더보기 변수
+			
+			
+			MemberVO mvo= (MemberVO) session.getAttribute("member");
+			int member_no = 0;
+			if(mvo!=null){
+				//로그인된 상태
+				member_no = mvo.getMember_no();
+			}
+			mav.addObject("member_no", member_no);
+			//서비스실행
+			
+			mav.addObject("",vo.getMoreCnt());	//더보기 변수
 		} catch (Exception e) {
 			
 			e.printStackTrace();

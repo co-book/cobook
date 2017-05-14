@@ -64,7 +64,11 @@ Reply.prototype.addReply = function() {
 
 // 리플리스트 불러오기
 Reply.prototype.getReplyList = function() {
+	console.log(this);
+	console.log(this.ebook_no);
+	console.log(this.parent_type);
 	console.log(this.moreCnt);
+	console.log("test@@@@@@@@@@@@@@@@");
 	$.ajax({
 		type : 'get',
 		url : '/cobook/replies/getReplyList',
@@ -73,6 +77,7 @@ Reply.prototype.getReplyList = function() {
 			"parent_type" : this.parent_type,
 			"moreCnt" : this.moreCnt
 		},
+		async: false,	//계속 실행되면 안댐
 		dataType : 'html',
 		success : function(result) {
 			//불러온 댓글 리스트 등록

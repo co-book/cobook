@@ -8,7 +8,6 @@
 <title>Co-Book World!</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 
@@ -77,6 +76,7 @@
 
 	var ebook_no = ${evo.ebook_no};
 	var parent_type="EBOOK";
+	var moreCnt=1;
 	var replyEventInit;
 	var commentEventInit; //코멘트 관련 이벤트 등록 
 	
@@ -87,8 +87,7 @@
 		reply.parent_type=parent_type;
 		$(".member-nickname").prepend(nickname);
 		$("#mypoint").prepend(myPoint);
-		//리플리스트 불러오기 
-		reply.getReplyList();
+
 		
 
 		if (member_no == null) {
@@ -136,6 +135,7 @@
 			//더보기 
 			$('#moreCnt').click(function() {
 				reply.moreCnt=(reply.moreCnt+1);
+				moreCnt=moreCnt+1;
 				reply.getReplyList();
 			}); 
 		}
@@ -185,7 +185,8 @@
 			}
 		}); //리플달기
 		
-
+		//리플리스트 불러오기 
+		reply.getReplyList();
 		
 		////////////////////////대여//////////////////
 		//대여하기 전
@@ -193,12 +194,14 @@
 		//대여하기 전 로그인 체크
 		var selectDay = $("#borrow option:selected").val();
 		var price = $("#price").html();
+		price =price.replace(",", "");
 		var up = $("#up").hide();
 		
 		$("#borrow-modal").click(function () {
 			//선택한 날짜 , 가격 , member nickname
 			selectDay = $("#borrow option:selected").val();
 			price = $("#price").html();
+			price = price.replace(",", "");
 			$("#borrowDays").val(selectDay);
 
 			if (member_no == null) {
@@ -237,33 +240,35 @@
 			}
 		 
 		$("#chargePoint").bind("click",chargePoint);
-		
+		10,000
 		//대여하기 
 		$("#borrowEbook").click(function() {
 			if (member_no == null) {
 				$("#myModal").modal();
-			} else {
+			} else {	
 				console.log(JSON.stringify({
 					"price" : price,
 					"member_no" : member_no,
 					"ebook_no" : ebook_no,
 					"period" : selectDay}));
-<<<<<<< HEAD
-=======
-			
->>>>>>> 08dac048e511b707a61f661c7965d497f06c4419
-				$.ajax({
+				 $.ajax({
 					type : 'POST',
 					url : '/cobook/ebook/borrowEbook',
-					data : JSON.stringify({
-						"price" : price,
+					headers: { 
+				        'Accept': 'application/json',
+				        'Content-Type': 'application/json' 
+				    },
+					data : JSON.stringify({"price" : price,
 						"member_no" : member_no,
-						"ebook_no" : ebook_no,
-						"period" : selectDay}),
+						"period" : selectDay,
+						"ebook_no" : ebook_no
+						}),
 					dataType : 'json',
 					contentType : "application/json",
-					success : function(result) {
-
+					//contentType : "application/json;charset=UTF-8",
+					success : function(result,status,xhr) {
+						console.log(result);
+						console.log(status);
 						//대여 성공시 새로고침
 						if (result.result == "SUCCESS") {
 							location.reload();
@@ -272,7 +277,30 @@
 							alert("다시 대여해주세요");
 						}
 					}
-				});
+				}); /*
+				$.ajax({
+					type : 'GET',
+					url : '/cobook/ebook/borrowEbook',
+					data : {"price" : price,
+						"member_no" : member_no,
+						"period" : selectDay,
+						"ebook_no" : ebook_no
+						},
+					dataType : 'json',
+					//contentType : "application/json",
+					//contentType : "application/json;charset=UTF-8",
+					success : function(result,status,xhr) {
+						console.log(result);
+						console.log(status);
+						//대여 성공시 새로고침
+						if (result.result == "SUCCESS") {
+							location.reload();
+						} else {
+							//실패시 alert
+							alert("다시 대여해주세요");
+						}
+					}
+				});*/
 			}
 		}); //borrow
 

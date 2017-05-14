@@ -22,7 +22,7 @@ public interface ReplyDAO {
 	public List<ReplyVO> getCommentList(ReplyVO vo)throws Exception;
 	
 	
-	public int getReplyCount(Map<String, Object> map)throws Exception;
+	public int getReplyCount(ReplyVO vo)throws Exception;
 	
 	
 	public void updateReply(ReplyVO vo)throws Exception;

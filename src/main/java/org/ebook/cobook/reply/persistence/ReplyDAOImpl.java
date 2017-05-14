@@ -82,9 +82,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	// 댓글 총 갯수
 	@Override
-	public int getReplyCount(Map<String, Object> map) throws Exception {
+	public int getReplyCount(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectOne(namespace+".getReplyCount", map);
+		return session.selectOne(namespace+".getReplyCount", vo);
 	}
 
 	@Override

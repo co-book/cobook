@@ -100,9 +100,9 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public int getReplyCount(Map<String, Object> map) throws Exception {
+	public int getReplyCount(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return replyDao.getReplyCount(map);
+		return replyDao.getReplyCount(vo);
 	}
 	
 	

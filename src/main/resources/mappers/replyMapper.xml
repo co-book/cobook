@@ -6,9 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.ReplyMapper">
 
 	<!-- 댓글 총갯수 -->
-	<select id="getReplyCount" resultType="int" parameterType="map">
+	<select id="getReplyCount" resultType="int" parameterType="ReplyVO">
 		SELECT COUNT(*) FROM reply
 		WHERE board_no = #{board_no}
+		AND PARENT_NO=REPLY_NO 
 		AND parent_type like #{parent_type}
 	</select>
 

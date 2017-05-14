@@ -71,7 +71,7 @@
 첫번째 댓글을 달아주세요!!
 <br/>
 </c:if>
-<c:if test="${replyListCnt > (replyList.limit*replyList.moreCnt) }">
+<c:if test="${replyListCnt > (3*moreCnt) }">
 							<div class="reply-more"  >
 								<button type="button" id="moreCnt" class="btn-more" style="display:hide;">+ 더 보기</button>
 							</div>

@@ -103,7 +103,7 @@ public class ReplyVO {
 	@Override
 	public String toString() {
 		return "ReplyVO [reply_no=" + reply_no + ", member_no=" + member_no + ", parent_no=" + parent_no + ", board_no="
-				+ board_no + ", parent_type=" + parent_type + ", contents=" + contents + ", reg_date=" + reg_date + "]";
+				+ board_no + ", parent_type=" + parent_type + ", contents=" + contents + ", reg_date=" + reg_date + " moreCnt = "+moreCnt+  "]";
 	}
 	
 	

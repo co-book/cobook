@@ -35,12 +35,7 @@ window.fbAsyncInit = function() {
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 </script>
-<!-- Google sdk -->
-<script async defer src="https://apis.google.com/js/api.js"
-	onload="this.onload=function(){};handleClientLoad()"
-	onreadystatechange="if (this.readyState === 'complete') this.onload()">
-	
-</script>
+
 
 <!-- fireBase -->
 <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
@@ -52,6 +47,12 @@ window.fbAsyncInit = function() {
 <script type="text/javascript" src="/cobook/resources/js/member/google.js"></script>
 <script type="text/javascript" src="/cobook/resources/js/member/facebook.js"></script>
 <script type="text/javascript" src="/cobook/resources/js/member/firebase.js"></script>
+
+<!-- Google sdk -->
+<script async defer src="https://apis.google.com/js/api.js"
+	onload="this.onload=function(){};handleClientLoad()"
+	onreadystatechange="if (this.readyState === 'complete') this.onload()">
+</script>
 
 <!-- header -->
 <div class="header">

@@ -272,7 +272,7 @@ public class EbookController {
 	}
 	
 	//borrow 날짜를 가져가야 하는건가
-	 
+
 	@RequestMapping(value="/borrowEbook", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> borrowEbook(@RequestBody BorrowVO borrow)
 	{
