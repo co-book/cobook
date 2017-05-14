@@ -8,6 +8,8 @@
 <title>Co-Book World!</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 
@@ -89,22 +91,23 @@
 		$("#mypoint").prepend(myPoint);
 
 		
-
-		if (member_no == null) {
-			$("#reply-delete").hide();
-		} else {
-			$("#reply-delete").show();
-		}
+		//이책을대여한사람들의 책리스트 가져오기
+		$.ajax({
+			type : "POST",
+			url : '/cobook/ebook/getOtherList',
+			data : JSON.stringify({		
+	  		"ebook_no":ebook_no
+			}),
+			contentType : "application/json;charset=UTF-8",
+			dataType : 'html',
+			success : function(data) {
+				$('#getOtherList').append(data);
+			}
+		});
+		
 		
 		replyEventInit = function() {
 			//로그인 && 현재 로그인 사용자 != 작성자
-			//삭제버튼 추가 / 제거
-			//if (member_no == null || $(".reply-remove").data("member_no")!= member_no) {
-			if (member_no == null) {
-				$(".reply-remove").hide();
-			} else {
-				$(".reply-remove").show();
-			}
 			// 코멘트 리스트 가져와서,  숨기기/보이기 
 			$(".commentBtn").click(function() {
 				var parent_no = $(this).data("parent_no");
@@ -143,9 +146,16 @@
 				if (member_no == null) {
 					$("#myModal").modal();
 				} else {
-					$(this).data("reply_no");
-					console.log($(this).data("reply_no"));
 					reply.addLike($(this).data("reply_no"));
+				}
+			});	//addlick
+			
+			//add like - 좋아요
+			$(".thumbs_can").click(function () {
+				if (member_no == null) {
+					$("#myModal").modal();
+				} else {
+					reply.deleteLike($(this).data("reply_no"));
 				}
 			});	//addlick
 			
@@ -645,120 +655,8 @@
 							<div class="clearfix"></div>-->
 					</div>
 					<div class="col-md-4 single-right">
-						<h3>Up Next</h3>
-						<div class="single-grid-right">
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/harry.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										<a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/hist.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										<a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/kaf.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										<a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/flu.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										<a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/GRIT.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										<a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/nemesis.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										<a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/retail.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										By <a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="single-right-grids">
-								<div class="col-md-4 single-right-grid-left">
-									<a href="single.html"><img
-										src="/cobook/resources/CoBookDesign/images/m15.jpg" alt="" /></a>
-								</div>
-								<div class="col-md-8 single-right-grid-right">
-									<a href="single.html" class="title"> Nullam interdum metus</a>
-									<p class="author">
-										By <a href="#" class="author">John Maniya</a>
-									</p>
-									<p class="views">2,114,200 views</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
+						<h3>이 책을 구매한 사람들의 선택</h3>
+						<div class="single-grid-right" id="getOtherList">
 
 						</div>
 					</div>

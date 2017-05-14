@@ -32,6 +32,12 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
+	public List<EbookVO> getOtherList(EbookVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return ebookDAO.getOtherList(vo);
+	}
+	
+	@Override
 	public List<BookmarkVO> getBookmarkList(BorrowVO borrow) throws Exception {
 		// TODO Auto-generated method stub
 		return ebookDAO.getBookmarkList(borrow);

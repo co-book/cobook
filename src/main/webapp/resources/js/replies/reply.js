@@ -64,11 +64,6 @@ Reply.prototype.addReply = function() {
 
 // 리플리스트 불러오기
 Reply.prototype.getReplyList = function() {
-	console.log(this);
-	console.log(this.ebook_no);
-	console.log(this.parent_type);
-	console.log(this.moreCnt);
-	console.log("test@@@@@@@@@@@@@@@@");
 	$.ajax({
 		type : 'get',
 		url : '/cobook/replies/getReplyList',
@@ -186,10 +181,10 @@ Reply.prototype.deleteComment = function(delete_reply_no,parent_no) {
 	});
 }
 
-// 좋아요 누르기 좋아요 클릭시 좋아요 갯수 증가, 한번 누르면 좋아요 증가 다시한번 누르면 좋아요 삭제
+// 좋아요 누르기 좋아요 클릭시 좋아요 갯수 증가
 Reply.prototype.addLike = function(reply_no)
 {
-	console.log("tjfakskssssssssssssssssssssssssssss");
+	var getReplyList = this.getReplyList;
 	$.ajax({
 		type:'POST',
 		url : '/cobook/likeIt/addLike',
@@ -197,18 +192,47 @@ Reply.prototype.addLike = function(reply_no)
 			"member_no" : this.member_no,
 			"reply_no" : reply_no
 		}),
+		async: false,
 		dataType : 'text',
 		contentType : "application/json",
 		success : function(status) {
 			console.log(status);
-			if(status == "success"){
+			if(status == "SUCCESS"){
 				console.log("좋아요좋아요");
+				getReplyList();
+				alert("좋아요하였습니다.");
 			}else{
-				
+				alert("좋아요를 실패하였습니다.");
 			}
 		}
 	});
 
 }
+// 다시한번 누르면 좋아요 삭제
+Reply.prototype.deleteLike = function(reply_no)
+{
+	var getReplyList = this.getReplyList;
+	$.ajax({
+		type:'POST',
+		url : '/cobook/likeIt/deleteLike',
+		data : JSON.stringify({
+			"member_no" : this.member_no,
+			"reply_no" : reply_no
+		}),
+		async: false,
+		dataType : 'text',
+		contentType : "application/json",
+		success : function(status) {
+			console.log(status);
+			if(status == "SUCCESS"){
+				console.log("좋아요취소");
+				getReplyList();
+				alert("좋아요 취소");
+			}else{
+				alert("좋아요를 실패하였습니다.");
+			}
+		}
+	});
 
+}
 

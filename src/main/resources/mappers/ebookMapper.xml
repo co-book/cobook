@@ -115,5 +115,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	and ebook_no=#{ebook_no}
 	 </select>
 	 
+	 <select id="getOtherList" parameterType="EbookVO" resultType="EbookVO">
+	 <![CDATA[
+	  select 
+	    e.ebook_no,
+		e.title,
+		e.author,
+		e.coverURL,
+		nvl(starp.staravg, 0) staravg
+		from ebook e
+		left outer join (select ebook_no , avg(starrating) staravg ,count(starrating) starcount from star
+		group by ebook_no) starp on (starp.ebook_no = e.ebook_no)
+		where e.EBOOK_NO in
+		( 
+      		select ebook_no from 
+      		(
+      			 select ebook_no,count(*) as count from borrow 
+        		 where MEMBER_NO in (select DISTINCT member_no from borrow where ebook_NO=#{ebook_no}) 
+        	     GROUP BY ebook_no ORDER BY count desc
+      		)  
+      		where rownum<11
+     	)
+	 ]]>
+	 </select>
+	 
 	
 </mapper>

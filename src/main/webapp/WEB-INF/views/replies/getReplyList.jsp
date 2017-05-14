@@ -5,8 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 
-
-
 <c:forEach items="${replyList}" var="replyList" varStatus="status">
 	<div class="media_list">
 		<div class="media-left">
@@ -61,8 +59,8 @@
 						</button>
 					</c:when>
 					<c:otherwise><!-- 좋아요한것 -->
-						<button type="button" class="btn btn-default btn-sm thumbs" id="thumbs" data-reply_no="${replyList.reply_no}">
-							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">XX</span>
+						<button type="button" class="btn btn-default btn-sm thumbs_can" id="thumbs_can" data-reply_no="${replyList.reply_no}">
+							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">취소</span>
 							${replyList.likeCount}
 						</button>
 					</c:otherwise>

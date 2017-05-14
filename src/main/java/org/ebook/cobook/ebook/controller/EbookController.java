@@ -329,4 +329,16 @@ public class EbookController {
 		return entity;
 	}
 	
+	//ebook - Single 페이지의 이책을 대여한사람들의 선택 
+	@RequestMapping(value= "/getOtherList", method = RequestMethod.POST)
+	public ModelAndView getOtherList(@RequestBody EbookVO vo) throws Exception{
+		logger.info("getOtherList 호출  - getOtherList : "+vo.getEbook_no());
+		ModelAndView mav = new ModelAndView("/ebook/getOtherList");	
+		
+		List<EbookVO> otherList =ebookService.getOtherList(vo);
+		mav.addObject("otherList", otherList );
+		
+		return mav;
+	}
+	
 }

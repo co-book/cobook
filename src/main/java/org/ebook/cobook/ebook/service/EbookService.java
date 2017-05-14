@@ -15,6 +15,9 @@ public interface EbookService {
 	
 	public EbookVO eBookDetail(int ebookn_no ,int member_no) throws Exception;
 	
+	//single-이책을 대여한 사람들의 선택
+	public List<EbookVO> getOtherList(EbookVO vo)throws Exception;
+	
 	//bookmark
 	public List<BookmarkVO> getBookmarkList(BorrowVO borrow)throws Exception;
 	public void writeBookMark(BookmarkVO bookmark) throws Exception;

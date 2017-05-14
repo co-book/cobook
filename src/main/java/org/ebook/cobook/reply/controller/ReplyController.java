@@ -105,7 +105,6 @@ public class ReplyController {
 			mav.addObject("member_no", member_no);
 			//서비스실행
 			
-			mav.addObject("",vo.getMoreCnt());	//더보기 변수
 		} catch (Exception e) {
 			
 			e.printStackTrace();

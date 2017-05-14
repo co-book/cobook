@@ -13,6 +13,8 @@ public interface EbookDAO {
 	//ebook single
 	public EbookVO eBookDetail(int ebook_no) throws Exception;
 	public float getMemberBorrow(BorrowVO bvo) throws Exception;
+	// single - 이책대여한사람들의 선택
+	public List<EbookVO> getOtherList(EbookVO vo) throws Exception;
  	
 	//bookMark
 	public List<BookmarkVO> getBookmarkList(BorrowVO vo) throws Exception;
