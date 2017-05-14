@@ -40,8 +40,8 @@ public class LikeController {
 	{
 		
 		ResponseEntity<String> entity = null;
-		vo.setMember_no(1);
-		System.out.println(vo.toString());
+		//vo.setMember_no(1);
+		//System.out.println(vo.toString());
 
 		try{
 			
