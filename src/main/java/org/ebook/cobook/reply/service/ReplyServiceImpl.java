@@ -80,7 +80,10 @@ public class ReplyServiceImpl implements ReplyService {
 		replyDao.deleteReply(vo);
 	}
 
-	
+	/*
+	 * like it
+	 * @see org.ebook.cobook.reply.service.ReplyService#addLikeIt(org.ebook.cobook.likeIt.domain.Like_itVO)
+	 */
 	@Override
 	public void addLikeIt(Like_itVO vo) throws Exception {
 		// TODO Auto-generated method stub

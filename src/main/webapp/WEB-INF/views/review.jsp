@@ -15,8 +15,7 @@
 		function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
 <!-- //for-mobile-apps -->
-<link href="/cobook/resources/CoBookDesign/css/bootstrap.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/faqstyle.css"
@@ -26,12 +25,10 @@
 <link href="/cobook/resources/CoBookDesign/css/contactstyle.css"
 	rel="stylesheet" type="text/css" media="all" />
 <!-- news-css -->
-<link href="/cobook/resources/CoBookDesign/news-css/news.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/news-css/news.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
-<link href="/cobook/resources/CoBookDesign/list-css/list.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //list-css -->
 <!-- font-awesome icons -->
 <link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css"

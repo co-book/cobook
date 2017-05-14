@@ -16,10 +16,10 @@ public interface ReplyService {
 	
 	public void modifyReply(ReplyVO vo) throws Exception;
 	public void deleteReply(ReplyVO vo) throws Exception;
-
+	
+	//like
 	public void addLikeIt(Like_itVO vo) throws Exception;
 	public void deleteLikeIt(Like_itVO vo)throws Exception;
-	
 	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception;
 	
 	public int getReplyCount(Map<String, Object> map)throws Exception;

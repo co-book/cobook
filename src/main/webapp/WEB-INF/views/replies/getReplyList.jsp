@@ -45,9 +45,9 @@
 			<div class="single-button" name="comment-btn" >
 				<button type="button" class="btn btn-default btn-sm commentBtn" id="comment" data-parent_no="${replyList.reply_no}">
 					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-					댓글(${replyList.commentCount})
+					댓글${replyList.commentCount}
 				</button>
-				<button type="button" class="btn btn-default btn-sm" id="thumbs">
+				<button type="button" class="btn btn-default btn-sm" id="thumbs" data-reply_no="${replyList.reply_no}">
 					<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
 					${replyList.likeCount}
 				</button>

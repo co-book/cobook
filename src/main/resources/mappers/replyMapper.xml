@@ -187,13 +187,13 @@ ORDER BY parent_no desc, r.reply_no asc
 	</delete>
 
 	<!-- 특정 게시판의 특정게시물에 좋아요를 누른 댓글 리스트-->
-<select id="getLikeList" resultType="map" parameterType="map">
-SELECT l.reply_no FROM like_it l, reply r
-WHERE l.member_no = #{member_no}
-AND l.reply_no = r.reply_no
-AND r.BOARD_NO = #{board_no}
-AND r.PARENT_TYPE like #{parent_type}
-</select>
+	<select id="getLikeList" resultType="map" parameterType="map">
+	SELECT l.reply_no FROM like_it l, reply r
+	WHERE l.member_no = #{member_no}
+	AND l.reply_no = r.reply_no
+	AND r.BOARD_NO = #{board_no}
+	AND r.PARENT_TYPE like #{parent_type}
+	</select>
 
 <!--  -->	
 	

@@ -17,6 +17,7 @@ public class EbookDAOImpl implements EbookDAO {
 	private SqlSession sqlSession;
 	
 	private final String ebookNamespace = "org.ebook.cobook.mapper.ebookMapper";
+	private final String mainNamespace = "org.ebook.cobook.mapper.mainMapper";
 	
 
 	@Override
@@ -94,6 +95,14 @@ public class EbookDAOImpl implements EbookDAO {
 	public WishListVO wishListCheck(WishListVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(ebookNamespace+".wishListCheck", vo);
+	}
+
+
+	@Override
+	public List<EbookVO> getMonthlyList() throws Exception {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList(mainNamespace+".getMonthlyList");
 	}
 
 	

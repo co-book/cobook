@@ -104,6 +104,13 @@ public class EbookServiceImpl implements EbookService {
 			}
 		return result;
 	}
+	
+	//main list monthly
+	@Override
+	public List<EbookVO> getMonthlyList() throws Exception {
+		// TODO Auto-generated method stub
+		return ebookDAO.getMonthlyList();
+	}
 
 
 }

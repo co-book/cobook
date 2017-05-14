@@ -56,8 +56,21 @@ public class ReplyDAOImpl implements ReplyDAO {
 		session.delete(namespace+".deleteReply", vo);
 	}
 
+	// 댓글 총 갯수
+	@Override
+	public int getReplyCount(Map<String, Object> map) throws Exception {
+	// TODO Auto-generated method stub
+	return session.selectOne(namespace+".getReplyCount", map);
+	}
 	
-
+	//해당 사용자의 리플이 등록되어 있는지 확인
+	@Override
+	public ReplyVO addReplyCheck(ReplyVO vo) throws Exception {
+	// TODO Auto-generated method stub
+	return session.selectOne(namespace+".addReplyCheck", vo);
+		}	
+	
+	//like
 	@Override
 	public void addLikeIt(Like_itVO vo) throws Exception {
 		// TODO Auto-generated method stub
@@ -70,25 +83,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 		session.delete(namespace+".deleteLikeIt", vo);
 	}
 
-	// 댓글 총 갯수
-	@Override
-	public int getReplyCount(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectOne(namespace+".getReplyCount", map);
-	}
-
 	@Override
 	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".getLikeList", paramMap);
 	}
 	
-	//해당 사용자의 리플이 등록되어 있는지 확인
-	@Override
-	public ReplyVO addReplyCheck(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectOne(namespace+".addReplyCheck", vo);
-	}
+	
 	//별점 등록
 	@Override
 	public void addStarRating(ReplyVO vo) throws Exception {

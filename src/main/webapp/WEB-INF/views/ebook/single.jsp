@@ -22,7 +22,7 @@
 	rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single.css?ver=6"
 	rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=14"
+<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=8"
 	rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet"
 	href="/cobook/resources/CoBookDesign/css/contactstyle.css"
@@ -134,6 +134,18 @@
 					reply.deleteReply(delete_reply_no);
 				}	
 			});
+			
+			//add like - 좋아요
+			$("#thumbs").click(function () {
+				if (member_no == null) {
+					$("#myModal").modal();
+				} else {
+					$(this).data("reply_no");
+					console.log($(this).data("reply_no"));
+					reply.addLike($(this).data("reply_no"));
+				}
+			});	//addlick
+			
 		}
 		commentEventInit = function() {
 			//삭제버튼 Visible
@@ -206,7 +218,6 @@
 		
 		/////////////////////////////////////////////////////charge
 		 var chargePoint = function () {
-				//여기서 충전버튼 unable 시켜줘야한다
 				$("#chargePoint").unbind("click");
 				
 				$.ajax({
@@ -219,8 +230,8 @@
 						//var obj = eval("("+result+")");
 						console.log(result);
 						console.log(result.myPoint);
-						
 						console.log(status);
+						
 						alert("충전하였습니다.");
 						$("#mypoint").html(result.myPoint);
 						myPoint=result.myPoint;
@@ -228,7 +239,6 @@
 						
 					}
 				});
-				//여기서 다시 able상태로 확인
 			}
 		 
 		$("#chargePoint").bind("click",chargePoint);
@@ -255,7 +265,6 @@
 					dataType : 'json',
 					contentType : "application/json",
 					success : function(result) {
-
 						//대여 성공시 새로고침
 						if (result.result == "SUCCESS") {
 							location.reload();
@@ -301,7 +310,6 @@
 				});
 			}
 		});	//addWishList
-		
 		
 		
 	});
@@ -417,12 +425,24 @@
 										<div class="share">
 											<p>대여기간 :</p>
 											<!-- <input class="text_box" type="text"> -->
-											<select id="borrow">
+											 <select id="borrow">
 												<option value="14">14일</option>
 												<option value="30" selected="selected">30일</option>
 												<option value="60">60일</option>
 												<option value="365">1년</option>
 											</select>
+											<!-- <div class="dropdown">
+											  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+											    대여기간
+											    <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+											    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">14일</a></li>
+											    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">30일</a></li>
+											    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">60일</a></li>
+											    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1년</a></li>
+											  </ul>
+											</div> -->
 										</div>
 										<div class="button" id="borrow-modal">
 											<!--  data-toggle="modal" data-target="#coModal" -->
@@ -446,8 +466,7 @@
 															<th><img src="${evo.coverURL}" style="max-width: 182px; max-height: 268px;"/></th>
 															<th>
 																<h2>${evo.title}</h2>
-																<p>${evo.author}</p> <a>대여기간</a> <input type="text"
-																id="borrowDays" readonly="readonly">일
+																<p>${evo.author}</p> <a>대여기간</a> <input type="text" id="borrowDays" readonly="readonly">일
 																<ul class="order">
 																	<li>총주문금액 &nbsp; <fmt:formatNumber value="${evo.price}" pattern="##,###" /><a class="starAvg">원</a></li>
 																	<li>무료이용권&nbsp; 0개</li>
@@ -477,8 +496,8 @@
 			<!-- modal end -->						
 											<div class="wish-list">
 												<ul>
-													<li class="wish"><a href="#" id="addWishList" class="wish">Add to wishlist</a></li>
-													<li class="compare"><a href="#">Add to Compare</a></li>
+													<li class="wish"><a href="#" id="addWishList" class="wish">Add to Wishlist</a></li>
+													<!-- <li class="compare"><a href="#">Add to Compare</a></li> -->
 												</ul>
 											</div>
 										</div>
@@ -506,9 +525,9 @@
 							</div>
 							<br></br> <br></br>
 							<h3>리뷰</h3>
-							<!-- reply list start -->
+<!-- reply list start -->
 							<div id="wrap-media-list">
-							<div id ="reply_list" >
+								<div id ="reply_list" >
 								<!-- <div class="media_list">		
 										<div class="media-left">
 											<div class="detail-stars">
