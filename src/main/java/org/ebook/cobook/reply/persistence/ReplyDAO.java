@@ -28,6 +28,7 @@ public interface ReplyDAO {
 	public void updateReply(ReplyVO vo)throws Exception;
 	public void deleteReply(ReplyVO vo)throws Exception;
 	
+	//like
 	public void addLikeIt(Like_itVO vo)throws Exception;
 	public void deleteLikeIt(Like_itVO vo)throws Exception;
 	

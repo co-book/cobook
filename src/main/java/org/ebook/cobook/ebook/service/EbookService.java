@@ -29,5 +29,7 @@ public interface EbookService {
 	
 	//add wishList
 	public String addWishList(WishListVO evo) throws Exception;
-
+	
+	//main Monthly list
+	public List<EbookVO> getMonthlyList() throws Exception;
 }

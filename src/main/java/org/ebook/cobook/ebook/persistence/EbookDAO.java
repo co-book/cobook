@@ -20,7 +20,6 @@ public interface EbookDAO {
 	public void deleteBookmark(BookmarkVO vo) throws Exception;
 	public void setLastPage(BorrowVO vo) throws Exception;
 	
-	
 	//borrow
 	public void borrowEbook(BorrowVO vo) throws Exception;
 	
@@ -28,6 +27,9 @@ public interface EbookDAO {
 	public void addWishList(WishListVO vo) throws Exception;
 	public WishListVO wishListCheck(WishListVO vo) throws Exception;
 	
+	//main list - monthlyList
+	public List<EbookVO> getMonthlyList() throws Exception;
 	
+
 	
 }

@@ -254,6 +254,10 @@ img{
     font-family: 'ambleregular';
     padding-left: 5px;
 }
+.glyphicon glyphicon-heart wish {
+	color: #FC7D01;
+	padding : 90px;
+}
 /*end reset*/
 @font-face {
     font-family: 'ambleregular';
@@ -881,7 +885,7 @@ body {
 	color: #FC7D01;
 	font-size:1em;
 	font-family: 'ambleregular';
-	padding-left:10px;
+	padding-left:93px;
 	/* text-decoration: underline; */
 }
 .wish-list li a:hover {

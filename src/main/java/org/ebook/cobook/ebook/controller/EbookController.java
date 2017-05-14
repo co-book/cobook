@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.media.sound.ModelAbstractChannelMixer;
 
 import sun.print.resources.serviceui;
@@ -219,8 +220,15 @@ public class EbookController {
 	//월간 베스트 도서 - 한달동안 대여가 많이된책 Top 10
 
 	@RequestMapping(value = "/cobookList", method = RequestMethod.GET)
-	public String cobookList(Locale locale, Model model) {
+	public String getMonthlyList(Locale locale, Model model) {
 		logger.info("index/cobookList");
+		
+		try {
+			model.addAttribute("monthlyList", ebookService.getMonthlyList());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "index/cobookList";
 
 	}
@@ -272,7 +280,6 @@ public class EbookController {
 	}
 	
 	//borrow 날짜를 가져가야 하는건가
-
 	@RequestMapping(value="/borrowEbook", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> borrowEbook(@RequestBody BorrowVO borrow)
 	{
@@ -303,9 +310,9 @@ public class EbookController {
 		}
 		
 		System.out.println(result+ " : "+msg);
-		
 		return entity;
 	}
+	
 	@RequestMapping(value="/addWishList", method = RequestMethod.GET)
 	public ResponseEntity<String> addWishList(WishListVO wvo)
 	{

@@ -224,47 +224,11 @@ public class ReplyController {
 	
 	
 	
-	//좋아요 추가
-	/*@RequestMapping(value="/addLike", method = RequestMethod.POST)
-	public ResponseEntity<String> addLike(@RequestBody Like_itVO vo){
-		
-		ResponseEntity<String> entity = null;
-		vo.setMember_no(1);
-		System.out.println(vo.toString());
-		try{
-			replyService.addLikeIt(vo);
-			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-		}catch(Exception e){
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
-	
-	//좋아요 삭제
-	@RequestMapping(value="/deleteLike", method = RequestMethod.POST)
-	public ResponseEntity<String> deleteLike(@RequestBody Like_itVO vo){
-		
-		ResponseEntity<String> entity = null;
-		vo.setMember_no(1);
-		System.out.println(vo.toString());
 
-		try{
-			
-			replyService.deleteLikeIt(vo);
-			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-		}catch(Exception e){
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
 	
 	
 	// 좋아요리스트에 해당 사용자가 등록햇으면 true값을 넣어준다
-	public List<Map<String, Object>> test(Map<String, List<Map<String, Object>>> listMap){
+	/*public List<Map<String, Object>> test(Map<String, List<Map<String, Object>>> listMap){
 		
 		List<Map<String, Object>> replyList = listMap.get("replyList");
 		List<Map<String, Object>> likeList = listMap.get("userLikeList");
