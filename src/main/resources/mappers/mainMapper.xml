@@ -5,17 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.mainMapper">
 <!-- 월간 제일 많이 대여된 책 리스트 10개 -->
-	<select id="getMonthlyList">
+	<select id="getMonthlyList" resultType="EbookVO">
 		<![CDATA[
-		select 
+		select
+		e.coverURL,
 		e.title,
 		e.author,
 		nvl(starp.staravg, 0) staravg
 		from ebook e
 		left outer join (select ebook_no , avg(starrating) staravg from star
 		group by ebook_no) starp on (starp.ebook_no = e.ebook_no)
-		where e.EBOOK_NO in(  select ebook_no from (
-		select ebook_no , count(*) as borrowCount from borrow where BORROWDATE > TRUNC(ADD_MONTHS(sysdate, -1),'MM')  and BORROWDATE < LAST_DAY(ADD_MONTHS(sysdate, -1))   group by ebook_no
+		where e.EBOOK_NO in(  select ebook_no from
+		(select ebook_no , count(*) as borrowCount from borrow where BORROWDATE > TRUNC(ADD_MONTHS(sysdate, -1),'MM')  and BORROWDATE < LAST_DAY(ADD_MONTHS(sysdate, -1)) 
+		group by ebook_no
 		) where rownum<11 )
 		]]>
 	</select>

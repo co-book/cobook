@@ -76,7 +76,7 @@
 
 	var ebook_no = ${evo.ebook_no};
 	var parent_type="EBOOK";
-	var moreCnt=1;
+	var moreCnt=1;	//더보기횟수 
 	var replyEventInit;
 	var commentEventInit; //코멘트 관련 이벤트 등록 
 	
