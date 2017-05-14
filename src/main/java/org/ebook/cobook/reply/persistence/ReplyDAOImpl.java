@@ -40,7 +40,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 		System.out.println("vo.limit"+vo.limit);
 		System.out.println("vo.getMoreCnt()"+vo.getMoreCnt());
 		int limit=(vo.limit*vo.getMoreCnt());
-		RowBounds rowBounds = new RowBounds(offset,limit );
+		RowBounds rowBounds = new RowBounds(offset,limit);
 
 		System.out.println("offset"+offset);
 		System.out.println("limit"+limit);
