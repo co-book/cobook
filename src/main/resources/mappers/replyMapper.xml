@@ -132,6 +132,7 @@ ORDER BY parent_no desc, r.reply_no asc
 	<select id="getReplyList" resultType="ReplyVO">
 <!-- 	select * from (   query page처리방봅 -->
 		select
+			NVL((select li.like_it_no from like_it li where reply_no=r.reply_no and  member_no=#{member_no}),0) as likeOk,
 			m.NICKNAME,
 			m.member_no,
 			NVL(s.STARRATING,0) as StarRating,

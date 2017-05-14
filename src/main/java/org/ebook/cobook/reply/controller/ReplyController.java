@@ -90,18 +90,18 @@ public class ReplyController {
 		logger.info("리플리스트 불러오기: " + vo.toString());
 		ModelAndView mav = new ModelAndView("replies/getReplyList");
 		try {
+			//좋아요 한지 안한지 체크하기 위해
+			MemberVO mvo= (MemberVO) session.getAttribute("member");
+			int member_no = 0;
+			if(mvo!=null){//로그인된 상태
+				member_no = mvo.getMember_no();
+			}
+			vo.setMember_no(member_no);
+			
 			List<ReplyVO> replyList =replyService.getReplyList(vo);
 			mav.addObject("replyList",replyList );	 //리플 리스트
 			mav.addObject("replyListCnt",replyService.getReplyCount(vo));	//리플 전체 리스트
-			mav.addObject("moreCnt",vo.getMoreCnt());	//더보기 변수
-			
-			
-			MemberVO mvo= (MemberVO) session.getAttribute("member");
-			int member_no = 0;
-			if(mvo!=null){
-				//로그인된 상태
-				member_no = mvo.getMember_no();
-			}
+			mav.addObject("moreCnt",vo.getMoreCnt());	//더보기 변수		
 			mav.addObject("member_no", member_no);
 			//서비스실행
 			

@@ -39,9 +39,11 @@
 		<div class="media-body-single">
 			<!-- reply delete -->
 			<div class="single-reply-remove">
-				<button type="button" id="reply-delete" class="reply-remove" data-reply_no="${replyList.reply_no}" data-member_no="${replyList.member_no}">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-				</button>
+			<c:if test="${replyList.member_no== member_no}" >
+					<button type="button" id="reply-delete" class="reply-remove" data-reply_no="${replyList.reply_no}" data-member_no="${replyList.member_no}">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+			</c:if>
 			</div>
 			<br>
 			<p>${replyList.contents}</p>
@@ -51,10 +53,21 @@
 					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
 					댓글${replyList.commentCount}
 				</button>
-				<button type="button" class="btn btn-default btn-sm thumbs" id="thumbs" data-reply_no="${replyList.reply_no}">
-					<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-					${replyList.likeCount}
-				</button>
+				<c:choose>
+					<c:when test="${replyList.likeOk==0}"><!-- 좋아요 안한것 -->
+						<button type="button" class="btn btn-default btn-sm thumbs" id="thumbs" data-reply_no="${replyList.reply_no}">
+							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+							${replyList.likeCount}
+						</button>
+					</c:when>
+					<c:otherwise><!-- 좋아요한것 -->
+						<button type="button" class="btn btn-default btn-sm thumbs" id="thumbs" data-reply_no="${replyList.reply_no}">
+							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">XX</span>
+							${replyList.likeCount}
+						</button>
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 			<!-- comment -->
 
