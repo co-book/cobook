@@ -36,12 +36,12 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public List<ReplyVO> getReplyList(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		int offset = 0;
+		int offset = 0;	//어디서부터 뽑아올 것인가
 		System.out.println("vo.limit"+vo.limit);
 		System.out.println("vo.getMoreCnt()"+vo.getMoreCnt());
 		
 		int limit=(vo.limit*vo.getMoreCnt());
-		RowBounds rowBounds = new RowBounds(offset,limit);
+		RowBounds rowBounds = new RowBounds(offset,limit);	//mybatis에서 몇번째부터 몇번째까지 뽑아오는지 row를 관리해주는? 뭐 일
 
 		System.out.println("offset"+offset);
 		System.out.println("limit"+limit);
