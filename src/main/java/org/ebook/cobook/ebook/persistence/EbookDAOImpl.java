@@ -110,5 +110,11 @@ public class EbookDAOImpl implements EbookDAO {
 		return sqlSession.selectList(mainNamespace+".getMonthlyList");
 	}
 
+	@Override
+	public List<EbookVO> getEbookAllList() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(mainNamespace+".getEbookAllList");
+	}
+
 	
 }

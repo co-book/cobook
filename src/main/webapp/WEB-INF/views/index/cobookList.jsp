@@ -12,7 +12,7 @@
 					<c:forEach items="${monthlyList}" var="monthlyList" varStatus="status">
 					<div class="item">
 						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-							<a href="single.html" class="hvr-shutter-out-horizontal">
+							<a href="/cobook/ebook/single/${monthlyList.ebook_no}" class="hvr-shutter-out-horizontal">
 							<img src="${monthlyList.coverURL}" class="img-responsive" style="width: 182px; height: 268px;" /></a>
 							<div class="mid-1 agileits_w3layouts_mid_1_home">
 								<div class="w3l-movie-text">
@@ -26,16 +26,13 @@
 												<c:choose>
 													<c:when test="${monthlyList.starAvg>=statusCnt.current}">
 														<!-- 별점  -->
-														<li><a href="#"><i class="fa fa-star"
-																aria-hidden="true"></i></a></li>
+														<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
 													</c:when>
 													<c:when test="${monthlyList.starAvg<statusCnt.current}">
-														<li><a href="#"><i class="fa fa-star-o"
-																aria-hidden="true"></i></a></li>
+														<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
 													</c:when>
 													<c:otherwise>
-														<li><a href="#"><i class="fa fa-star-half-o"
-																aria-hidden="true"></i></a></li>
+														<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>

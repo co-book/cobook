@@ -35,4 +35,6 @@ public interface EbookService {
 	
 	//main Monthly list
 	public List<EbookVO> getMonthlyList() throws Exception;
+	//main topic list
+	public List<EbookVO> getEbookAllList() throws Exception;
 }

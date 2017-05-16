@@ -115,6 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	and ebook_no=#{ebook_no}
 	 </select>
 	 
+	 <!-- single right list -->
 	 <select id="getOtherList" parameterType="EbookVO" resultType="EbookVO">
 	 <![CDATA[
 	  select 
