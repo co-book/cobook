@@ -16,14 +16,10 @@
 </script>
 <!-- //for-mobile-apps -->
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/style.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/faqstyle.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/single.css"
-	rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/contactstyle.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/style.css"	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/faqstyle.css"	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/single.css"	rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/contactstyle.css"	rel="stylesheet" type="text/css" media="all" />
 <!-- news-css -->
 <link href="/cobook/resources/CoBookDesign/news-css/news.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //news-css -->
@@ -31,16 +27,12 @@
 <link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //list-css -->
 <!-- font-awesome icons -->
-<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css"
-	rel="stylesheet" />
+<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" rel="stylesheet" />
 <!-- //font-awesome icons -->
 <!-- js -->
-<script src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"
-	type="text/javascript"></script>
+<script src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"	type="text/javascript"></script>
 <!-- //js -->
-<link
-	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
-	rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
 <script src="/cobook/resources/CoBookDesign/js/move-top.js"
 	type="text/javascript"></script>
@@ -215,8 +207,7 @@
 			<div class="agileinfo-news-top-grids">
 				<div class="col-md-8 wthree-top-news-left">
 					<div class="wthree-news-left">
-						<div class="bs-example bs-example-tabs" role="tabpanel"
-							data-example-id="togglable-tabs">
+						<div class="bs-example bs-example-tabs" role="tabpanel"	data-example-id="togglable-tabs">
 							<ul id="myTab" class="nav nav-tabs" role="tablist">
 								<li role="presentation" class="active">
 									<a href="#home1"	id="home1-tab" role="tab" data-toggle="tab"

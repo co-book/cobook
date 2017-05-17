@@ -5,7 +5,6 @@
 <script>
 $(function(){
 
-	console.log("dhdP");
 	//var cri = ${cri};
 	
 	var page = '${cri.page}';
