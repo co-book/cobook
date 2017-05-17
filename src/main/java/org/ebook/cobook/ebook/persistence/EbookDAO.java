@@ -32,6 +32,8 @@ public interface EbookDAO {
 	//main list - monthlyList
 	public List<EbookVO> getMonthlyList() throws Exception;
 	
+	//main list - topicList	int starAvg, 리뷰가많은순, 완독이 높은 순, 최신신간순...최신신간은 어떻게 알지? 리뷰가 많은건 리뷰테이블에서 ebook_no이 많은걸 찾아오면되나?
+	public List<EbookVO> getEbookAllList() throws Exception;
 
 	
 }

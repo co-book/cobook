@@ -233,11 +233,19 @@ public class EbookController {
 
 	}
 
-	//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 
-	@RequestMapping(value = "/monthlyList", method = RequestMethod.GET)
-	public String monthlyList(Locale locale, Model model) {
-		logger.info("index/monthlyList");
-		return "index/monthlyList";
+	//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 , 파라미터를 다르게 적용해서.?
+	@RequestMapping(value = "/topicList", method = RequestMethod.GET)
+	public String getEbookAllList(Locale locale, Model model) 
+	{
+		logger.info("index/topicList");
+		
+		try {
+			model.addAttribute("starAvgList", ebookService.getEbookAllList());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "index/topicList";
 
 	}
 
@@ -248,7 +256,6 @@ public class EbookController {
 		return "index/alladinList";
 	}
 
-	///////////////////////////////
 	
 
 

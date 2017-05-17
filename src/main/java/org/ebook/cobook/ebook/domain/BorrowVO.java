@@ -10,7 +10,7 @@ public class BorrowVO {
 	private Date borrowDate;
 	private Integer period;
 	private Integer price;
-	private String status;
+	private String status;	//완독여부?
 	private String readPage;
 	
 	public Integer getBorrow_no() {

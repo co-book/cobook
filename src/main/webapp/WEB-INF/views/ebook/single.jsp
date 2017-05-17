@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Co-Book World!</title>
+<title>Co-Book</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,67 +13,36 @@
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 
-<!-- //for-mobile-apps -->
-<link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3"
-	rel="stylesheet" type="text/css" media="all" />
+						<!-- //for-mobile-apps -->
+<link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <!--<link href="/cobook/resources/CoBookDesign/css/login.css?ver=3" rel="stylesheet" type="text/css" media="all"/>login CSS -->
-<link href="/cobook/resources/CoBookDesign/css/style.css?ver=3"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1"
-	rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single.css?ver=6"
-	rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=8"
-	rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/contactstyle.css"
-	type="text/css" media="all" />
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css"
-	media="all" />
-<!-- news-css -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/news-css/news.css" type="text/css"
-	media="all" />
-<!-- //news-css -->
-<!-- list-css -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/list-css/list.css" type="text/css"
-	media="all" />
-<!-- //list-css -->
-<!-- font-awesome icons -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
-<!--별점 css -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/star-rating.css?ver=9"
-	media="all" type="text/css" />
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/star-theme.css?ver=10"
-	media="all" type="text/css" />
-<!-- js -->
-<script type="text/javascript"
-	src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-
+<link href="/cobook/resources/CoBookDesign/css/style.css?ver=3" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/single.css?ver=6" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=8" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css" media="all" />
+						<!-- news-css -->
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/news-css/news.css" type="text/css" media="all" />
+						<!-- list-css -->
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/list-css/list.css" type="text/css" media="all" />
+						<!-- font-awesome icons -->
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
+						<!--별점 css -->
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/star-rating.css?ver=9" media="all" type="text/css" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/star-theme.css?ver=10" media="all" type="text/css" />
+						<!-- js -->
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>//js -->
-<link
-	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
-	rel='stylesheet' type='text/css'>
-<script type="text/javascript"
-	src="/cobook/resources/CoBookDesign/js/move-top.js"></script>
-<script type="text/javascript"
-	src="/cobook/resources/CoBookDesign/js/easing.js"></script>
-<!-- 별점 js -->
-<script src="/cobook/resources/CoBookDesign/js/star-rating.js?ver=8"
-	type="text/javascript"></script>
-<script src="/cobook/resources/CoBookDesign/js/star-theme.js?ver=5"
-	type="text/javascript"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/move-top.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/easing.js"></script>
+						<!-- 별점 js -->
+<script src="/cobook/resources/CoBookDesign/js/star-rating.js?ver=8" type="text/javascript"></script>
+<script src="/cobook/resources/CoBookDesign/js/star-theme.js?ver=5" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="/cobook/resources/js/replies/reply.js"></script>
-
 <script type="text/javascript">
 
 	var ebook_no = ${evo.ebook_no};
@@ -428,8 +397,7 @@
 									<div class="available">
 										<ul>
 											<li><span>도서정보:</span> &nbsp;${evo.publisher} | <fmt:formatDate
-													value="${evo.publishedDate}" pattern="yyyy년 MM월 dd일" /> |
-												${evo.fileType} | ${evo.fileSize}</li>
+													value="${evo.publishedDate}" pattern="yyyy년 MM월 dd일" /> | ${evo.fileType} | ${evo.fileSize}</li>
 											<li><span>지원기기:</span>&nbsp; Android | ios | PC | Mac</li>
 											<li><span>듣기가능:</span>&nbsp; <c:choose>
 													<c:when test="${evo.listening==1}">
@@ -597,55 +565,6 @@
 										</div>
 									</div>	
 		first list end												
-									
-									<div class="media_list">
-										<div class="media-left">
-											<div class="detail-stars">
-												<ul class="detail-ratings">
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star-half-o"
-															aria-hidden="true"></i></a></li><br>
-													<li>namjackson</li><br>
-													<li>2017-04-04</li>
-												</ul>
-											</div>
-										</div>
-										<div class="media-body-single">
-											<div class="single-reply-remove">
-												<button type="button" id="reply-delete"class="reply-remove">
-													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-												</button>
-											</div>
-											<br>
-											<p>깊이를 헤아릴 수 없을 정도로 경이로운 테드 창의 이야기들은 스위스 시계처럼 정교하게 째깍째깍
-											나아가다가 당신의 인식 안에서 충격적이고 파괴적으로 폭발한다.</p>
-											<br>
-											<div class="single-button">
-												<button type="button" class="btn btn-default btn-sm" id="comment" name="comment">
-	  											<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 댓글
-												</button>
-												<button type="button" class="btn btn-default btn-sm" id="thumbs">
-	  											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 0
-	  											</button>
-											</div>
-											<div class="reply-comment" id="reply-comment">
-												<div class="comment-up">
-													<p id="up">님아 어디서 약을 팔어</p>
-													<p>chacha /2017-04-05/ <a>삭제</a></p>
-												</div>
-												<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
-												<button type="button" class="comment-regi">등록하기</button>
-											</div>
-										</div>
-									</div> -->
-
 							</div>
 							</div>
 
@@ -654,22 +573,18 @@
 						<!-- <div class="song-grid-right"></div>
 							<div class="clearfix"></div>-->
 					</div>
-					<div class="col-md-4 single-right">
-						<h3>이 책을 구매한 사람들의 선택</h3>
-						<div class="single-grid-right" id="getOtherList">
-
-						</div>
-					</div>
+					
 
 					<div class="clearfix"></div>
 				</div>
-				<!-- //movie-browse-agile -->
+					<div class="col-md-4 single-right">
+						<h3>이 책을 구매한 사람들의 선택</h3>
+						<div class="single-grid-right" id="getOtherList"></div>
+					</div>
 				<br></br>
 			</div>
-			<!-- //w3l-latest-movies-grids -->
 		</div>
 	</div>
-	<!-- //w3l-medile-movies-grids -->
 
 	<!-- footer -->
 

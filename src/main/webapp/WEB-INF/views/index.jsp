@@ -25,7 +25,7 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 <link href="/cobook/resources/CoBookDesign/css/faqstyle.css?ver=1" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
 -->
-<link href="/cobook/resources/CoBookDesign/css/medile.css" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/medile.css?ver=7" rel='stylesheet' type='text/css' />
 <!-- banner-slider -->
 <link href="/cobook/resources/CoBookDesign/css/jquery.slidey.min.css" rel="stylesheet">
 <!-- pop-up -->
@@ -79,10 +79,10 @@ $(document).ready(function(){
 	//Monthly 리스트
 	$.ajax({
 		type : "get",
-		url : 'ebook/monthlyList',
+		url : 'ebook/topicList',
 		dataType : 'html',
 		success : function(data) {
-			$('#index_monthlyList').append(data);
+			$('#index_topicList').append(data);
 		}
 	});
 	
@@ -154,7 +154,7 @@ function aladinList(){
 <!-- content start-->
 <div id="index_banner"></div> 
 <div id="index_cobookList"></div>
-<div id="index_monthlyList"></div>
+<div id="index_topicList"></div>
 <div id="index_alladinList"></div>
 <!-- footer -->
 <c:import url="/WEB-INF/views/footer.jsp" charEncoding="UTF-8"/>

@@ -20,6 +20,12 @@
 		<package name="org.ebook.cobook.member.domain"/>
 	</typeAliases>	
 
+	<!-- MyBatis가 PreparedStatement 에 파라미터를 셋팅하고 ResultSet 에서 값을 가져올때마다, 
+		 TypeHandler 는 적절한 자바 타입의 값을 가져오기 위해 사용된다. 
+		 MyBatis는 타입을 판단하기 위해 데이터베이스의 메타데이터를 보지 않는다. 
+		 그래서 파라미터와 결과에 정확한 타입 핸들러를 매핑해야 한다. 
+		 MyBatis가 구문이 실행될때까지는 데이터 타입에 대해 모르기 때문이다
+		 -->
 	<typeHandlers>
 		<typeHandler  handler="org.apache.ibatis.type.ClobTypeHandler" javaType="java.lang.String" jdbcType="CLOB" />
 	</typeHandlers>
