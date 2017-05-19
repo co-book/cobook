@@ -35,13 +35,14 @@ public class JavaMail {
 			// 위 환경 정보로 "메일 세션"을 만들고 빈 메시지를 만든다
 			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("aby41970826@gmail.com", "qksdiqkfkalf#113");// Specify
+					//return new PasswordAuthentication("aby41970826@gmail.com", "qksdiqkfkalf#113");// Specify
+				return new PasswordAuthentication("chonamjackson@gmail.com", "whska132546");// Specify
 				}
 			});
 			MimeMessage msg = new MimeMessage(session);
 
 			// 발신자, 수신자, 참조자, 제목, 본문 내용 등을 설정한다
-			msg.setFrom(new InternetAddress("aby41970826@gmail.com", "cobook운영자"));
+			msg.setFrom(new InternetAddress("chonamjackson@gmail.com", "cobook운영자"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail, receiverNickName));
 			msg.setSubject("이메일 인증 안내");
 			msg.setContent("인증번호 : " + authString, "text/html; charset=utf-8");

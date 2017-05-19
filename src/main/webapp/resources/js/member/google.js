@@ -3,7 +3,8 @@
 
       //   https://console.developers.google.com/apis/credentials
 
-      var apiKey = 'AIzaSyCLxZq7qPoyK_Fuhmp5_NehcppLdllvyBU';
+      //var apiKey = 'AIzaSyCLxZq7qPoyK_Fuhmp5_NehcppLdllvyBU';
+      var apikey = 'HVfEEL6jFLnXUFQm4MgS9G-k';
       // Enter the API Discovery Docs that describes the APIs you want to
 
       // access. In this example, we are accessing the People API, so we load
@@ -19,7 +20,8 @@
 
       //   to the domain where you will be running the script.
 
-      var clientId = '940646612600-hv6fh77tdp7qk82tpeop22el5il51u3g.apps.googleusercontent.com';
+      //var clientId = '940646612600-hv6fh77tdp7qk82tpeop22el5il51u3g.apps.googleusercontent.com';
+      var clientId = '1021992415536-t4k04i5ke77iq0qrq27kod9g4rtri8t5.apps.googleusercontent.com';
       // Enter one or more authorization scopes. Refer to the documentation for
 
       // the API or https://developers.google.com/people/v1/how-tos/authorizing

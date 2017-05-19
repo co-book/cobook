@@ -38,7 +38,6 @@ public class ReviewController {
 		if(cri == null){
 			cri = new Criteria();
 		}
-		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
