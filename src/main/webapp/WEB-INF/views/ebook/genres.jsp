@@ -15,8 +15,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function hideURLbar(){ window.scrollTo(0,1); } 
 </script> -->
 <!-- //for-mobile-apps -->
-<link href="/cobook/resources/CoBookDesign/css/bootstrap.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
 
@@ -106,6 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<c:import url="/WEB-INF/views/header.jsp" charEncoding="UTF-8">
 		<c:param name="loginId" value="loginId" />
 	</c:import>
+	
 	<!-- /w3l-medile-movies-grids -->
 	<div class="general-agileits-w3l">
 		<div class="w3l-medile-movies-grids">
@@ -116,7 +116,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!--/browse-agile-w3ls -->
 				<div class="browse-agile-w3ls general-w3ls">
 					<div class="tittle-head">
-						<h4 class="latest-text">${category} Movies</h4>
+						<h4 class="latest-text">${category}</h4>
 						<div class="container">
 							<div class="agileits-single-top">
 								<ol class="breadcrumb">
