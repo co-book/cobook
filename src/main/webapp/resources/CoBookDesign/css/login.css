@@ -395,9 +395,11 @@ i.anc-go {
 h3 {
   font-size: 2em;
   font-weight: 600;
-  color: #fff;
-  text-align: center;
   margin-top: 1em;
+}
+.login_h3 {
+  color: #fff;
+  text-align: center; 
 }
 .clear{
 	clear:both;

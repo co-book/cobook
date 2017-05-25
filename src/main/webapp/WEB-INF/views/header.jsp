@@ -55,7 +55,7 @@ window.fbAsyncInit = function() {
 </script>
 
 <!-- header -->
-<div class="header">
+<div class="header" >
 		<div class="container">
 			<div class="w3layouts_logo">
 				<a href="/cobook"><h1>CoBook<span></span></h1></a>
@@ -90,8 +90,8 @@ window.fbAsyncInit = function() {
 							</li>
 						</ul>
 					</li>
-					<li id="login_on"><a href="#" data-toggle="modal" data-target="#myModal" style="display:hide;" >Login</a></li>
-					<li id="login_off"><a href="/cobook/member/logout" style="display:hide;" >Logout</a></li>
+					<li id="login_on" style="display:hide;" ><a href="#" data-toggle="modal" data-target="#myModal" >Login</a></li>
+					<li id="login_off" style="display:hide;"><a href="/cobook/member/logout" >Logout</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -203,7 +203,7 @@ $(document).ready(function(){
 								<div class="tooltip">Click it!</div>
 							  </div>
 							  <div class="form">
-								<h3>CoBook 로그인</h3>
+								<h3 class = 'login_h3'>CoBook 로그인</h3>
 								<form name="login_form"class="login" onsubmit="login_cobook_function(); return false ">
 								  <input id="login_email" type="email" name="Email"  style="width:100%;"  placeholder="Email" required="">
 								  <input id="login_password" type="password" name="Password" placeholder="Password" required="">
@@ -218,7 +218,7 @@ $(document).ready(function(){
 								</div>
 							  </div>
 							  <div class="form">
-								<h3>CoBook 회원가입</h3>
+								<h3 class = 'login_h3' >CoBook 회원가입</h3>
 								<form name="join_form" class="login" onsubmit="join_cobook_function(); return false ">
 								<div>
 								  <input id="join_email" type="email" name="Email" placeholder="이메일" required="">
@@ -455,19 +455,21 @@ $(document).ready(function(){
 			$("#join_email_check_off").hide();
 			$("#join_email").attr("readonly",false);
 		}
-		//로그인 상태
+		
 		var login_on_func = function(){
 			$("#login_on").hide();
 			$("#login_off").show();
 		}
-		//로그오프 상태
+		
 		var login_off_func = function(){
-			$("#login_on").show();
 			$("#login_off").hide();
+			$("#login_on").show();
 		}
 		if(member_no!=null){
+			//로그인 상태
 			login_on_func();
 		}else{
+			//로그오프 상태
 			login_off_func();
 		}
 		
