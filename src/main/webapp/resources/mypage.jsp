@@ -7,7 +7,7 @@
 <title>Test myPage</title>
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-<link href="test/dashboard.css?ver=2" rel="stylesheet" type="text/css">
+<link href="test/mypage.css?ver=2" rel="stylesheet" type="text/css">
 </head>
 <body>
 	 <nav class="navbar navbar-inverse navbar-fixed-top">
