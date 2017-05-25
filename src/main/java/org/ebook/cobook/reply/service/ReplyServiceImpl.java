@@ -5,9 +5,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
+import org.ebook.cobook.reply.domain.StarVO;
 import org.ebook.cobook.reply.persistence.ReplyDAO;
 import org.springframework.stereotype.Service;
 
@@ -16,48 +16,98 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
 	private ReplyDAO replyDao;
-
+	/*
+	 * (non-Javadoc)
+	 * @see org.ebook.cobook.reply.service.ReplyService#addReply(org.ebook.cobook.reply.domain.ReplyVO)
+	 * reply, comment 등록
+	 */
 	@Override
-	public void addReply(ReplyVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		replyDao.insertReply(vo);
-	}
+	public String addReply(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub 
+		String result="FAIL";
+		//이미 작성한댓글이있는지 체크 select 
+		if(vo.getParent_type().equals("EBOOK")){
+			if(replyDao.addReplyCheck(vo)==null){
+				replyDao.addReply(vo);
 
+				replyDao.addStarRating(vo);
+				result="SUCCESS";
+			}else{
+				result="FAIL";
+			}
+		}else{
+			replyDao.addReply(vo);
+			result="SUCCESS";
+		}
+		return result;
+	}
 	@Override
-	public List<Map<String, Object>> replyAndLike_itList(Map<String, Object> map) throws Exception {
+	public void addComment(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return replyDao.replyList(map);
-	}
+		replyDao.addComment(vo);
+	}	
 
+	/**
+	 * reply, comment 리스트 뽑아오기
+	 */
+	@Override
+	public List<ReplyVO> getReplyList(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return replyDao.getReplyList(vo);
+	}
+	@Override
+	public List<ReplyVO> getCommentList(ReplyVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return replyDao.getCommentList(vo);
+	}
+	
+	
 	@Override
 	public void modifyReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		replyDao.updateReply(vo);
 	}
-
+	
+	/**
+	 * reply 삭제
+	 */
 	@Override
-	public void removeReply(Integer rno) throws Exception {
+	public void deleteReply(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		replyDao.deleteReply(rno);
+		if(vo.getParent_type()!=null&&vo.getParent_type().equals("EBOOK")){
+			replyDao.deleteStarRating(vo);
+		}
+		replyDao.deleteReply(vo);
+	}
+
+	/*
+	 * like it
+	 * @see org.ebook.cobook.reply.service.ReplyService#addLikeIt(org.ebook.cobook.likeIt.domain.Like_itVO)
+	 */
+	@Override
+	public void addLikeIt(Like_itVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		replyDao.addLikeIt(vo);
 	}
 
 	@Override
-	public void addComment(ReplyVO vo) throws Exception {
+	public void deleteLikeIt(Like_itVO vo)throws Exception{
 		// TODO Auto-generated method stub
-		replyDao.insertComment(vo);
+		replyDao.deleteLikeIt(vo);
 	}
 
 	@Override
-	public void addLike_it(Like_itVO vo) throws Exception {
+	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
-		replyDao.insertLike_it(vo);
+		return replyDao.getLikeList(paramMap);
 	}
 
 	@Override
-	public void removeLike_it(Integer like_it_no) throws Exception {
+	public int getReplyCount(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		replyDao.deleteLike_it(like_it_no);
+		return replyDao.getReplyCount(vo);
 	}
+	
 	
 	
 

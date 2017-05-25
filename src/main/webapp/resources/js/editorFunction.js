@@ -24,7 +24,7 @@ function sendFile(file, editor) {
 	$
 			.ajax({
 				type : "POST",
-				url : '/files/uploadFile',
+				url : '/cobook/files/uploadFile',
 				data : formdata,
 				dataType : 'text',
 				cache : false,
@@ -35,9 +35,13 @@ function sendFile(file, editor) {
 				contentType : false,
 				success : function(data) {
 					console.log(data);
+					
+					
+					
+					
 					//서버명과 로컬호스트가 없어서 안된거였음.
 					var url = data;
-					console.log(url);
+					var uploadPath = "";
 					$('#summernote').summernote('editor.insertImage', url);
 					//url를 받아서 li<input type=hidden name='files' value="url을 넣어준다.">
 					var dataname = data.substring(url.indexOf("_") + 1);
@@ -45,13 +49,9 @@ function sendFile(file, editor) {
 							.append(
 									"<li class='list-group-item'>"
 											+ dataname
-											+ "<input type='hidden' name='file_url' value='"+url+"'/></li>");
+											+ "<input type='hidden' name='files' value='"+url+"'/></li>");
 
-					$(".list-group")
-							.append(
-									"<li class='list-group-item'>"
-											+ dataname
-											+ "<input type='text' name='file_url' value='"+url+"'/></li>");
+				
 
 				}
 			});

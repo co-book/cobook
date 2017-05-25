@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="/resources/test/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+	<link rel="stylesheet"
+		href="/resources/test/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+	<script type="text/javascript">
+$(function(){
+
+	$("#dialog").hide();
+	// 팝업창 초기화
+		$("#dialog").dialog({
+			autoOpen : false,
+			modal : true, //모달대화상자
+			resizable : false, //크기 조절 못하게
+			width : 500,
+			height : 1000,
+			// draggable: false,
+			position : {
+				my : "center"
+			},
+			buttons : {
+				"확인" : function() {
+					$(this).dialog("close");
+				},
+				"취소" : function() {
+					$(this).dialog("close");
+				}
+			}
+
+		});
+
+	$("#borrowList").on("click", function(){
+				conole.log("클릭");
+				$("#dialog").show();
+				$("#dialog").dialog("open");
+});
+
+
+
+});
+	</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p></p>작성자 : <input type="text" name="" value=""></p>
+	<p>제목 : <input type="text" name="title"></p>
+<p>	내용 : <textarea name="contents" rows="" cols=""></textarea></p>
+	<button type="button" id="borrowList"  name="button">my book list</button>
+
+	<div id="dialog" title="대여한책">
+		<div id="bookList">
+			<p><img src="" alt="책이미지" /></p>
+			<p>책이름</p>
+		</div>
+
+
+	</div>
+
+
+</body>
+</html>

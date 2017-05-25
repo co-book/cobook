@@ -15,12 +15,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import utils.SpringTestConfig;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-		locations = {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
+@SpringTestConfig
 public class ReplyDAOTest {
 
 	@Inject
@@ -41,7 +41,7 @@ public class ReplyDAOTest {
 		vo.setBoard_no(1);
 		vo.setContents("내용끝");
 		
-		replyDAO.insertReply(vo);
+		replyDAO.addReply(vo);
 	}
 	
 	// 답글 추가
@@ -56,7 +56,7 @@ public class ReplyDAOTest {
 		vo.setBoard_no(1);
 		vo.setContents("답글내용");
 		
-		replyDAO.insertComment(vo);
+		replyDAO.addComment(vo);
 	}
 	
 	// 수정
@@ -72,13 +72,13 @@ public class ReplyDAOTest {
 	}
 	
 	//삭제
-	@Test
+	//@Test
 	@Ignore
-	public void deleteReply()throws Exception{
+	/*public void deleteReply()throws Exception{
 		
 		replyDAO.deleteReply(104);
 	}
-	
+	*/
 	// 검색
 	@Test
 	public void selectReply()throws Exception{
@@ -105,7 +105,7 @@ public class ReplyDAOTest {
 		Like_itVO vo = new Like_itVO();
 		vo.setMember_no(1);
 		vo.setReply_no(2);
-		replyDAO.insertLike_it(vo);
+		/*replyDAO.insertLike_it(vo);*/
 		
 		
 	}
@@ -115,7 +115,7 @@ public class ReplyDAOTest {
 	@Ignore
 	public void removeLike_it()throws Exception{
 		
-		replyDAO.deleteLike_it(101);
+		/*replyDAO.deleteLike_it(101);*/
 	}
 	
 	

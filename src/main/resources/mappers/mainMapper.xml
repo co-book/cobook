@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ebook.cobook.mapper.mainMapper">
+<!-- 월간 제일 많이 대여된 책 리스트 10개  -cobook list-->
+	<select id="getMonthlyList" resultType="EbookVO">
+		<![CDATA[
+		select
+		e.ebook_no,
+		e.coverURL,
+		e.title,
+		e.author,
+		nvl(starp.staravg, 0) staravg
+		from ebook e
+		
+		left outer join 
+		(select ebook_no , avg(starrating) staravg from star group by ebook_no) starp on (starp.ebook_no = e.ebook_no)
+		
+		where e.EBOOK_NO in(  select ebook_no from
+		(select ebook_no , count(*) as borrowCount from borrow 
+		where BORROWDATE > TRUNC(ADD_MONTHS(sysdate, -1),'MM')  and BORROWDATE < LAST_DAY(ADD_MONTHS(sysdate, -1)) 
+		group by ebook_no
+		) where rownum<11 )
+		]]>
+	</select>
+
+<!-- 별점이 높은 책 리스트 12개 - 1.별점순 2.인기리뷰3.완독순4.신간순-->
+	<select id="getEbookAllList" resultType="EbookVO">
+		<![CDATA[
+		select
+		e.ebook_no,
+		e.coverURL,
+		e.title,
+		e.author,
+		nvl(starp.staravg, 0) staravg
+		from ebook e
+		
+		left outer join 
+		(select ebook_no, avg(starrating) staravg from star group by ebook_no) starp on (starp.ebook_no = e.ebook_no)
+   		where (rownum<13)
+   		]]>
+	</select>
+	
+	
+</mapper>

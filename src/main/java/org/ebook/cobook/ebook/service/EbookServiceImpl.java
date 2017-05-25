@@ -1,5 +1,6 @@
 package org.ebook.cobook.ebook.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -7,9 +8,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ebook.cobook.ebook.domain.BookmarkVO;
-import org.ebook.cobook.ebook.domain.BorrowVo;
+import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
+import org.ebook.cobook.ebook.domain.WishListVO;
 import org.ebook.cobook.ebook.persistence.EbookDAO;
+import org.ebook.cobook.mypage.persistence.MyPageDAO;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -19,34 +22,106 @@ public class EbookServiceImpl implements EbookService {
 	@Inject
 	private EbookDAO ebookDAO;
 	
+	@Inject
+	private MyPageDAO myPageDAO;	
+	
 	@Override
-	public List<EbookVO> getEbookList(Model model) throws Exception {
+	public List<EbookVO> getEbookList(String category) throws Exception {
 		// TODO Auto-generated method stub
-		return ebookDAO.getEbookList();
+		return ebookDAO.getEbookList(category);
 	}
 
 	@Override
-	public List<BookmarkVO> getBookmarkList(BorrowVo borrow) throws Exception {
+	public List<EbookVO> getOtherList(EbookVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return ebookDAO.getOtherList(vo);
+	}
+	
+	@Override
+	public List<BookmarkVO> getBookmarkList(BorrowVO borrow) throws Exception {
 		// TODO Auto-generated method stub
 		return ebookDAO.getBookmarkList(borrow);
 	}
 
 	@Override
-	public void setBookMark(BookmarkVO bookmark) throws Exception {
+	public void writeBookMark(BookmarkVO bookmark) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.setBookmark(bookmark);
+		ebookDAO.writeBookmark(bookmark);
 	}
 
 	@Override
-	public void removeBookmark(BookmarkVO bookmark) throws Exception {
+	public void deleteBookmark(BookmarkVO bookmark) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.removeBookmark(bookmark);
+		ebookDAO.deleteBookmark(bookmark);
 	}
 
 	@Override
-	public void updateLastPage(BorrowVo borrowVo) throws Exception {
+	public void setLastPage(BorrowVO borrowVo) throws Exception {
 		// TODO Auto-generated method stub
-		ebookDAO.updateLastPage(borrowVo);
+		ebookDAO.setLastPage(borrowVo);
+	}
+
+	@Override
+	public EbookVO eBookDetail(int ebook_no, int member_no) throws Exception {
+		// TODO Auto-generated method stub
+		EbookVO vo = ebookDAO.eBookDetail(ebook_no);
+		
+		if(member_no !=0){	
+			BorrowVO bvo = new BorrowVO();
+			bvo.setEbook_no(ebook_no); 
+			bvo.setMember_no(member_no);
+			
+			float remainDate =ebookDAO.getMemberBorrow(bvo);
+			//bvo의 대여 유효성 체크
+			
+			
+			vo.setRemainDate(remainDate); //만료날짜, 유효한 대여여부를 
+			
+		}
+		return vo;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return myPageDAO.getMyborrowList(paramMap);
+	}
+
+	@Override
+	public void borrowEbook(BorrowVO borrowVo) throws Exception {
+		// TODO Auto-generated method stub
+		ebookDAO.borrowEbook(borrowVo);
+	}
+
+	@Override
+	public String addWishList(WishListVO evo) throws Exception {
+		// TODO Auto-generated method stub
+		String result="FAIL";
+		//이미 위시리스트한 책인지 체크 select 
+			if(ebookDAO.wishListCheck(evo)==null){
+				System.out.println("1");
+				ebookDAO.addWishList(evo);
+
+				result="SUCCESS";
+			}else{
+
+				System.out.println("3");
+				result="FAIL";
+			}
+		return result;
+	}
+	
+	//main list monthly
+	@Override
+	public List<EbookVO> getMonthlyList() throws Exception {
+		// TODO Auto-generated method stub
+		return ebookDAO.getMonthlyList();
+	}
+	//main list topic
+	@Override
+	public List<EbookVO> getEbookAllList() throws Exception {
+		// TODO Auto-generated method stub
+		return ebookDAO.getEbookAllList();
 	}
 
 

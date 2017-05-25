@@ -1,10 +1,11 @@
 package org.ebook.cobook.board.domain;
 
-public class Criteria {
 
+public class Criteria {
+	//한페이지
 	private int page;	
 	private int perPageNum;
-	private String searchType;
+	private String searchType;	//제목으로 검색하는지 작성자로 검색하는지의 여부
 	private String keyword;
 	
 	public String getSearchType() {

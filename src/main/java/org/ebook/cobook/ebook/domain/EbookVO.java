@@ -8,15 +8,70 @@ public class EbookVO {
 	private String title;
 	private String author;
 	private String publisher;
+	private String translator;
 	private Date publishedDate;
 	private String intro;
-	private Integer cash;
+	private Integer price;
 	private String category;
-	private String cover;
+	private String coverURL;	
 	private String epub;
+	private String fileSize;
+	private String fileType;
+	private int listening;
+	private Integer starCount;
+	private Integer starAvg;
+	private float remainDate;	//
+		
 	
+	public float getRemainDate() {
+		return remainDate;
+	}
+	public void setRemainDate(float remainDate) {
+		this.remainDate = remainDate;
+	}
+	public String getTranslator() {
+		return translator;
+	}
+	public void setTranslator(String translator) {
+		this.translator = translator;
+	}
+	public String getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+	public int getListening() {
+		return listening;
+	}
+	public void setListening(int listening) {
+		this.listening = listening;
+	}
 	
-	
+	public String getCoverURL() {
+		return coverURL;
+	}
+	public void setCoverURL(String coverURL) {
+		this.coverURL = coverURL;
+	}
+	public Integer getStarCount() {
+		return starCount;
+	}
+	public void setStarCount(Integer starCount) {
+		this.starCount = starCount;
+	}
+	public Integer getStarAvg() {
+		return starAvg;
+	}
+	public void setStarAvg(Integer starAvg) {
+		this.starAvg = starAvg;
+	}
 	public Integer getEbook_no() {
 		return ebook_no;
 	}
@@ -53,11 +108,11 @@ public class EbookVO {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-	public Integer getCash() {
-		return cash;
+	public Integer getPrice() {
+		return price;
 	}
-	public void setCash(Integer cash) {
-		this.cash = cash;
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 	public String getCategory() {
 		return category;
@@ -66,10 +121,10 @@ public class EbookVO {
 		this.category = category;
 	}
 	public String getCover() {
-		return cover;
+		return coverURL;
 	}
 	public void setCover(String cover) {
-		this.cover = cover;
+		this.coverURL = cover;
 	}
 	public String getEpub() {
 		return epub;

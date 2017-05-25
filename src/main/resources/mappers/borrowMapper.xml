@@ -5,12 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.BorrowedBookMapper">
 
-	<select id="bollowBookList" resultType="map">
-		SELECT e.ebook_no, e.title, f.fileurl
-		FROM ebook e INNER JOIN files f
-		ON e.ebook_no = f.file_no
+	<select id="borrowBookList" resultType="map">
+		SELECT e.ebook_no, e.title, e.coverurl
+		FROM ebook e
 		WHERE EXISTS(SELECT ebook_no FROM borrow b
 		WHERE member_no = #{member_no} AND e.ebook_no = b.ebook_no)
 	</select>
-
+<!-- exists는 ebook 테이블에서 ebook테이블과 borrow테이블에서 같은 ebook_no.......시..
+ member_no이 borrow 테이블에서 한번이상 나오는 ebook_no, title, coverurl을 찾는다? -->
 </mapper>

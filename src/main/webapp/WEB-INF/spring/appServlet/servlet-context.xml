@@ -36,7 +36,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="org.ebook.cobook" />
-	
+	<beans:import resource="spring-mvc.xml"/>
 	
 	
 </beans:beans>

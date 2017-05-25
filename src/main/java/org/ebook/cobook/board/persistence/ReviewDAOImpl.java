@@ -26,47 +26,88 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectList(borrowNamespace+".bollowBookList", member_no);
 	}
 
-	@Override
-	public void create(ReviewVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		sqlSession.insert(reviewNamespace+".create", vo);
-	}
 
 	@Override
-	public List<ReviewVO> bookReviewList(Criteria cri) throws Exception {
+	public void writeReview(ReviewVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(reviewNamespace+".bookReviewList", cri);
+		sqlSession.insert(reviewNamespace+".writeReview", vo);
 	}
 
-	@Override
-	public int getCount(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(reviewNamespace+".boardReviewCount", cri);
-	}
 
 	@Override
-	public Map<String, Object> readBookReview(Integer review_no) throws Exception {
+	public List<Map<String, Object>> getBookReviewList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(reviewNamespace+".readBookReview", review_no);
+		return sqlSession.selectList(reviewNamespace+".getBookReviewList", cri);
 	}
 
-	@Override
-	public void updateBookReview(ReviewVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		sqlSession.update(reviewNamespace+".updateBookReview", vo);
-	}
 
 	@Override
-	public void deleteBookReview(Integer review_no) throws Exception {
+	public int getReviewCount(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.delete(reviewNamespace+".deleteBookReview", review_no);
+		return sqlSession.selectOne(reviewNamespace+".getReviewCount", cri);
 	}
 
+
 	@Override
-	public void increseHit(Integer review_no) throws Exception{
+	public Map<String, Object> getReviewSingle(Integer review_no) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(reviewNamespace+".getReviewSingle", review_no);
+	}
+
+
+	@Override
+	public void modifyReview(ReviewVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(reviewNamespace+".modifyReview", vo);
+	}
+
+
+	@Override
+	public void deleteReview(Integer review_no) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete(reviewNamespace+".deleteReview", review_no);
+	}
+
+
+	@Override
+	public void increseHit(Integer review_no) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.update(reviewNamespace+".increseHit", review_no);
 	}
+
+
+	@Override
+	public List<Map<String, Object>> getReviewPopularity(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getReviewPopularity", cri);
+	}
+
+// 최근 리뷰
+	@Override
+	public List<ReviewVO> getlastedReviewList() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getlastedReviewList");
+	}
+
+// 베댓
+	@Override
+	public List<Map<String, Object>> getBestReply() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getBestReply");
+	}
+
+    // same writer other reviews
+	@Override
+	public List<ReviewVO> getSameWriterOtherReviews(int member_no) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getSameWriterOtherReviews", member_no);
+	}
+
+	// same ebook other reviews
+		public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception{
+		
+			return sqlSession.selectList(reviewNamespace+".getSameBookOtherReviews", ebook_no);
+		};
 	
 	
 }

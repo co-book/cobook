@@ -2,6 +2,9 @@ package org.ebook.cobook.board.domain;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
+
 public class MybookVO {
 
 
@@ -12,6 +15,7 @@ public class MybookVO {
     private Integer hit;
     private Date reg_date;
     private String nickname;
+    
 	@Override
 	public String toString() {
 		return "MybookVO [mybook_no=" + mybook_no + ", member_no=" + member_no + ", title=" + title + ", contents="
@@ -59,6 +63,8 @@ public class MybookVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	
+	
 
 
 }

@@ -5,22 +5,33 @@ import java.util.Map;
 
 import org.ebook.cobook.likeIt.domain.Like_itVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
+import org.ebook.cobook.reply.domain.StarVO;
 
 public interface ReplyDAO {
-
-	public void insertReply(ReplyVO vo)throws Exception;
+	//reply registered
+	public void addReply(ReplyVO vo)throws Exception;
+	public ReplyVO addReplyCheck(ReplyVO vo)throws Exception;
+	public void addComment(ReplyVO vo)throws Exception;
 	
-	public List<Map<String, Object>> replyList(Map<String, Object> map)throws Exception;
+	//star rating
+	public void addStarRating(ReplyVO vo) throws Exception;
+	public void deleteStarRating(ReplyVO vo) throws Exception;
+	
+	//replyList(commentList)
+	public List<ReplyVO> getReplyList(ReplyVO vo)throws Exception;
+	public List<ReplyVO> getCommentList(ReplyVO vo)throws Exception;
+	
+	
+	public int getReplyCount(ReplyVO vo)throws Exception;
+	
 	
 	public void updateReply(ReplyVO vo)throws Exception;
+	public void deleteReply(ReplyVO vo)throws Exception;
 	
-	public void deleteReply(Integer rno)throws Exception;
+	//like
+	public void addLikeIt(Like_itVO vo)throws Exception;
+	public void deleteLikeIt(Like_itVO vo)throws Exception;
 	
-	public void insertComment(ReplyVO vo)throws Exception;
-	
-	public void insertLike_it(Like_itVO vo)throws Exception;
-	
-	public void deleteLike_it(Integer like_it_no)throws Exception;
-	
+	public List<Map<String, Object>> getLikeList(Map<String, Object> paramMap) throws Exception;
 	
 }

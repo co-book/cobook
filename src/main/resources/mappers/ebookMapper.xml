@@ -5,21 +5,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ebookMapper">
 
-	<select id="getEbookList" resultType="EbookVO">
-	select 
-		ebook_no,
-		title,
-		author,
-<!--	cover,
-		 files.filename,
-		 files.filetype,		 -->
-		files.fileurl as cover
-	from EBOOK  
-		LEFT OUTER JOIN files  ON
-		 (cover= files.file_no 
-		 and files.filetype= 'COVER' 
-		 and files.book_type='EBOOK')
-	ORDER BY ebook_no
+	<select id="getEbookList" parameterType="String" resultType="EbookVO">
+  select 
+		e.ebook_no,
+		e.title,
+		e.author,
+    e.publisher,
+    e.PUBLISHEDDATE,
+    e.CATEGORY,
+    e.coverURL,
+    NVL(STARRATING.starCount,0) as starCount,
+    NVL(STARRATING.starAvg,0) as starAvg
+	from EBOOK e 
+		LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no ) STARRATING
+    ON  (STARRATING.ebook_no = e.ebook_no)
+    <if test="_parameter != null and !_parameter.equals('') and !_parameter.equals('genres') ">
+ 		where e.CATEGORY=#{_parameter}
+    </if>
+    
 	</select>
 
 
@@ -28,27 +31,114 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values( BOOKMARK_no_seq.nextval, #{member_no} , #{ebook_no} , #{ebookPage} , SYSDATE , #{chapter} , #{mybookmark})
 	</insert>
 	
-	<delete id="removeBookmark" parameterType="EbookVO">	
+	<delete id="removeBookmark" parameterType="EbookVO" >	
 		DELETE FROM BOOKMARK
 		WHERE EBOOKPAGE = #{ebookPage} and MEMBER_NO = #{member_no} and EBOOK_NO = #{ebook_no}
 	</delete>
 	
 	
-	<select id="getBookmarkList">	
-	
+	<select id="getBookmarkList" parameterType="BorrowVO" resultType="BorrowVO">	
+		select
+		BOOKMARK_NO,
+		MEMBER_NO,
+		EBOOK_NO,
+		EBOOKPAGE,
+		READDATE,
+		CHAPTER,
+		MYBOOKMARK
+		from bookmark where member_no=#{member_no} and ebook_no=#{ebook_no}
 	</select>
 
 	<update id="updateLastPage" parameterType="BorrowVO">
 		UPDATE BORROW SET READPAGE = #{readPage} WHERE BORROW_NO = #{borrow_no}
 	</update>
 	
-	
-	<insert id="setBorrow" parameterType="BorrowVO">
-		insert into BORROW ( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,CASH ,STATUS ,READPAGE )
-		values(borrow_no_seq.nextval, #{member_no} , #{ebook_no},  SYSDATE , #{period}, #{cash}, 'NEW' ,'NEW')
+	<!-- 대여하기 -->
+	<insert id="borrowEbook" parameterType="BorrowVO">
+		insert into BORROW 
+		( BORROW_NO ,EBOOK_NO ,MEMBER_NO ,BORROWDATE ,PERIOD ,PRICE ,STATUS ,READPAGE )
+		values
+		(borrow_no_seq.nextval, #{ebook_no}, #{member_no} ,  SYSDATE , #{period}, #{price}, 'NEW' ,'NEW')
 	</insert>
 	
 	<!-- 
 	select *  from BORROW  where EBOOK_NO='1' and MEMBER_NO='1' and BORROWDATE+period>sysdate  order by BORROWDATE desc 
 	 -->
+	 <!-- single상세페이지 -->
+	 <select id="getEbookDetail" parameterType="EbookVO" resultType="EbookVO">
+	 	select
+			e.ebook_no,
+	 		e.title,
+	 		e.author,
+	 		e.publisher,
+	 		e.translator,
+	 		e.publishedDate,
+	 		e.intro,
+	 		e.price,
+	 		e.category,
+	 		e.coverURL,
+	 		e.fileSize,
+	 		e.fileType,
+	 		e.listening,
+	 		NVL(STARRATING.starCount,0) as starCount,
+   			NVL(STARRATING.starAvg,0) as starAvg
+    		
+			from EBOOK e 
+			LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no ) STARRATING
+    		ON  (STARRATING.ebook_no = e.ebook_no)
+     	where e.ebook_no=#{ebook_no}
+     	<!-- NVL이 전자가 널이면 후자로 넣어준다 NVL2는 첫번째가 널이면 세번째꺼 사용 아니면 두번째 사용-->
+	 </select>
+
+	 <select id="getMemberBorrow" parameterType="BorrowVO" resultType="java.lang.Float">
+	 	select * from 
+	 		(select 
+	 		borrowDate+period-sysdate as remainDate 
+	 		from borrow
+	 		where ebook_no=#{ebook_no} and member_no=#{member_no}
+	 		order by borrowDate desc)
+	 	where rownum=1
+	 
+	 </select>
+	 
+	 <!-- 위시리스트 추가, -->
+	 <insert id="addWishList" parameterType="WishListVO">
+	 	INSERT INTO WISHLIST
+	 	(WISHLIST_NO, MEMBER_NO, EBOOK_NO)
+	 	VALUES
+	 	(wishList_no_seq.nextval, #{member_no}, #{ebook_no})
+	 </insert>
+	 <!-- 위시리스트 체크합니다 -->
+	 <select id="wishListCheck" resultType="WishListVO">
+	 	select * from WISHLIST
+	 	where member_no=#{member_no}
+	 	and ebook_no=#{ebook_no}
+	 </select>
+	 
+	 <!-- single right list -->
+	 <select id="getOtherList" parameterType="EbookVO" resultType="EbookVO">
+	 <![CDATA[
+	  select 
+	    e.ebook_no,
+		e.title,
+		e.author,
+		e.coverURL,
+		nvl(starp.staravg, 0) staravg
+		from ebook e
+		left outer join (select ebook_no , avg(starrating) staravg ,count(starrating) starcount from star
+		group by ebook_no) starp on (starp.ebook_no = e.ebook_no)
+		where e.EBOOK_NO in
+		( 
+      		select ebook_no from 
+      		(
+      			 select ebook_no,count(*) as count from borrow 
+        		 where MEMBER_NO in (select DISTINCT member_no from borrow where ebook_NO=#{ebook_no}) 
+        	     GROUP BY ebook_no ORDER BY count desc
+      		)  
+      		where rownum<11
+     	)
+	 ]]>
+	 </select>
+	 
+	
 </mapper>
