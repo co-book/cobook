@@ -16,30 +16,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script> -->
 <!-- //for-mobile-apps -->
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/style.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/login.css?ver=6" rel="stylesheet" type="text/css" media="all"/>
+<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
-<link href="/cobook/resources/CoBookDesign/css/medile.css"
-	rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single.css"
-	rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/contactstyle.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/faqstyle.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/medile.css" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/single.css" 	rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/contactstyle.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/faqstyle.css" rel="stylesheet" type="text/css" media="all" />
 <!-- font-awesome icons -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
+<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" rel="stylesheet" />
 <!-- //font-awesome icons -->
 <!-- news-css -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/news-css/news.css" type="text/css"
-	media="all" />
+<link href="/cobook/resources/CoBookDesign/news-css/news.css"  rel="stylesheet"  type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/list-css/list.css" type="text/css"
-	media="all" />
+<link href="/cobook/resources/CoBookDesign/list-css/list.css" type="text/css" rel="stylesheet" media="all" />
 <!-- //list-css -->
 <!-- js -->
 <script type="text/javascript"

@@ -146,7 +146,7 @@ function aladinList(){
 }
 </script>
 </head>
-<body>
+<body >
 <!-- header login, wishList, navibar start -->
 <c:import url="/WEB-INF/views/header.jsp" charEncoding="UTF-8" >
 	<c:param name="loginId" value="loginId" />
