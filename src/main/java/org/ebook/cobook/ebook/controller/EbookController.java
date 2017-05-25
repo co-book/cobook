@@ -233,7 +233,8 @@ public class EbookController {
 
 	}
 
-	//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 , 파라미터를 다르게 적용해서.?
+	//코북 화제의 도서 - 별점순, 인기순(리뷰많은것), 완독순, 최신순 , 파라미터를 다르게 적용해서.? 
+	//mapper sql문만 다르게 해서 model에 같이 add해주면 안되나? 뷰에서 바로 꽂아주면...비효율 적인건가..?
 	@RequestMapping(value = "/topicList", method = RequestMethod.GET)
 	public String getEbookAllList(Locale locale, Model model) 
 	{
@@ -273,6 +274,7 @@ public class EbookController {
 	  mav.addObject("category","genres");
 	  return mav;
 	}
+	
 	//@RequestParam("category")
 	@RequestMapping(value= "/getEbookList", method = RequestMethod.POST)
 	public ModelAndView getEbookList(@RequestParam("category") String category) throws Exception{

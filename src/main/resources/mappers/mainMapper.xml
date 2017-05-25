@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 
-<!-- 별점이 높은 책 리스트 12개 - topic list -->
+<!-- 별점이 높은 책 리스트 12개 - 1.별점순 2.인기리뷰3.완독순4.신간순-->
 	<select id="getEbookAllList" resultType="EbookVO">
 		<![CDATA[
 		select
@@ -42,5 +42,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		where (rownum<13)
    		]]>
 	</select>
+	
 	
 </mapper>

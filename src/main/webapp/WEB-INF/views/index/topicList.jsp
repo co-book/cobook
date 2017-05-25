@@ -11,6 +11,7 @@
 					<li role="presentation"><a href="#rating" id="rating-tab" role="tab" data-toggle="tab" aria-controls="rating" aria-expanded="true">완독도서</a></li>
 					<li role="presentation"><a href="#imdb" role="tab" id="imdb-tab" data-toggle="tab" aria-controls="imdb" aria-expanded="false">화제신간</a></li>
 				</ul>
+			<!-- 별점순 -->	
 				<div id="myTabContent" class="tab-content">
 					<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
 						<div class="w3_agile_featured_movies">
@@ -53,7 +54,7 @@
 							<div class="clearfix"> </div>
 						</div>
 					</div>
-	<!--  -->
+	<!-- 리뷰많은 인기순 -->
 					<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
 						<div class="col-md-2 w3l-movie-gride-agile">
 							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="resources/CoBookDesign/images/m22.jpg" title="album-name" class="img-responsive" alt=" " />
@@ -135,6 +136,8 @@
 						</div>
 						<div class="clearfix"> </div>
 					</div>
+					
+		<!-- 완독순 -->			
 					<div role="tabpanel" class="tab-pane fade" id="rating" aria-labelledby="rating-tab">
 						<div class="col-md-2 w3l-movie-gride-agile">
 							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="resources/CoBookDesign/images/m7.jpg" title="album-name" class="img-responsive" alt=" " />
@@ -242,6 +245,7 @@
 						</div>
 						<div class="clearfix"> </div>
 					</div>
+	<!-- 화제신간 -->
 					<div role="tabpanel" class="tab-pane fade" id="imdb" aria-labelledby="imdb-tab">
 						<div class="col-md-2 w3l-movie-gride-agile">
 							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="resources/CoBookDesign/images/m22.jpg" title="album-name" class="img-responsive" alt=" " />
