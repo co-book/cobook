@@ -18,9 +18,7 @@
 	rel="stylesheet">
 	<script
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-	<link
-	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css"
-	rel="stylesheet">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 <script src="/cobook/resources/editor/dist/summernote.js"></script>
 <script src="/cobook/resources/editor/dist/lang/summernote-ko-KR.js"></script>
 <script src="/cobook/resources/js/editorFunction.js"></script>

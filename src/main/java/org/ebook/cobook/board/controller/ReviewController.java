@@ -6,6 +6,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.PageMaker;
@@ -32,6 +34,37 @@ public class ReviewController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
+	/**
+	 * 글쓰기 페이지 
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String writeReview(Model model, HttpSession session) throws Exception {
+
+		Integer member_no = new Integer(3);
+		//session.setAttribute("login", sampleDAO.findNickName(member_no));
+		
+		return "/review/register";
+	}
+	
+	
+	@RequestMapping(value = "/Rregister", method = RequestMethod.POST)
+	public String reviewWPOST(HttpServletRequest req,ReviewVO reviewVO, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
+
+		logger.debug("regist post ...........");
+		logger.debug("파일명 확인" + filesVO.toString());
+		
+		reviewService.writeReview(reviewVO, filesVO);
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
+		return "redirect:/sample/reviewList";
+	}
+	//////////////////////////////////////////////////////////////////////
+	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String review(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
@@ -172,7 +205,7 @@ public class ReviewController {
 		return "redirect:/sboard/list";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void registGET() throws Exception {
 
 		logger.info("regist get ...........");
@@ -190,7 +223,7 @@ public class ReviewController {
 
 		return "redirect:/sboard/list";
 	}
-
+*/
 	// 최신 리뷰 - 최신에 쓰여진 리뷰(책이름 , 리뷰 제목 )
 
 	@RequestMapping(value = "/lastedReviewList", method = RequestMethod.GET)

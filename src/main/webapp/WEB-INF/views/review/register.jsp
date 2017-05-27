@@ -19,7 +19,7 @@
 <link href="/cobook/resources/CoBookDesign/css/style.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single.css?ver=6" rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single-style.css?ver=8" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/review-resiter-style.css?ver=1" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css" media="all" />
 						<!-- news-css -->
@@ -42,143 +42,24 @@
 <script src="/cobook/resources/CoBookDesign/js/star-theme.js?ver=5" type="text/javascript"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- start-smoth-scrolling -->
-<script type="text/javascript" src="/cobook/resources/js/replies/reply.js"></script>
+<script src="/cobook/resources/editor/dist/summernote.js"></script>
+<script src="/cobook/resources/editor/dist/lang/summernote-ko-KR.js"></script>
+<script src="/cobook/resources/js/editorFunction.js"></script>
+
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 <script type="text/javascript">
 
-	var ebook_no = ${evo.ebook_no};
+
+
+	var ebook_no = 2//${evo.ebook_no};
 	var parent_type="EBOOK";
-	var moreCnt=1;	//더보기횟수 
-	var replyEventInit;
-	var commentEventInit; //코멘트 관련 이벤트 등록 
 	
 	jQuery(document).ready(function($) {
-		var reply = new Reply();
-		reply.member_no=member_no;
-		reply.ebook_no=ebook_no;
-		reply.parent_type=parent_type;
+		callSummernote();
 		$(".member-nickname").prepend(nickname);
 		$("#mypoint").prepend(myPoint);
 
-		
-		//이책을대여한사람들의 책리스트 가져오기
-		$.ajax({
-			type : "POST",
-			url : '/cobook/ebook/getOtherList',
-			data : JSON.stringify({		
-	  		"ebook_no":ebook_no
-			}),
-			contentType : "application/json;charset=UTF-8",
-			dataType : 'html',
-			success : function(data) {
-				$('#getOtherList').append(data);
-			}
-		});
-		
-		
-		replyEventInit = function() {
-			//로그인 && 현재 로그인 사용자 != 작성자
-			// 코멘트 리스트 가져와서,  숨기기/보이기 
-			$(".commentBtn").click(function() {
-				var parent_no = $(this).data("parent_no");
-				if ($("#comment" + parent_no).css("display") == "none") {
-					//해당 리플의 코멘트 불러옴
-					reply.getCommentList(parent_no);
-					$("#comment" + parent_no).toggle();	//코멘트 목록 Show
-
-				} else {
-
-					$("#comment" + parent_no).toggle(); //코멘트 목록 hide
-				}
-			});
-			//
-			//리플 삭제하기
-			$(".reply-remove").click(function () {
-				var delete_reply_no=$(this).data("reply_no");
-				if(member_no==null)		//member_no = 해당 작성자가 다를때 삭제버튼 hide;
-				{	
-					$("#reply-delete").hide();
-					$("#myModal").modal();
-				}else {
-					reply.deleteReply(delete_reply_no);
-				}	
-			});
-
-			//더보기 
-			$('#moreCnt').click(function() {
-				reply.moreCnt=(reply.moreCnt+1);
-				moreCnt=moreCnt+1;
-				reply.getReplyList();
-			}); 
-
-			//add like - 좋아요
-			$(".thumbs").click(function () {
-				if (member_no == null) {
-					$("#myModal").modal();
-				} else {
-					reply.addLike($(this).data("reply_no"));
-				}
-			});	//addlick
-			
-			//add like - 좋아요
-			$(".thumbs_can").click(function () {
-				if (member_no == null) {
-					$("#myModal").modal();
-				} else {
-					reply.deleteLike($(this).data("reply_no"));
-				}
-			});	//addlick
-			
-		}
-		commentEventInit = function() {
-			//삭제버튼 Visible
-			//if (member_no == null || $(".comment-delete").data("member_no")!= member_no) {
-			if (member_no == null ) {
-				$(".comment-delete").hide();
-			} else {
-				$(".comment-delete").show();
-			}
-			
-			//코멘트 등록
-			$(".addComment").click(function() {	//해당 클래스에는 모두 같은 이벤트 부여
-				// $("#comment-up").add(up).show();
-				var parent_no= $(this).data("parent_no");
-				if (member_no == null) {
-					$("#myModal").modal();
-				} else {
-					reply.addComment(parent_no);
-				}
-			}); //comment
-			
-			//코멘트 삭제
-			$(".comment-delete").click(function() {	
-				var reply_no= $(this).data("reply_no");
-				var parent_no= $(this).data("parent_no");
-				var writer= $(this).data("member_no");
-				if (member_no == null) {
-					$("#myModal").modal();
-				} else if(writer != member_no){
-					alert("작성자만 삭제가 가능합니다.");
-				} else {
-					reply.deleteComment(reply_no,parent_no);
-				}
-			}); //comment
-		}
-		
-		//리플등록
-		$('#addReply').click(function() {
-			if (member_no == null) {
-				$("#myModal").modal();
-			} else {
-				reply.starRating=$('#starRating').val();
-				reply.contents=$('#replyContents').val();
-				reply.addReply();
-			}
-		}); //리플달기
-		
-		//리플리스트 불러오기 
-		reply.getReplyList();
-		
-		////////////////////////대여//////////////////
+		//////////////////대여//////////////////
 		//대여하기 전
 		//로그인 체크 , 대여하기 모달 Modal open
 		//대여하기 전 로그인 체크
@@ -201,71 +82,7 @@
 				
 			}
 		});	//end
-		
-		/////////////////////////////////////////////////////charge
-		 var chargePoint = function () {
-				$("#chargePoint").unbind("click");
-				
-				$.ajax({
-					type : 'GET',
-					url : '/cobook/member/chargePoint',
-					dataType : 'json' ,
-					//async: false,
-					success : function(result, status) {
-						console.log(result);
-						//var obj = eval("("+result+")");
-						console.log(result);
-						console.log(result.myPoint);
-						console.log(status);
-						
-						alert("충전하였습니다.");
-						$("#mypoint").html(result.myPoint);
-						myPoint=result.myPoint;
-						$("#chargePoint").bind("click",chargePoint);
-						
-					}
-				});
-			}
-		 
-		$("#chargePoint").bind("click",chargePoint);
-		10,000
-		//대여하기 
-		$("#borrowEbook").click(function() {
-			if (member_no == null) {
-				$("#myModal").modal();
-			} else {	
-				console.log(JSON.stringify({
-					"price" : price,
-					"member_no" : member_no,
-					"ebook_no" : ebook_no,
-					"period" : selectDay}));
-				 $.ajax({
-					type : 'POST',
-					url : '/cobook/ebook/borrowEbook',
-					headers: { 
-				        'Accept': 'application/json',
-				        'Content-Type': 'application/json' 
-				    },
-					data : JSON.stringify({"price" : price,
-						"member_no" : member_no,
-						"period" : selectDay,
-						"ebook_no" : ebook_no
-						}),
-					dataType : 'json',
-					contentType : "application/json",
-					success : function(result) {
-						//대여 성공시 새로고침
-						if (result.result == "SUCCESS") {
-							location.reload();
-						} else {
-							//실패시 alert
-							alert("다시 대여해주세요");
-						}
-					}
-				}); 
-			}
-		}); //borrow
-
+	
 
 		//addWishList check는 서비스단에서 확인!
 		$("#addWishList").click(function () {
@@ -309,18 +126,7 @@
 	rel="stylesheet" type="text/css" media="all">
 <script src="/cobook/resources/CoBookDesign/js/owl.carousel.js"></script>
 <script>
-	/* $(document).ready(function() {
-		$("#owl-demo").owlCarousel({
-
-			autoPlay : 3000, //Set AutoPlay to 3 seconds
-
-			items : 5,
-			itemsDesktop : [ 640, 5 ],
-			itemsDesktopSmall : [ 414, 4 ]
-
-		});
-
-	}); */
+	
 </script>
 
 </head>
@@ -339,8 +145,8 @@
 			<!-- /w3l-medile-movies-grids -->
 			<div class="agileits-single-top">
 				<ol class="breadcrumb">
-					<li><a href="/cobook/ebook/gerne/${evo.category}">${evo.category}</a></li>
-					<li class="active">책소개</li>
+					<li><a href="/cobook/review">책 리뷰</a></li>
+					<li class="active">글쓰기</li>
 				</ol>
 			</div>
 
@@ -348,65 +154,43 @@
 
 				<!-- /movie-browse-agile -->
 				<div class="show-top-grids-w3lagile">
-					<div class="col-sm-8 single-left">
-						<!--<div class="song">
+					<div class="single-left">
+						<div class="song">
 							<div class="song-info">
-								<h3 align="left">${evo.title}</h3>
+								<h3 align="left">타이틀</h3>
+								<input type="text" name="your name" placeholder="제목" required="">
 							</div>
-						</div>  song -->
+						</div> 
 						<div class="section group">
 							<!-- <div class="cont-desc span_1_of_2"> -->
 							<div class="product-details">
 								<div class="grid images_3_of_2">
-									<img src="${evo.coverURL}" alt="" />
+				
+									<img src="/cobook/resources/ebook/cover/novel/novel25.jpg" alt="" />
 								</div>
 								<div class="desc span_3_of_2">
-									<h2>${evo.title}</h2>
-									<p>${evo.author}| ${evo.translator}</p>
+									<h2>책정보</h2>
+									<p>글쓴이 | 번역자</p>
 
 									<div class="detail-stars">
 										<ul class="detail-ratings">
-											<c:forEach var="i" begin="1" end="5" varStatus="statusCnt">
-												<c:choose>
-													<c:when test="${evo.starAvg>=statusCnt.current}">
-														<!-- 별점  -->
-														<li><a href="#"><i class="fa fa-star"
-																aria-hidden="true"></i></a></li>
-													</c:when>
-													<c:when test="${evo.starAvg<statusCnt.current}">
-														<li><a href="#"><i class="fa fa-star-o"
-																aria-hidden="true"></i></a></li>
-													</c:when>
-													<c:otherwise>
-														<li><a href="#"><i class="fa fa-star-half-o"
-																aria-hidden="true"></i></a></li>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-											<li class="starAvg">${evo.starAvg}점| (${evo.starCount}명)</li>
+										<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+										<li class="starAvg">5점| (0명)</li>
 										</ul>
 									</div>
 									<br> <br>
 									<div class="price">
 										<p>
 											대여가: <span id="price"><fmt:formatNumber
-													value="${evo.price}" pattern="##,###" /></span><a class="starAvg">원</a>
+													value="10000" pattern="##,###" /></span><a class="starAvg">원</a>
 										</p>
 									</div>
 
 									<div class="available">
 										<ul>
-											<li><span>도서정보:</span> &nbsp;${evo.publisher} | <fmt:formatDate
-													value="${evo.publishedDate}" pattern="yyyy년 MM월 dd일" /> | ${evo.fileType} | ${evo.fileSize}</li>
+											<li><span>도서정보:</span> &nbsp;출판사 | 2017-02-10 |epub| 100mb</li>
 											<li><span>지원기기:</span>&nbsp; Android | ios | PC | Mac</li>
-											<li><span>듣기가능:</span>&nbsp; <c:choose>
-													<c:when test="${evo.listening==1}">
-																듣기가능
-															</c:when>
-													<c:otherwise>
-																듣기없음
-															</c:otherwise>
-												</c:choose></li>
+											<li><span>듣기가능:</span>&nbsp; 듣기가능</li>
 										</ul>
 									</div>
 									<div class="share-desc">
@@ -451,18 +235,17 @@
 												<div class="modal-body">
 													<table class="modal-table">
 														<tr>
-															<th><img src="${evo.coverURL}" style="max-width: 182px; max-height: 268px;"/></th>
+															<th><img src=" " style="max-width: 182px; max-height: 268px;"/></th>
 															<th>
-																<h2>${evo.title}</h2>
-																<p>${evo.author}</p> <a>대여기간</a> <input type="text" id="borrowDays" readonly="readonly">일
+																<h2>타이틀</h2>
+																<p>글쓴이</p> <a>대여기간</a> <input type="text" id="borrowDays" readonly="readonly">일
 																<ul class="order">
-																	<li>총주문금액 &nbsp; <fmt:formatNumber value="${evo.price}" pattern="##,###" /><a class="starAvg">원</a></li>
+																	<li>총주문금액 &nbsp; <fmt:formatNumber value="10000" pattern="##,###" /><a class="starAvg">원</a></li>
 																	<li>무료이용권&nbsp; 0개</li>
 																	<li>할인쿠폰&nbsp; 0개</li>
 																	<li>포인트 상품권&nbsp; 0개</li>
 																	<li>코북포인트 &nbsp; 0원</li>
 																	<li>코북캐시 &nbsp; 0원</li>
-																	<li><a>총결제금액</a>&nbsp; <fmt:formatNumber value="${evo.price}" pattern="##,###" /><a class="starAvg">원</a></li>
 																</ul> <br>
 																<p class="member-nickname">님의 현재 포인트는 <a id="mypoint"></a>원 입니다</p>
 															</th>
@@ -494,16 +277,13 @@
 									<div class="all-comments">
 									<div class="product_desc">
 										<h2>Details :</h2>
-										<p>${evo.intro}</p>
+										<p><textarea id='summernote' name="contents" rows="" cols=""></textarea></p>
 									</div>
 									
 								</div>
 								<div class="clear"></div>
 							</div>
-							
-							<br></br> <br></br>
-							<!-- reply -->
-							<h3>이 책을 평가해주세요!</h3>
+		
 							<div class="reply-control">
 								<input type="text" id="starRating" class="kv-fa rating-loading"
 									value="4" data-size="lg" title=""> <br>
@@ -511,77 +291,13 @@
 									placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
 								<button type="button" id="addReply" class="reply-regi">리뷰남기기</button>
 							</div>
-							<br></br> <br></br>
-							<h3>리뷰</h3>
-<!-- reply list start -->
-							<div id="wrap-media-list">
-								<div id ="reply_list" >
-								<!-- <div class="media_list">		
-										<div class="media-left">
-											<div class="detail-stars">
-												<ul class="detail-ratings">
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star-half-o"
-															aria-hidden="true"></i></a></li><br>
-													<li>dal2sis</li><br>
-													<li>2017-03-26</li>
-												</ul>
-											</div>
-										</div>
-										<div class="media-body-single">
-	reply delete					<div class="single-reply-remove">
-												<button type="button" id="reply-delete" class="reply-remove">
-													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-												</button>
-											</div>
-											<br>
-											<p>흐라발의 소설은 완벽하게 역설적이다. 무한한 욕망과 유한한 만족감 사이에서 탁월하게 균형을 맞추고 있는 그의 글은,
-											순리를 따르면서도 지극히 반항적이며 지혜를 잃지 않으면서도 끊임없이 고뇌한다.</p>
-											<br>
-											<div class="single-button"  name="comment-btn">
-												<button type="button" class="btn btn-default btn-sm" id="comment">
-	  											<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 댓글
-												</button>
-												<button type="button" class="btn btn-default btn-sm" id="thumbs">
-	  											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 0
-	  											</button>
-											</div>
-		comment									
-											<div class="reply-comment" id="reply-comment">
-												<div class="comment-up" id="comment-up">
-													<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
-		comment-delete						<p>nam*** /2017-04-03/ <a id="reply-delete">삭제</a></p>
-												</div>
-												<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
-												<button type="button" class="comment-regi" id="addComment">등록하기</button>
-											</div>
-										</div>
-									</div>	
-		first list end												
-							</div>
-							</div>
-
-							<!-- </div> -->
+							
 						</div>
-						<!-- <div class="song-grid-right"></div>
-							<div class="clearfix"></div>-->
-					</div>
-					
 
+					</div>
 					<div class="clearfix"></div>
 				</div>
-					<div class="col-md-4 single-right">
-						<h3>이 책을 구매한 사람들의 선택</h3>
-						<div class="single-grid-right" id="getOtherList"></div>
-					</div>
-				<br></br>
+
 			</div>
 		</div>
 	</div>
@@ -627,7 +343,6 @@
 		    });
 			
 		</script>
-	<!-- <script src="js/bvelocity.min.js"></script>
-		<script src="js/borrowmain.js"></script>JS borrow jQuery -->
+
 </body>
 </html>
