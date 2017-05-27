@@ -1,0 +1,282 @@
+@CHARSET "UTF-8";
+@font-face {
+	font-family: 'IropkeBatangM';
+	src: url('../fonts/IropkeBatangM.woff') fomat('woff');
+	font-style: normal;
+	font-weight: normal;
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  font-family: IropkeBatangM;
+  padding-top: 50px;
+  background-image: radial-gradient(ellipse 59% 100% at 93% 30%,#e69ea4,rgba(219,232,231,.2) 90%),
+				    radial-gradient(ellipse 59% 140% at 0 120%,#e69ea4,rgba(219,232,231,.2) 60%),
+					radial-gradient(ellipse 60% 100% at 5% 20%,#bccfbc,rgba(219,232,231,.2) 100%),
+					radial-gradient(ellipse 60% 100% at 100% 110%,#bccfbc,rgba(219,232,231,.2) 90%);
+}
+h1 h2 h3 h4 h5 span{
+	font-family: IropkeBatangM;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+ .navbar-brand {
+ 	color: #428bca;
+ }
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: #428bca;
+  background-color: transparent;
+}
+ .navbar-brand { 
+ 	color: #428bca;
+ 	float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+ }
+ .header-seperator{
+    background-color: #eaf7ff;
+    width: 1px;
+    height: 100%;
+ }
+.navbar-fixed-top {
+  border: 0;
+}
+.navbar-inverse {
+	background-color: #fff;
+	box-shadow: 0 11px 18px 0 rgba(32,48,60,.05);
+}
+.mypage-header {
+	-webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    box-shadow: 0 1px 5px 0 rgba(41,85,115,.21);
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 48px;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    background-color: #fff;
+    z-index: 77;
+}
+.header-primary {
+	-webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+}
+.navbar-header{
+	background-size: 49px 20px;
+    width: 49px;
+    height: 20px;
+    margin: 0 16px;
+}
+.mypage-secondery{
+	-webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    
+    webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    /* background-color: #f5f5f5; */
+    background-color: #fff;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+
+.placeholders {
+   margin-bottom: 30px;
+  text-align: center; 
+
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  align-self : center;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+} 
+  /* 
+  	by.jiyeon
+  * rectangle 
+  */
+.mypage-myreview-container {
+ 	display: flex;
+    border-radius: 12px;
+    box-shadow: 0 11px 18px 0 rgba(32,48,60,.05);
+    background-color: #fff;
+    padding: 0 28px 0 33px;
+     -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; 
+ }
+ .mypage-myreview{
+ 	display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 130px;
+    color: #577083;
+    font-family: IropkeBatangM,sans-serif;
+    font-size: 16px;
+        
+ }
+ .list{
+ 	border-bottom: 1px solid #dfe5eb;
+ }
+ .my_ebook {
+ 	display: block;
+ 	
+ }
+ .my_ebook img{
+ 	box-sizing: border-box;
+ 	width: 110px; 
+ 	height: 161px;
+ 	box-shadow : 0 2px 6px rgba(0,0,0,.4);
+ }
+ 
+.detail-wrapper {
+	 display: -webkit-flex;
+    display: -ms-flexbox; 
+    display: flex;
+    margin-left: 30px;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center; 
+     align-self: center; 
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; 
+}
+.review-title-ebook {
+	font-size: 20px;
+	
+}
+.review-title-wrapper .title-author {
+	
+	margin-left: 5px;
+}
+.add {
+	display: flex;
+     -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center; 
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+.add-panel { 
+	-webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+    color: #7a92a5;
+    font-family: 14px;
+}
+.review-but {
+	box-sizing: border-box;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 999px;
+    border: none;
+    color: #fff;
+    background-color: #3899ec;
+    font-family: HelveticaNeueW01-55Roma,HelveticaNeueW02-55Roma,HelveticaNeueW10-55Roma,sans-serif;
+    font-size: 16px;
+    line-height: 36px;
+    padding: 0 24px;
+    cursor: pointer;
+    outline: 0;
+    -webkit-font-smoothing: antialiased;
+}
+  
+}
