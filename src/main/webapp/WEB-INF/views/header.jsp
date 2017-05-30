@@ -68,7 +68,7 @@ window.fbAsyncInit = function() {
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Wish List <span class="badge">2</span></a>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">위시리스트<span class="badge">2</span></a>
 						<ul class="dropdown-menu multi-column columns-2">
 							<li>
 								<div class="wishlist_dropdown">
@@ -90,7 +90,7 @@ window.fbAsyncInit = function() {
 							</li>
 						</ul>
 					</li>
-					<li id="login_on" style="display:hide;" ><a href="#" data-toggle="modal" data-target="#myModal" >Login</a></li>
+					<li id="login_on" style="display:hide;" ><a href="#" data-toggle="modal" data-target="#myModal" >로그인</a></li>
 					<li id="login_off" style="display:hide;"><a href="/cobook/member/logout" >Logout</a></li>
 				</ul>
 			</div>
@@ -114,9 +114,9 @@ window.fbAsyncInit = function() {
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav>
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="/cobook">Home</a></li>
+							<li class="active"><a href="/cobook">홈</a></li>
 							<li class="dropdown">
-								<a href="/cobook/ebook/genres" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
+								<a href="/cobook/ebook/genres" class="dropdown-toggle" data-toggle="dropdown">장르별ebook<b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
 									<div class="col-sm-4">
@@ -154,9 +154,9 @@ window.fbAsyncInit = function() {
 									</li>
 								</ul>
 							</li>
-							<li><a href="/cobook/review">Review</a></li> 
-							<li><a href="/cobook/mybook">Mybook</a></li>
-							<li><a href="#">About</a></li>
+							<li><a href="/cobook/review">ebook 리뷰</a></li> 
+							<li><a href="/cobook/mybook">개인소설</a></li>
+							<li><a href="#">코북은?</a></li>
 							<li><a href="#">Contact</a></li>
 							<li><a href="#">MyPage</a></li>
 						</ul>

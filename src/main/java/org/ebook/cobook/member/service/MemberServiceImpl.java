@@ -1,9 +1,13 @@
 package org.ebook.cobook.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.member.persistence.MemberDAO;
+import org.ebook.cobook.mypage.persistence.MyPageDAO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +15,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Inject
 	private MemberDAO memberDAO;
-
+	private MyPageDAO mypageDAO;
+	
+	
 	@Override
 	public void joinMember(MemberVO vo) {
 		// TODO Auto-generated method stub
@@ -53,6 +59,24 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		memberDAO.chargePoint(vo);
 		return memberDAO.getMyPoint(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getMyBookReviewList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserMybookList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
