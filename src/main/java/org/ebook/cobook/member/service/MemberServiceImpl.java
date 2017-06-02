@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.ebook.cobook.ebook.domain.BorrowVO;
+import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.member.persistence.MemberDAO;
 import org.ebook.cobook.mypage.persistence.MyPageDAO;
@@ -15,6 +17,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Inject
 	private MemberDAO memberDAO;
+	@Inject
 	private MyPageDAO mypageDAO;
 	
 	
@@ -73,10 +76,17 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
+	
 	@Override
-	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap) throws Exception {
+	public List<EbookVO> getMyborrowList(BorrowVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return mypageDAO.getMyborrowList(vo);
 	}
+
+	/*@Override
+	public List<Map<String, Object>> getMyborrowList(MemberVO mvo) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.getMyborrowList(mvo);
+	}*/
 
 }

@@ -12,6 +12,7 @@ if(vo!=null){
 	nickname=vo.getNickname();
 	myPoint=vo.getMyPoint()+"";
 }
+
 %>
 <!-- FaceBook sdk -->
 <script>
@@ -34,6 +35,7 @@ window.fbAsyncInit = function() {
 		js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
+	
 </script>
 
 
@@ -68,7 +70,8 @@ window.fbAsyncInit = function() {
 			</div>
 			<div class="w3l_sign_in_register">
 				<ul>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">위시리스트<span class="badge">2</span></a>
+				<!-- <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">위시리스트<span class="badge">2</span></a> -->
+					<li class="dropdown"><a id="wishDrop" href="#" class="dropdown-toggle" data-toggle="dropdown" style="display: none;">위시리스트</a>
 						<ul class="dropdown-menu multi-column columns-2">
 							<li>
 								<div class="wishlist_dropdown">
@@ -90,8 +93,8 @@ window.fbAsyncInit = function() {
 							</li>
 						</ul>
 					</li>
-					<li id="login_on" style="display:hide;" ><a href="#" data-toggle="modal" data-target="#myModal" >로그인</a></li>
-					<li id="login_off" style="display:hide;"><a href="/cobook/member/logout" >Logout</a></li>
+					<li id="login_on" style="float: right;" ><a href="#" data-toggle="modal" data-target="#myModal" >로그인</a></li>
+					  <li id="login_off" style="disply: none; float: right;"><a href="/cobook/member/logout" >로그아웃</a></li> 
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -155,10 +158,10 @@ window.fbAsyncInit = function() {
 								</ul>
 							</li>
 							<li><a href="/cobook/review">ebook 리뷰</a></li> 
-							<li><a href="/cobook/mybook">개인소설</a></li>
+							<li><a href="/cobook/member/mybook">개인소설</a></li>
 							<li><a href="#">코북은?</a></li>
 							<li><a href="#">Contact</a></li>
-							<li><a href="#">MyPage</a></li>
+							<li id="mypage"><a id="mypage" href="#">MyPage</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -205,7 +208,7 @@ $(document).ready(function(){
 							  <div class="form">
 								<h3 class = 'login_h3'>CoBook 로그인</h3>
 								<form name="login_form"class="login" onsubmit="login_cobook_function(); return false ">
-								  <input id="login_email" type="email" name="Email"  style="width:100%;"  placeholder="Email" required="">
+								  <input id="login_email" type="email" name="Email"  autofocus="autofocus" style="width:100%;"  placeholder="Email" required="" >
 								  <input id="login_password" type="password" name="Password" placeholder="Password" required="">
 								  <input id="login_cobook" type="submit" value="Login">
 								</form>
@@ -265,6 +268,21 @@ $(document).ready(function(){
 	</div>
 	<script>
 		var coMember = new CobookMember();
+		//포커스 왜 안되는거니
+		$(function () {
+			$("#login_email").focus();
+		});
+		
+		//mypage 대충연결 1차
+		$("#mypage").on("click", function () {
+			console.log("mypage location!!!!!!!!!!!gogo!!!!!");
+			if (member_no == null) {
+				$("#myModal").modal();
+			}else {
+				location.href="/cobook/member/mypage";
+			}
+		});
+		
 		
 		//토글 이벤트
 		$('.toggle').click(function(){
@@ -287,6 +305,8 @@ $(document).ready(function(){
 			coMember.password=$("#login_password").val();
 			coMember.loginType="COBOOKLOGIN";
 			coMember.cobookLogin();
+			$('#wishDrop').style.display = 'inline';
+			
 		} 
 		//로그인 google 버튼
 		$("#login_google").on("click", function() {

@@ -36,7 +36,7 @@ WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 ]]>
 	</select>
 	
-	<select id="getMyborrowList" resultType="map">
+	<!-- <select id="getMyborrowList" resultType="map">
 <![CDATA[
 	SELECT ebook_no, title, coverurl, borrowdate
 	FROM(
@@ -47,6 +47,14 @@ WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 		 )
 	WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 ]]>
+	</select> -->
+	<select id="getMyBorrowList" resultType="EbookVO" parameterType="BorrowVO">
+	select ebook_no, title, coverurl, author, borrowdate
+	from (select e.ebook_no, e.title, e.coverurl, e.author,
+			b.borrowdate 
+			from borrow b, ebook e 
+			where member_no= #{member_no}
+			and b.ebook_no=e.ebook_no)
 	</select>
 
 </mapper>

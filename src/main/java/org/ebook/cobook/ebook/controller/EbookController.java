@@ -165,7 +165,7 @@ public class EbookController {
 		return resultMap;
 	}
 	
-	 @RequestMapping(value="/getMyborrowList", method = RequestMethod.GET)
+	/* @RequestMapping(value="/getMyborrowList", method = RequestMethod.GET)
 	  public String getMybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
 		  // [세션]
 		  Map<String, Object> paramMap = new HashMap<>();
@@ -175,7 +175,7 @@ public class EbookController {
 		  model.addAttribute("mybookList", ebookService.getMyborrowList(paramMap));
 		  
 		  return "";
-	  }
+	  }*/
 
 	 //
 	@RequestMapping(value = "/single/{ebook_no}", method = RequestMethod.GET)

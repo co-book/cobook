@@ -44,6 +44,7 @@ CobookMember.prototype.cobookLogin = function(){
     				alert(result.msg);
     				if(result.result=="SUCCESS"){
     					location.reload();
+    					
     				}
     			}else if(result.member.loginType=="GOOGLELOGIN"||result.member.loginType=="FACEBOOKLOGIN"){
     				

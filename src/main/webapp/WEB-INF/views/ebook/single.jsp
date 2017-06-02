@@ -71,6 +71,7 @@
 			dataType : 'html',
 			success : function(data) {
 				$('#getOtherList').append(data);
+				console.log(member_no+"member no!!!!!!!!");
 			}
 		});
 		
@@ -229,6 +230,7 @@
 		 
 		$("#chargePoint").bind("click",chargePoint);
 		10,000
+		
 		//대여하기 
 		$("#borrowEbook").click(function() {
 			if (member_no == null) {
@@ -256,6 +258,7 @@
 					success : function(result) {
 						//대여 성공시 새로고침
 						if (result.result == "SUCCESS") {
+							alert("대여 되었습니다");
 							location.reload();
 						} else {
 							//실패시 alert
@@ -328,7 +331,6 @@
 	<!-- header login, wishList, navibar start -->
 	<c:import url="/WEB-INF/views/header.jsp" charEncoding="UTF-8">
 		<c:param name="loginId" value="loginId" />
-
 	</c:import>
 	<!-- //bootstrap-pop-up -->
 
@@ -516,59 +518,7 @@
 <!-- reply list start -->
 							<div id="wrap-media-list">
 								<div id ="reply_list" >
-								<!-- <div class="media_list">		
-										<div class="media-left">
-											<div class="detail-stars">
-												<ul class="detail-ratings">
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star"
-															aria-hidden="true"></i></a></li>
-													<li><a href="#"><i class="fa fa-star-half-o"
-															aria-hidden="true"></i></a></li><br>
-													<li>dal2sis</li><br>
-													<li>2017-03-26</li>
-												</ul>
-											</div>
-										</div>
-										<div class="media-body-single">
-	reply delete					<div class="single-reply-remove">
-												<button type="button" id="reply-delete" class="reply-remove">
-													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-												</button>
-											</div>
-											<br>
-											<p>흐라발의 소설은 완벽하게 역설적이다. 무한한 욕망과 유한한 만족감 사이에서 탁월하게 균형을 맞추고 있는 그의 글은,
-											순리를 따르면서도 지극히 반항적이며 지혜를 잃지 않으면서도 끊임없이 고뇌한다.</p>
-											<br>
-											<div class="single-button"  name="comment-btn">
-												<button type="button" class="btn btn-default btn-sm" id="comment">
-	  											<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 댓글
-												</button>
-												<button type="button" class="btn btn-default btn-sm" id="thumbs">
-	  											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 0
-	  											</button>
-											</div>
-		comment									
-											<div class="reply-comment" id="reply-comment">
-												<div class="comment-up" id="comment-up">
-													<p>흐라발의 매력에 퐁당퐁당 내맘을 받아줭!</p>
-		comment-delete						<p>nam*** /2017-04-03/ <a id="reply-delete">삭제</a></p>
-												</div>
-												<textarea class="comment-textarea" rows="5" id="comment-area" placeholder="이 곳에 댓글을 남겨주세요"></textarea>
-												<button type="button" class="comment-regi" id="addComment">등록하기</button>
-											</div>
-										</div>
-									</div>	
-		first list end												
-							</div>
-							</div>
-
-							<!-- </div> -->
+								
 						</div>
 						<!-- <div class="song-grid-right"></div>
 							<div class="clearfix"></div>-->

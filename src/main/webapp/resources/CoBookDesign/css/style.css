@@ -53,7 +53,7 @@ input[type="submit"],.agileinfo_chat a,.w3ls_footer_grid1_left p a,.w3l_sign_in_
     color: #f5d058;
     text-transform: uppercase;
     /* background: url(../images/book.png) no-repeat 80px 6px; */
-    padding-right: 1.67em;
+    /* padding-right: 1.67em; */
     font-weight: 900;
 	padding-bottom: .3em;
 }

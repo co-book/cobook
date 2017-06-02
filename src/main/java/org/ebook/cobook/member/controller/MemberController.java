@@ -1,12 +1,18 @@
 package org.ebook.cobook.member.controller;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.ebook.cobook.ebook.controller.EbookController;
+import org.ebook.cobook.ebook.domain.BorrowVO;
+import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.member.service.MemberService;
 import org.ebook.cobook.util.JavaMail;
@@ -21,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping(value = "/member/*")
@@ -28,6 +36,9 @@ public class MemberController {
 
 	@Inject
 	private MemberService service;
+	
+	private static final Logger logger = 
+			LoggerFactory.getLogger(EbookController.class);
 	
 	/**
 	 * 로그인  
@@ -228,6 +239,47 @@ public class MemberController {
 		
 		return entity;
 	}
+	/**
+	 * 마이페이지 연결 - journey
+	 * @param vo
+	 * @return
+	 * GET 방식 프로토콜은 Request 패킷에 Body가 존재하지 않는다. 따라서 데이터를 가져올 수 없다
+	 */
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public ModelAndView mypage(MemberVO vo, HttpSession session) 
+	{	  
+	  logger.info("/member/mypage");
+	  int member_no = 0;
+	  
+	  vo = (MemberVO) session.getAttribute("member");
+	  if(vo!=null)
+	  {
+		  member_no = vo.getMember_no();
+	  }/*else {
+		  ModelAndView mav = new ModelAndView("/cobook/");
+	  }*/
+	  ModelAndView mav = new ModelAndView("/member/mypage");
+	  mav.addObject("mypage",vo);
+	  mav.addObject("member_no", member_no);
+	  return mav;
+	}
+	/**
+	 * 내가 대여한 책 리스트
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/mypage/getMyBorrowList", method = RequestMethod.POST)
+	public ModelAndView getMybookList(@RequestBody BorrowVO vo)throws Exception
+	{	
+		System.out.println(vo.getMember_no());
+		System.out.println("-------------------------------------------------------");
+		ModelAndView mav = new ModelAndView("/member/mypage/getMyBorrowList");
+		List<EbookVO> borrowList = service.getMyborrowList(vo);
+		mav.addObject("myBorrowList", borrowList);
+		
+		  return mav;
+	  }
 	
 	
 	

@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.ebook.cobook.ebook.domain.BorrowVO;
+import org.ebook.cobook.ebook.domain.EbookVO;
+import org.ebook.cobook.member.domain.MemberVO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,10 +32,16 @@ public class MyPageDAOImpl implements MyPageDAO {
 		return sqlSession.selectList(namespace+".getUserMybookList", paramMap);
 	}
 
-	@Override
+	/*@Override
 	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".getMyborrowList", paramMap);
+	}*/
+
+	@Override
+	public List<EbookVO> getMyborrowList(BorrowVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getMyBorrowList", vo);
 	}
 
 	

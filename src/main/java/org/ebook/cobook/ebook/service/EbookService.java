@@ -25,7 +25,7 @@ public interface EbookService {
 	void setLastPage(BorrowVO borrowVo) throws Exception;
 	
 	// 내가 빌린 책 리스트
-	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap)throws Exception;
+	//public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap)throws Exception;
 	
 	//borrow
 	public void borrowEbook(BorrowVO borrowVo) throws Exception;
