@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	where e.ebook_no=#{ebook_no}
      	<!-- NVL이 전자가 널이면 후자로 넣어준다 NVL2는 첫번째가 널이면 세번째꺼 사용 아니면 두번째 사용-->
 	 </select>
-
+		<!-- 대여한 책인지 아닌지 유효성을 검사하는 쿼리-->
 	 <select id="getMemberBorrow" parameterType="BorrowVO" resultType="java.lang.Float">
 	 	select * from 
 	 		(select 

@@ -81,12 +81,12 @@ public class EbookServiceImpl implements EbookService {
 		return vo;
 	}
 
-	@Override
+	/*@Override
 	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
 		return myPageDAO.getMyborrowList(paramMap);
 	}
-
+*/
 	@Override
 	public void borrowEbook(BorrowVO borrowVo) throws Exception {
 		// TODO Auto-generated method stub
