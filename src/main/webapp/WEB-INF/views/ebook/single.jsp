@@ -435,8 +435,16 @@
 										<div class="button" id="borrow-modal">
 											<!--  data-toggle="modal" data-target="#coModal" -->
 											<!-- <span id="borrow-start"><a>대여하기</a></span> -->
-											<button id="borrow-start" class="borrow-button">대여하기</button>
-											<!-- <input type="submit" value="대여하기" class="borrow-button">  -->
+											<c:choose>
+												<c:when test="${evo.remainDate >= 0}"><!-- 좋아요 안한것 -->
+													<button id="read-book" class="borrow-button">보러가기</button>
+												</c:when>
+												<c:otherwise><!-- 좋아요한것 -->
+													<button id="borrow-start" class="borrow-button">대여하기</button>
+												</c:otherwise>
+											</c:choose>
+											
+											
 										</div>
 										<div class="clear"></div>
 									</div>
