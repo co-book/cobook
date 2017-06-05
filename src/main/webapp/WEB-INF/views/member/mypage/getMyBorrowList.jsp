@@ -3,14 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 <div class="row placeholders">
 <c:forEach items="${myBorrowList}" var="myBorrowList" varStatus="status">
 			
 	            <div class="col-xs-6 col-sm-3 my_ebook">
 	              <img src="${myBorrowList.coverURL}">
-	              <div class="remainDays"><p>60일</p></div>
+	              <div class="remainDays"><p><fmt:parseNumber value="${myBorrowList.remainDate}" integerOnly="true"/>일</p></div>
 	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>
+	              <span class="text-muted">${myBorrowList.author}</span>.
 	            </div>
 	            
 	            <c:if test="${status.count%4 == 0}">

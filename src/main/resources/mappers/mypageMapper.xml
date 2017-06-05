@@ -49,12 +49,16 @@ WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 ]]>
 	</select> -->
 	<select id="getMyBorrowList" resultType="EbookVO" parameterType="BorrowVO">
-	select ebook_no, title, coverurl, author, borrowdate
+	<![CDATA[
+	select ebook_no, title, coverurl, author, remainDate
 	from (select e.ebook_no, e.title, e.coverurl, e.author,
-			b.borrowdate 
+			b.borrowdate+period-sysdate as remainDate
 			from borrow b, ebook e 
-			where member_no= #{member_no}
-			and b.ebook_no=e.ebook_no)
+			where b.member_no= #{member_no}
+			and b.ebook_no=e.ebook_no
+			order by remainDate desc)
+     	where remainDate>0 and rownum<9
+	]]>	
 	</select>
 
 </mapper>
