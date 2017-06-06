@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.FilesMapper">
 
-	<insert id="insertFile">
+	<insert id="insertFile"> 
 	insert into files(file_no, book_no, filename, fileurl, book_type, filetype)
 	values
 	(file_no_seq.nextval, #{book_no}, #{filename}, #{fileurl}, #{book_type}, #{filetype})
