@@ -7,12 +7,12 @@
 <title>회원정보 수정</title>
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-<link href="test/member-modify.css?ver=3" rel="stylesheet" type="text/css">
+<link href="/cobook/resources/CoBookDesign/css/member-modify.css?ver=3" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="container">
 	      <form class="form-signin">
-	        <h2 class="form-signin-heading">회원정보 수정</h2>
+	        <h2 class="form-signin-heading">${modify.email}회원정보 수정</h2>
 	        <label for="inputEmail" class="sr-only">닉네임</label>
 	        <input type="text" id="inputEmail" class="form-control" placeholder="닉네임" required autofocus>
 	        <label for="inputPassword" class="sr-only">비밀번호</label>
