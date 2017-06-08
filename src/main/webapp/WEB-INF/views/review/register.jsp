@@ -49,16 +49,27 @@
 
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 <script type="text/javascript">
-
-
-
-	var ebook_no = 2//${evo.ebook_no};
-	var parent_type="EBOOK";
-	
 	jQuery(document).ready(function($) {
+		//summerNote적용
 		callSummernote();
+		
+		//책선택 모달 
 		$("#searchEbook").click(function () {
 			$("#searchEbookModal").modal();
+		});
+		
+		
+		
+		
+		//글쓰기 완료하기 
+		//$('#starRating').val()
+		$("#registerBtn").click(function(){
+			console.log("-----------data------------");
+			console.log($('#starRating').val());
+			console.log(member_no);
+			console.log(nickname);
+			console.log($('#summernote'));
+			console.log($('#summernote'));
 		});
 
 		//////////////////대여//////////////////
@@ -101,12 +112,15 @@
 	<!-- header login, wishList, navibar start -->
 	<c:import url="/WEB-INF/views/header.jsp" charEncoding="UTF-8">
 		<c:param name="loginId" value="loginId" />
-
 	</c:import>
 	<!-- //bootstrap-pop-up -->
 
 
 	<!-- single -->
+	<form id="registerForm" action="/cobook/sample/Rregister" method="post">
+	<input type="hidden" name="member_no" value="${member.MEMBER_NO}" />
+	
+	
 	<div class="single-page-agile-main">
 		<div class="container">
 			<!-- /w3l-medile-movies-grids -->
@@ -114,7 +128,7 @@
 				<ol class="breadcrumb">
 					<li><a href="/cobook/review">책 리뷰</a></li>
 					<li class="title-input-li" style="width:94%;">
-					<input class="title-input" type="text" name="your name" placeholder="제목" required="" style="width:94%;">
+					<input class="title-input" type="text" name="title" placeholder="제목" required="" style="width:94%;">
 					</li>
 				</ol>
 			</div>
@@ -127,8 +141,9 @@
 						<div class="section group">
 							<!-- <div class="cont-desc span_1_of_2"> -->
 							<div class="product-details">
-								
-								
+
+
+						
 							 	<div class="grid images_3_of_2">
 							 
 									<div id="searchEbook" class="imgdiv">
@@ -140,11 +155,12 @@
 								</div>
 								<div class="desc span_3_of_2">
 									<h2>리뷰할 책을 선택하여주세요!</h2>
-								</div>
+								</div> 
+
 							 
 								
-								<%-- 
-								<div class="grid images_3_of_2">
+								
+							<%-- 	<div class="grid images_3_of_2">
 				
 									<img src="/cobook/resources/ebook/cover/novel/novel25.jpg" alt="" />
 								</div>
@@ -173,8 +189,15 @@
 											<li><span>듣기가능:</span>&nbsp; 듣기가능</li>
 										</ul>
 									</div>
-								</div>  --%>
-																	
+									
+									<div class="wish-list">
+												<ul>
+													<li class="wish"><a href="#" id="addWishList" class="wish">취소</a></li>
+													<!-- <li class="compare"><a href="#">Add to Compare</a></li> -->
+												</ul>
+											</div>
+								</div> 
+														 --%>			
 				<!-- modal -->
 									 <div class="modal fade" id="searchEbookModal" role="dialog">
 										<div class="modal-dialog modal-lg">
@@ -195,14 +218,18 @@
 			</div>	
 													<div class="row placeholders">
             <div class="col-xs-6 col-sm-3 my_ebook">
-              <img src="/cobook/resources/test/anna.jpg">
-              <h5>안나카레리나</h5>
-              <span class="text-muted">톨스토이</span>
+           	  <a href="#">
+              	<img src="/cobook/resources/test/anna.jpg">
+              	<h5>안나카레리나</h5>
+              	<span class="text-muted">톨스토이</span>
+              </a>
             </div>
             <div class="col-xs-6 col-sm-3 my_ebook">
-              <img src="/cobook/resources/test/kaf.jpg" >
-              <h5>변신.시골의사</h5>
-              <span class="text-muted">프란츠 카프카</span>
+              <a href="#">
+              	<img src="/cobook/resources/test/kaf.jpg" >
+              	<h5>변신.시골의사</h5>
+              	<span class="text-muted">프란츠 카프카</span>
+              </a>
             </div>
             <div class="col-xs-6 col-sm-3 my_ebook">
               <img src="/cobook/resources/test/ove.jpg">
@@ -233,7 +260,7 @@
 									</div> <!-- product detail -->
 								<div class="all-comments">
 									<div class="product_desc">
-										<h2><a>남잭슨</a>의 별점은 :</h2>
+										<h2><a>${member.nickName}</a>의 별점은 :</h2>
 										<input type="text" id="starRating" class="kv-fa rating-loading" value="4" data-size="lg" title=""> <br>
 										<p><textarea id='summernote' name="contents" rows="" cols=""></textarea></p>
 									</div>
@@ -248,7 +275,8 @@
 
 					</div>
 											<div class="button registerBtn"  >
-											<button id="registerBtn" class="borrow-button">글쓰기</button>
+											<button id="registerBtn" class="borrow-button">체크</button>
+											<input type="button" name="Submit"  class="borrow-button" value="글쓰기" onclick="">
 											<!-- <input type="submit" value="대여하기" class="borrow-button">  -->
 										</div>
 					<div class="clearfix"></div>
@@ -258,12 +286,13 @@
 		</div>
 	</div>
 
+</form>
 	<!-- footer -->
 
 	<c:import url="/WEB-INF/views/footer.jsp" charEncoding="UTF-8" />
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/cobook/resources/CoBookDesign/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript
+	<script src="/cobook/resources/CoBookDesign/js/bootstrap.min.js"></script> -->
 	<script>
 			$(document).ready(
 					function() {

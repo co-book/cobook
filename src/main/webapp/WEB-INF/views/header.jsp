@@ -71,7 +71,7 @@ window.fbAsyncInit = function() {
 			<div class="w3l_sign_in_register">
 				<ul>
 				<!-- <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">위시리스트<span class="badge">2</span></a> -->
-					<li class="dropdown"><a id="wishDrop" href="#" class="dropdown-toggle" data-toggle="dropdown" style="display: none;">위시리스트</a>
+					<li class="dropdown"><a id="wishDrop" href="#" class="dropdown-toggle" data-toggle="dropdown" style="display:none;">위시리스트</a>
 						<ul class="dropdown-menu multi-column columns-2">
 							<li>
 								<div class="wishlist_dropdown">
@@ -94,7 +94,7 @@ window.fbAsyncInit = function() {
 						</ul>
 					</li>
 					<li id="login_on" style="float: right;" ><a href="#" data-toggle="modal" data-target="#myModal" >로그인</a></li>
-					  <li id="login_off" style="disply: none; float: right;"><a href="/cobook/member/logout" >로그아웃</a></li> 
+					<li id="login_off" style="disply: none; float: right;"><a href="/cobook/member/logout" >로그아웃</a></li> 
 				</ul>
 			</div>
 			<div class="clearfix"> </div>

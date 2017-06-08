@@ -5,6 +5,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ReviewMapper">
 
+<select id="getEbookList" resultType="EbookVO" >
+	select
+			e.ebook_no,
+	 		e.title,
+	 		e.author,
+	 		e.publisher,
+	 		e.translator,
+	 		e.publishedDate,
+	 		e.price,
+	 		e.category,
+	 		e.coverURL,
+	 		e.fileSize,
+	 		e.fileType,
+	 		e.listening,
+	 		NVL(STARRATING.starCount,0) as starCount,
+   			NVL(STARRATING.starAvg,0) as starAvg
+			from EBOOK e 
+			LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no ) STARRATING
+    		ON  (STARRATING.ebook_no = e.ebook_no)
+     	WHERE title LIKE CONCAT('%',#search#,'%')
+
+     	<!-- NVL이 전자가 널이면 후자로 넣어준다 NVL2는 첫번째가 널이면 세번째꺼 사용 아니면 두번째 사용-->
+	</select>
+
+
+
 	<insert id="writeReview" parameterType="ReviewVO">
 		insert into bookreview(review_no, member_no, title,
 		contents, ebook_no,

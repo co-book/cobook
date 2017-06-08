@@ -13,6 +13,8 @@ import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.PageMaker;
 import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.board.service.ReviewService;
+import org.ebook.cobook.ebook.domain.BorrowVO;
+import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.slf4j.Logger;
@@ -20,9 +22,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -46,9 +50,23 @@ public class ReviewController {
 
 		Integer member_no = new Integer(3);
 		//session.setAttribute("login", sampleDAO.findNickName(member_no));
-		
+		model.addAttribute("member" , session.getAttribute("member"));
 		return "/review/register";
 	}
+	
+	@RequestMapping(value="/register/getEbookList", method = RequestMethod.GET)
+	public ModelAndView getMybookList(@RequestParam("search") String search)throws Exception
+	{	
+		System.out.println(search);
+		System.out.println("-------------------------------------------------------");
+		ModelAndView mav = new ModelAndView("/register/getEbookList");
+		List<EbookVO> borrowList = null;//reviewService.getMyborrowList(vo);
+		mav.addObject("myBorrowList", borrowList);
+		
+		  return mav;
+	  }
+	
+	
 	
 	
 	@RequestMapping(value = "/Rregister", method = RequestMethod.POST)
