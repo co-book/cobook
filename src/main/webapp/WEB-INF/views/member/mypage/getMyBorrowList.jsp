@@ -11,7 +11,7 @@
 	              <img src="${myBorrowList.coverURL}">
 	              <div class="remainDays"><p><fmt:parseNumber value="${myBorrowList.remainDate}" integerOnly="true"/>일</p></div>
 	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>.
+	              <span class="text-muted">${myBorrowList.author}</span>
 	            </div>
 	            
 	            <c:if test="${status.count%4 == 0}">

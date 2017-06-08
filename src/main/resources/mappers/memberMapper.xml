@@ -13,7 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="modifyMember">
 	update member 
-	set
+	set 
+		nickname = #{nickname},
 		password = #{password}
 	where
 		member_no = #{member_no} 

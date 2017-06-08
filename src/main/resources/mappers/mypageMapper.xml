@@ -56,7 +56,7 @@ WHERE rn > #{cri.pageStart} AND ROWNUM <= #{cri.perPageNum}
 			from borrow b, ebook e 
 			where b.member_no= #{member_no}
 			and b.ebook_no=e.ebook_no
-			order by remainDate desc)
+			order by b.borrowdate desc)
      	where remainDate>0 and rownum<9
 	]]>	
 	</select>

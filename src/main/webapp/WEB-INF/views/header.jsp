@@ -60,7 +60,7 @@ window.fbAsyncInit = function() {
 <div class="header" >
 		<div class="container">
 			<div class="w3layouts_logo">
-				<a href="/cobook"><h1>CoBook<span></span></h1></a>
+				<a href="/cobook"><h1>COBOOK<span></span></h1></a>
 			</div>
 			<div class="w3_search">
 				<form action="#" method="post">

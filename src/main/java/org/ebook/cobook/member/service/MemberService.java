@@ -11,7 +11,7 @@ public interface MemberService {
 
 	public void joinMember(MemberVO vo);
 
-	public void modifyMember(MemberVO vo);
+	public int modifyMember(MemberVO vo);
 
 	public boolean checkEmail(String email) throws Exception;
 	
