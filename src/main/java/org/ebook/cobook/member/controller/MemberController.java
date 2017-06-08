@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -207,10 +209,19 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
+	
 	@RequestMapping(value="/modifyMember", method = RequestMethod.POST)
-	public String modifyMember(MemberVO vo)throws Exception{
-		service.modifyMember(vo);
-		return "redirect:/";
+	public ResponseEntity<Integer> modifyMember(@RequestBody MemberVO vo)throws Exception{
+		
+		System.out.println(vo.getMember_no() + "//" + vo.getNickname());
+		ResponseEntity<Integer> entity = null;
+		int modifyCnt =service.modifyMember(vo);
+		if(modifyCnt==0){
+			entity = new ResponseEntity<>(modifyCnt,HttpStatus.NO_CONTENT);
+		}else if(modifyCnt==1){
+			 entity = new ResponseEntity<>(modifyCnt,HttpStatus.OK);
+		}
+		return entity;
 	}
 	
 	/**
@@ -283,7 +294,7 @@ public class MemberController {
 		  return mav;
 	  }
 	/**
-	 * 마이페이지 정보수정
+	 * 마이페이지 정보수정 연결
 	 * by.journey
 	 * @param vo
 	 * @param session
@@ -293,13 +304,19 @@ public class MemberController {
 	@RequestMapping(value="/mypage/memberModify", method = RequestMethod.GET)
 	public ModelAndView getMemeberModify(MemberVO vo, HttpSession session) throws Exception
 	{	
-		int member_no = 0;
+		int member_no=0;
+		ModelAndView mav = new ModelAndView();
 		vo = (MemberVO) session.getAttribute("member");
+		
 		if(vo!=null){
 			member_no = vo.getMember_no();
+			mav.setViewName("/member/memberModify");
+			mav.addObject("modify", vo);
+			mav.addObject("member_no", member_no);
+		//세션에서 끊겼을때 메인으로 돌아간다
+		}else if(session.getAttribute("member")==null){
+			mav.setViewName("redirect:/");
 		}
-		ModelAndView mav = new ModelAndView("/member/memberModify");
-		mav.addObject("modify", vo);
 		return mav;
 	}
 	

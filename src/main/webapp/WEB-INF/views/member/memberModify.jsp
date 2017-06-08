@@ -1,29 +1,71 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>È¸¿øÁ¤º¸ ¼öÁ¤</title>
+<title>íšŒì›ì •ë³´ ë³€ê²½</title>
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-<link href="/cobook/resources/CoBookDesign/css/member-modify.css?ver=3" rel="stylesheet" type="text/css">
+<link href="/cobook/resources/CoBookDesign/css/member-modify.css?ver=8" rel="stylesheet" type="text/css">
 </head>
+<script type="text/javascript">
+	var member_no =${member_no};	
+	
+	$(document).ready(function () {
+		console.log(member_no);
+		
+		$("#memberModify").click(function () {
+			console.log("ìˆ˜ì •í•˜ì‹œê² ìŠµë‹ˆê¹Œì•„ì•„ì•„ì•„ã…ì•„ì•„ì•„ì•„ì•„ì•„!!");
+			var password = $("#password").val();
+			var nickname = $("#nickname").val();
+			
+			console.log(password);			
+			console.log(nickname);
+			
+			$.ajax({
+				type : 'POST',
+				url : '/cobook/member/modifyMember',
+				dataType : 'json',
+				contentType : "application/json;charset=UTF-8",
+				data : JSON.stringify({
+					"member_no" : member_no,
+					"nickname" : nickname,
+					"password" : password
+					}),
+				success : function(data,status) {
+
+					console.log(data);
+					console.log(status);
+					if(status=="success"){
+						alert("ì •ë³´ê°€ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤");
+						location.replace("/cobook/member/mypage");
+					}else {
+						alert("ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”");
+					}
+					
+				}
+			});
+		});	//membermodify
+		
+	});	//ready
+
+</script>
 <body>
 	<div class="container">
-	      <form class="form-signin">
-	        <h2 class="form-signin-heading">${modify.email}È¸¿øÁ¤º¸ ¼öÁ¤</h2>
-	        <label for="inputEmail" class="sr-only">´Ğ³×ÀÓ</label>
-	        <input type="text" id="inputEmail" class="form-control" placeholder="´Ğ³×ÀÓ" required autofocus>
-	        <label for="inputPassword" class="sr-only">ºñ¹Ğ¹øÈ£</label>
-	        <input type="password" id="inputPassword" class="form-control" placeholder="ºñ¹Ğ¹øÈ£" required>
+	      <!-- <form class="form-signin"> -->
+	        <h2 class="form-signi n-heading">${modify.email}íšŒì›ì •ë³´ ë³€ê²½</h2>
+	        
+	        <label for="inputEmail" class="sr-only">ë‹‰ë„¤ì„</label>
+	        <input type="text" id="nickname" class="form-control" placeholder="ë‹‰ë„¤ì„" required autofocus/>
+	        <label for="inputPassword" class="sr-only">ë¹„ë°€ë²ˆí˜¸</label>
+	        <input type="password" id="password" class="form-control" placeholder="ë¹„ë°€ë²ˆí˜¸" required/>
 	        <div class="checkbox">
 	          <label>
-	            <input type="checkbox" value="remember-me"> Remember me
+	            <input type="checkbox" value="remember-me"/> Remember me
 	          </label>
 	        </div>
-	        <button class="btn btn-lg btn-primary btn-block" type="submit">¼öÁ¤ÇÏ±â</button>
-	      </form>
+	        <button id="memberModify" class="btn btn-lg btn-primary btn-block" >ìˆ˜ì •í•˜ê¸°</button>
+	      <!-- </form> -->
 	
 	    </div> <!-- /container -->
 </body>

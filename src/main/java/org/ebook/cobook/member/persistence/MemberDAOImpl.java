@@ -32,9 +32,9 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace+".getEmail", email);
 	}
 
-	public void modifyMember(MemberVO vo){
+	public int modifyMember(MemberVO vo){
 		
-		sqlSession.update(namespace+".modifyMember", vo);
+		return sqlSession.update(namespace+".modifyMember", vo);
 	}
 
 	@Override

@@ -14,7 +14,7 @@
 <link href="/cobook/resources/CoBookDesign/css/mypage.css?ver=20" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
-	var member_no =1;
+	var member_no =${mypage.member_no};
 	
 	$(document).ready(function () {
 		
@@ -36,7 +36,6 @@
 		
 		var chargePoint = function () {
 			$("#chargePoint").unbind("click");
-			
 			$.ajax({
 				type : 'GET',
 				url : '/cobook/member/chargePoint',

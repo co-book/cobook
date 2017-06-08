@@ -10,7 +10,7 @@ public interface MemberDAO {
 	
 	public MemberVO getEmail(String email)throws Exception;
 	
-	public void modifyMember(MemberVO vo);
+	public int modifyMember(MemberVO vo);
 	
 	//포인트 충전하기 
 	public MemberVO getMyPoint(MemberVO vo) throws Exception;
