@@ -32,6 +32,8 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 	/**
 	 * reply, comment 리스트 불러오기
+	 * offset : 초기 0번째부터 뽑아오는데 더보기를 누를때마다 아래에 3개씩 붙는다고 가정할 때,
+	 * 			그 사이 리플 정보가 업데이트 될 경우를 두고 갱신해주는 
 	 */
 	@Override
 	public List<ReplyVO> getReplyList(ReplyVO vo) throws Exception {
@@ -41,7 +43,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 		System.out.println("vo.getMoreCnt()"+vo.getMoreCnt());
 		
 		int limit=(vo.limit*vo.getMoreCnt());
-		RowBounds rowBounds = new RowBounds(offset,limit);	//mybatis에서 몇번째부터 몇번째까지 뽑아오는지 row를 관리해주는? 뭐 일
+		RowBounds rowBounds = new RowBounds(offset,limit);	//mybatis에서 offset 부터 limit까지 뽑아오는..?
 
 		System.out.println("offset"+offset);
 		System.out.println("limit"+limit);

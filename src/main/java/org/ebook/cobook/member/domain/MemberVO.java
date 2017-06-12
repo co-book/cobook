@@ -13,7 +13,7 @@ public class MemberVO {
 	private String email;
 	private String password;
 	private String loginType;
-	
+
 	
 	public String getLoginType() {
 		return loginType;

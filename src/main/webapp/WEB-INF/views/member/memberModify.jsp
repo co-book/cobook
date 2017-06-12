@@ -6,7 +6,7 @@
 <title>회원정보 변경</title>
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-<link href="/cobook/resources/CoBookDesign/css/member-modify.css?ver=8" rel="stylesheet" type="text/css">
+<link href="/cobook/resources/CoBookDesign/css/member-modify.css?ver=11" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
 	var member_no =${member_no};	
@@ -52,20 +52,23 @@
 </script>
 <body>
 	<div class="container">
-	      <!-- <form class="form-signin"> -->
-	        <h2 class="form-signi n-heading">${modify.email}회원정보 변경</h2>
-	        
+	       <div class="form-signin">
+	        <h2 class="form-signi n-heading" style="text-align: center;">회원정보 변경</h2>
+	        <p style="text-align: center;">${modify.nickname}님 회원정보 변경</p>
+	        <input type="text" class="form-control" placeholder="${modify.email}" readonly="readonly" />
 	        <label for="inputEmail" class="sr-only">닉네임</label>
 	        <input type="text" id="nickname" class="form-control" placeholder="닉네임" required autofocus/>
 	        <label for="inputPassword" class="sr-only">비밀번호</label>
 	        <input type="password" id="password" class="form-control" placeholder="비밀번호" required/>
-	        <div class="checkbox">
+	        <!-- <div class="checkbox">
 	          <label>
 	            <input type="checkbox" value="remember-me"/> Remember me
 	          </label>
-	        </div>
+	        </div> -->
+	        <br>
+	        
 	        <button id="memberModify" class="btn btn-lg btn-primary btn-block" >수정하기</button>
-	      <!-- </form> -->
+	      </div>
 	
 	    </div> <!-- /container -->
 </body>

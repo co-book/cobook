@@ -293,6 +293,7 @@ h1 h2 h3 h4 h5 span{
 
 .ebook-more {
 	margin-left: 85%;
+	display: hide;
 }
 .review-more {
 	margin-left: 86%;
