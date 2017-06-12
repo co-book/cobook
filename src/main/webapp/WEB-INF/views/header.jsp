@@ -93,8 +93,8 @@ window.fbAsyncInit = function() {
 							</li>
 						</ul>
 					</li>
-					<li id="login_on" style="float: right;" ><a href="#" data-toggle="modal" data-target="#myModal" >로그인</a></li>
-					<li id="login_off" style="disply: none; float: right;"><a href="/cobook/member/logout" >로그아웃</a></li> 
+					<li id="login_on" style="display: none; float: right;" ><a href="#" data-toggle="modal" data-target="#myModal" >로그인</a></li>
+					<li id="login_off" style="display: none; float: right;"><a href="/cobook/member/logout" >마이페이지</a></li> 
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -172,7 +172,7 @@ window.fbAsyncInit = function() {
 
 <!-- //footer -->
 <!-- Bootstrap Core JavaScript-->
-<script src="resources/CoBookDesign/js/bootstrap.min.js"></script>
+<script src="/cobook/resources/CoBookDesign/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
     $(".dropdown").hover(            
@@ -305,7 +305,6 @@ $(document).ready(function(){
 			coMember.password=$("#login_password").val();
 			coMember.loginType="COBOOKLOGIN";
 			coMember.cobookLogin();
-			$('#wishDrop').style.display = 'inline';
 			
 		} 
 		//로그인 google 버튼
@@ -479,10 +478,12 @@ $(document).ready(function(){
 		var login_on_func = function(){
 			$("#login_on").hide();
 			$("#login_off").show();
+			$('#wishDrop').show();
 		}
 		
 		var login_off_func = function(){
 			$("#login_off").hide();
+			$('#wishDrop').hide();
 			$("#login_on").show();
 		}
 		if(member_no!=null){

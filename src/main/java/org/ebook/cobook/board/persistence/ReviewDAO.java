@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
+import org.ebook.cobook.ebook.domain.EbookVO;
 
 public interface ReviewDAO {
 
@@ -37,5 +38,7 @@ public interface ReviewDAO {
 	
 	// same ebook other reviews
 	public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception;
+
+	List<EbookVO> getEbookList(String search) throws Exception;
 	
 }

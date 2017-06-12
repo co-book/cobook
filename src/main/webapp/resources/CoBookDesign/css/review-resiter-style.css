@@ -1321,6 +1321,9 @@ body {
  	height: 161px;
  	box-shadow : 0 2px 6px rgba(0,0,0,.4);
  }
+.my_ebook{
+         text-align: center;
+ }
  .modal-footer modal-header-single{
  background-image: radial-gradient(ellipse 59% 100% at 93% 30%,#e69ea4,rgba(219,232,231,.2) 90%),
 				    radial-gradient(ellipse 59% 140% at 0 120%,#e69ea4,rgba(219,232,231,.2) 60%),

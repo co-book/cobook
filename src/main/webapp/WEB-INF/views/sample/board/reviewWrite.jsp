@@ -90,8 +90,7 @@ $(function(){
 		
 	}); 
 	 
-	 
-	 
+
 	
 });
 	</script>

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
 import org.ebook.cobook.board.persistence.ReviewDAO;
+import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.fileUpload.persistence.FilesDAO;
 import org.ebook.cobook.mypage.persistence.MyPageDAO;
@@ -32,6 +33,13 @@ public class ReviewServiceImpl implements ReviewService {
 	@Inject
 	private MyPageDAO myPageDAO;
 
+	///////////////////////////////수정
+	@Override
+	public List<EbookVO> getEbookList(String category) throws Exception {
+		// TODO Auto-generated method stub
+		return reviewDAO.getEbookList(category);
+	}
+	
 	// 회원의 대출목록을 가져오는 함수
 	@Override
 	public List<Map<String, Object>> borrowBookList(Integer member_no) throws Exception {

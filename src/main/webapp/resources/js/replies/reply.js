@@ -70,7 +70,7 @@ Reply.prototype.getReplyList = function() {
 		data  :{
 			"board_no" : this.ebook_no,
 			"parent_type" : this.parent_type,
-			"moreCnt" : this.moreCnt
+			"moreCnt" : this.moreCnts
 		},
 		async: false,	//계속 실행되면 안댐
 		dataType : 'html',

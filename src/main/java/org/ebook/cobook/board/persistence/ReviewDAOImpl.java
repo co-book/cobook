@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
+import org.ebook.cobook.ebook.domain.EbookVO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,6 +20,15 @@ public class ReviewDAOImpl implements ReviewDAO {
 	private final String borrowNamespace = "org.ebook.cobook.mapper.BorrowedBookMapper";
 	private final String reviewNamespace = "org.ebook.cobook.mapper.ReviewMapper";
 	
+	@Override
+	public List<EbookVO> getEbookList(String search) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getEbookList" , search);
+	}
+	
+	/////////////////
+	
+	//////////////
 	
 	@Override
 	public List<Map<String, Object>> getBorrowedBook(Integer member_no)throws Exception{

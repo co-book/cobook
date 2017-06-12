@@ -47,9 +47,6 @@ public class ReviewController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String writeReview(Model model, HttpSession session) throws Exception {
-
-		Integer member_no = new Integer(3);
-		//session.setAttribute("login", sampleDAO.findNickName(member_no));
 		model.addAttribute("member" , session.getAttribute("member"));
 		return "/review/register";
 	}
@@ -58,11 +55,12 @@ public class ReviewController {
 	public ModelAndView getMybookList(@RequestParam("search") String search)throws Exception
 	{	
 		System.out.println(search);
-		System.out.println("-------------------------------------------------------");
-		ModelAndView mav = new ModelAndView("/register/getEbookList");
-		List<EbookVO> borrowList = null;//reviewService.getMyborrowList(vo);
-		mav.addObject("myBorrowList", borrowList);
-		
+		System.out.println("--------------------------"+search+"-----------------------------");
+		ModelAndView mav = new ModelAndView("/review/register/getEbookList");
+		List<EbookVO> EbookList =reviewService.getEbookList(search);
+		mav.addObject("EbookList", EbookList);
+
+		System.out.println("--------------------------"+search+"-----------------------------");
 		  return mav;
 	  }
 	

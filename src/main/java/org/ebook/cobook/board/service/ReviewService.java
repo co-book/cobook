@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
+import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 
@@ -51,5 +52,7 @@ public interface ReviewService {
 	
 	// same ebook other reviews
     public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception;
+
+	List<EbookVO> getEbookList(String category) throws Exception;
 	
 }
