@@ -130,7 +130,7 @@ ORDER BY parent_no desc, r.reply_no asc
 
 	<!-- 댓글 리스트 -->
 	<select id="getReplyList" resultType="ReplyVO">
-<!-- 	select * from (   query page처리방봅 -->
+	<!-- 	select * from (   query page처리방봅 -->
 		select
 			NVL((select count(*) from like_it where reply_no=r.reply_no and  member_no=#{member_no}),0) as likeOk,
 			m.NICKNAME,
@@ -157,7 +157,7 @@ ORDER BY parent_no desc, r.reply_no asc
 		
 		where r.PARENT_TYPE=#{parent_type} and r.parent_no=r.reply_no and Board_no =#{board_no}
 		ORDER BY r.reg_date desc
-<!-- 	) where rownum <![CDATA[<]]> (3*#{getMoreCnt}) -->
+	<!-- 	) where rownum <![CDATA[<]]> (3*#{getMoreCnt}) -->
 	</select>
 	
 		<!-- 전체 댓글 리스트  수-->

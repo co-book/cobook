@@ -82,6 +82,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return mypageDAO.getMyborrowList(vo);
 	}
+	
+	@Override
+	public int getMyBorrowCount(BorrowVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.getMyBorrowCount(vo);
+	}
 
 	/*@Override
 	public List<Map<String, Object>> getMyborrowList(MemberVO mvo) throws Exception {

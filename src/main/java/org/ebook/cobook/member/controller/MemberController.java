@@ -211,15 +211,17 @@ public class MemberController {
 	 */
 	
 	@RequestMapping(value="/modifyMember", method = RequestMethod.POST)
-	public ResponseEntity<Integer> modifyMember(@RequestBody MemberVO vo)throws Exception{
+	public ResponseEntity<Integer> modifyMember(@RequestBody MemberVO vo, HttpSession session)throws Exception{
 		
 		System.out.println(vo.getMember_no() + "//" + vo.getNickname());
 		ResponseEntity<Integer> entity = null;
 		int modifyCnt =service.modifyMember(vo);
+		
 		if(modifyCnt==0){
 			entity = new ResponseEntity<>(modifyCnt,HttpStatus.NO_CONTENT);
 		}else if(modifyCnt==1){
 			 entity = new ResponseEntity<>(modifyCnt,HttpStatus.OK);
+			 session.setAttribute("member", service.getMember((MemberVO)session.getAttribute("member")));
 		}
 		return entity;
 	}
@@ -289,7 +291,9 @@ public class MemberController {
 		System.out.println("-------------------------------------------------------");
 		ModelAndView mav = new ModelAndView("/member/mypage/getMyBorrowList");
 		List<EbookVO> borrowList = service.getMyborrowList(vo);
-		mav.addObject("myBorrowList", borrowList);
+		mav.addObject("myBorrowList", borrowList);	// borrow 리스트 
+		mav.addObject("borrowListCnt", service.getMyBorrowCount(vo));	//리플 전체 갯수
+		mav.addObject("moreCnt", vo.getMoreCnt());
 		
 		  return mav;
 	  }
@@ -319,6 +323,9 @@ public class MemberController {
 		}
 		return mav;
 	}
+	
+	
+
 	
 	
 	

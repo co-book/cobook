@@ -19,5 +19,7 @@ public interface MyPageDAO {
 	// 내가 빌린 책 리스트
 //	public List<Map<String, Object>> getMyborrowList(Map<String, Object> paramMap)throws Exception;
 	public List<EbookVO> getMyborrowList(BorrowVO vo)throws Exception;
+	//빌린책 갯수
+	public int getMyBorrowCount(BorrowVO vo) throws Exception;
 	
 }

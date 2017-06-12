@@ -27,12 +27,12 @@
 	<util:properties id="url" location="/WEB-INF/url.properties" />
 	
 	<!-- 
-	<bean id="AuthInterceptor" class="org.ebook.cobook.interceptor.AuthInterceptor"></bean>
+	<bean id="LoginInterceptor" class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/member/loginPOST"/>
-			<ref bean="AuthInterceptor" />
+			<ref bean="LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors> -->
 

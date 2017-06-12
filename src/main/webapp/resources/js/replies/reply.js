@@ -1,3 +1,5 @@
+//리플기능을 ebook single에서도, mybook, review에서도 사용 되는 기능이기 때문에 모듈화를 시켰어요
+//자주 사용되는 기능들은 이렇게 모듈화를 하여서 관리하면 좋다고 합니다;-)
 function Reply(){
 	this.reply_no = "";
 	this.parent_no = "";

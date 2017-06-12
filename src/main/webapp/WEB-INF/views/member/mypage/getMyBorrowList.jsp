@@ -14,10 +14,11 @@
 	              <span class="text-muted">${myBorrowList.author}</span>
 	            </div>
 	            
-	            <c:if test="${status.count%4 == 0}">
-	 </div>
-	 <div class="row placeholders">
-				</c:if>
+	             <c:if test="${status.count%4 == 0}"> <!-- 줄바꿈이래 -->
+</div>
+
+ <div class="row placeholders">
+				 </c:if>
 	            
 	            <%-- 
 	            <div class="col-xs-6 col-sm-3 my_ebook">
@@ -26,45 +27,19 @@
 	              <h5>${myBorrowList.title}</h5>
 	              <span class="text-muted">${myBorrowList.author}</span><br>
 	              <!-- <span class="remain-date">2017.01.23 ~ 2018.01.22까지</span> -->
-	            </div>
-	            <div class="col-xs-6 col-sm-3 my_ebook">
-	              <img src="${myBorrowList.coverURL}">
-	              <div class="remainDays"><p>60일</p></div>
-	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>
-	            </div>
-	            <div class="col-xs-6 col-sm-3 my_ebook">
-	              <img src="${myBorrowList.coverURL}">
-	              <div class="remainDays"><p>60일</p></div>
-	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>
-	            </div>
 	          
-	          <div class="row placeholders">
-	            <div class="col-xs-6 col-sm-3 my_ebook">
-	              <img src="${myBorrowList.coverURL}">
-	              <div class="remainDays"><p>60일</p></div>
-	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>
-	            </div>
-	            <div class="col-xs-6 col-sm-3 my_ebook">
-	              <img src="${myBorrowList.coverURL}" >
-	              <div class="remainDays"><p>60일</p></div>
-	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>
-	            </div>
-	            <div class="col-xs-6 col-sm-3 my_ebook">
-	              <img src="${myBorrowList.coverURL}">
-	              <div class="remainDays"><p>60일</p></div>
-	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>
-	            </div>
-	            <div class="col-xs-6 col-sm-3 my_ebook">
-	              <img src="${myBorrowList.coverURL}">
-	              <div class="remainDays"><p>60일</p></div>
-	              <h5>${myBorrowList.title}</h5>
-	              <span class="text-muted">${myBorrowList.author}</span>
-	            </div>
-	          </div>	 --%>
+	          	 --%>
 </c:forEach>
-</div>
+ </div> 
+
+<c:if test="${borrowListCnt== 0}" >
+<br/>
+구매/대여하신 책이 없습니다.
+<br/>
+</c:if>
+<c:if test="${borrowListCnt > (4*moreCnt)+4 }">
+							<!-- <div class="reply-more"  > -->
+								<!-- <button type="button" id="moreCnt" class="btn-more" style="display:hide;">+ 더 보기</button> -->
+								<button id="moreCnt" class="ebook-more"><span class="glyphicon glyphicon-plus-sign"></span> 대여한 ebook 더보기</button>
+							<!-- </div> -->
+</c:if>

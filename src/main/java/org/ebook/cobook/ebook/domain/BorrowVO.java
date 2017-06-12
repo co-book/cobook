@@ -3,6 +3,7 @@ package org.ebook.cobook.ebook.domain;
 import java.util.Date;
 
 public class BorrowVO {
+	public static final int limit = 4; //대여한책 더보기 단위
 	
 	private Integer borrow_no;
 	private Integer member_no;
@@ -12,6 +13,7 @@ public class BorrowVO {
 	private Integer price;
 	private String status;	//완독여부?
 	private String readPage;
+	private int moreCnt;	//더보기 카운트
 	
 	public Integer getBorrow_no() {
 		return borrow_no;
@@ -61,5 +63,14 @@ public class BorrowVO {
 	public void setReadPage(String readPage) {
 		this.readPage = readPage;
 	}
-
+	public int getMoreCnt() {
+		return moreCnt;
+	}
+	public void setMoreCnt(int moreCnt) {
+		this.moreCnt = moreCnt;
+	}
+	public static int getLimit() {
+		return limit;
+	}
+	
 } 

@@ -32,5 +32,6 @@ public interface MemberService {
 	public List<Map<String, Object>> getUserMybookList(Map<String, Object> paramMap)throws Exception;
 	
 	public List<EbookVO> getMyborrowList(BorrowVO vo)throws Exception;
+	public int getMyBorrowCount(BorrowVO vo) throws Exception;
 	
 }

@@ -11,28 +11,42 @@
 <title>마이페이지</title>
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-<link href="/cobook/resources/CoBookDesign/css/mypage.css?ver=20" rel="stylesheet" type="text/css">
+<link href="/cobook/resources/CoBookDesign/css/mypage.css?ver=21" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
 	var member_no =${mypage.member_no};
+	var moreCnt=1;
 	
 	$(document).ready(function () {
 		
 		console.log("myyyyyyyyyyyyyyyyyyypageeeeeeeeeeeeeeee!");
 		console.log(member_no);
 		
-		$.ajax({
-			type : "POST",
-			url : '/cobook/member/mypage/getMyBorrowList',
-			data : JSON.stringify({		
-				"member_no" : member_no
-				}),
-			dataType : 'html',
-			contentType : "application/json;charset=UTF-8",
-			success : function (data) {
-				$('#borrowlist-container').append(data);
-			}
-		});
+		var getMyBorrowList = function () {
+			$.ajax({
+				type : "POST",
+				url : '/cobook/member/mypage/getMyBorrowList',
+				data : JSON.stringify({		
+					"member_no" : member_no,
+					"moreCnt" : moreCnt
+					}),
+				dataType : 'html',
+				contentType : "application/json;charset=UTF-8",
+				success : function (data) {
+					$('#borrowlist-container').append(data);
+					
+					$('.ebook-more').click(function() {
+						console.log("더보기더보기더보기");
+						moreCnt=moreCnt+1;
+						$(this).css("display","none");
+						getMyBorrowList();
+						
+						
+					}); 
+				}
+			});
+		}
+		
 		
 		var chargePoint = function () {
 			$("#chargePoint").unbind("click");
@@ -62,6 +76,11 @@
 		$("#login_off").on("click", function() {
 			coMember.cobookLogout();
 		});
+		
+		
+		
+		getMyBorrowList();
+		console.log("더보기 전전전");
 	});
 </script>
 <body>
@@ -129,9 +148,9 @@
           <h3 class="page-header" style="font-family: 'Iropke Batang'">대여한 책 목록</h3>
 		
 			<div id="borrowlist-container" class="borrowlist-container">
-	          </div>	<!-- borrow list container -->
+	        </div>	<!-- borrow list container -->
           
-          <a class="ebook-more"><span class="glyphicon glyphicon-plus-sign"></span> 대여한 ebook 더보기</a>
+          <!-- <a class="ebook-more"><span class="glyphicon glyphicon-plus-sign"></span> 대여한 ebook 더보기</a> -->
           <br>
           <br>
           

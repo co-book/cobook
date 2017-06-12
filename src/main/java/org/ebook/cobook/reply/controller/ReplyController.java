@@ -101,6 +101,7 @@ public class ReplyController {
 			List<ReplyVO> replyList =replyService.getReplyList(vo);
 			mav.addObject("replyList",replyList );	 //리플 리스트
 			mav.addObject("replyListCnt",replyService.getReplyCount(vo));	//리플 전체 리스트
+			
 			mav.addObject("moreCnt",vo.getMoreCnt());	//더보기 변수		
 			mav.addObject("member_no", member_no);
 			//서비스실행
