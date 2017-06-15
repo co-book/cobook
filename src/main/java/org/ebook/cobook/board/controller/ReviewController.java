@@ -54,7 +54,6 @@ public class ReviewController {
 	@RequestMapping(value="/register/getEbookList", method = RequestMethod.GET)
 	public ModelAndView getMybookList(@RequestParam("search") String search)throws Exception
 	{	
-		System.out.println(search);
 		System.out.println("--------------------------"+search+"-----------------------------");
 		ModelAndView mav = new ModelAndView("/review/register/getEbookList");
 		List<EbookVO> EbookList =reviewService.getEbookList(search);

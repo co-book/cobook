@@ -355,9 +355,6 @@
 	<!-- footer -->
 
 	<c:import url="/WEB-INF/views/footer.jsp" charEncoding="UTF-8" />
-
-	<!-- Bootstrap Core JavaScript
-	<script src="/cobook/resources/CoBookDesign/js/bootstrap.min.js"></script> -->
 	<script>
 			$(document).ready(
 					function() {

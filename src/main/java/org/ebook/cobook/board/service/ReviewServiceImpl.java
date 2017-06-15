@@ -23,21 +23,18 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Inject
 	private ReviewDAO reviewDAO;
-	
 	@Inject
 	private ReplyDAO replyDAO;
-	
 	@Inject
 	private FilesDAO filesDAO;
-	
 	@Inject
 	private MyPageDAO myPageDAO;
 
 	///////////////////////////////수정
 	@Override
-	public List<EbookVO> getEbookList(String category) throws Exception {
+	public List<EbookVO> getEbookList(String search) throws Exception {
 		// TODO Auto-generated method stub
-		return reviewDAO.getEbookList(category);
+		return reviewDAO.getEbookList(search);
 	}
 	
 	// 회원의 대출목록을 가져오는 함수

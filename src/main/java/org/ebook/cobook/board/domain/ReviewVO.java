@@ -4,22 +4,22 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("ReviewVO")
+
 public class ReviewVO {
-	 private Integer review_no; 
-     private Integer ebook_no; 
-     private Integer member_no; 
-     private String title; 
-     private String contents; 
-     private Integer hit; 
-     private Date reg_date; 
-     private Float evaluate; 
-     private String fileurl; 
-     private String category; 
-     private String ebook_title;
-     private String coverurl;
-     private String nickname;
-	public String getCoverurl() {
+	 private Integer review_no; //데헷 등장^.~
+     private Integer ebook_no; //어떤이뷱을
+     private Integer member_no; //누가
+     private String title; 	//어떤 글제목으로
+     private String contents; 	//내용썼니
+     private Integer hit; 	//조회수
+     private Date reg_date; 	//작성날짜
+     private Float evaluate; 	//평점은 내가매긴다
+     private String fileurl; 	//						일단 남겨둠
+     private String category; 	//어떤 장르인지
+     private String ebook_title;	//어떤책제목을
+     private String coverurl;	//어떤책사진가꼬와?
+     private String nickname;	//시로시로 닉네임으로 작성할끄야
+	public String getCoverurl() {	
 		return coverurl;
 	}
 	public void setCoverurl(String coverurl) {
