@@ -40,6 +40,7 @@
 <c:if test="${borrowListCnt > (4*moreCnt)+4 }">
 							<!-- <div class="reply-more"  > -->
 								<!-- <button type="button" id="moreCnt" class="btn-more" style="display:hide;">+ 더 보기</button> -->
-								<button id="moreCnt" class="ebook-more"><span class="glyphicon glyphicon-plus-sign"></span> 대여한 ebook 더보기</button>
+								<!-- <button id="moreCnt" class="ebook-more"><span class="glyphicon glyphicon-plus-sign"></span> 대여한 ebook 더보기</button> -->
+								<a id="moreCnt" class="ebook-more"><span class="glyphicon glyphicon-plus-sign"></span> 대여한 ebook 더보기</a>
 							<!-- </div> -->
 </c:if>

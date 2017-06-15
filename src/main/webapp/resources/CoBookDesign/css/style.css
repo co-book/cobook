@@ -105,7 +105,7 @@ input[type="submit"],.agileinfo_chat a,.w3ls_footer_grid1_left p a,.w3l_sign_in_
 .w3l_sign_in_register{
 	float: right;
     margin-top:1em;
-    width: 25%;
+   /*  width: 25%; */
 }
 .w3l_sign_in_register li a{
 	color: #fff;
@@ -175,7 +175,7 @@ input[type="submit"],.agileinfo_chat a,.w3ls_footer_grid1_left p a,.w3l_sign_in_
 .navbar-nav > li {
     float: left;
     margin: auto;
-    border-right: 1px dotted #fff;
+   /*  border-right: 1px dotted #fff; */
     width:14.27%;
     text-align: center;
 }

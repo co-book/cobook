@@ -94,8 +94,7 @@ window.fbAsyncInit = function() {
 						</ul>
 					</li>
 					<li id="login_on" style="display: none; float: right;" ><a href="#" data-toggle="modal" data-target="#myModal" >로그인</a></li>
-					<li id="login_off" style="display: none; float: right;"><a href="/cobook/member/logout" >마이페이지</a></li> 
-				</ul>
+					<li id="mypage" style="display: none; float: right;"><a href="#" >마이페이지</a></li>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -159,9 +158,12 @@ window.fbAsyncInit = function() {
 							</li>
 							<li><a href="/cobook/review">ebook 리뷰</a></li> 
 							<li><a href="/cobook/member/mybook">개인소설</a></li>
-							<li><a href="#">코북은?</a></li>
+							<!-- <li><a href="#">코북은?</a></li>
 							<li><a href="#">Contact</a></li>
-							<li id="mypage"><a id="mypage" href="#">MyPage</a></li>
+							<li id="mypage-"><a  href="#">MyPage</a></li> -->
+						</ul>
+						<ul>
+							<li></li>
 						</ul>
 					</nav>
 				</div>
@@ -477,12 +479,12 @@ $(document).ready(function(){
 		
 		var login_on_func = function(){
 			$("#login_on").hide();
-			$("#login_off").show();
+			$("#mypage").show();
 			$('#wishDrop').show();
 		}
 		
 		var login_off_func = function(){
-			$("#login_off").hide();
+			$("#mypage").hide();
 			$('#wishDrop').hide();
 			$("#login_on").show();
 		}

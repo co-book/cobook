@@ -16,7 +16,7 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 <!-- css -->
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /><!--login CSS -->
 <link href="/cobook/resources/CoBookDesign/css/login.css?ver=6" rel="stylesheet" type="text/css" media="all"/>
-<link href="/cobook/resources/CoBookDesign/css/style.css?ver=6" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
 <!-- 메인추가 -->
 <link href="/cobook/resources/CoBookDesign/css/slider.css" rel="stylesheet" type="text/css" media="all"/>

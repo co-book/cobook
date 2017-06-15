@@ -11,7 +11,7 @@
 <title>마이페이지</title>
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css?ver=3" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
-<link href="/cobook/resources/CoBookDesign/css/mypage.css?ver=21" rel="stylesheet" type="text/css">
+<link href="/cobook/resources/CoBookDesign/css/mypage.css?ver=5" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
 	var member_no =${mypage.member_no};
@@ -95,9 +95,10 @@
             <span class="icon-bar"></span>
           </button> -->
           <!-- <a class="navbar-brand" href="/cobook">CoBook</a> -->
-          <div class="mypage_logo">
-				<a href="/cobook"><h3>COBOOK<span></span></h3></a>
-			</div>
+          <!-- <div class="mypage_logo"> -->
+				<!-- <a href="/cobook"> COBOOK<span></span></a>-->
+				<a class="navbar-brand" href="/cobook">COBOOK</a>
+			<!-- </div> -->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">

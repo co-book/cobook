@@ -3,8 +3,8 @@ package org.ebook.cobook.board.domain;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
-
-
+//Alias는 mybatis 설정에서 vo를 등록할때 별칭을 따로 부여함으로 mapper에서 별칭으로 연결시켜주는것
+@Alias("ReviewVO")
 public class ReviewVO {
 	 private Integer review_no; //데헷 등장^.~
      private Integer ebook_no; //어떤이뷱을
