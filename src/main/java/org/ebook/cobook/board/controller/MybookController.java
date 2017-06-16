@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -43,7 +44,6 @@ public class MybookController {
 	private SampleDAOImpl sampleDAO;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-
 	public String mybook(Criteria cri,Model model) {
 
 		if(cri == null){
@@ -59,21 +59,11 @@ public class MybookController {
 	
 	// 게시물 리스트 = 닉네임 + 파일정보 + 게시물목록
 	@RequestMapping(value="/mybookList", method = RequestMethod.GET)
-	public String mybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{
-		logger.debug(cri.toString());
-		logger.debug("mybookList 호출");
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(mybookService.getCriCount(cri));
-		
-		List<Map<String, Object>> list = mybookService.getMybookList(cri);
-		
-		logger.debug("사이즈 : "+list.size());
-		model.addAttribute("list", mybookService.getMybookList(cri));
-		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("size", list.size());
-		logger.debug("페이징: "+pageMaker.toString());
-		return "mybook/mybookList";
+	public ModelAndView mybookList(MybookVO vo)throws Exception
+	{
+		ModelAndView mav = new ModelAndView("mybook/mybookList");
+		mav.addObject("mybookList", vo);
+		return mav;
 	}
 	
 	@RequestMapping(value="/single", method = RequestMethod.GET)

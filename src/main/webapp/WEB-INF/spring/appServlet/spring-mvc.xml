@@ -26,15 +26,26 @@
 	
 	<util:properties id="url" location="/WEB-INF/url.properties" />
 	
-	<!-- 
-	<bean id="LoginInterceptor" class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
-	
+	<!-- 추가로 여러개의 인터셉터 설정가능 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/member/loginPOST"/>
-			<ref bean="LoginInterceptor" />
+			<mvc:mapping path="/member/mypage"/>
+			<bean  class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+		 <mvc:interceptor>
+			<mvc:mapping path="/member/mypage/memberModify"/>
+			<bean  class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/member/chargePoint"/>
+			<bean class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		<!-- <mvc:interceptor>
+			<mvc:mapping path="/member/modifyMember"/>
+			<bean class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		 -->
+	</mvc:interceptors> 
 
 
 </beans>

@@ -157,14 +157,14 @@ window.fbAsyncInit = function() {
 								</ul>
 							</li>
 							<li><a href="/cobook/review">ebook 리뷰</a></li> 
-							<li><a href="/cobook/member/mybook">개인소설</a></li>
+							<li><a href="/cobook/mybook/mybookList">개인소설</a></li>
 							<!-- <li><a href="#">코북은?</a></li>
 							<li><a href="#">Contact</a></li>
 							<li id="mypage-"><a  href="#">MyPage</a></li> -->
 						</ul>
-						<ul>
+						<!-- <ul>
 							<li></li>
-						</ul>
+						</ul> -->
 					</nav>
 				</div>
 			</nav>	
