@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.plugin.InterceptorChain;
@@ -17,6 +18,7 @@ import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.member.service.MemberService;
 import org.ebook.cobook.util.JavaMail;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -261,7 +263,8 @@ public class MemberController {
 	 * @return
 	 * GET 방식 프로토콜은 Request 패킷에 Body가 존재하지 않는다. 따라서 데이터를 가져올 수 없다
 	 */
-	/*@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	/*인터셉터 사용전
+	 * @RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView mypage(MemberVO vo, HttpSession session) 
 	{	  
 	  logger.info("/member/mypage");
@@ -280,11 +283,12 @@ public class MemberController {
 	  return mav;
 	}*/
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public ModelAndView mypage(MemberVO vo) 
+	public ModelAndView mypage(HttpServletRequest request) 
 	{	  
 	  logger.info("/member/mypage");
 	  ModelAndView mav = new ModelAndView("/member/mypage");
-	  mav.addObject("mypage",vo);
+	  
+	  mav.addObject("mypage",request.getAttribute("member"));
 	  return mav;
 	}
 	/**
@@ -334,11 +338,11 @@ public class MemberController {
 		return mav;
 	}*/
 	@RequestMapping(value="/mypage/memberModify", method = RequestMethod.GET)
-	public ModelAndView getMemeberModify(MemberVO vo) throws Exception
+	public ModelAndView getMemeberModify(HttpServletRequest request) throws Exception
 	{	
 		
 		ModelAndView mav = new ModelAndView("/member/memberModify");
-		mav.addObject("modify", vo);
+		mav.addObject("modify", request.getAttribute("member"));
 		
 		return mav;
 	}

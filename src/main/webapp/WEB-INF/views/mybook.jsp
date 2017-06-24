@@ -100,6 +100,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	//가나다라 정렬 클릭시
 	$("#myTab").on("click", "li a",function(event){
 		
 		event.preventDefault();

@@ -27,9 +27,45 @@ FROM(
 WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
              ]]>
 		<include refid="searchTitle"></include>
-
 	</select>
 
+	<!-- mybook main all list -->
+	<select id="getAllMybookList" resultType="MybookVO" parameterType="String">
+		select 
+		my.mybook_no, 
+		my.title, 
+		my.fileUrl, 
+		mem.nickname, 
+		my.reg_date, 
+		my.hit,
+		NVL(re.myreply, 0) as replyCount
+		
+		
+		from mybook my
+		LEFT OUTER JOIN member mem on
+		(mem.member_no = my.member_no)
+		
+		LEFT OUTER JOIN
+		<!-- 리플의 갯수를 가져온다 -->
+		(select board_no, count(1) myreply from reply
+		where PARENT_TYPE = 'MYBOOK'
+		group by board_no) re on
+		(my.mybook_no = re.board_no)
+		
+		<include refid="searchTitle"></include>
+	</select>
+	<!-- mybook 총갯수를 가져오는데, conn에 따라 갯수를 같이 가져오눈거 -->
+	<select id="getMybookCount" resultType="int" parameterType="String">
+		
+		select count(1) from mybook
+		<if test="_parameter != null">
+			<include refid="searchTitle"></include>
+		</if>
+	</select>
+	
+	
+	
+	
 	<select id="getCriCount" resultType="int">
 	<![CDATA[
 	  SELECT count(m.mybook_no) 
@@ -149,60 +185,61 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 	</sql>
 
 	<sql id="searchTitle">
-		<if test="searchType != null">
-			<if test="keyword == 'ㄱ'.toString()">
+		<if test="_parameter != null">
+		where 1=1
+			<if test="_parameter == 'ㄱ'.toString()">
 			AND title between '가' and '나'
 			OR title between 'ㄱ' AND 'ㄴ'
 			</if>
-			<if test="keyword == 'ㄴ'.toString()">
+			<if test="_parameter == 'ㄴ'.toString()">
 			AND title between '나' and '다'
 			OR title between 'ㄴ' AND 'ㄷ'
 			</if>
-			<if test="keyword == 'ㄷ'.toString()">
-		AND title between '다' and '리'
+			<if test="_parameter == 'ㄷ'.toString()">
+			AND title between '다' and '라'
 			OR title between 'ㄷ' AND 'ㄹ'
 			</if>
-			<if test="keyword == 'ㄹ'.toString()">
+			<if test="_parameter == 'ㄹ'.toString()">
 			AND title between '라' and '마'
 			OR title between 'ㄹ' AND 'ㅁ'
 			</if>
-			<if test="keyword == 'ㅁ'.toString()">
+			<if test="_parameter == 'ㅁ'.toString()">
 			AND title between '마' and '바'
 			OR title between 'ㅁ' AND 'ㅂ'
 			</if>
-			<if test="keyword == 'ㅂ'.toString()">
+			<if test="_parameter == 'ㅂ'.toString()">
 			AND title between '바' and '사'
 			OR title between 'ㅂ' AND 'ㅅ'
 			</if>
-			<if test="keyword == 'ㅅ'.toString()">
-				AND title between '사' and '아'
+			<if test="_parameter == 'ㅅ'.toString()">
+			AND title between '사' and '아'
 			OR title between 'ㅅ' AND 'ㅇ'
 			</if>
-			<if test="keyword == 'ㅇ'.toString()">
+			<if test="_parameter == 'ㅇ'.toString()">
 			AND title between '아' and '자'
 			OR title between 'ㅇ' AND 'ㅈ'
 			</if>
-			<if test="keyword == 'ㅈ'.toString()">
+			<if test="_parameter == 'ㅈ'.toString()">
 			AND title between '자' and '차'
 			OR title between 'ㅈ' AND 'ㅊ'
 			</if>
-			<if test="keyword == 'ㅊ'.toString()">
+			<if test="_parameter == 'ㅊ'.toString()">
 			AND title between '차' and '카'
 			OR title between 'ㅊ' AND 'ㅋ'
 			</if>
-			<if test="keyword == 'ㅋ'.toString()">
+			<if test="_parameter == 'ㅋ'.toString()">
 			AND title between '카' and '타'
 			OR title between 'ㅋ' AND 'ㅌ'
 			</if>
-			<if test="keyword == 'ㅌ'.toString()">
+			<if test="_parameter == 'ㅌ'.toString()">
 			AND title between '타' and '파'
 			OR title between 'ㅌ' AND 'ㅍ'
 			</if>
-			<if test="keyword == 'ㅍ'.toString()">
+			<if test="_parameter == 'ㅍ'.toString()">
 			AND title between '파' and '하'
 			OR title between 'ㅍ' AND 'ㅎ'
 			</if>
-			<if test="keyword == 'ㅎ'.toString()">
+			<if test="_parameter == 'ㅎ'.toString()">
 			AND title between '하' and '가'
 			OR title between 'ㅎ' AND 'ㄱ'
 			</if>

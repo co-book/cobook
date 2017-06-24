@@ -28,6 +28,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			System.out.println("로그인 세션 없음");
 			response.sendRedirect("/");
 			return false;
+		}else {
+			//요청정보를 다시 member에 넣어준다
+			request.setAttribute("member", request.getSession().getAttribute("member"));
 		}
 		
 		return true;

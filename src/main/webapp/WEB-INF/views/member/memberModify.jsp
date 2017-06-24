@@ -9,7 +9,7 @@
 <link href="/cobook/resources/CoBookDesign/css/member-modify.css?ver=11" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
-	var member_no =${member_no};	
+	var member_no =${modify.member_no};	
 	
 	$(document).ready(function () {
 		console.log(member_no);

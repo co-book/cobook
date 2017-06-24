@@ -60,10 +60,22 @@ public class MybookDAOImpl implements MybookDAO {
 		return session.selectList(namespace+".listAll");
 	}
 
-	@Override
+	/*@Override
 	public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".getMybookList", cri);
+	}
+*/
+	@Override
+	public List<MybookVO> getMybookAllList(String con) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getAllMybookList", con);
+	}
+
+	@Override
+	public int getMybookAllCount(String con) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".getMybookCount", con);
 	}
 
 	

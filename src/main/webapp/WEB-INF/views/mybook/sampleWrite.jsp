@@ -14,8 +14,8 @@
 		<thead>
 			<tr>
 				<th>No.</th>
-				<th>Book Name</th>
-				<th>날짜</th>
+				<th>책제목</th>
+				<th>닉네임</th>
 				<th>작성자</th>
 				<th>조회수</th>
 			</tr>

@@ -33,14 +33,15 @@ public class MybookServiceImpl implements MybookService {
 	@Inject
 	private ReplyDAO replyDAO;
 	
-	@Override
-	public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return mybookDAO.getMybookList(cri);
-	}
+//	@Override
+//	public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception {
+//		// TODO Auto-generated method stub
+//		return mybookDAO.getMybookList(cri);
+//	}
 
 	@Override
-	public int getCriCount(Criteria cri) throws Exception {
+	public int getCriCount(Criteria cri) throws Exception 
+	{
 		// TODO Auto-generated method stub
 		return mybookDAO.getCriCount(cri);
 	}
@@ -122,6 +123,17 @@ public class MybookServiceImpl implements MybookService {
 			paramMap.put("parent_type", vo.getParent_type());
 			
 			return replyDAO.getReplyCount(vo);
+		}
+
+		@Override
+		public Map<String, Object> getMybookAllList(String con) throws Exception {
+			
+			Map<String, Object> map = new HashMap();
+			map.put("mybookList", mybookDAO.getMybookAllList(con));
+			map.put("mybookCount", mybookDAO.getMybookAllCount(con));
+			
+			// TODO Auto-generated method stub
+			return map;
 		}
 
 }

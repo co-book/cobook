@@ -14,13 +14,13 @@ public class MybookVO {
     private Integer hit;
     private Date reg_date;
     private String nickname;
-    private Integer file_no;
+    private String fileUrl;
     
-	public Integer getFile_no() {
-		return file_no;
+	public String getFileUrl() {
+		return fileUrl;
 	}
-	public void setFile_no(Integer file_no) {
-		this.file_no = file_no;
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
 	}
 	@Override
 	public String toString() {

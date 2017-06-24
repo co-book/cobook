@@ -46,6 +46,7 @@ public class SampleController {
 	@Inject
 	private SampleDAOImpl sampleDAO;
 
+	@Deprecated
 	@RequestMapping(value = "/mybookList", method = RequestMethod.GET)
 	public String testMybook(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
@@ -54,12 +55,12 @@ public class SampleController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(mybookService.getCriCount(cri));
 
-		List<Map<String, Object>> list = mybookService.getMybookList(cri);
+		//List<Map<String, Object>> list = mybookService.getMybookList(cri);
 
-		logger.debug("사이즈 : " + list.size());
-		model.addAttribute("list", mybookService.getMybookList(cri));
-		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("size", list.size());
+		//logger.debug("사이즈 : " + list.size());
+		//model.addAttribute("list", mybookService.getMybookList(cri));
+		//model.addAttribute("pageMaker", pageMaker);
+		//model.addAttribute("size", list.size());
 		logger.debug("페이징: " + pageMaker.toString());
 		return "/sample/board/mybookList";
 	}

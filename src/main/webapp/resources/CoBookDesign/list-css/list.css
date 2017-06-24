@@ -41,15 +41,16 @@ td.w3-list-img a{
 	text-decoration:none;
 }
 td.w3-list-img a img {
-    width: 16% !important;
+    width: 10% !important;
 }
 td.w3-list-img a span{
 	color:#000000;
 	font-size:1em;
 	font-weight:600;
 	text-decoration:none;
-	display:block;
-	margin:.5em 0 0 0;
+	/* display:block; 
+	margin:.5em 0 0 0;*/
+	margin-left: 10px;
 }
 td.w3-list-info a {
     color: #424242;
