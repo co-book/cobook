@@ -173,6 +173,12 @@
 		}
 		
 		getMybookList();
+		
+		$("#myTab").on("click", "li a", function name() {
+			
+			var keyword = $(this).text();
+			getMybookList(keyword);	
+		});
 	});
 </script>
 <!-- //tables -->
@@ -218,38 +224,37 @@
 						role="tab" data-toggle="tab" aria-controls="home"
 						aria-expanded="true">전체</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="a">가</a></li>
+						data-toggle="tab" aria-controls="a">ㄱ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="b">나</a></li>
+						data-toggle="tab" aria-controls="b">ㄴ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="c">다</a></li>
+						data-toggle="tab" aria-controls="c">ㄷ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="d">라</a></li>
+						data-toggle="tab" aria-controls="d">ㄹ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="e">마</a></li>
+						data-toggle="tab" aria-controls="e">ㅁ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="f">바</a></li>
+						data-toggle="tab" aria-controls="f">ㅂ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="g">사</a></li>
+						data-toggle="tab" aria-controls="g">ㅅ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="h">아</a></li>
+						data-toggle="tab" aria-controls="h">ㅇ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="i">자</a></li>
+						data-toggle="tab" aria-controls="i">ㅈ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="j">차</a></li>
+						data-toggle="tab" aria-controls="j">ㅊ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="k">카</a></li>
+						data-toggle="tab" aria-controls="k">ㅋ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="l">타</a></li>
+						data-toggle="tab" aria-controls="l">ㅌ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="m">파</a></li>
+						data-toggle="tab" aria-controls="m">ㅍ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
-						data-toggle="tab" aria-controls="n">하</a></li>
+						data-toggle="tab" aria-controls="n">ㅎ</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
 						data-toggle="tab" aria-controls="o">ABC</a></li>
 					<li role="presentation"><a class="mybookTab" role="tab"
 						data-toggle="tab" aria-controls="p">123</a></li>
-
 				</ul>
 				<div id="myTabContent" class="tab-content">
 					<div role="tabpanel" class="tab-pane fade in active" id="home"

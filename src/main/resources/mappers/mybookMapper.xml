@@ -53,6 +53,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		(my.mybook_no = re.board_no)
 		
 		<include refid="searchTitle"></include>
+		order by my.reg_date desc
 	</select>
 	<!-- mybook 총갯수를 가져오는데, conn에 따라 갯수를 같이 가져오눈거 -->
 	<select id="getMybookCount" resultType="int" parameterType="String">
@@ -240,8 +241,16 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 			OR title between 'ㅍ' AND 'ㅎ'
 			</if>
 			<if test="_parameter == 'ㅎ'.toString()">
-			AND title between '하' and '가'
-			OR title between 'ㅎ' AND 'ㄱ'
+			AND (title NOT between '가' and '하')
+			AND (title NOT between  'ㄱ' AND 'ㅎ')
+			AND NOT regexp_like(title, '^[0-9]')
+			AND	NOT regexp_like(title, '^[a-zA-Z]')
+			</if>
+			<if test="_parameter == 'ABC'.toString()">
+			AND	regexp_like(title, '^[a-zA-Z]')
+			</if>
+			<if test="_parameter == '123'.toString()">
+			AND regexp_like(title, '^[0-9]')
 			</if>
 		</if>
 	

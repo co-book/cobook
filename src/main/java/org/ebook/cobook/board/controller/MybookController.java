@@ -79,8 +79,9 @@ public class MybookController {
 		/*Map<String, Object> map =mybookService.getMybookAllList(con);
 		mav.addObject("mybookList",map.get("mybookList"));
 		mav.addObject("mybookListCount", map.get("mybookCount"));*/
-		
+		System.out.println(con+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		mav.addObject("mybook", mybookService.getMybookAllList(con));
+		
 		return mav;
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
