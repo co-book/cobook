@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> --%>
+<!-- <button class="writeBtn">글쓰기</button> -->
 <div class="agile-news-table">
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-	<button class="writeBtn">글쓰기</button>
-	<div class="w3ls-news-result">
+	<%-- <div class="w3ls-news-result">
 		<h4>
 			Search Results : <span>${fn:length(list)}</span>
 		</h4>
@@ -14,9 +14,9 @@
 		<thead>
 			<tr>
 				<th>No.</th>
-				<th>Book Name</th>
-				<th>날짜</th>
-				<th>작성자</th>
+				<th>책제목</th>
+				<th>닉네임</th>
+				<th>작성날짜</th>
 				<th>조회수</th>
 			</tr>
 		</thead>
@@ -34,36 +34,31 @@
 				</tr>
 			</c:forEach>
 		</tbody>
+	</table> --%>
+	<div class="w3ls-news-result">
+		<h4>Search Results : <span>${mybook.mybookCount}</span></h4>
+	</div>
+	<table id="table-breakpoint">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>책제목</th>
+				<th>닉네임</th>
+				<th>작성날짜</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${mybook.mybookList}" var="vo">
+			<tr>
+				<td>${vo.mybook_no}</td>
+				<td class="w3-list-img"><a href="single.html"><img src="${vo.fileUrl}" alt="" /><span>${vo.title}</span> </a></td>
+				<td class="w3-list-info" style="text-align: center;"><a href="genres.html">${vo.nickname}</a></td>
+				<td class="w3-list-info" style="text-align: center;"><a href="comedy.html"><fmt:formatDate value="${vo.reg_date}" pattern="yyyy년 MM월 dd일" /></a></td>
+				<td style="text-align: center;">${vo.hit}</td>
+			</tr>
+		</c:forEach>
+		</tbody>
 	</table>
-
-	<nav>
-		<ul class="pagination">
-			<!-- 이전 -->
-			<li><c:if test="${pageMaker.prev}">
-					<a
-						href="/cobook/mybook/list?page=${pageMaker.startPage - 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a>
-				</c:if></li>
-			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
-				varStatus="i">
-
-				<c:choose>
-					<c:when test="${cri.page == i.current}">
-						${i.current}
-					</c:when>
-					<c:otherwise>
-						<a id="pageLink" href="/cobook/mybook/list?page=${i.count}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}">${i.count}</a>
-					</c:otherwise>
-				</c:choose>
-
-			</c:forEach>
-			<c:if test="${pageMaker.next}">
-				<li><a
-					href="/cobook/mybook/list?page=${pageMaker.endPage + 1}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</c:if>
-		</ul>
-	</nav>
-</div>
+	
+	</div>

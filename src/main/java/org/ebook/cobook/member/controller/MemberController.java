@@ -8,14 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.plugin.InterceptorChain;
 import org.ebook.cobook.ebook.controller.EbookController;
 import org.ebook.cobook.ebook.domain.BorrowVO;
 import org.ebook.cobook.ebook.domain.EbookVO;
 import org.ebook.cobook.member.domain.MemberVO;
 import org.ebook.cobook.member.service.MemberService;
 import org.ebook.cobook.util.JavaMail;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -231,6 +234,7 @@ public class MemberController {
 	 * @param vo
 	 * @return
 	 */
+	
 	@RequestMapping(value="/chargePoint", method = RequestMethod.GET)
 	public ResponseEntity<MemberVO> chargePoint( HttpSession session)
 	{	
@@ -259,7 +263,8 @@ public class MemberController {
 	 * @return
 	 * GET 방식 프로토콜은 Request 패킷에 Body가 존재하지 않는다. 따라서 데이터를 가져올 수 없다
 	 */
-	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	/*인터셉터 사용전
+	 * @RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView mypage(MemberVO vo, HttpSession session) 
 	{	  
 	  logger.info("/member/mypage");
@@ -269,12 +274,21 @@ public class MemberController {
 	  if(vo!=null)
 	  {
 		  member_no = vo.getMember_no();
-	  }/*else {
+	  }else {
 		  ModelAndView mav = new ModelAndView("/cobook/");
-	  }*/
+	  }
 	  ModelAndView mav = new ModelAndView("/member/mypage");
 	  mav.addObject("mypage",vo);
 	  mav.addObject("member_no", member_no);
+	  return mav;
+	}*/
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public ModelAndView mypage(HttpServletRequest request) 
+	{	  
+	  logger.info("/member/mypage");
+	  ModelAndView mav = new ModelAndView("/member/mypage");
+	  
+	  mav.addObject("mypage",request.getAttribute("member"));
 	  return mav;
 	}
 	/**
@@ -305,7 +319,7 @@ public class MemberController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/mypage/memberModify", method = RequestMethod.GET)
+	/*@RequestMapping(value="/mypage/memberModify", method = RequestMethod.GET)
 	public ModelAndView getMemeberModify(MemberVO vo, HttpSession session) throws Exception
 	{	
 		int member_no=0;
@@ -322,8 +336,16 @@ public class MemberController {
 			mav.setViewName("redirect:/");
 		}
 		return mav;
+	}*/
+	@RequestMapping(value="/mypage/memberModify", method = RequestMethod.GET)
+	public ModelAndView getMemeberModify(HttpServletRequest request) throws Exception
+	{	
+		
+		ModelAndView mav = new ModelAndView("/member/memberModify");
+		mav.addObject("modify", request.getAttribute("member"));
+		
+		return mav;
 	}
-	
 	
 
 	

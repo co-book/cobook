@@ -14,7 +14,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Inject
 	private SqlSession session;
 	
-	private static String namespace = "org.ebook.cobook.mapper.BoardMapper";
+	private final String namespace = "org.ebook.cobook.mapper.BoardMapper";
 	
 	@Override
 	public void insert(BoardVO vo) {

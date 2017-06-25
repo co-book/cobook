@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MybookVO {
 
-
     private Integer mybook_no;
     private Integer member_no;
     private String title;
@@ -15,7 +14,14 @@ public class MybookVO {
     private Integer hit;
     private Date reg_date;
     private String nickname;
+    private String fileUrl;
     
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
 	@Override
 	public String toString() {
 		return "MybookVO [mybook_no=" + mybook_no + ", member_no=" + member_no + ", title=" + title + ", contents="

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("BoardVO")
+/*@Alias("BoardVO")*/
 public class BoardVO {
 
 	private Integer bno;
