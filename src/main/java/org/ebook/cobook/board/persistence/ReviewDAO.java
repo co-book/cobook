@@ -11,7 +11,7 @@ public interface ReviewDAO {
 
 	public List<Map<String, Object>> getBorrowedBook(Integer member_no) throws Exception;
 	
-	public void writeReview(ReviewVO vo) throws Exception;
+	public int register(ReviewVO vo) throws Exception;
 	public List<Map<String, Object>> getBookReviewList(Criteria cri) throws Exception;
 	public int getReviewCount(Criteria cri) throws Exception;
 	public Map<String, Object> getReviewSingle(Integer review_no)throws Exception;

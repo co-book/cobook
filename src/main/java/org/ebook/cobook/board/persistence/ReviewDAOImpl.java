@@ -20,11 +20,25 @@ public class ReviewDAOImpl implements ReviewDAO {
 	private final String borrowNamespace = "org.ebook.cobook.mapper.BorrowedBookMapper";
 	private final String reviewNamespace = "org.ebook.cobook.mapper.ReviewMapper";
 	
+	
+	/**
+	 * 선택할 EbookList 불러오기
+	 */
 	@Override
 	public List<EbookVO> getEbookList(String search) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(reviewNamespace+".getEbookList" , search);
 	}
+	
+	/**
+	 * Review 글쓰기 
+	 */
+	@Override
+	public int register(ReviewVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(reviewNamespace+".register", vo);
+	}
+
 	
 	/////////////////
 	
@@ -37,11 +51,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 
-	@Override
-	public void writeReview(ReviewVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		sqlSession.insert(reviewNamespace+".writeReview", vo);
-	}
 
 
 	@Override

@@ -19,6 +19,8 @@ import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,32 +42,66 @@ public class ReviewController {
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
 	/**
-	 * 글쓰기 페이지 
-	 * @param model
-	 * @param session
+	 * 글쓰기 페이지 화면 호출  (Get)
+	 * @param model	   
+	 * @param session Session에서 로그인 정보를 받아온다.
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String writeReview(Model model, HttpSession session) throws Exception {
+	public String register(Model model, HttpSession session) throws Exception {
 		model.addAttribute("member" , session.getAttribute("member"));
 		return "/review/register";
 	}
 	
+	/**
+	 * 리뷰 글쓰기 화면에서 리뷰를 작성할 Ebook정보 List를 받아옵니다.
+	 * @param search	제목 검색어
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/register/getEbookList", method = RequestMethod.GET)
-	public ModelAndView getMybookList(@RequestParam("search") String search)throws Exception
-	{	
-		System.out.println("--------------------------"+search+"-----------------------------");
+	public ModelAndView getMybookList(@RequestParam("search") String search)throws Exception {
 		ModelAndView mav = new ModelAndView("/review/register/getEbookList");
 		List<EbookVO> EbookList =reviewService.getEbookList(search);
 		mav.addObject("EbookList", EbookList);
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<String> register(@RequestBody ReviewVO reviewVO ) throws Exception {
+		logger.debug("regist post");
+		System.out.println(reviewVO.toString());
+		String  result= "false";
+		try{
+			int count = reviewService.register(reviewVO);
+			if(count>0){
+				result = "true"; 
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace(); 
+		}
+		ResponseEntity<String> entity = new ResponseEntity<>(result, HttpStatus.OK);
+		return entity;
+	}
+	
 
-		System.out.println("--------------------------"+search+"-----------------------------");
-		  return mav;
-	  }
-	
-	
-	
+	//////////////////////////////////////////////////////////////////////
+	@Deprecated
+	@RequestMapping(value = "/register1", method = RequestMethod.POST)
+	public String reviewPOST(HttpServletRequest req,ReviewVO reviewVO, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
+
+		logger.debug("regist post ...........");
+		logger.debug("파일명 확인" + filesVO.toString());
+		
+		reviewService.writeReview(reviewVO, filesVO);
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
+		return "redirect:/sample/reviewList";
+	}
 	
 	@RequestMapping(value = "/Rregister", method = RequestMethod.POST)
 	public String reviewWPOST(HttpServletRequest req,ReviewVO reviewVO, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
@@ -78,7 +115,6 @@ public class ReviewController {
 
 		return "redirect:/sample/reviewList";
 	}
-	//////////////////////////////////////////////////////////////////////
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)

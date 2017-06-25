@@ -5,12 +5,15 @@ import java.util.Arrays;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FilesVO {
-
-	private Integer file_no;
-	private String filename;
-	private String fileurl;
-	private Integer book_no;
-	private String book_type;
+	public static final String EBOOK = "EBOOK";
+	public static final String REVIEW = "REVIEW";
+	public static final String MYBOOK = "MYBOOK";
+	
+	private Integer file_no;				//파일 번호
+	private String filename;				//파일 이름
+	private String fileurl;					//파일 전체 경로
+	private Integer book_no;				//해
+	private String book_type;				// BookType
 	private String filetype;
 	private MultipartFile coverFile;
 	

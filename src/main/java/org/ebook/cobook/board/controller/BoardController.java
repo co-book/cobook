@@ -24,6 +24,7 @@ public class BoardController {
 	private BoardService service;
 	
 	@RequestMapping(value="/write", method = RequestMethod.POST)
+	@Deprecated
 	public String writePOST(BoardVO board, RedirectAttributes rttr){
 		
 		System.out.println(board.toString());
@@ -32,11 +33,13 @@ public class BoardController {
 		return "redirect:/board/listAll";
 	}
 	
+	@Deprecated
 	@RequestMapping(value="/listAll", method = RequestMethod.GET)
 	public void listAll(Model model){
 		model.addAttribute("list", service.listAll());
 	}
 	
+	@Deprecated
 	@RequestMapping(value="/readPage", method = RequestMethod.GET)
 	public void readPage(@RequestParam("bno") int bno, Model model){
 		model.addAttribute("boardVO", service.read(bno));

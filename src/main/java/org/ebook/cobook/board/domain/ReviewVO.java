@@ -6,19 +6,28 @@ import org.apache.ibatis.type.Alias;
 //Alias는 mybatis 설정에서 vo를 등록할때 별칭을 따로 부여함으로 mapper에서 별칭으로 연결시켜주는것
 @Alias("ReviewVO")
 public class ReviewVO {
-	 private Integer review_no; //데헷 등장^.~
-     private Integer ebook_no; //어떤이뷱을
-     private Integer member_no; //누가
-     private String title; 	//어떤 글제목으로
-     private String contents; 	//내용썼니
-     private Integer hit; 	//조회수
-     private Date reg_date; 	//작성날짜
-     private Float evaluate; 	//평점은 내가매긴다
-     private String fileurl; 	//						일단 남겨둠
-     private String category; 	//어떤 장르인지
-     private String ebook_title;	//어떤책제목을
-     private String coverurl;	//어떤책사진가꼬와?
-     private String nickname;	//시로시로 닉네임으로 작성할끄야
+	 private Integer review_no; 		//리뷰 번호
+     private Integer ebook_no; 			//리뷰할 책 제목
+     private Integer member_no; 		//사용자 번호
+     private String title; 				//제목
+     private String contents; 			//내용
+     private Integer hit; 				//조회수
+     private Date reg_date; 			//작성날짜
+     private Float evaluate; 			//평점
+     private String[] files; 			//에디터에 입력된 파일들 
+     
+     private String category; 			//어떤 장르인지		?
+     private String ebook_title;		//어떤책제목을
+     private String coverurl;			//어떤책사진가꼬와?
+     private String nickname;			//시로시로 닉네임으로 작성할끄야
+     
+     
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
 	public String getCoverurl() {	
 		return coverurl;
 	}
@@ -73,12 +82,7 @@ public class ReviewVO {
 	public void setEvaluate(Float evaluate) {
 		this.evaluate = evaluate;
 	}
-	public String getFileurl() {
-		return fileurl;
-	}
-	public void setFileurl(String fileurl) {
-		this.fileurl = fileurl;
-	}
+	
 	public String getCategory() {
 		return category;
 	}
@@ -104,7 +108,7 @@ public class ReviewVO {
 	public String toString() {
 		return "ReviewVO [review_no=" + review_no + ", ebook_no=" + ebook_no + ", member_no=" + member_no + ", title="
 				+ title + ", contents=" + contents + ", hit=" + hit + ", reg_date=" + reg_date + ", evaluate="
-				+ evaluate + ", fileurl=" + fileurl + ", category=" + category + ", ebook_title=" + ebook_title
+				+ evaluate + ", files=" + files.toString() + ", category=" + category + ", ebook_title=" + ebook_title
 				+ ", coverurl=" + coverurl + ", nickname=" + nickname + "]";
 	}
 	
