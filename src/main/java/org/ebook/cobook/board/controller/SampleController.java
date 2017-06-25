@@ -32,20 +32,27 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/sample/*")
+@Deprecated
 public class SampleController {
 
+	@Deprecated
 	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
+	@Deprecated
 	private String uploadPath = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
-
+	
+	@Deprecated
 	@Inject
 	private ReviewService reviewService;
 
+	@Deprecated
 	@Inject
 	private MybookService mybookService;
 
+	@Deprecated
 	@Inject
 	private SampleDAOImpl sampleDAO;
 
+	@Deprecated
 	@RequestMapping(value = "/mybookList", method = RequestMethod.GET)
 	public String testMybook(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
@@ -64,6 +71,7 @@ public class SampleController {
 		return "/sample/board/mybookList";
 	}
 
+	@Deprecated
 	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
 	public String mybookList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
@@ -82,7 +90,7 @@ public class SampleController {
 		return "/sample/board/reviewList";
 	}
 	
-	
+	@Deprecated
 	@RequestMapping(value = "/mRegister", method = RequestMethod.GET)
 	public String writeGET(Model model, HttpSession session) throws Exception {
 
@@ -90,7 +98,8 @@ public class SampleController {
 		session.setAttribute("login", sampleDAO.findNickName(member_no));
 		return "/sample/board/mybookWrite";
 	}
-
+	
+	@Deprecated
 	@RequestMapping(value = "/mRegister", method = RequestMethod.POST)
 	public String mWrtiePOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
 			HttpServletRequest req, RedirectAttributes rttr) throws Exception {
@@ -111,6 +120,7 @@ public class SampleController {
 		return "redirect:/sample/mybookList";
 	}
 
+	@Deprecated
 	@RequestMapping(value = "/Rregister", method = RequestMethod.GET)
 	public String reviewWGET(Model model, HttpSession session) throws Exception {
 
@@ -121,6 +131,7 @@ public class SampleController {
 	}
 	
 	
+	@Deprecated
 	@RequestMapping(value = "/Rregister", method = RequestMethod.POST)
 	public String reviewWPOST(HttpServletRequest req,ReviewVO reviewVO, FilesVO filesVO, RedirectAttributes rttr) throws Exception {
 
@@ -134,6 +145,7 @@ public class SampleController {
 		return "redirect:/sample/reviewList";
 	}
 	
+	@Deprecated
 	@RequestMapping(value="/mSingle", method = RequestMethod.GET)
 	public String mybookSingle(@RequestParam("mybook_no") int mybook_no, @ModelAttribute("cri") Criteria cri, Model model)throws Exception{
 		
@@ -147,6 +159,7 @@ public class SampleController {
 		return "/sample/board/mybookSingle";
 	}
 	
+	@Deprecated
 	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
 		 @RequestMapping(value = "/MremovePage", method = RequestMethod.POST)
 		  public String remove(@RequestParam("mybook_no") int mybook_no, Criteria cri, RedirectAttributes rttr) throws Exception {
@@ -167,7 +180,7 @@ public class SampleController {
 		    return "redirect:/sample/mybookList";
 		  }
 
-		 
+	@Deprecated
 		 // single페이지 요청
 		  @RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
 		  public String modifyPagingGET(int mybook_no, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
@@ -175,7 +188,8 @@ public class SampleController {
 		    model.addAttribute("mybookVO", mybookService.getMybookSingle(mybook_no));
 		    return "/sample/board/mybookModify";
 		  }
-
+	
+	@Deprecated
 		  // 게시물 수정처리
 		  // 한게시물의 그림파일을 전부 삭제하고 다시 넣어준다
 		  // 주의 cover파일일경우 처리

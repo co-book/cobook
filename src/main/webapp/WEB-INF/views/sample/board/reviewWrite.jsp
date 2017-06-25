@@ -108,7 +108,7 @@ $(function(){
 	<p>	내용 : <textarea id='summernote' name="contents" rows="" cols=""></textarea></p>
 	<button type="button" id="borrowList"  name="button">my book list</button>
 	<div class="form-group">
-			<ul class="list-group">
+			<ul class="list-group">첨부파일
 			</ul>
 	</div>
 	<input type="button" id="save" value="저장하기">

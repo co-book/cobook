@@ -25,10 +25,12 @@ public class UploadFileUtils {
 	// 5.기본경로 + 파일경로 + 파일이름으로 파일 저장
 	public static String uploadEditorFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
 
+		
 		// 파일의 중복된 이름을 피하기 위해 생성
 		UUID uid = UUID.randomUUID();
 		// 128bit+'_'+파일명
 		String savedName = uid.toString() + "_" + originalName;
+		System.out.println("savedName:" + savedName);
 		// 'uploadPath + 2016/06/10'형태의 파일명
 		String savedPath = calcPath(uploadPath).replace(File.separator, "/");
 		// 실저장path + 날자형식 , 파일명
@@ -51,9 +53,12 @@ public class UploadFileUtils {
 			// 문자열 치환용도의 함수
 			uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
 		}
-
+		System.out.println("fin:" + savedName);
+		System.out.println("fin:" + uploadedFileName);
 		logger.info(uploadedFileName);
 
+		//원본 삭제 
+		target.delete();
 		return uploadedFileName;
 
 	}

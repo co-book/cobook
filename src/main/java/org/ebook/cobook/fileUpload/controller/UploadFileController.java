@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.IOUtils;
 import org.ebook.cobook.util.MediaUtils;
 import org.ebook.cobook.util.UploadFileUtils;
@@ -29,27 +31,34 @@ public class UploadFileController {
 private static final Logger logger = LoggerFactory.getLogger(UploadFileController.class);
 	
 	private String uploadPath = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
+   // String root_path = request.getSession().getServletContext().getRealPath("/");  
+   // String attach_path = "resources/upload/";
+
 
 	@ResponseBody
 	//"text/plain;charset=UTF-8 > 한국어를 정상적으로 전달하기 위함.
 	//이미지를 저장하기 위해서 사용되는 메서드
 	@RequestMapping(value="/uploadFile", method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
-	public ResponseEntity<String> uploadForm(MultipartFile file)throws Exception{
+	public ResponseEntity<String> uploadForm(MultipartFile file , HttpServletRequest request)throws Exception{
 		ResponseEntity<String> entity;
 		
 		logger.info("원본파일이름 : " + file.getOriginalFilename());
 		logger.info("파일사이즈 : " + file.getSize());
+		logger.info("경로" +request.getSession().getServletContext().getRealPath("/"));  
 		logger.info("파일contentType : " + file.getContentType());
 		
 		String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("displayFile", "http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName);
+		//resultMap.put("displayFile", "http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName);
+		resultMap.put("displayFile", "/cobook/files/displayFile?fileName="+uploadedName);
+		
 		resultMap.put("uploadedName", uploadedName);
 		logger.debug("uploadedName : " + uploadedName);
 		
 		try{		
 			//http://localhost:8080을 본인의 서버port에 맞게 설정하시면 됩니다.
-			entity = new ResponseEntity<String>("http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
+			//entity = new ResponseEntity<String>("http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
+			entity = new ResponseEntity<String>("/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
 		}catch(Exception e){
 			logger.info("파일업로드 도중 에러발생: " + e.getMessage());
 			e.printStackTrace();

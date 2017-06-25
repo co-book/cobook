@@ -30,13 +30,41 @@ public class ReviewServiceImpl implements ReviewService {
 	@Inject
 	private MyPageDAO myPageDAO;
 
-	///////////////////////////////수정
+
+	/*
+	 * 'search' 검색어를 사용하여 EBook 검색
+	 *  Review 글쓰기 화면 모달에서 선택할수 있는  Ebook의 리스트 출력 
+	 */
 	@Override
 	public List<EbookVO> getEbookList(String search) throws Exception {
 		// TODO Auto-generated method stub
 		return reviewDAO.getEbookList(search);
 	}
+	// 리뷰게시물 등록과 파일등록을 수행 하는 함수
+	@Override
+	public int register(ReviewVO reviewVO) throws Exception {
+		// TODO Auto-generated method stub
+		// selectKey태그에 의해 review_no값을 ReviewVO객체에 자동으로 셋팅된다
+		int count = reviewDAO.register(reviewVO);
+		// 방금 저장한 게시물의 번호를 가져와서 
+		// 파일테이블에 book_no값을 넣어줘야함
+		
+		//에디터에서 생성한 이미지가 존대한다면, Files 테이블에 입력합니다.
+		String[] files = reviewVO.getFiles();
+		if(files != null){
+			FilesVO filesVo = new FilesVO();
+			filesVo.setBook_no(reviewVO.getReview_no());
+			filesVo.setBook_type("REVIEW");
+			filesDAO.multiFile(files, filesVo);
+		} else {
+			
+		}
+		return count;
+		
+	}
+		
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 회원의 대출목록을 가져오는 함수
 	@Override
 	public List<Map<String, Object>> borrowBookList(Integer member_no) throws Exception {
@@ -49,16 +77,21 @@ public class ReviewServiceImpl implements ReviewService {
 	public void writeReview(ReviewVO reviewVO, FilesVO filesVO) throws Exception {
 		// TODO Auto-generated method stub
 		// selectKey태그에 의해 review_no값을 ReviewVO객체에 자동으로 셋팅된다
-		reviewDAO.writeReview(reviewVO);
+		reviewDAO.register(reviewVO);
 		// 방금 저장한 게시물의 번호를 가져와서 
 		// 파일테이블에 book_no값을 넣어줘야함
-		filesVO.setBook_no(reviewVO.getReview_no());
-		filesVO.setBook_type("BOOKREVIEW");
+		
 		
 		String[] files = filesVO.getFiles();
-		if(files == null){return;}
+		if(files != null){
+			filesVO.setBook_no(reviewVO.getReview_no());
+			filesVO.setBook_type("BOOKREVIEW");
+			filesDAO.multiFile(files, filesVO);
+		} else {
+			return;
+		}
 		
-		filesDAO.multiFile(files, filesVO);
+		
 	}
 	
 	// 리뷰게시판에 뿌려줄 게시물목록

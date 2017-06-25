@@ -36,20 +36,32 @@ function sendFile(file, editor) {
 				success : function(data) {
 					console.log(data);
 					
-					
-					
-					
 					//서버명과 로컬호스트가 없어서 안된거였음.
 					var url = data;
 					var uploadPath = "";
+					
+					//이미지 업로드후, 해당 이미지를 에디터위에 미리보기 띄워줍니다.
 					$('#summernote').summernote('editor.insertImage', url);
-					//url를 받아서 li<input type=hidden name='files' value="url을 넣어준다.">
+					
 					var dataname = data.substring(url.indexOf("_") + 1);
-					$(".list-group")
-							.append(
-									"<li class='list-group-item'>"
-											+ dataname
-											+ "<input type='hidden' name='files' value='"+url+"'/></li>");
+
+					var url2 = data.substring(url.indexOf("=") + 1);
+					console.log('url');
+					console.log(url);
+
+					console.log("dataname");
+					console.log(dataname);
+
+					console.log("url2");
+					console.log(url2);
+					//업로드한 이미지파일 이름을 화면에 표시해줍니다.
+					$("#files").append(
+								 	  "<li class='list-group-item'>"
+									+    	dataname
+									//+ 		"<input class='uploadfiles' type='hidden' name='files' value='"+dataname+"'/>"
+									+ 		"<input class='uploadfiles' type='hidden' name='files' value='"+data+"'/>"
+									+ "</li>"
+					);
 
 				
 

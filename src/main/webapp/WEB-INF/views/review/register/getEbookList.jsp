@@ -13,9 +13,11 @@
 	           	  	</a>
 	           	
 	           	<!-- ebook_no  -->
-	           		<input type='hidden' class='select_ebook_no' value='${EbookList.ebook_no}'/>
+	 			<input type='hidden' class='select_ebook_no' name='ebook_no' value='${EbookList.ebook_no}'/>
+	           	 	
 	            <!-- Ebook 상세정보  -->
 	           	 	<div class="ebook_detail" style="display:none;">
+	           	 	<input type='hidden' name='ebook_no' value='${EbookList.ebook_no}'/>
 	           	 				<div class="grid images_3_of_2">
 				
 									<img src="${EbookList.coverURL}" alt="" />

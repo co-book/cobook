@@ -11,6 +11,14 @@ import org.ebook.cobook.reply.domain.ReplyVO;
 
 public interface ReviewService {
 
+	//리뷰 register 화면에서 Ebook선택을 위한 List 출력
+	public List<EbookVO> getEbookList(String category) throws Exception;
+
+	//리뷰 글쓰기
+	public int register(ReviewVO reviewVO) throws Exception;
+	
+	////
+	
 	// 내가 빌린책 리스트
 	public List<Map<String, Object>> borrowBookList(Integer member_no)throws Exception;
 	
@@ -53,6 +61,7 @@ public interface ReviewService {
 	// same ebook other reviews
     public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception;
 
-	List<EbookVO> getEbookList(String category) throws Exception;
+
+
 	
 }
