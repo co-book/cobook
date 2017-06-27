@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,6 +69,13 @@ public class ReviewController {
 		return mav;
 	}
 	
+	
+	/**
+	 * 리뷰 글쓰기 입력 (에디터에서 추가된 이미지또한 저장합니다.)
+	 * @param reviewVO
+	 * @return
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody ReviewVO reviewVO ) throws Exception {
@@ -87,7 +95,45 @@ public class ReviewController {
 		return entity;
 	}
 	
+	/**
+	 * 리뷰 리스트 화면 출력 
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String review(Model model) throws Exception {
+		return "/review/review";
+	}
+	
 
+	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
+	@RequestMapping(value = "/{review_no}", method = RequestMethod.DELETE)
+	public String deleteReview(@PathVariable("review_no") int review_no, RedirectAttributes rttr) throws Exception {
+
+			logger.debug("리뷰 삭제 호출");
+			
+			reviewService.deleteReview(review_no);
+
+			rttr.addFlashAttribute("msg", "SUCCESS");
+			
+			return "redirect:/review/list";
+	}
+	
+	@RequestMapping(value = "/getReviewList", method = RequestMethod.GET)
+	public String mybookList(String searchType, Model model) throws Exception {
+		//searchType 
+		//최신 lasted //인기 - popular 
+		logger.debug("reviewList 호출");
+
+
+		//List<Map<String, Object>> reviewList = reviewService.getBookReviewList(cri);
+
+		model.addAttribute("reviewList", reviewService.getReviewList(searchType));
+
+		return "review/getReviewList";
+	}
+	
 	//////////////////////////////////////////////////////////////////////
 	@Deprecated
 	@RequestMapping(value = "/register1", method = RequestMethod.POST)
@@ -117,22 +163,6 @@ public class ReviewController {
 	}
 	
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String review(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-		if(cri == null){
-			cri = new Criteria();
-		}
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
-		
-		logger.debug("페이지값확인 : " + cri.toString());
-		logger.debug("pageMaker : " + pageMaker.toString());
-		model.addAttribute("cri", cri);
-		model.addAttribute("pageMaker", pageMaker);
-
-		return "review";
-	}
 	
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -213,7 +243,7 @@ public class ReviewController {
 		FilesVO filesVO = new FilesVO();
 		filesVO.setBook_no(review_no);
 		filesVO.setBook_type("BOOKREVIEW");
-		reviewService.deleteReview(review_no, filesVO);
+		reviewService.deleteReview(review_no);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());

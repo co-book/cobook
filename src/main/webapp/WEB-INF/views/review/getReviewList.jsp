@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   <div role="tabpanel" class="tab-pane fade in active" id="home1" aria-labelledby="home1-tab">
+  	
   	<div class="wthree-news-top-left">
 		<c:forEach items="${reviewList}" var="reviewList" varStatus="status">
 			<div class="col-md-6 w3-agileits-news-left">

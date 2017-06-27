@@ -55,11 +55,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  )
 		
 		<selectKey resultType="int" keyProperty="review_no" order="AFTER">
-		SELECT review_no_seq.currval from dual
+		SELECT review_no_seq.currval FROM dual
 		</selectKey>
 	</insert>
 	
 	
+	<select id="getReviewList" resultType="ReviewVO" parameterType="string">
+		 SELECT
+				E.COVERURL	as COVERURL		,
+				E.TITLE	as ebookTitle		,
+				R.TITLE	 					,
+				R.HIT						,
+				R.EVALUATE					,
+				R.REGDATE					,
+				M.NICKNAME					
+		   FROM BOOKREVIEW
+		   
+		   LEFT OUTER JOIN EBOOK E
+		  	 ON (E.EBOOK_NO = R.EBOOK_NO)
+		  	 
+		   LEFT OUTER JOIN MEMBER M
+		  	 ON (M.MEMBER_NO = R.MEMBER_NO)
+
+		<if test="searchType == 'popular'.toString()">
+		  ORDER BY HIT DESC
+		</if>
+		<if test="searchType == 'lasted'.toString()">
+		  ORDER BY REG_DATE DESC
+		</if>
+	</select>
+	
+
 	
 	
 	<select id="getBookReviewList" resultType="map" parameterType="org.ebook.cobook.board.domain.Criteria">

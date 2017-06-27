@@ -288,7 +288,7 @@ public class SampleController {
 				FilesVO filesVO = new FilesVO();
 				filesVO.setBook_no(review_no);
 				filesVO.setBook_type("BOOKREVIEW");
-				reviewService.deleteReview(review_no, filesVO);
+//				reviewService.deleteReview(review_no, filesVO);
 
 				rttr.addAttribute("page", cri.getPage());
 				rttr.addAttribute("perPageNum", cri.getPerPageNum());

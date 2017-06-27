@@ -26,6 +26,14 @@ public class FilesDAOImpl implements FilesDAO {
 	@Override
 	public void deleteFile(FilesVO vo) throws Exception {
 		// TODO Auto-generated method stub
+		//해당 정보에 관한 Files를 가져옵니다. 
+		//BOOKTYPE = 게시판 종류 (EBOOK, REVIEW, MYBOOK)
+		//BOARD_NO = 해당 게시판의 번호 
+		List<String> fileList = session.selectList(namespace+".getFiles", vo);
+		for(int i = 0; i<fileList.size(); i++){
+			System.out.println("delete url : "+fileList.get(i));
+		}
+		
 		session.delete(namespace+".deleteFile", vo);
 	}
 

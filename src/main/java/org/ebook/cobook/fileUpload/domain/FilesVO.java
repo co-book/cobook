@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FilesVO {
+	public static final String UPLOADPATH = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
 	public static final String EBOOK = "EBOOK";
 	public static final String REVIEW = "REVIEW";
 	public static final String MYBOOK = "MYBOOK";

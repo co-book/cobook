@@ -38,7 +38,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert(reviewNamespace+".register", vo);
 	}
+	
+	@Override
+	public List<ReviewVO> getReviewList(String searchType) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(reviewNamespace+".getReviewList", searchType);
+	}
 
+	
 	
 	/////////////////
 	
