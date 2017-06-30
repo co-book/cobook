@@ -6,14 +6,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.FilesMapper">
 
 	<insert id="insertFile"> 
-	insert into files(file_no, book_no, filename, fileurl, book_type, filetype)
-	values
-	(file_no_seq.nextval, #{book_no}, #{filename}, #{fileurl}, #{book_type}, #{filetype})
+		INSERT INTO FILES(file_no, book_no, filename, fileurl, book_type, filetype)
+		VALUES
+		(file_no_seq.nextval, #{book_no}, #{filename}, #{fileurl}, #{book_type}, #{filetype})
 	</insert>
 	
+	<select id="getFiles" resultType="string">
+		SELETE FILEURL
+		  FROM FILES
+		 WHERE book_no	  =  #{book_no}
+		   and book_type  =  #{book_type}
+  	</select> 
+  
 	<delete id="deleteFile">
-	delete from files where book_no = #{book_no}
-	and book_type = #{book_type} 
+		DELETE FROM files
+	     WHERE book_no 	  = #{book_no}
+		   and book_type  = #{book_type} 
 	</delete>
 	
   <select id="getAttach" resultType="string">

@@ -40,6 +40,7 @@ public class ReviewServiceImpl implements ReviewService {
 		// TODO Auto-generated method stub
 		return reviewDAO.getEbookList(search);
 	}
+	
 	// 리뷰게시물 등록과 파일등록을 수행 하는 함수
 	@Override
 	public int register(ReviewVO reviewVO) throws Exception {
@@ -63,6 +64,25 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 		
+	
+	// 게시물 삭제 
+	// 게시물 삭제전에 해당 File에 연관된 file 삭제 처리
+	@Override
+	public void deleteReview(Integer review_no) throws Exception {
+		// TODO Auto-generated method stub
+		// 리뷰게시물을 삭제하기전에 참조관계인 파일목록을 지워야한다
+		FilesVO filesVO = new FilesVO();
+		filesVO.setBook_no(review_no);
+		filesVO.setBook_type("BOOKREVIEW");
+		filesDAO.deleteFile(filesVO);
+		reviewDAO.deleteReview(review_no);
+	}
+	@Override
+	public List<ReviewVO> getReviewList(String searchType) throws Exception {
+		// TODO Auto-generated method stub
+		return reviewDAO.getReviewList(searchType);
+	}
+	
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 회원의 대출목록을 가져오는 함수
@@ -134,15 +154,7 @@ public class ReviewServiceImpl implements ReviewService {
 		filesDAO.multiFile(files, filesVO);
 	}
 
-	// 게시물 삭제
-	@Override
-	public void deleteReview(Integer review_no, FilesVO filesVO) throws Exception {
-		// TODO Auto-generated method stub
-	// 리뷰게시물을 삭제하기전에 참조관계인 파일목록을 지워야한다
-		filesDAO.deleteFile(filesVO);
-		reviewDAO.deleteReview(review_no);
-	}
-
+	
 	// 인기순 리뷰 리스트
 	@Override
 	public List<Map<String, Object>> getReviewPopularity(Criteria cri) throws Exception {

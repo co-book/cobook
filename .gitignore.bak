@@ -4,10 +4,6 @@
 
 ### Windows ###
 # Windows thumbnail cache files
-.classpath
-.project
-.settings/
-
 Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db

@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
+import org.ebook.cobook.fileUpload.domain.FilesVO;
 import org.ebook.cobook.util.MediaUtils;
 import org.ebook.cobook.util.UploadFileUtils;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class UploadFileController {
 
 private static final Logger logger = LoggerFactory.getLogger(UploadFileController.class);
 	
-	private String uploadPath = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
+	//private String uploadPath = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
    // String root_path = request.getSession().getServletContext().getRealPath("/");  
    // String attach_path = "resources/upload/";
 
@@ -47,7 +48,7 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		logger.info("경로" +request.getSession().getServletContext().getRealPath("/"));  
 		logger.info("파일contentType : " + file.getContentType());
 		
-		String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+		String uploadedName = UploadFileUtils.uploadEditorFile(FilesVO.UPLOADPATH, file.getOriginalFilename(), file.getBytes());
 		Map<String, Object> resultMap = new HashMap<>();
 		//resultMap.put("displayFile", "http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName);
 		resultMap.put("displayFile", "/cobook/files/displayFile?fileName="+uploadedName);
@@ -94,8 +95,8 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 			HttpHeaders headers = new HttpHeaders();
 			
 			//실제 위치에서 파일을 찾아서 삽입한다.
-			in = new FileInputStream(uploadPath + fileName);
-			logger.info("FILE FULL NAME : " + uploadPath + fileName);
+			in = new FileInputStream(FilesVO.UPLOADPATH + fileName);
+			logger.info("FILE FULL NAME : " + FilesVO.UPLOADPATH  + fileName);
 			
 			if (mType != null) {
 				headers.setContentType(mType);
@@ -130,8 +131,8 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		//http://localhost:8080/displayEditorFile?fileName=[/2016/09/19/64d41412-d3ca-43b0-84cb-49fa25b2c603_test.png]
 		String originalFileName = fileName.substring(fileName.indexOf("=")+1);
 		logger.info("파일삭제filename : " + originalFileName);
-		
-		new File(uploadPath + originalFileName).delete();
+		//D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload
+		new File(FilesVO.UPLOADPATH  + originalFileName).delete();
 		
 		try{
 			entity = new ResponseEntity<String>("deleted",HttpStatus.OK);
@@ -150,7 +151,7 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		ResponseEntity<String> entity = null;
 		try{
 			logger.debug("커버파일 업로드");
-			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(), coverFile.getBytes());
+			String uploadedName = UploadFileUtils.uploadEditorFile(FilesVO.UPLOADPATH , coverFile.getOriginalFilename(), coverFile.getBytes());
 			entity = new ResponseEntity<String>(uploadedName, HttpStatus.OK);
 			
 		}catch(Exception e){

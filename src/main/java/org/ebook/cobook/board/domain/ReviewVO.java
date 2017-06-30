@@ -14,12 +14,15 @@ public class ReviewVO {
      private Integer hit; 				//조회수
      private Date reg_date; 			//작성날짜
      private Float evaluate; 			//평점
-     private String[] files; 			//에디터에 입력된 파일들 
+     private String[] files; 			//에디터에 입력된 파일들  - 글쓰기할때 사용
      
+    
+     private String ebookTitle;			//EBOOK의 책제목 		리스트에서 사용
+     private String coverurl;			//Ebook의 CoverURL	리스트에서 사용
+     private String nickname;			//작성자 닉네임			리스트에서 사용
+     
+     //?
      private String category; 			//어떤 장르인지		?
-     private String ebook_title;		//어떤책제목을
-     private String coverurl;			//어떤책사진가꼬와?
-     private String nickname;			//시로시로 닉네임으로 작성할끄야
      
      
 	public String[] getFiles() {
@@ -89,11 +92,11 @@ public class ReviewVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getEbook_title() {
-		return ebook_title;
+	public String getEbookTitle() {
+		return ebookTitle;
 	}
-	public void setEbook_title(String ebook_title) {
-		this.ebook_title = ebook_title;
+	public void setEbookTitle(String ebook_title) {
+		this.ebookTitle = ebook_title;
 	}
 
 	
@@ -108,7 +111,7 @@ public class ReviewVO {
 	public String toString() {
 		return "ReviewVO [review_no=" + review_no + ", ebook_no=" + ebook_no + ", member_no=" + member_no + ", title="
 				+ title + ", contents=" + contents + ", hit=" + hit + ", reg_date=" + reg_date + ", evaluate="
-				+ evaluate + ", files=" + files.toString() + ", category=" + category + ", ebook_title=" + ebook_title
+				+ evaluate + ", files=" + files.toString() + ", category=" + category + ", ebook_title=" + ebookTitle
 				+ ", coverurl=" + coverurl + ", nickname=" + nickname + "]";
 	}
 	

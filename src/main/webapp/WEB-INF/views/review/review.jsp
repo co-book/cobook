@@ -15,6 +15,7 @@
 		function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
 <!-- //for-mobile-apps -->
+<link href="/cobook/resources/CoBookDesign/css/login.css" rel="stylesheet" type="text/css" media="all"/>
 <link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/style.css"	rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/faqstyle.css"	rel="stylesheet" type="text/css" media="all" />
