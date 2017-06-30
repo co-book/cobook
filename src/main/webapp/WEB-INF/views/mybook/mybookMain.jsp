@@ -14,46 +14,28 @@
 		function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
 <!-- //for-mobile-apps -->
-<link href="/cobook/resources/CoBookDesign/css/bootstrap.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/cobook/resources/CoBookDesign/css/style.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css"
-	media="all" />
-<link href="/cobook/resources/CoBookDesign/css/medile.css"
-	rel='stylesheet' type='text/css' />
-<link href="/cobook/resources/CoBookDesign/css/single.css"
-	rel='stylesheet' type='text/css' />
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/contactstyle.css"
-	type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/faqstyle.css" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/medile.css" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
 <!-- news-css -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/news.css" type="text/css"
-	media="all" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/news.css" type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/list-css/list.css?ver=5" type="text/css"
-	media="all" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/list-css/list.css?ver=10" type="text/css" media="all" />
 <!-- //list-css -->
 <!-- font-awesome icons -->
-<link rel="stylesheet"
-	href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
 <!-- //font-awesome icons -->
 <!-- js -->
-<script type="text/javascript"
-	src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <!-- //js -->
-<link
-	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
-	rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
-<script type="text/javascript"
-	src="/cobook/resources/CoBookDesign/js/move-top.js"></script>
-<script type="text/javascript"
-	src="/cobook/resources/CoBookDesign/js/easing.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/move-top.js"></script>
+<script type="text/javascript" src="/cobook/resources/CoBookDesign/js/easing.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event) {
@@ -73,112 +55,64 @@
 <script type="text/javascript"
 	src="/cobook/resources/CoBookDesign/list-js/jquery.basictable.min.js"></script>
 <script type="text/javascript">
+	var moreCnt=1;
+	var con='';
 	$(document).ready(function() {
 		$('#table').basictable();
-
-		/* $('#table-breakpoint').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint1').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint2').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint3').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint4').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint5').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint6').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint7').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint8').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint9').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint10').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint11').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint12').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint13').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint14').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint15').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint16').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint17').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint18').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint19').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint20').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint21').basictable({
-		"src/main/java"	breakpoint : 768
-		});
-		$('#table-breakpoint22').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint23').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint24').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint25').basictable({
-			breakpoint : 768
-		});
-		$('#table-breakpoint26').basictable({
-			breakpoint : 768
-		}); */
-		
+/*
+ *이거는  더보기를 제외한 모든 리스트와 con 리스트
+ */
 		var getMybookList = function (con) {
 			$.ajax({
 				type : "GET",
 				url : '/cobook/mybook/mybookAllList',
 				dataType : 'html',
 				data : {
-					"con" : con
+					"con" : con,
+					"moreCnt" : moreCnt
 				},
 				success : function(data) {
 					$('#mybookListCall').html(data);
+					$('.moreCntMybook').click(function name() {
+						console.log("더보기더보기더보기");
+						moreCnt=moreCnt+1;
+						$(this).css("display","none");
+						getMybookListMore();
+					});
 				}
 			});
 		}
 		
 		getMybookList();
-		
+		//con리스트
 		$("#myTab").on("click", "li a", function name() {
+			con = $(this).text();
+			getMybookList(con);	
+			moreCnt=1; 
 			
-			var keyword = $(this).text();
-			getMybookList(keyword);	
 		});
+		
+		//더보기 버튼 
+		var getMybookListMore = function () {
+			$.ajax({
+				type : "GET",
+				url : '/cobook/mybook/mybookAllList',
+				dataType : 'html',
+				data : {
+					"con" : con,
+					"moreCnt" : moreCnt
+				},
+				success : function(data) {
+					$('#mybookListCall').append(data);
+					$('.moreCntMybook').click(function name() {
+						console.log("더보기더보기더보기");
+						moreCnt=moreCnt+1;
+						$(this).css("display","none");
+						getMybookListMore();
+					});
+				}
+			});
+		}
 	});
 </script>
 <!-- //tables -->
