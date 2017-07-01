@@ -53,6 +53,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		(my.mybook_no = re.board_no)
 		
 		<include refid="searchTitle"></include>
+		order by my.reg_date desc
 	</select>
 	<!-- mybook 총갯수를 가져오는데, conn에 따라 갯수를 같이 가져오눈거 -->
 	<select id="getMybookCount" resultType="int" parameterType="String">
@@ -66,7 +67,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 	
 	
 	
-	<select id="getCriCount" resultType="int">
+	<!-- <select id="getCriCount" resultType="int">
 	<![CDATA[
 	  SELECT count(m.mybook_no) 
  	 FROM mybook m, files f
@@ -77,7 +78,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 	]]>
 		<include refid="search"></include>
 
-	</select>
+	</select> -->
 
 	<insert id="insert">
 		INSERT INTO MYBOOK
@@ -138,52 +139,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		#{mybook_no}
 
 	</update>
-
-
-
-	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">
-				AND title LIKE CONCAT('%', #{keyword}) || '%'
-			</if>
-			<if test="searchType == 'c'.toString()">
-				AND contents LIKE CONCAT('%', #{keyword}) || '%'
-			</if>
-			<if test="searchType == 'w'.toString()">
-				AND member_no
-				IN(select member_no FROM member
-				WHERE
-				nickname LIKE CONCAT('%', #{keyword}) || '%')
-			</if>
-			<if test="searchType == 'tc'.toString()">
-				and ( title LIKE CONCAT('%', #{keyword}) || '%' OR
-				contents LIKE
-				CONCAT('%', #{keyword}) || '%')
-			</if>
-			<if test="searchType == 'cw'.toString()">
-				and
-				( contents LIKE CONCAT('%', #{keyword}) || '%'
-				OR
-				member_no IN(select member_no FROM member
-				WHERE nickname LIKE
-				CONCAT('%', #{keyword}) || '%')
-				)
-			</if>
-			<if test="searchType == 'tcw'.toString()">
-				AND
-				( title LIKE CONCAT('%', #{keyword}) || '%'
-				OR
-				contents
-				LIKE CONCAT('%', #{keyword}) || '%'
-				OR
-				member_no IN(select member_no
-				FROM member
-				WHERE nickname LIKE CONCAT('%', #{keyword}) || '%')
-				)
-			</if>
-		</if>
-	</sql>
-
+	
 	<sql id="searchTitle">
 		<if test="_parameter != null">
 		where 1=1
@@ -240,8 +196,16 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 			OR title between 'ㅍ' AND 'ㅎ'
 			</if>
 			<if test="_parameter == 'ㅎ'.toString()">
-			AND title between '하' and '가'
-			OR title between 'ㅎ' AND 'ㄱ'
+			AND (title NOT between '가' and '하')
+			AND (title NOT between  'ㄱ' AND 'ㅎ')
+			AND NOT regexp_like(title, '^[0-9]')
+			AND	NOT regexp_like(title, '^[a-zA-Z]')
+			</if>
+			<if test="_parameter == 'ABC'.toString()">
+			AND	regexp_like(title, '^[a-zA-Z]')
+			</if>
+			<if test="_parameter == '123'.toString()">
+			AND regexp_like(title, '^[0-9]')
 			</if>
 		</if>
 	
@@ -251,5 +215,47 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 	<select id="listAll" resultType="MybookVO">
 		select * from mybook
 	</select>
+<!-- <sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND title LIKE CONCAT('%', #{keyword}) || '%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND contents LIKE CONCAT('%', #{keyword}) || '%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				AND member_no
+				IN(select member_no FROM member
+				WHERE
+				nickname LIKE CONCAT('%', #{keyword}) || '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title LIKE CONCAT('%', #{keyword}) || '%' OR
+				contents LIKE
+				CONCAT('%', #{keyword}) || '%')
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and
+				( contents LIKE CONCAT('%', #{keyword}) || '%'
+				OR
+				member_no IN(select member_no FROM member
+				WHERE nickname LIKE
+				CONCAT('%', #{keyword}) || '%')
+				)
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				AND
+				( title LIKE CONCAT('%', #{keyword}) || '%'
+				OR
+				contents
+				LIKE CONCAT('%', #{keyword}) || '%'
+				OR
+				member_no IN(select member_no
+				FROM member
+				WHERE nickname LIKE CONCAT('%', #{keyword}) || '%')
+				)
+			</if>
+		</if>
+	</sql> -->
 
 </mapper>

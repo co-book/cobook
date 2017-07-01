@@ -6,7 +6,8 @@ import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MybookVO {
-
+	public static final int limit = 10;	//더보기 단위
+	
     private Integer mybook_no;
     private Integer member_no;
     private String title;
@@ -15,6 +16,7 @@ public class MybookVO {
     private Date reg_date;
     private String nickname;
     private String fileUrl;
+    private int moreCnt;
     
 	public String getFileUrl() {
 		return fileUrl;
@@ -69,7 +71,15 @@ public class MybookVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
+	public int getMoreCnt() {
+		return moreCnt;
+	}
+	public void setMoreCnt(int moreCnt) {
+		this.moreCnt = moreCnt;
+	}
+	public static int getLimit() {
+		return limit;
+	}
 	
 
 

@@ -13,8 +13,9 @@ public interface MybookService {
 	// 마이북 페이지에 리스트
 	//public List<Map<String, Object>> getMybookList(Criteria cri) throws Exception;
 
-	public Map<String, Object> getMybookAllList(String con) throws Exception;
-	
+	public Map<String, Object> getMybookAllList(String con, MybookVO vo) throws Exception;
+	//리스트총갯수 
+	public int getMybookAllCount(String con) throws Exception;
 	
 	
 	public int getCriCount(Criteria cri)throws Exception;

@@ -12,7 +12,7 @@ public interface MybookDAO {
 	//public List<Map<String, Object>> getMybookList(Criteria cri)throws Exception;
 	
 	//마이북 리스트 가져오기 con = consonant 자음 입니다 명사에요;-) 까먹지 말라공..
-	public List<MybookVO> getMybookAllList(String con) throws Exception;
+	public List<MybookVO> getMybookAllList(String con, MybookVO vo) throws Exception;
 	//마이북 갯수
 	public int getMybookAllCount(String con) throws Exception;
 	

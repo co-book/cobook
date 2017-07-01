@@ -5,40 +5,13 @@
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> --%>
 <!-- <button class="writeBtn">글쓰기</button> -->
 <div class="agile-news-table">
-	<%-- <div class="w3ls-news-result">
-		<h4>
-			Search Results : <span>${fn:length(list)}</span>
-		</h4>
-	</div>
-	<table id="table-breakpoint">
-		<thead>
-			<tr>
-				<th>No.</th>
-				<th>책제목</th>
-				<th>닉네임</th>
-				<th>작성날짜</th>
-				<th>조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${list}" var="vo">
-				<tr>
-					<td>${vo.MYBOOK_NO}</td>
-					<td class="w3-list-img"><a
-						href="/cobook/sample/mSingle?mybook_no=${vo.MYBOOK_NO}&page=${cri.page}&perPageNum=${cri.perPageNum}"><img
-							src="${vo.FILEURL}" alt="" /> <span>${vo.TITLE}</span></a></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd"
-							value="${vo.REG_DATE}" /></td>
-					<td>${vo.NICKNAME}</td>
-					<td>${vo.HIT}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table> --%>
+	<c:if test="${moreCnt==1}">
 	<div class="w3ls-news-result">
-		<h4>Search Results : <span>${mybook.mybookCount}</span></h4>
+		<h4>Search Results : <span>${mybookCount}</span></h4>
 	</div>
+	</c:if>
 	<table id="table-breakpoint">
+		<c:if test="${moreCnt==1}">
 		<thead>
 			<tr>
 				<th>No.</th>
@@ -48,7 +21,8 @@
 				<th>조회수</th>
 			</tr>
 		</thead>
-		<tbody>
+		</c:if>
+		<tbody id="moreList">
 		<c:forEach items="${mybook.mybookList}" var="vo">
 			<tr>
 				<td>${vo.mybook_no}</td>
@@ -60,5 +34,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	
 	</div>
+<c:if test="${mybookCount > (10*moreCnt)}">
+	<button id="moreCnt" class="moreCntMybook">+ 더 보기</button>
+	</c:if>

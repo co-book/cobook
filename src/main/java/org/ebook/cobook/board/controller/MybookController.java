@@ -59,7 +59,7 @@ public class MybookController {
 	}
 	
 	/**
-	 * mybook main page get
+	 * mybook main 뷰 page get
 	 * @param vo
 	 * @return
 	 * @throws Exception
@@ -71,18 +71,29 @@ public class MybookController {
 	//	mav.addObject("mybookList", vo);
 		return mav;
 	}
-	
+	/**
+	 * 전체나 더보기나 con으로 뽑는 리스트도 call
+	 * @param con
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/mybookAllList", method = RequestMethod.GET)
-	public ModelAndView getMybookAllList(String con) throws Exception
-	{
+	public ModelAndView getMybookAllList(String con, MybookVO vo) throws Exception
+	{	
 		ModelAndView mav = new ModelAndView("mybook/mybookList");
 		/*Map<String, Object> map =mybookService.getMybookAllList(con);
 		mav.addObject("mybookList",map.get("mybookList"));
 		mav.addObject("mybookListCount", map.get("mybookCount"));*/
-		
-		mav.addObject("mybook", mybookService.getMybookAllList(con));
+		System.out.println(con+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		mav.addObject("mybook", mybookService.getMybookAllList(con, vo));
+		mav.addObject("moreCnt", vo.getMoreCnt());
+		mav.addObject("mybookCount", mybookService.getMybookAllCount(con));		
 		return mav;
 	}
+	
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Deprecated
 	@RequestMapping(value="/single", method = RequestMethod.GET)

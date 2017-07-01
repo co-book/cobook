@@ -23,13 +23,10 @@ public class MybookServiceImpl implements MybookService {
 
 	@Inject
 	private MybookDAO mybookDAO;
-
 	@Inject
 	private FilesDAO filesDAO;
-
 	@Inject
 	private MyPageDAO myPageDAO;
-	
 	@Inject
 	private ReplyDAO replyDAO;
 	
@@ -125,15 +122,23 @@ public class MybookServiceImpl implements MybookService {
 			return replyDAO.getReplyCount(vo);
 		}
 
+	
+		
 		@Override
-		public Map<String, Object> getMybookAllList(String con) throws Exception {
+		public Map<String, Object> getMybookAllList(String con, MybookVO vo) throws Exception {
 			
 			Map<String, Object> map = new HashMap();
-			map.put("mybookList", mybookDAO.getMybookAllList(con));
-			map.put("mybookCount", mybookDAO.getMybookAllCount(con));
+			map.put("mybookList", mybookDAO.getMybookAllList(con, vo));
+			//map.put("mybookCount", mybookDAO.getMybookAllCount(con));
 			
 			// TODO Auto-generated method stub
 			return map;
+		}
+
+		@Override
+		public int getMybookAllCount(String con) throws Exception {
+			// TODO Auto-generated method stub
+			return mybookDAO.getMybookAllCount(con);
 		}
 
 }
