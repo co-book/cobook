@@ -8,14 +8,14 @@
 		<c:forEach items="${reviewList}" var="reviewList" varStatus="status">
 			<div class="col-md-6 w3-agileits-news-left">
 				<div class="col-sm-5 wthree-news-img">
-					<a href="/cobook/review/single/${reviewList.REVIEW_NO}"><img src="${reviewList.COVERURL}" alt="" /></a>
+					<a href="/cobook/review/single/${reviewList.review_no}"><img src="${reviewList.coverurl}" alt="" /></a>
 				</div>
 				<div class="col-sm-7 wthree-news-info">
-					<h5><a href="news-single.html">${reviewList.TITLE}</a></h5>
-					<p>${reviewList.CONTENTS}</p>
+					<h5><a href="news-single.html">${reviewList.title}</a></h5>
+					<p>${reviewList.contents}</p>
 					<ul>
-						<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${reviewList.REG_DATE}" pattern="yyyy/MM/dd"/></li>
-						<li><i class="fa fa-eye" aria-hidden="true"></i>${reviewList.HIT}</li>
+						<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${reviewList.reg_date}" pattern="yyyy/MM/dd"/></li>
+						<li><i class="fa fa-eye" aria-hidden="true"></i>${reviewList.hit}</li>
 					</ul>
 				</div>
 				<div class="clearfix"> </div>

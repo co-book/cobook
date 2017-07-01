@@ -15,6 +15,7 @@ import org.ebook.cobook.fileUpload.persistence.FilesDAO;
 import org.ebook.cobook.mypage.persistence.MyPageDAO;
 import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.reply.persistence.ReplyDAO;
+import org.ebook.cobook.util.BoardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,7 +81,14 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewVO> getReviewList(String searchType) throws Exception {
 		// TODO Auto-generated method stub
-		return reviewDAO.getReviewList(searchType);
+		 List<ReviewVO> list = reviewDAO.getReviewList(searchType);
+		 for(int i=0;i<list.size();i++){
+			 //HTML태그들 제거합니다. 
+			 String contentStr=BoardUtil.RemoveHTMLTag( list.get(i).getContents() );
+			 
+			 list.get(i).setContents(BoardUtil.RemoveHTMLTag( list.get(i).getContents()));
+		 }
+		return list;
 	}
 	
 	

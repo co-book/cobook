@@ -62,14 +62,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getReviewList" resultType="ReviewVO" parameterType="string">
 		 SELECT
+		 		R.REVIEW_NO					,
 				E.COVERURL	as COVERURL		,
 				E.TITLE	as ebookTitle		,
 				R.TITLE	 					,
+				R.CONTENTS					,
 				R.HIT						,
 				R.EVALUATE					,
-				R.REGDATE					,
-				M.NICKNAME					
-		   FROM BOOKREVIEW
+				R.REG_DATE					,
+				M.NICKNAME			 		
+		   FROM BOOKREVIEW R
 		   
 		   LEFT OUTER JOIN EBOOK E
 		  	 ON (E.EBOOK_NO = R.EBOOK_NO)
@@ -77,10 +79,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   LEFT OUTER JOIN MEMBER M
 		  	 ON (M.MEMBER_NO = R.MEMBER_NO)
 
-		<if test="searchType == 'popular'.toString()">
+		<if test="_parameter == 'popular'.toString()">
 		  ORDER BY HIT DESC
 		</if>
-		<if test="searchType == 'lasted'.toString()">
+		<if test="_parameter == 'lasted'.toString()">
 		  ORDER BY REG_DATE DESC
 		</if>
 	</select>

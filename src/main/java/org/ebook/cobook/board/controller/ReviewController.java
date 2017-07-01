@@ -124,7 +124,7 @@ public class ReviewController {
 	public String mybookList(String searchType, Model model) throws Exception {
 		//searchType 
 		//최신 lasted //인기 - popular 
-		logger.debug("reviewList 호출");
+		logger.debug("reviewList 호출" + searchType);
 
 
 		//List<Map<String, Object>> reviewList = reviewService.getBookReviewList(cri);

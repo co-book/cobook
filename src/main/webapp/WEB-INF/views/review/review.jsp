@@ -53,29 +53,36 @@
 
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				//리스트
-				var totalPage = '${pageMaker.totalPage}';
-				var page = '${cri.page}';
-				var perPageNum = '${cri.perPageNum}';
-				var searchType = '${cri.searchType}';
-				var keyword = '${cri.keyword}';
-				var listURL = '/cobook/review/reviewList?page=' + 1
-						+ "&perPageNum=" + perPageNum + "&searchType="
-						+ searchType + "&keyword=" + keyword;
-				var popularityURL = '/cobook/review/popularityList?page='
-						+ 1 + "&perPageNum=" + perPageNum + "&searchType="
-						+ searchType + "&keyword=" + keyword;
-				var bestReplyURL = "/cobook/review/bestReply";
-				
-				// 페이지 접근시에 최신리뷰, 베플, 최근리뷰를 보여줌
-				getReviewList(listURL, '#review_reviewList', 'html');
-				getReviewList(bestReplyURL, '#review_bestReply', 'html');
-				// 페이지 접근시 더보기 버튼 유무 확인
-				listenerBtn(page);
-				
-				$.ajax({
+
+$(document).ready(function() {
+			
+	var getReviewList = function(searchType){
+		var tempSearchType =searchType;
+		$.ajax({
+			type : "GET",
+			url : "/cobook/review/getReviewList",
+			data: {
+				"searchType" : searchType
+			},
+			dataType : 'html',
+			success : function(data) {
+				console.log(tempSearchType);
+				if(tempSearchType=='lasted'){
+					$('#lastedReviewList').html(data);
+				}else if(tempSearchType='popular'){
+					$('#popularReviewList').html(data);
+				}else{
+					alert(data);
+				}
+			}
+		});
+	}
+	//최신 리뷰 먼저 불러옵니다. 
+	getReviewList('lasted');
+	getReviewList('popular');
+			
+})
+				/* $.ajax({
 					type : "get",
 					url : '/cobook/review/lastedReviewList',
 					dataType : 'html',
@@ -99,8 +106,8 @@
 						cycle($('#cycler div:first'), $('#cycler'));
 						//자바스크립트 끝
 					}
-				});
-
+				}); */
+/* 
 				// 인기리뷰 클릭버튼 이벤트처리
 				$("#w3bsd-tab").on("click", function() {
 					page = 1;
@@ -164,16 +171,6 @@
 				
 				
 				// AJAX 공통함수
-				function getReviewList(url, target, method) {
-					$.ajax({
-						type : "get",
-						url : url,
-						dataType : 'html',
-						success : function(data) {
-							settingHtml(target, method, data);
-						}
-					});
-				}
 				
 				// append OR html 방식인지 선택
 				function settingHtml(target, method, data){
@@ -183,9 +180,9 @@
 					}else{
 						$(target).html(data);
 					}
-				}
+				} */
 				
-			});
+	
 </script>
 </head>
 
@@ -211,21 +208,23 @@
 						<div class="bs-example bs-example-tabs" role="tabpanel"	data-example-id="togglable-tabs">
 							<ul id="myTab" class="nav nav-tabs" role="tablist">
 								<li role="presentation" class="active">
-									<a href="#home1"	id="home1-tab" role="tab" data-toggle="tab"
+									<a href="#lastedReviewList"	id="lastedReview" role="tab" data-toggle="tab"
 									aria-controls="home1" aria-expanded="true">최신 리뷰</a>
 								</li>
 								<li role="presentation">
-									<a href="#w3bsd"	id="w3bsd-tab" role="tab" data-toggle="tab" 
+									<a href="#popularReviewList"	id="popularReview" role="tab" data-toggle="tab" 
 									 aria-controls="w3bsd">인기리뷰</a>
 								</li>
 							</ul>
 							<div id="myTabContent" class="tab-content">
-								<!-- 리뷰 리스트 -->
-								<div id="review_reviewList"></div>
-								<div id="paging">
-						
 								
+								<div role="tabpanel" class="tab-pane fade in active" id="lastedReviewList" aria-labelledby="home1-tab">
+								lastedReviewList
 								</div>
+								<div role="tabpanel" class="tab-pane fade" id="popularReviewList" aria-labelledby="w3bsd-tab">
+								popularReviewList
+								</div>
+								<div id="paging"></div>
 							</div>
 						</div>
 					</div>

@@ -7,6 +7,8 @@
 .classpath
 .project
 .settings/
+.settings
+.settings/*
 
 Thumbs.db
 ehthumbs.db

@@ -115,9 +115,6 @@ public class ReviewVO {
 				+ ", coverurl=" + coverurl + ", nickname=" + nickname + "]";
 	}
 	
-     
-     
-   
 	
 
 }
