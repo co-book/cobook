@@ -103,7 +103,7 @@
 					"moreCnt" : moreCnt
 				},
 				success : function(data) {
-					$('#mybookListCall').append(data);
+					$('#mybookListCall').append(data).trigger("create");
 					$('.moreCntMybook').click(function name() {
 						console.log("더보기더보기더보기");
 						moreCnt=moreCnt+1;

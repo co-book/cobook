@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+.myFileUp{
+	margin-left: 1px;
+    /* border-radius: 3px; */
+    border-radius: 0.2em;
+    border: none;
+    padding: .em;
+    background-color: #FC7D01;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "PT Sans", sans-serif;
+    font-size: 16px;
+    font-size: 15px;
+    cursor: pointer;
+}

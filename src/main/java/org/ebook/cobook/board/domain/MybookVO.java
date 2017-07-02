@@ -15,14 +15,14 @@ public class MybookVO {
     private Integer hit;
     private Date reg_date;
     private String nickname;
-    private String fileUrl;
+    private String coverUrl;
     private int moreCnt;
     
-	public String getFileUrl() {
-		return fileUrl;
+	public String getCoverUrl() {
+		return coverUrl;
 	}
-	public void setFileUrl(String fileUrl) {
-		this.fileUrl = fileUrl;
+	public void setCoverUrl(String coverUrl) {
+		this.coverUrl = coverUrl;
 	}
 	@Override
 	public String toString() {

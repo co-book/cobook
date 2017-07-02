@@ -34,7 +34,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		select 
 		my.mybook_no, 
 		my.title, 
-		my.fileUrl, 
+		my.coverUrl, 
 		mem.nickname, 
 		my.reg_date, 
 		my.hit,
@@ -87,18 +87,20 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		TITLE,
 		CONTENTS,
 		HIT,
-		Reg_date)
+		Reg_date,
+		coverUrl)
 		VALUES
 		(mybook_no_seq.nextval,
 		#{member_no},
 		#{title},
 		#{contents},
 		0,
-		sysdate)
+		sysdate,
+		coverUrl)
 
-		<selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
+		<!-- <selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
 			SELECT mybook_no_seq.currval FROM dual
-		</selectKey>
+		</selectKey> -->
 
 	</insert>
 

@@ -59,15 +59,15 @@ public class MybookController {
 	}
 	
 	/**
-	 * mybook main 뷰 page get
+	 * 개인소설 뷰 page get
 	 * @param vo
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/mybookMain", method = RequestMethod.GET)
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView mybookList()throws Exception
 	{
-		ModelAndView mav = new ModelAndView("mybook/mybookMain");
+		ModelAndView mav = new ModelAndView("mybook/mybook");
 	//	mav.addObject("mybookList", vo);
 		return mav;
 	}
@@ -92,7 +92,12 @@ public class MybookController {
 		return mav;
 	}
 	
-	
+	@RequestMapping(value = "/mybookRegister", method = RequestMethod.GET)
+	public ModelAndView mybookRegister(Model model, HttpSession session) throws Exception {
+
+		ModelAndView mav = new ModelAndView("mybook/register");
+		return mav;
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Deprecated
@@ -183,7 +188,7 @@ public class MybookController {
 
 			Integer member_no = new Integer(3);
 			session.setAttribute("login", sampleDAO.findNickName(member_no));
-			return "/mybook/mybookWrite";
+			return "/mybook/register";
 		}
 	@Deprecated
 	  @RequestMapping(value = "/register", method = RequestMethod.POST)

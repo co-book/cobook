@@ -115,7 +115,7 @@
 			getEbookList($('#searchText').val());
 		})
 		
-		//검색 모달 - 검색 버튼 클릭시 실행
+		//검색 모달 - 검색 버튼 클릭시
 		$("#search").click(function(){
 			getEbookList($('#searchText').val());
 		});
