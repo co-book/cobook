@@ -16,14 +16,15 @@ public interface ReviewDAO {
 	List<EbookVO> getEbookList(String search) throws Exception;
 
 	//리뷰 리스트 불러오기
-	List<ReviewVO> getReviewList(String searchType) throws Exception;
+	List<ReviewVO> getReviewList(String searchType , int moreCnt) throws Exception;
+	
+	int getReviewListCnt(String searchType ) throws Exception;
 	
 	/////////////////////////////
 	public List<Map<String, Object>> getBorrowedBook(Integer member_no) throws Exception;
 	
 
 	public List<Map<String, Object>> getBookReviewList(Criteria cri) throws Exception;
-	public int getReviewCount(Criteria cri) throws Exception;
 	public Map<String, Object> getReviewSingle(Integer review_no)throws Exception;
 	public void modifyReview(ReviewVO vo)throws Exception;
 	public void deleteReview(Integer review_no)throws Exception;

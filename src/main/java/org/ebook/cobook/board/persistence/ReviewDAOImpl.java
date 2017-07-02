@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.ReviewVO;
@@ -40,12 +41,25 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 	
 	@Override
-	public List<ReviewVO> getReviewList(String searchType) throws Exception {
+	public List<ReviewVO> getReviewList(String searchType ,int moreCnt) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(reviewNamespace+".getReviewList", searchType);
+		int REWVIEWLIMIT = 2;
+		int offset = REWVIEWLIMIT*(moreCnt-1);
+		int limit=(REWVIEWLIMIT * moreCnt);
+		
+		System.out.println("offset"+offset);
+		System.out.println("limit"+limit);
+		System.out.println("MoreCnt()"+moreCnt);
+		RowBounds rowBounds = new RowBounds(offset,limit);	//mybatis에서 offset 부터 limit까지 뽑아오는..?
+	
+		return sqlSession.selectList(reviewNamespace+".getReviewList", searchType, rowBounds);
 	}
 
-	
+	@Override
+	public int getReviewListCnt(String searchType) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(reviewNamespace+".getReviewListCnt");
+	}
 	
 	/////////////////
 	
@@ -64,13 +78,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public List<Map<String, Object>> getBookReviewList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(reviewNamespace+".getBookReviewList", cri);
-	}
-
-
-	@Override
-	public int getReviewCount(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(reviewNamespace+".getReviewCount", cri);
 	}
 
 

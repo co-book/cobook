@@ -21,14 +21,15 @@
 <link href="/cobook/resources/CoBookDesign/css/faqstyle.css"	rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/single.css"	rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/contactstyle.css"	rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" rel="stylesheet" />
 <!-- news-css -->
-<link href="/cobook/resources/CoBookDesign/news-css/news.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewList.css?ver=10" rel="stylesheet" type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
 <link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet" type="text/css" media="all" />
 <!-- //list-css -->
 <!-- font-awesome icons -->
-<link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" rel="stylesheet" />
+
 <!-- //font-awesome icons -->
 <!-- js -->
 <script src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"	type="text/javascript"></script>
@@ -55,31 +56,68 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-			
-	var getReviewList = function(searchType){
-		var tempSearchType =searchType;
+	var moreCnt = 1;
+	var searchType ='';
+	
+	//처음 리스트 불러오는 이벤트 
+	var getReviewList = function(){
 		$.ajax({
 			type : "GET",
 			url : "/cobook/review/getReviewList",
 			data: {
-				"searchType" : searchType
+				"searchType" : searchType,
+				"moreCnt"	 : moreCnt
 			},
 			dataType : 'html',
 			success : function(data) {
-				console.log(tempSearchType);
-				if(tempSearchType=='lasted'){
-					$('#lastedReviewList').html(data);
-				}else if(tempSearchType='popular'){
-					$('#popularReviewList').html(data);
-				}else{
-					alert(data);
-				}
+				$('#reviewList').html(data);
+				$('.moreCntReview').click(function name() {
+					console.log("더보기더보기더보기");
+					moreCnt=moreCnt+1;
+					$(this).css("display","none");
+					getMoreList();
+				});
+			}
+		});
+	}
+	
+	var getMoreList = function(){
+		$.ajax({
+			type : "GET",
+			url : "/cobook/review/getReviewList",
+			data: {
+				"searchType" : searchType,
+				"moreCnt"	 : moreCnt
+			},
+			dataType : 'html',
+			success : function(data) {
+				$('#reviewList').append(data);
+				$('.moreCntReview').click(function name() {
+					console.log("더보기더보기더보기");
+					moreCnt=moreCnt+1;
+					$(this).css("display","none");
+					getMoreList();
+				});
 			}
 		});
 	}
 	//최신 리뷰 먼저 불러옵니다. 
 	getReviewList('lasted');
-	getReviewList('popular');
+	
+	//인기리뷰 클릭했을때
+	$('#popularReview').click(function(){
+		moreCnt = 1;
+		searchType = 'popular';
+		getReviewList();
+	});
+	
+	//최신리뷰 클릭했을때
+	$('#lastedReview').click(function(){
+		moreCnt = 1;
+		searchType = 'lasted';
+		getReviewList();
+	});
+	
 			
 })
 				/* $.ajax({
@@ -208,21 +246,18 @@ $(document).ready(function() {
 						<div class="bs-example bs-example-tabs" role="tabpanel"	data-example-id="togglable-tabs">
 							<ul id="myTab" class="nav nav-tabs" role="tablist">
 								<li role="presentation" class="active">
-									<a href="#lastedReviewList"	id="lastedReview" role="tab" data-toggle="tab"
+									<a href="allReviewList"	id="lastedReview" role="tab" data-toggle="tab"
 									aria-controls="home1" aria-expanded="true">최신 리뷰</a>
 								</li>
 								<li role="presentation">
-									<a href="#popularReviewList"	id="popularReview" role="tab" data-toggle="tab" 
+									<a href="allReviewList"	id="popularReview" role="tab" data-toggle="tab" 
 									 aria-controls="w3bsd">인기리뷰</a>
 								</li>
 							</ul>
 							<div id="myTabContent" class="tab-content">
 								
-								<div role="tabpanel" class="tab-pane fade in active" id="lastedReviewList" aria-labelledby="home1-tab">
-								lastedReviewList
-								</div>
-								<div role="tabpanel" class="tab-pane fade" id="popularReviewList" aria-labelledby="w3bsd-tab">
-								popularReviewList
+								<div role="tabpanel" class="tab-pane fade in active" id="allReviewList" aria-labelledby="home1-tab">
+									<div id="reviewList"></div>
 								</div>
 								<div id="paging"></div>
 							</div>

@@ -20,7 +20,11 @@ public interface ReviewService {
 	//리뷰 지우기
 	public void deleteReview(Integer review_no) throws Exception;
 	
-	////
+	//리스트 불러오기 
+	public List<ReviewVO> getReviewList(String searchType,int moreCnt) throws Exception;
+	
+	//리스트 불러오기 
+	public int getReviewListCnt(String searchType) throws Exception;
 	
 	// 내가 빌린책 리스트
 	public List<Map<String, Object>> borrowBookList(Integer member_no)throws Exception;
@@ -31,9 +35,6 @@ public interface ReviewService {
 	// 리뷰 게시물 리스트
 	public List<Map<String, Object>> getBookReviewList(Criteria cri) throws Exception;
 
-	// 게시물 총 개수 가져오기
-	public int getBookReviewCount(Criteria cri) throws Exception;
-	
 	// 해당 게시물 가져오기
 	public Map<String, Object> getReviewSingle(Integer review_no)throws Exception;
 	
@@ -64,7 +65,7 @@ public interface ReviewService {
 	// same ebook other reviews
     public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception;
 
-	List<ReviewVO> getReviewList(String searchType) throws Exception;
+	
 
 
 

@@ -11,8 +11,11 @@
 					<a href="/cobook/review/single/${reviewList.review_no}"><img src="${reviewList.coverurl}" alt="" /></a>
 				</div>
 				<div class="col-sm-7 wthree-news-info">
-					<h5><a href="news-single.html">${reviewList.title}</a></h5>
-					<p>${reviewList.contents}</p>
+					<h5 class="reviewTitle"><a href="news-single.html">${reviewList.title}</a></h5>
+					<p class="reviewContent">${reviewList.contents}</p>
+					<ul class="nickname">
+					  <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>${reviewList.nickname}</li>
+					</ul>
 					<ul>
 						<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${reviewList.reg_date}" pattern="yyyy/MM/dd"/></li>
 						<li><i class="fa fa-eye" aria-hidden="true"></i>${reviewList.hit}</li>
@@ -29,23 +32,7 @@
 		</c:forEach>
 	</div>
   </div>
-										<%-- <!-- 
-											<div class="col-md-6 w3-agileits-news-left">
-													<!-- 그림 -->
-												<div class="col-sm-5 wthree-news-img">
-													<a class="singleLink" data-rno='${vo.REVIEW_NO}' href="#"><img src="${vo.COVERURL}" alt="" /></a>
-												</div>
-												
-												<!-- 제목 -->
-												<div class="col-sm-7 wthree-news-info">
-													<h5><a class="singleLink" data-rno='${vo.REVIEW_NO}' href="#">${vo.TITLE}</a></h5>
-													<!-- 본문 내용 -->
-													<p>${vo.CONTENTS}</p>
-													<!-- 요일 / 조회수 -->
-													<ul>
-														<li><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${vo.REG_DATE}" pattern="yyyy-MM-dd"/></li>
-														<li><i class="fa fa-eye" aria-hidden="true"></i>${vo.HIT}</li>
-													</ul>
-												</div>
-												<div class="clearfix"> </div> --> --%>
-	
+  <c:if test="${reviewListCnt > (2*moreCnt)}">
+	<button id="moreCnt" class="moreCntReview">+ 더 보기</button>
+  </c:if>
+									

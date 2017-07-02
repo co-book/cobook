@@ -78,7 +78,7 @@ public class SampleController {
 		logger.debug("reviewList 호출");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+		//pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
 
 		List<Map<String, Object>> list = reviewService.getBookReviewList(cri);
 

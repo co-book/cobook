@@ -87,6 +87,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
+	<select id="getReviewListCnt" resultType="int" parameterType="string">
+		 SELECT
+		 		COUNT(1)
+		   FROM BOOKREVIEW R
+		<if test="_parameter == 'popular'.toString()">
+		  ORDER BY HIT DESC
+		</if>
+		<if test="_parameter == 'lasted'.toString()">
+		  ORDER BY REG_DATE DESC
+		</if>
+	</select>
+	
 
 	
 	

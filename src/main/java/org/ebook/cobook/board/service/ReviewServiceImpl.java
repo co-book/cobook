@@ -78,10 +78,14 @@ public class ReviewServiceImpl implements ReviewService {
 		filesDAO.deleteFile(filesVO);
 		reviewDAO.deleteReview(review_no);
 	}
+	
+	/**
+	 * Review 리스트 불로오기
+	 */
 	@Override
-	public List<ReviewVO> getReviewList(String searchType) throws Exception {
+	public List<ReviewVO> getReviewList(String searchType , int moreCnt) throws Exception {
 		// TODO Auto-generated method stub
-		 List<ReviewVO> list = reviewDAO.getReviewList(searchType);
+		 List<ReviewVO> list = reviewDAO.getReviewList(searchType ,moreCnt);
 		 for(int i=0;i<list.size();i++){
 			 //HTML태그들 제거합니다. 
 			 String contentStr=BoardUtil.RemoveHTMLTag( list.get(i).getContents() );
@@ -90,7 +94,11 @@ public class ReviewServiceImpl implements ReviewService {
 		 }
 		return list;
 	}
-	
+	@Override
+	public int getReviewListCnt(String searchType) throws Exception {
+		// TODO Auto-generated method stub
+		return reviewDAO.getReviewListCnt(searchType);
+	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 회원의 대출목록을 가져오는 함수
@@ -129,12 +137,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.getBookReviewList(cri);
 	}
 
-	// 페이징 처리를 위한 전체 게시물 갯수를 리턴
-	@Override
-	public int getBookReviewCount(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return reviewDAO.getReviewCount(cri);
-	}
 
 	// 특정 게시물 읽어오기
 	@Override

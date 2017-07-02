@@ -121,7 +121,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value = "/getReviewList", method = RequestMethod.GET)
-	public String mybookList(String searchType, Model model) throws Exception {
+	public String mybookList(@RequestParam("searchType") String searchType,@RequestParam("moreCnt") int moreCnt, Model model) throws Exception {
 		//searchType 
 		//최신 lasted //인기 - popular 
 		logger.debug("reviewList 호출" + searchType);
@@ -129,7 +129,8 @@ public class ReviewController {
 
 		//List<Map<String, Object>> reviewList = reviewService.getBookReviewList(cri);
 
-		model.addAttribute("reviewList", reviewService.getReviewList(searchType));
+		model.addAttribute("reviewList", reviewService.getReviewList(searchType,moreCnt));
+		model.addAttribute("reviewListCnt", reviewService.getReviewListCnt(searchType));
 
 		return "review/getReviewList";
 	}
@@ -174,8 +175,8 @@ public class ReviewController {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
-		
+		//pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+		//
 		logger.debug("페이지값확인 : " + cri.toString());
 		logger.debug("pageMaker : " + pageMaker.toString());
 		model.addAttribute("cri", cri);
@@ -192,7 +193,7 @@ public class ReviewController {
 		logger.debug("reviewList 호출");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+		//pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
 
 		//List<Map<String, Object>> reviewList = reviewService.getBookReviewList(cri);
 
@@ -210,7 +211,7 @@ public class ReviewController {
 		logger.debug("reviewList 호출");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
+		//pageMaker.setTotalCount(reviewService.getBookReviewCount(cri));
 
 		List<Map<String, Object>> list = reviewService.getReviewPopularity(cri);
 
