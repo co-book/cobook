@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
-.myFileUp{
+.breadcrumb > li + li:before {
+  list-style: none;
+}
+#myFileUp{
 	margin-left: 1px;
     /* border-radius: 3px; */
     border-radius: 0.2em;
@@ -13,4 +16,58 @@
     font-size: 16px;
     font-size: 15px;
     cursor: pointer;
+}
+.fileRegiBut {
+	text-align: right;
+    padding-right: 60px;
+    display: inline;
+}
+.fileRegiBut input[type="file"]{
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0;
+
+}
+.fileRegiBut label {
+	display: inline-block; 
+	padding: .5em .75em; 
+	color: #ffffff; 
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #FC7D01; 
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em;
+
+}
+.mybookRegister {
+	border-radius: 0.25em;
+    border: none;
+    padding: .6em 1.2em;
+    background-color: #FC7D01;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "PT Sans", sans-serif;
+    font-size: 16px;
+}
+.single-page-agile-bottom {
+	text-align: right;
+}
+.selectCover{
+	margin: 0;
+	margin-bottom: 20px;
+    background: #EFEFEF;
+    border-radius: 4px;
+    padding-top: 40px;
+    padding-left: 100px;
+    padding-bottom: 40px;
+    text-align: center;
 }

@@ -11,7 +11,7 @@
 <link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
-<link href="/cobook/resources/CoBookDesign/css/mybookRegister.css?ver=1" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/mybookRegister.css?ver=10" rel='stylesheet' type='text/css' />
 
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
@@ -25,9 +25,29 @@
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		callSummernote();
-	
+		
+		$("#myFileUp").change(function(){
+	        readURL(this);
+	        console.log("이미지 바뀜?");
+	    });
+
+	    function readURL(input) {
+	    	console.log("버튼클릭함1");
+	        if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+
+	        reader.onload = function (e) {
+	                $('#cover').attr('src', e.target.result);
+	            }
+
+	          reader.readAsDataURL(input.files[0]);
+	        }
+	    }
 	
 	});
+	
+
+
 </script>
 </head>
 <body>
@@ -48,11 +68,35 @@
 				<ol class="breadcrumb">
 					<li><a href="/cobook/mybook">소설 커버이미지</a></li>
 					<li class="title-input-li" style="width:90%;">
-					<input id ="title" class="title-input" type="text" name="title" placeholder="이미지를 선택해주세요" required="" style="width:82%;">
-					<button class="myFileUp">파일등록하기</button>
+					<!-- <input id ="title" class="title-input" type="text" name="title" placeholder="이미지를 선택해주세요" required="" style="width:82%;"> -->
+					<div class="form-group">
+					    <!-- <label for="exampleInputEmail1">소설커버이미지</label> -->
+					    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="이미지를 선택해주세요" style="width:82%; display: inline;">
+					    <div class="fileRegiBut">
+						 <label for="myFileUp">파일등록하기</label>
+						 <input type="file" id="myFileUp">
+						 </div>
+					</div>
+					<!--  <button class="myFileUp" type="button">파일등록하기</button> -->
+					<!-- <input type="file" id="exampleInputFile"> -->
+					</li>
+				</ol>
+				<ol class="breadcrumb">
+					<li><a href="/cobook/mybook">커버이미지</a></li>
+					<li class="title-input-li" style="width:94%; height: 40%;"></li>
+					<!-- <div class="selectCover"><div class="myCoverImg" id="cover"></div></div> -->
+					<div class="selectCover" style="padding-left: 0;"><img id="cover" src="#" style="width: 182px; height: 268px;" /></div>
+				</ol>
+				<ol class="breadcrumb">
+					<li><a href="/cobook/mybook">작품 간략소개</a></li>
+					<li class="title-input-li" style="width:90%;">
+					<input id ="title" class="title-input" type="text" name="title" placeholder="작품에 대해 간략하게 설명해주세요" required="" style="width:94%;">
 					</li>
 				</ol>
 			</div>
+			
+			<!-- <div class="selectCover">
+			</div> -->
 			
 			<div class="single-page-agile-info">
 				<div class="show-top-grids-w3lagile">
@@ -67,10 +111,10 @@
 						</div>
 					</div>
 				</div>
-					
-			
 			</div>
-			
+			<div class="single-page-agile-bottom">
+				<button class="mybookRegister">글쓰기</button>
+			</div>
 		</div>
 	</div>
 			

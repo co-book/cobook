@@ -228,9 +228,8 @@
 						<div class="section group">
 							<!-- <div class="cont-desc span_1_of_2"> -->
 							<div class="product-details">
-
 								<div id="select_ebook">
-						
+								 	
 								 	<div class="grid images_3_of_2">
 								 
 										<div id="searchEbook" class="imgdiv">

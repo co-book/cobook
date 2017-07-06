@@ -35,20 +35,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Deprecated
 public class SampleController {
 
-	@Deprecated
+//	@Deprecated
 	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
-	@Deprecated
+//	@Deprecated
 	private String uploadPath = "D:\\cobook\\gitworkspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
 	
-	@Deprecated
+//	@Deprecated
 	@Inject
 	private ReviewService reviewService;
 
-	@Deprecated
+//	@Deprecated
 	@Inject
 	private MybookService mybookService;
 
-	@Deprecated
+//	@Deprecated
 	@Inject
 	private SampleDAOImpl sampleDAO;
 
@@ -90,7 +90,7 @@ public class SampleController {
 		return "/sample/board/reviewList";
 	}
 	
-	@Deprecated
+	
 	@RequestMapping(value = "/mRegister", method = RequestMethod.GET)
 	public String writeGET(Model model, HttpSession session) throws Exception {
 
@@ -99,7 +99,7 @@ public class SampleController {
 		return "/sample/board/mybookWrite";
 	}
 	
-	@Deprecated
+	
 	@RequestMapping(value = "/mRegister", method = RequestMethod.POST)
 	public String mWrtiePOST(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
 			HttpServletRequest req, RedirectAttributes rttr) throws Exception {

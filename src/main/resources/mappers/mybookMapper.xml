@@ -88,7 +88,8 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		CONTENTS,
 		HIT,
 		Reg_date,
-		coverUrl)
+		coverUrl,
+		intro)
 		VALUES
 		(mybook_no_seq.nextval,
 		#{member_no},
@@ -96,7 +97,8 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		#{contents},
 		0,
 		sysdate,
-		coverUrl)
+		coverUrl,
+		#{intro})
 
 		<!-- <selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
 			SELECT mybook_no_seq.currval FROM dual

@@ -17,7 +17,14 @@ public class MybookVO {
     private String nickname;
     private String coverUrl;
     private int moreCnt;
+    private String intro;
     
+	public String getIntro() {
+		return intro;
+	}
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 	public String getCoverUrl() {
 		return coverUrl;
 	}
