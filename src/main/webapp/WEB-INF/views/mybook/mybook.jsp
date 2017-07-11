@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/news.css" type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
-<link rel="stylesheet" href="/cobook/resources/CoBookDesign/list-css/list.css?ver=10" type="text/css" media="all" />
+<link rel="stylesheet" href="/cobook/resources/CoBookDesign/list-css/list.css?ver=6" type="text/css" media="all" />
 <!-- //list-css -->
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
@@ -113,6 +113,16 @@
 				}
 			});
 		}
+		
+		//글쓰기 버튼 click
+		$('#mybookWriteBtn').click(function () {
+			if (member_no == null) {
+				$("#myModal").modal();
+			} else {	
+				location.replace("/cobook/mybook/register");
+			}
+			
+		});
 	});
 </script>
 <!-- //tables -->
@@ -148,7 +158,8 @@
 			<div class="agileits-news-top1">
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li class="active">List</li>
+					<li class="active" style="padding-right: 86%;">List</li>
+					<button id="mybookWriteBtn" class="mybookRegi" role="tab" data-toggle="tab">글쓰기</button>
 				</ol>
 			</div>
 			<div class="bs-example bs-example-tabs" role="tabpanel"
@@ -190,6 +201,7 @@
 					<li role="presentation"><a class="mybookTab" role="tab"
 						data-toggle="tab" aria-controls="p">123</a></li>
 				</ul>
+				
 				<div id="myTabContent" class="tab-content">
 					<div role="tabpanel" class="tab-pane fade in active" id="home"
 						aria-labelledby="home-tab"></div>
