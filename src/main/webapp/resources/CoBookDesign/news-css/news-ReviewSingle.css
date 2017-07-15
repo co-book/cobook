@@ -48,12 +48,10 @@ ol.breadcrumb li a{
 /*-- wthree-news-left --*/
 .wthree-top-news-left {
     padding-left: 0;
-    box-shadow: 0px 0 2px #C1C1C1;
-    padding-bottom: 20px;
 }
 .wthree-news-left {
     padding: 1em;
-    /* box-shadow: 0px 0 2px #C1C1C1 !important; */
+    box-shadow: 0px 0 2px #C1C1C1 !important;
     -o-box-shadow: 0px 0 2px #C1C1C1 !important;
     -moz-box-shadow: 0px 0 2px #C1C1C1 !important;
     -ms-box-shadow: 0px 0 2px #C1C1C1 !important;
@@ -104,7 +102,7 @@ ol.breadcrumb li a{
 }
 .wthree-news-info ul{
     padding: 0;
-   /*  margin: 1em 0 0 0; */
+    margin: 1em 0 0 0;
 }
 .wthree-news-info ul li{
 	display:inline-block;
@@ -435,32 +433,81 @@ ol.breadcrumb li a{
 /*-- //responsive --*/
 
 
-.reviewTitle {
-	overflow: hidden; 
-text-overflow: ellipsis;
-white-space: nowrap; 
+.product-details{
+	margin:0;
+	background: #EFEFEF;
+	border-radius: 4px;
+    padding-top: 40px;
+    /* padding-left: 80px; */
+    padding-bottom: 43%;
+    text-align:center;
+}
+.images_3_of_2 img {
+    max-width: 182px;
+    max-height: 268px;
+    /* display: block; */
+    border: 1px solid #DFDFDF;
+}
+.images_3_of_2 {
+    width: 49%;
+    float: left;
+    text-align: center;
 }
 
-.reviewContent{
-	overflow: hidden;
- text-overflow: ellipsis;
- display: -webkit-box;
- -webkit-line-clamp: 4; /* 라인수 */
- -webkit-box-orient: vertical;
- word-wrap:break-word
+.desc {
+    display: block;
+     float: left; 
+   /*  margin: 0% 0 0% 2.6%; */
+}
+.span_3_of_2 {
+    width: 49%;
+    margin-right: auto;
+    padding-top: 30px;
+    text-align: left;
 }
 
+.span_3_of_2 h2 {
+    font-family: 'ambleregular';
+    font-size: 1.2em;
+    color: #FC7D01;
+    font-weight: normal;
+    margin-top: 0px;
+    text-transform: uppercase;
+}
 
-.fa {
-    margin-top: 0px; 
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
+.span_3_of_2 p {
+    font-size: 0.8125em;
+    padding: 0.1em 0;
+    color: #969696;
+    line-height: 1.6em;
+    font-family: verdana, arial, helvetica, helve, sans-serif;
+}
+
+.starAvg {
+    color: #FC7D01;
+    font-size: 0.9em;
+    font-family: 'ambleregular';
+    padding-left: 5px;
+}
+.available li {
+    display: block;
+    color: #707070;
+    font-size: 0.8em;
+    padding: 1px 0;
+}
+
+.ebook-button {
+    border-radius: 0.25em;
+    border: none;
+    padding: .6em 1.0em;
+    background-color: #FC7D01;
+    color: #ffffff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-.nickname {
-	
-    margin-top: 12px; 
+    font-family: "PT Sans", sans-serif;
+    font-size: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+	float: right;
+	margin-right: 15%;
 }

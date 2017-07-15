@@ -43,15 +43,11 @@ public class ReviewDAOImpl implements ReviewDAO {
 	@Override
 	public List<ReviewVO> getReviewList(String searchType ,int moreCnt) throws Exception {
 		// TODO Auto-generated method stub
-		int REWVIEWLIMIT = 2;
-		int offset = REWVIEWLIMIT*(moreCnt-1);
-		int limit=(REWVIEWLIMIT * moreCnt);
+		int REWVIEWLIMIT = 10;						
+		int offset = REWVIEWLIMIT*(moreCnt-1);			
+		int limit=REWVIEWLIMIT;
 		
-		System.out.println("offset"+offset);
-		System.out.println("limit"+limit);
-		System.out.println("MoreCnt()"+moreCnt);
 		RowBounds rowBounds = new RowBounds(offset,limit);	//mybatis에서 offset 부터 limit까지 뽑아오는..?
-	
 		return sqlSession.selectList(reviewNamespace+".getReviewList", searchType, rowBounds);
 	}
 
@@ -117,9 +113,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 // 최근 리뷰
 	@Override
-	public List<ReviewVO> getlastedReviewList() throws Exception {
+	public List<ReviewVO> getLastedReviewList() throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(reviewNamespace+".getlastedReviewList");
+		return sqlSession.selectList(reviewNamespace+".getLastedReviewList");
 	}
 
 // 베댓

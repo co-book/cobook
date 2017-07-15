@@ -107,6 +107,31 @@ public class ReviewController {
 	}
 	
 
+	
+	
+	@RequestMapping(value = "/getReviewList", method = RequestMethod.GET)
+	public String mybookList(@RequestParam("searchType") String searchType,@RequestParam("moreCnt") int moreCnt, Model model) throws Exception {
+		//searchType 
+		//최신 lasted //인기 - popular 
+		logger.debug("reviewList 호출" + searchType);
+
+
+		//List<Map<String, Object>> reviewList = reviewService.getBookReviewList(cri);
+		model.addAttribute("moreCnt", moreCnt);
+		model.addAttribute("reviewList", reviewService.getReviewList(searchType,moreCnt));
+		model.addAttribute("reviewListCnt", reviewService.getReviewListCnt(searchType));
+
+		return "review/getReviewList";
+	}
+	
+	@RequestMapping(value = "/getLastedReviewList", method = RequestMethod.GET)
+	public String getLastedReviewList(Model model) throws Exception {
+		logger.info("getLastedReviewList");
+		model.addAttribute("list", reviewService.getLastedReviewList());
+		
+		return "review/getLastedReviewList";
+	}
+	
 	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
 	@RequestMapping(value = "/{review_no}", method = RequestMethod.DELETE)
 	public String deleteReview(@PathVariable("review_no") int review_no, RedirectAttributes rttr) throws Exception {
@@ -118,21 +143,6 @@ public class ReviewController {
 			rttr.addFlashAttribute("msg", "SUCCESS");
 			
 			return "redirect:/review/list";
-	}
-	
-	@RequestMapping(value = "/getReviewList", method = RequestMethod.GET)
-	public String mybookList(@RequestParam("searchType") String searchType,@RequestParam("moreCnt") int moreCnt, Model model) throws Exception {
-		//searchType 
-		//최신 lasted //인기 - popular 
-		logger.debug("reviewList 호출" + searchType);
-
-
-		//List<Map<String, Object>> reviewList = reviewService.getBookReviewList(cri);
-
-		model.addAttribute("reviewList", reviewService.getReviewList(searchType,moreCnt));
-		model.addAttribute("reviewListCnt", reviewService.getReviewListCnt(searchType));
-
-		return "review/getReviewList";
 	}
 	
 	//////////////////////////////////////////////////////////////////////
@@ -307,13 +317,12 @@ public class ReviewController {
 	}
 */
 	// 최신 리뷰 - 최신에 쓰여진 리뷰(책이름 , 리뷰 제목 )
+	@RequestMapping(value = "/lastedReviewList2", method = RequestMethod.GET)
 
-	@RequestMapping(value = "/lastedReviewList", method = RequestMethod.GET)
-
-	public void lastedReviewList(Model model) throws Exception {
+	public void lastedReviewList2(Model model) throws Exception {
 
 		logger.info("lastedReviewList");
-		model.addAttribute("list", reviewService.getlastedReviewList());
+		model.addAttribute("list", reviewService.getLastedReviewList());
 
 	}
 

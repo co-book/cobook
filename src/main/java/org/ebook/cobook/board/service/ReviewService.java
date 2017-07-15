@@ -51,7 +51,7 @@ public interface ReviewService {
 	public int getReplyCount(ReplyVO vo)throws Exception;
 
 	// 최근 리뷰
-	public List<ReviewVO> getlastedReviewList()throws Exception;
+	public List<ReviewVO> getLastedReviewList()throws Exception;
 	
 	// 베스트 댓글 top6
 	public List<Map<String, Object>> getBestReply();

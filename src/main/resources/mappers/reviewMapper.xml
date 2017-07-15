@@ -99,6 +99,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
+	
+	<select id="getLastedReviewList" resultType="ReviewVO"> 
+		SELECT * FROM (	SELECT
+			  				   R.REVIEW_NO	,
+			   				   R.TITLE		,
+			   				   E.TITLE as EBOOKTITLE	,
+			   				   R.REG_DATE		
+		  				  FROM 
+		  	  				   BOOKREVIEW R
+		 				  LEFT OUTER JOIN EBOOK E 
+		    				ON ( R.EBOOK_NO = E.EBOOK_NO)
+		 				 ORDER BY R.REG_DATE DESC
+						)
+				WHERE ROWNUM<![CDATA[ <= ]]> 10
+	</select>
 
 	
 	
@@ -212,17 +227,7 @@ AND ROWNUM <= 6
 ]]>
 	</select>
 
-<select id="getlastedReviewList" resultType="ReviewVO">
-<![CDATA[
-SELECT review_no, title, ebook_title, reg_date FROM(
-SELECT br.review_no, br.title, e.title AS ebook_title, br.reg_date
-FROM bookreview br, ebook e
-WHERE br.ebook_no = e.ebook_no
-ORDER BY reg_date desc
-)
-WHERE rownum <= 10
-]]>
-</select>
+
 
 <select id="getSameWriterOtherReviews" resultType="ReviewVO" parameterType="int">
 <![CDATA[

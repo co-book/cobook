@@ -23,7 +23,7 @@
 <link href="/cobook/resources/CoBookDesign/css/contactstyle.css"	rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" rel="stylesheet" />
 <!-- news-css -->
-<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewList.css?ver=10" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewList.css?ver=11" rel="stylesheet" type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
 <link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet" type="text/css" media="all" />
@@ -55,54 +55,21 @@
 
 <script type="text/javascript">
 
+//값 초기화 
+var moreCnt = 1;
+var searchType ='';
+
 $(document).ready(function() {
-	var moreCnt = 1;
-	var searchType ='';
+
+	//최신 리뷰 먼저 불러옵니다. ;
+	searchType='lasted'
+	getReviewList();
 	
-	//처음 리스트 불러오는 이벤트 
-	var getReviewList = function(){
-		$.ajax({
-			type : "GET",
-			url : "/cobook/review/getReviewList",
-			data: {
-				"searchType" : searchType,
-				"moreCnt"	 : moreCnt
-			},
-			dataType : 'html',
-			success : function(data) {
-				$('#reviewList').html(data);
-				$('.moreCntReview').click(function name() {
-					console.log("더보기더보기더보기");
-					moreCnt=moreCnt+1;
-					$(this).css("display","none");
-					getMoreList();
-				});
-			}
-		});
-	}
+	//오른쪽에 뜨는 최신 리뷰들을 가져옵니다.
+	getLastedReviewList();
+
 	
-	var getMoreList = function(){
-		$.ajax({
-			type : "GET",
-			url : "/cobook/review/getReviewList",
-			data: {
-				"searchType" : searchType,
-				"moreCnt"	 : moreCnt
-			},
-			dataType : 'html',
-			success : function(data) {
-				$('#reviewList').append(data);
-				$('.moreCntReview').click(function name() {
-					console.log("더보기더보기더보기");
-					moreCnt=moreCnt+1;
-					$(this).css("display","none");
-					getMoreList();
-				});
-			}
-		});
-	}
-	//최신 리뷰 먼저 불러옵니다. 
-	getReviewList('lasted');
+
 	
 	//인기리뷰 클릭했을때
 	$('#popularReview').click(function(){
@@ -117,108 +84,82 @@ $(document).ready(function() {
 		searchType = 'lasted';
 		getReviewList();
 	});
-	
 			
 })
-				/* $.ajax({
-					type : "get",
-					url : '/cobook/review/lastedReviewList',
-					dataType : 'html',
-					success : function(data) {
-						$('#review_lastedReviewList').append(data);
 
-						//자바스크립트 추가
-						function blinker() {
-							$('.blinking').fadeOut(500);
-							$('.blinking').fadeIn(500);
-						}
-						setInterval(blinker, 1000);
+	
+//처음 리스트 불러오는 이벤트 
+var getReviewList = function(){
+	$.ajax({
+		type : "GET",
+		url : "/cobook/review/getReviewList",
+		data: {
+			"searchType" : searchType,
+			"moreCnt"	 : moreCnt
+		},
+		dataType : 'html',
+		success : function(data) {
+			$('#reviewList').html(data);
+			$('.moreCntReview').click(function name() {
+				console.log("더보기더보기더보기");
+				moreCnt=moreCnt+1;
+				$(this).css("display","none");
+				getMoreList();
+			});
+		}
+	});
+}
+//더보기로 리스트 불러오기
+var getMoreList = function(){
+	$.ajax({
+		type : "GET",
+		url : "/cobook/review/getReviewList",
+		data: {
+			"searchType" : searchType,
+			"moreCnt"	 : moreCnt
+		},
+		dataType : 'html',
+		success : function(data) {
+			$('#reviewList').append(data);
+			$('.moreCntReview').click(function name() {
+				console.log("더보기더보기더보기");
+				moreCnt=moreCnt+1;
+				$(this).css("display","none");
+				getMoreList();
+			});
+		}
+	});
+}
+//오른쪽화면에 최신리뷰 뽑아오기
+var getLastedReviewList = function(){
+	$.ajax({
+		type : "get",
+		url : '/cobook/review/getLastedReviewList',
+		dataType : 'html',
+		success : function(data) {
+			$('#review_lastedReviewList').append(data);
 
-						function cycle($item, $cycler) {
-							setTimeout(cycle, 2000, $item.next(), $cycler);
+			//자바스크립트 추가
+			function blinker() {
+				$('.blinking').fadeOut(500);
+				$('.blinking').fadeIn(500);
+			}
+			setInterval(blinker, 1000);
 
-							$item.slideUp(1000, function() {
-								$item.appendTo($cycler).show();
-							});
-						}
-						cycle($('#cycler div:first'), $('#cycler'));
-						//자바스크립트 끝
-					}
-				}); */
-/* 
-				// 인기리뷰 클릭버튼 이벤트처리
-				$("#w3bsd-tab").on("click", function() {
-					page = 1;
-					console.log("인기리뷰 클릭");
-					console.log("인기 page초기화 : " + page);
-					console.log(popularityURL);
-					getReviewList(popularityURL, '#review_reviewList', 'html');
-					// 페이지 체크해서 더보기 버튼 유무 확인
-					listenerBtn(page);
+			function cycle($item, $cycler) {
+				setTimeout(cycle, 2000, $item.next(), $cycler);
+
+				$item.slideUp(1000, function() {
+					$item.appendTo($cycler).show();
 				});
-				
-				// 최신리뷰 버튼 처리
-				$("#home1-tab").on("click", function(){
-					page  = 1;
-					console.log("최신리뷰 클릭");
-					getReviewList(listURL, "#review_reviewList", 'html');
-					// 페이지 체크해서 더보기 버튼 유무 확인
-					listenerBtn(page);
-				});
-				
-				// 더보기 버튼을 눌럿을때 최신더보기인지,인기더보기인지 구분
-				$("#paging").on("click", ".moreBtn", function(){
+			}
+			cycle($('#cycler div:first'), $('#cycler'));
+			
+		}
+	});
+}
+			
 
-					var isActive =$("#home1-tab").attr("aria-expanded");
-					console.log("엑티브 상태 체크: "+isActive);
-					if(isActive == "true"){
-						page++;
-						var url = '/cobook/review/reviewList?page=' + page
-						+ "&perPageNum=" + perPageNum + "&searchType="
-						+ searchType + "&keyword=" + keyword;						
-						console.log("최신 더보기 클릭 :" + page);
-						console.log("최신 url값 : " + url);
-						getReviewList(url, "#review_reviewList", 'append');
-					}else{
-						page++;
-						var url = '/cobook/review/popularityList?page=' + page
-						+ "&perPageNum=" + perPageNum + "&searchType="
-						+ searchType + "&keyword=" + keyword;
-						console.log("인기 더보기 클릭: " + page);
-						console.log("인기 url값 : " + url);
-						getReviewList(url, "#review_reviewList", 'append');
-						
-					}
-					// 페이지 체크해서 더보기 버튼 유무 확인
-					listenerBtn(page);
-					
-				});
-				
-				// 현재 페이지를 체크해서 더보기 버튼 유무 확인
-				function listenerBtn(page){
-					console.log("페이지 체크: " + page);
-					var btn = "<button class='moreBtn'>더보기</button>";
-					if(totalPage > page){
-						
-						$("#paging").html(btn);
-					}else{
-						$("#paging").html("");
-					}
-					
-				}
-				
-				
-				// AJAX 공통함수
-				
-				// append OR html 방식인지 선택
-				function settingHtml(target, method, data){
-					
-					if(method == 'append'){
-						$(target).append(data);
-					}else{
-						$(target).html(data);
-					}
-				} */
 				
 	
 </script>
@@ -247,23 +188,26 @@ $(document).ready(function() {
 							<ul id="myTab" class="nav nav-tabs" role="tablist">
 								<li role="presentation" class="active">
 									<a href="allReviewList"	id="lastedReview" role="tab" data-toggle="tab"
-									aria-controls="home1" aria-expanded="true">최신 리뷰</a>
+									aria-controls="reviewList" aria-expanded="true">최신 리뷰</a>
 								</li>
 								<li role="presentation">
 									<a href="allReviewList"	id="popularReview" role="tab" data-toggle="tab" 
-									 aria-controls="w3bsd">인기리뷰</a>
+									 aria-controls="reviewList">인기리뷰</a>
 								</li>
 							</ul>
 							<div id="myTabContent" class="tab-content">
-								
 								<div role="tabpanel" class="tab-pane fade in active" id="allReviewList" aria-labelledby="home1-tab">
-									<div id="reviewList"></div>
+									<div id="reviewList" role="tabpanel" class="tab-pane fade in active" aria-labelledby="home1-tab">
+ 
+									<!-- dddd -->
+									</div>
 								</div>
-								<div id="paging"></div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
+				
 				<div class="col-md-4 wthree-news-right">
 					<!-- news-right-top -->
 					<div class="news-right-top">

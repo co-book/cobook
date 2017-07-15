@@ -185,9 +185,9 @@ public class ReviewServiceImpl implements ReviewService {
 
 	// 최근 리뷰 리스트
 	@Override
-	public List<ReviewVO> getlastedReviewList() throws Exception {
+	public List<ReviewVO> getLastedReviewList() throws Exception {
 		// TODO Auto-generated method stub
-		return reviewDAO.getlastedReviewList();
+		return reviewDAO.getLastedReviewList();
 	}
 	
 	// 베댓

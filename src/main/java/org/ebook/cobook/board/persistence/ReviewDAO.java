@@ -34,7 +34,7 @@ public interface ReviewDAO {
 	public List<Map<String, Object>> getBestReply();
 	
 	// 최근 리뷰
-	public List<ReviewVO> getlastedReviewList()throws Exception;
+	public List<ReviewVO> getLastedReviewList()throws Exception;
 	
 	// same writer other reviews
 	public List<ReviewVO> getSameWriterOtherReviews(int member_no)throws Exception;
