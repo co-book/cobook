@@ -58,8 +58,8 @@ private static final Logger logger = LoggerFactory.getLogger(UploadFileControlle
 		
 		try{		
 			//http://localhost:8080을 본인의 서버port에 맞게 설정하시면 됩니다.
-			//entity = new ResponseEntity<String>("http://localhost:8080/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
-			entity = new ResponseEntity<String>("/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
+			entity = new ResponseEntity<String>("http://localhost:8081/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
+			//entity = new ResponseEntity<String>("/cobook/files/displayFile?fileName="+uploadedName,HttpStatus.CREATED);
 		}catch(Exception e){
 			logger.info("파일업로드 도중 에러발생: " + e.getMessage());
 			e.printStackTrace();

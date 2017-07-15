@@ -59,15 +59,15 @@ public class MybookController {
 	}
 	
 	/**
-	 * mybook main 뷰 page get
+	 * 개인소설 뷰 page get
 	 * @param vo
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/mybookMain", method = RequestMethod.GET)
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView mybookList()throws Exception
 	{
-		ModelAndView mav = new ModelAndView("mybook/mybookMain");
+		ModelAndView mav = new ModelAndView("mybook/mybook");
 	//	mav.addObject("mybookList", vo);
 		return mav;
 	}
@@ -92,8 +92,39 @@ public class MybookController {
 		return mav;
 	}
 	
+	/**
+	 * 마이북 작성 페이지- 로그인 여부 연결하기
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mybookRegister", method = RequestMethod.GET)
+	public ModelAndView mybookRegister(Model model, HttpSession session) throws Exception {
+
+		ModelAndView mav = new ModelAndView("mybook/register");
+		return mav;
+	}
 	
-	
+	/*@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String mybookRegister(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
+			HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+
+		String[] files = req.getParameterValues("files");
+		FilesVO filesVO = new FilesVO();
+		filesVO.setFiles(files);
+
+		String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
+				coverFile.getBytes());
+		logger.debug("업로드네임: " + uploadedName);
+		filesVO.parsingFileData(uploadedName);
+		mybookService.writeMybook(mybookVO, filesVO);
+		logger.debug("regist post ...........");
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
+		return "redirect:/mybook/mybook";
+	}*/
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Deprecated
 	@RequestMapping(value="/single", method = RequestMethod.GET)
@@ -183,7 +214,7 @@ public class MybookController {
 
 			Integer member_no = new Integer(3);
 			session.setAttribute("login", sampleDAO.findNickName(member_no));
-			return "/mybook/mybookWrite";
+			return "/mybook/register";
 		}
 	@Deprecated
 	  @RequestMapping(value = "/register", method = RequestMethod.POST)

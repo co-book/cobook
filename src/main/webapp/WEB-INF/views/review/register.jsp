@@ -115,7 +115,7 @@
 			getEbookList($('#searchText').val());
 		})
 		
-		//검색 모달 - 검색 버튼 클릭시 실행
+		//검색 모달 - 검색 버튼 클릭시
 		$("#search").click(function(){
 			getEbookList($('#searchText').val());
 		});
@@ -228,9 +228,8 @@
 						<div class="section group">
 							<!-- <div class="cont-desc span_1_of_2"> -->
 							<div class="product-details">
-
 								<div id="select_ebook">
-						
+								 	
 								 	<div class="grid images_3_of_2">
 								 
 										<div id="searchEbook" class="imgdiv">

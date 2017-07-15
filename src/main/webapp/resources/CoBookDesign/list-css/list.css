@@ -108,7 +108,7 @@ td.w3-list-info a {
 		margin: 0em auto 1em;
 	}
 }
-/*-- //responsive --*/
+/*-- //mybook custom --*/
 .moreCntMybook {
 	margin-top: 10px;
     width: 100%;
@@ -133,4 +133,13 @@ td.w3-list-info a {
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
+}
+.mybookRegi {
+	margin-right: 3px;
+    font-size: 1em;
+    color: #717171;
+    border: solid 1px #C1C1C1;
+    border-radius: 3px !important;
+    background: #ffffff;
+    padding: .2em 0.573em;
 }

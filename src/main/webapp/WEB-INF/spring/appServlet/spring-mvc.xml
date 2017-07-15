@@ -34,11 +34,11 @@
 			<mvc:mapping path="/member/chargePoint"/>
 			<bean class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
-		<!-- <mvc:interceptor>
-			<mvc:mapping path="/member/modifyMember"/>
+		 <mvc:interceptor>
+			<mvc:mapping path="/mybook/mybookRegister"/>
 			<bean class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
-		 -->
+		 
 	</mvc:interceptors> 
 
 
