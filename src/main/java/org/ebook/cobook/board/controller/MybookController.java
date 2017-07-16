@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.RequestWrapper;
 
 import org.ebook.cobook.board.domain.Criteria;
 import org.ebook.cobook.board.domain.MybookVO;
@@ -24,9 +25,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MybookController {
 
 	 private static final Logger logger = LoggerFactory.getLogger(MybookController.class);
-	 private String uploadPath = "C:\\workspace\\cobook\\src\\main\\webapp\\resources\\mybookCover";
+	 private String uploadPath = "D:\\GitWorkspace\\cobook\\src\\main\\webapp\\resources\\mybookCover";
 			 
 	@Inject
 	private MybookService mybookService;
@@ -117,14 +120,12 @@ public class MybookController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/register", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
-	public ResponseEntity<String> mybookRegister(@ModelAttribute("mybookVO") MybookVO mybookVO, @RequestParam(value="coverFile") MultipartFile coverFile,
+	@RequestMapping(value = "/mybookRegister", method = RequestMethod.POST)
+	public ResponseEntity<String> mybookRegister(@ModelAttribute("mybookVO") MybookVO mybookVO, @RequestParam("coverFile")MultipartFile coverFile,
 			HttpServletRequest req) throws Exception {
 
-		/*String[] files = req.getParameterValues("files");
-		FilesVO filesVO = new FilesVO();
-		filesVO.setFiles(files);*/
 		String  result= "false";
+		System.out.println(mybookVO.getMember_no() +"/"+ mybookVO.getTitle());
 		try {
 			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
 					coverFile.getBytes());
@@ -132,12 +133,8 @@ public class MybookController {
 			mybookService.writeMybook(mybookVO);
 			result = "true";
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		
-		//filesVO.parsingFileData(uploadedName);
-		//rttr.addFlashAttribute("msg", "SUCCESS");
-		
 		ResponseEntity<String> entity = new ResponseEntity<>(result, HttpStatus.OK);
 		return entity;
 	}
