@@ -112,7 +112,7 @@ public class SampleController {
 				coverFile.getBytes());
 		logger.debug("업로드네임: " + uploadedName);
 		filesVO.parsingFileData(uploadedName);
-		mybookService.writeMybook(mybookVO, filesVO);
+		mybookService.writeMybook(mybookVO);
 		logger.debug("regist post ...........");
 
 		rttr.addFlashAttribute("msg", "SUCCESS");

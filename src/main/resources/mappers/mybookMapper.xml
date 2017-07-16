@@ -97,12 +97,12 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		#{contents},
 		0,
 		sysdate,
-		coverUrl,
+		#{coverUrl},
 		#{intro})
 
-		<!-- <selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
+		<selectKey resultType="int" keyProperty="mybook_no" order="AFTER">
 			SELECT mybook_no_seq.currval FROM dual
-		</selectKey> -->
+		</selectKey>
 
 	</insert>
 
