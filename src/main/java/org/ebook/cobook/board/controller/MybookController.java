@@ -18,6 +18,8 @@ import org.ebook.cobook.reply.domain.ReplyVO;
 import org.ebook.cobook.util.UploadFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,7 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MybookController {
 
 	 private static final Logger logger = LoggerFactory.getLogger(MybookController.class);
-	 private String uploadPath = "C:\\workspace\\cobook\\src\\main\\webapp\\resources\\summernote_upload";
+	 private String uploadPath = "C:\\workspace\\cobook\\src\\main\\webapp\\resources\\mybookCover";
 			 
 	@Inject
 	private MybookService mybookService;
@@ -99,32 +101,46 @@ public class MybookController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/mybookRegister", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView mybookRegister(Model model, HttpSession session) throws Exception {
 
 		ModelAndView mav = new ModelAndView("mybook/register");
 		return mav;
 	}
 	
-	/*@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String mybookRegister(@ModelAttribute("mybookVO") MybookVO mybookVO, MultipartFile coverFile,
-			HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+	/**
+	 * 마이북 등록
+	 * @param mybookVO
+	 * @param coverFile
+	 * @param req
+	 * @param rttr
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+	public ResponseEntity<String> mybookRegister(@ModelAttribute("mybookVO") MybookVO mybookVO, @RequestParam(value="coverFile") MultipartFile coverFile,
+			HttpServletRequest req) throws Exception {
 
-		String[] files = req.getParameterValues("files");
+		/*String[] files = req.getParameterValues("files");
 		FilesVO filesVO = new FilesVO();
-		filesVO.setFiles(files);
-
-		String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
-				coverFile.getBytes());
-		logger.debug("업로드네임: " + uploadedName);
-		filesVO.parsingFileData(uploadedName);
-		mybookService.writeMybook(mybookVO, filesVO);
-		logger.debug("regist post ...........");
-
-		rttr.addFlashAttribute("msg", "SUCCESS");
-
-		return "redirect:/mybook/mybook";
-	}*/
+		filesVO.setFiles(files);*/
+		String  result= "false";
+		try {
+			String uploadedName = UploadFileUtils.uploadEditorFile(uploadPath, coverFile.getOriginalFilename(),
+					coverFile.getBytes());
+			mybookVO.setCoverUrl(uploadedName);
+			mybookService.writeMybook(mybookVO);
+			result = "true";
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		//filesVO.parsingFileData(uploadedName);
+		//rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		ResponseEntity<String> entity = new ResponseEntity<>(result, HttpStatus.OK);
+		return entity;
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Deprecated
 	@RequestMapping(value="/single", method = RequestMethod.GET)
@@ -208,7 +224,7 @@ public class MybookController {
 	    return "redirect:/mybook/single?mybook_no="+mybookVO.getMybook_no();
 	  }
 	  
-	@Deprecated
+	/*@Deprecated
 	  @RequestMapping(value = "/register", method = RequestMethod.GET)
 		public String writeGET(Model model, HttpSession session) throws Exception {
 
@@ -235,7 +251,7 @@ public class MybookController {
 			rttr.addFlashAttribute("msg", "SUCCESS");
 
 			return "redirect:/mybook/list";
-		}
+		}*/
 	@Deprecated
 	  @RequestMapping(value="/getUserMybookList", method = RequestMethod.GET)
 	  public String getMybookList(@ModelAttribute("cri")Criteria cri, Model model)throws Exception{

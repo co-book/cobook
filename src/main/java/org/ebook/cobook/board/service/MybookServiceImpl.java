@@ -52,25 +52,25 @@ public class MybookServiceImpl implements MybookService {
 	}
 
 	@Override
-	public void writeMybook(MybookVO mybookVO, FilesVO filesVO) throws Exception {
+	public void writeMybook(MybookVO mybookVO) throws Exception {
 		// TODO Auto-generated method stub
 		// selectKey태그에 의해 review_no값을 mybookVO객체에 자동으로 셋팅된다
 		mybookDAO.writeMybook(mybookVO);
 		// 방금 저장한 게시물의 번호를 가져와서
 		// 파일테이블에 book_no값을 넣어줘야함
 		System.out.println("디버깅 : " + mybookVO.getMybook_no());
-		filesVO.setBook_no(mybookVO.getMybook_no());
-		filesVO.setBook_type("MYBOOK");
+		//filesVO.setBook_no(mybookVO.getMybook_no());
+		//filesVO.setBook_type("MYBOOK");
 
 		// 커버 파일 따로등록
-		filesDAO.insertCoverFile(filesVO);
+		//filesDAO.insertCoverFile(filesVO);
 		// 파일등록 여부를 검사
-		String[] files = filesVO.getFiles();
+		/*String[] files = filesVO.getFiles();
 		if (files == null) {
 			return;
-		}
+		}*/
 		// 다중 파일등록
-		filesDAO.multiFile(files, filesVO);
+		//filesDAO.multiFile(files, filesVO);
 	}
 
 	@Override

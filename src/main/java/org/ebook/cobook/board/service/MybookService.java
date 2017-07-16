@@ -16,8 +16,9 @@ public interface MybookService {
 	public Map<String, Object> getMybookAllList(String con, MybookVO vo) throws Exception;
 	//리스트총갯수 
 	public int getMybookAllCount(String con) throws Exception;
-	public void writeMybook(MybookVO mybookVO, FilesVO filesVO)throws Exception;
 	
+	/*public void writeMybook(MybookVO mybookVO, FilesVO filesVO)throws Exception;*/
+	public void writeMybook(MybookVO mybookVO)throws Exception;
 	/////////////////////////////////////
 	public int getCriCount(Criteria cri)throws Exception;
 	public Map<String, Object> getMybookSingle(Integer mybook_no)throws Exception;

@@ -11,7 +11,7 @@
 <link href="/cobook/resources/CoBookDesign/css/medile.css?ver=1" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/contactstyle.css" type="text/css" media="all" />
 <link rel="stylesheet" href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" />
-<link href="/cobook/resources/CoBookDesign/css/mybookRegister.css?ver=4" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/mybookRegister.css?ver=1" rel='stylesheet' type='text/css' />
 
 <script type="text/javascript" src="/cobook/resources/CoBookDesign/js/jquery-2.1.4.min.js"></script>
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
@@ -26,33 +26,58 @@
 	jQuery(document).ready(function($) {
 		console.log(member_no);
 		callSummernote();
+		var coverFile;
 		
-		$("#myFileUp").change(function(){
-	        readURL(this);
-	        console.log("이미지 바뀜?");
-	    });
-
-		    
 	    function readURL(input) {
 	    	console.log("버튼클릭함1");
-
-	    	console.log(input);
 	        if (input.files && input.files[0]) {
-	        	
-	        	console.log(input.files[0].name);
-	        	
 	        var reader = new FileReader();
-	        reader.onload = function (e) {
+	        
+	        reader.onload = function (e) {	//Execute a JavaScript immediately after a page has been loaded:
 	                $('#cover').attr('src', e.target.result);
 					//값을 넣어줄때는 id값에 하나로 넣어준다 
 	                $('#fileName').val(input.files[0].name);
+					coverFile = reader.result;
 	            }
-			
+	        
 	          reader.readAsDataURL(input.files[0]);
+	        
 	        }
 	    }
 	    
-	    
+	    $("#myFileUp").change(function(){
+	        readURL(this);
+	        console.log("이미지 바뀜?");
+	    });
+	    $("#mybookRegister").click(function () {
+	    	var formData = new FormData();
+	    	formData.append("member_no",member_no);
+	    	formData.append("title",$('#title').val());
+	    	formData.append("contents",$('#summernote').val());
+	    	formData.append("coverFile",coverFile);
+	    	formData.append("intro",$('#intro').val());
+	    	
+	    	$.ajax({
+		    	type : "POST",
+		    	url : "/cobook/mybook/register",
+		    	data : formData,
+		    	contentType: false,
+		    	processData: false,
+		    	dataType : 'json',
+		    	success : function data() {
+		    		if(data==true){
+						//해당 싱글페이지로 이동해야함
+						alert("등록되었습니다");
+						console.log("성공");
+						location.replace("/cobook/mybook");
+					}else{
+						alert("실패하였습니다. 다시 시도하여 주세요");
+					}
+				}
+		    	
+		    });
+		})
+	     
 	  
 	});
 	
@@ -68,7 +93,6 @@
 	<div class="single-page-agile-main">
 		<h4 class="latest-text w3_faq_latest_text w3_latest_text">개인 소설</h4>
 		<div class="container">
-			<!-- /w3l-medile-movies-grids -->
 			<div class="agileits-single-top">
 				<ol class="breadcrumb">
 					<div >
@@ -79,12 +103,12 @@
 					</div>
 				</ol>
 				<ol class="breadcrumb">
-				<div >
+				<div>
 					<li><a href="/cobook/mybook">소설 커버이미지</a></li>
 					<li class="title-input-li" style="width:100%;">
 					<div class="form-group" style="margin: 8px 0 8px;">
 					    <input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:85%; display: inline;">
-					    <div class="fileRegiBut">
+					    <div class="fileRegiBtn">
 						 <label for="myFileUp">파일등록하기</label>
 						 <input type="file" id="myFileUp">
 						 </div>
@@ -95,7 +119,9 @@
 				<ol class="breadcrumb">
 					<li><a href="/cobook/mybook">커버이미지</a></li>
 					<li class="title-input-li" style="width:94%; height: 40%;"></li>
- 					<div class="selectCover" style="padding-left: 0;"><img id="cover" src="#" style="width: 182px; height: 268px; background-image: url('/cobook/resources/img/defaultImg.jpg'); border: 0;"/></div>
+ 					<div class="selectCover" style="padding-left: 0;">
+ 					<img id="cover" src="/cobook/resources/img/defaultImg.jpg" style="width: 182px; height: 268px;"/>
+ 					</div>
 				</ol>
 				<ol class="breadcrumb">
 				<div>
@@ -107,8 +133,6 @@
 				</ol>
 			</div>
 			
-			<!-- <div class="selectCover">
-			</div> -->
 			
 			<div class="single-page-agile-info">
 				<div class="show-top-grids-w3lagile">
@@ -125,7 +149,7 @@
 				</div>
 			</div>
 			<div class="single-page-agile-bottom">
-				<button class="mybookRegister">글쓰기</button>
+				<button id="mybookRegister" class="mybookRegister">글쓰기</button>
 			</div>
 		</div>
 	</div>

@@ -35,7 +35,7 @@
 			<bean class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 		 <mvc:interceptor>
-			<mvc:mapping path="/mybook/mybookRegister"/>
+			<mvc:mapping path="/mybook/register"/>
 			<bean class="org.ebook.cobook.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 		 
