@@ -132,6 +132,16 @@ public class ReviewController {
 		return "review/getLastedReviewList";
 	}
 	
+	@RequestMapping(value = "/single/{review_no}", method = RequestMethod.GET)
+	public void single(@PathVariable int review_no , Model model) throws Exception {
+
+		ReplyVO vo = new ReplyVO();
+		vo.setBoard_no(review_no);
+		vo.setParent_type("BOOKREVIEW");
+		model.addAttribute("reviewVO", reviewService.getReviewSingle(review_no));
+		model.addAttribute("REPLYCOUNT", reviewService.getReplyCount(vo));
+	}
+
 	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
 	@RequestMapping(value = "/{review_no}", method = RequestMethod.DELETE)
 	public String deleteReview(@PathVariable("review_no") int review_no, RedirectAttributes rttr) throws Exception {
@@ -233,7 +243,7 @@ public class ReviewController {
 
 	// 게시물 읽어오기 file_no + fileurl + 게시물 정보
 	// 좋아요 top6 클릭해서 들어올경우에는 reply_no 값이 채워진다
-	@RequestMapping(value = "/single", method = RequestMethod.GET)
+	@RequestMapping(value = "/single2", method = RequestMethod.GET)
 	public void read(@RequestParam("review_no") int review_no, @ModelAttribute("cri") Criteria cri,
 			@RequestParam(value = "reply_no", required = false) Integer reply_no, Model model) throws Exception {
 

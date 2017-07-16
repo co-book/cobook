@@ -100,6 +100,14 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.getReviewListCnt(searchType);
 	}
 	
+	
+/*	@Override
+	public ReviewVO single(Integer review_no) throws Exception {
+		// TODO Auto-generated method stub
+		//조회수 증가
+		reviewDAO.increseHit(review_no);
+		return reviewDAO.getReviewSingle(review_no);
+	}*/
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 회원의 대출목록을 가져오는 함수
 	@Override

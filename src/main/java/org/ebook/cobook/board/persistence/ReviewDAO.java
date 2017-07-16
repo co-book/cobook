@@ -18,6 +18,7 @@ public interface ReviewDAO {
 	//리뷰 리스트 불러오기
 	List<ReviewVO> getReviewList(String searchType , int moreCnt) throws Exception;
 	
+	//리뷰 전체 리스트 갯수 조회 (더보기 용)
 	int getReviewListCnt(String searchType ) throws Exception;
 	
 	/////////////////////////////

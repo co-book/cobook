@@ -23,7 +23,7 @@
 <link href="/cobook/resources/CoBookDesign/css/contactstyle.css"	rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" rel="stylesheet" />
 <!-- news-css -->
-<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewList.css?ver=11" rel="stylesheet" type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewList.css?ver=12" rel="stylesheet" type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
 <link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet" type="text/css" media="all" />
@@ -84,7 +84,18 @@ $(document).ready(function() {
 		searchType = 'lasted';
 		getReviewList();
 	});
-			
+	//글쓰기 버튼 click
+	/* if(member_no!=null){
+		로그인 사용자만 보여야하나?
+	} */
+	$('#register').click(function () {
+		if (member_no == null) {
+			$("#myModal").modal();
+		} else {	
+			location.replace("/cobook/review/register");
+		}
+		
+	});	
 })
 
 	
@@ -178,7 +189,7 @@ var getLastedReviewList = function(){
 			<div class="agileits-news-top">
 				<ol class="breadcrumb">
 					<li><a href="/cobook/">COBOOK</a></li>
-					<li class="active">리뷰게시판</li>
+					<li class="active">리뷰게시판</li>			
 				</ol>
 			</div>
 			<div class="agileinfo-news-top-grids">
@@ -193,6 +204,9 @@ var getLastedReviewList = function(){
 								<li role="presentation">
 									<a href="allReviewList"	id="popularReview" role="tab" data-toggle="tab" 
 									 aria-controls="reviewList">인기리뷰</a>
+								</li>
+								<li role="presentation" style ='float: right;'>
+									<a href="#" id="register" role="tab">글쓰기</a>
 								</li>
 							</ul>
 							<div id="myTabContent" class="tab-content">

@@ -464,3 +464,12 @@ white-space: nowrap;
 	
     margin-top: 12px; 
 }
+.register {
+    margin-right: 3px;
+    font-size: 1em;
+    color: #717171;
+    border: solid 1px #C1C1C1;
+    border-radius: 3px !important;
+    background: #ffffff;
+    padding: .2em 0.573em;
+}

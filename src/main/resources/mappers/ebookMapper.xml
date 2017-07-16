@@ -66,9 +66,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 -->
 	 <!-- single상세페이지 -->
 	 <select id="getEbookDetail" parameterType="EbookVO" resultType="EbookVO">
-	 	select
-			e.ebook_no,
-	 		e.title,
+	 	SELECT
+		 	   E.EBOOK_NO  ,
+	 		   E.title,
 	 		e.author,
 	 		e.publisher,
 	 		e.translator,

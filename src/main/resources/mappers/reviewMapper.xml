@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  )
 		
 		<selectKey resultType="int" keyProperty="review_no" order="AFTER">
-		SELECT review_no_seq.currval FROM dual
+			SELECT review_no_seq.currval FROM dual
 		</selectKey>
 	</insert>
 	
@@ -114,6 +114,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						)
 				WHERE ROWNUM<![CDATA[ <= ]]> 10
 	</select>
+	
+	<update id="readReview">
+		UPDATE BOOKREVIEW
+		   SET
+		       HIT 		 =	 HIT + 1
+		 WHERE
+			   REVIEW_NO = 	 #{review_no}
+	</update>
+	
+	<select id="single" resultType="ReviewVO">
+	    SELECT 
+	    	   R.REVIEW_NO				,
+	    	   R.TITLE					,
+	    	   R.EVALUATE				,
+	    	   R.CONTENTS				,
+	    	   R.REG_DATE				,
+	    	   R.HIT					,
+	    	   R.MEMBER_NO
+	    	   
+	    	   E.EBOOK_NO				,
+	    	   E.AUTHOR					,
+	    	   E.COVERURL				,
+	    	   E.PUBLISH				,
+	    	   M.NICKNAME				,
+	    	   
+	    	   	
+        NVL(STARRATING.starCount,0) as starCount,
+   			NVL(STARRATING.starAvg,0) as starAvg,
+        e.ebook_NO,m.NICKNAME,r.* 
+        
+        from bookReview r
+        left outer join Member m on (m.member_no = r.member_no)
+        left outer join EBOOk e on (e.ebook_no = r.ebook_no)
+        LEFT OUTER JOIN 
+        (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no )
+			STARRATING ON  (STARRATING.ebook_no = r.ebook_no);
+			
+		SELECT br.review_no, br.title, br.evaluate, br.contents, br.reg_date, br.hit, e.author,
+		e.publisher, e.coverurl, m.nickname, br.ebook_no, br.member_no
+		FROM bookreview br, ebook e, member m
+		WHERE 
+			br.ebook_no = e.ebook_no
+		AND
+  			br.member_no = m.member_no
+		AND
+			br.review_no = #{review_no}
+	</select>
+	
 
 	
 	
