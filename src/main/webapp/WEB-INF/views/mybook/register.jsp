@@ -26,7 +26,7 @@
 	jQuery(document).ready(function($) {
 		console.log(member_no);
 		callSummernote();
-		var coverFile;
+	//	var coverFile;
 		
 	    function readURL(input) {
 	    	console.log("버튼클릭함1");
@@ -37,7 +37,7 @@
 	                $('#cover').attr('src', e.target.result);
 					//값을 넣어줄때는 id값에 하나로 넣어준다 
 	                $('#fileName').val(input.files[0].name);
-					coverFile = reader.result;
+		//			coverFile = reader.result;
 	            }
 	        
 	          reader.readAsDataURL(input.files[0]);
