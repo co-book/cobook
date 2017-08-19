@@ -25,9 +25,9 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 <link href="/cobook/resources/CoBookDesign/css/faqstyle.css?ver=1" rel="stylesheet" type="text/css" media="all" />
 <link href="/cobook/resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
 -->
-<link href="/cobook/resources/CoBookDesign/css/medile.css?ver=7" rel='stylesheet' type='text/css' />
+<link href="/cobook/resources/CoBookDesign/css/medile.css?ver=4" rel='stylesheet' type='text/css' />
 <!-- banner-slider -->
-<link href="/cobook/resources/CoBookDesign/css/jquery.slidey.min.css" rel="stylesheet">
+<link href="/cobook/resources/CoBookDesign/css/jquery.slidey.min.css?ver=2" rel="stylesheet">
 <!-- pop-up -->
 <link href="/cobook/resources/CoBookDesign/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 <!-- banner-bottom-plugin -->
@@ -54,7 +54,8 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 <!--  index Main 추가  -->
 <script type="text/javascript">
 $(document).ready(function(){
-	//배너
+	console.log("mainnnnnnnn");
+	//배너nnnnnnnnnnnnnnnn
 	$.ajax({
 		type : "get",
 		url : 'ebook/banner',
