@@ -20,13 +20,36 @@
 								</div>
 								<div class="mid-2 agile_mid_2_home">
 									<p>${monthlyList.author}</p>
-									<div class="detail-stars">
-										<ul class="detail-ratings">
+									<%-- <div class="detail-stars-main">
+										<ul class="detail-ratings" style="margin-top: -8px;">
 											<c:forEach var="i" begin="1" end="5" varStatus="statusCnt">
 												<c:choose>
 													<c:when test="${monthlyList.starAvg>=statusCnt.current}">
 														<!-- 별점  -->
-														<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+														<li><a href="#" style="display: block;"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+													</c:when>
+													<c:when test="${monthlyList.starAvg<statusCnt.current}">
+														<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+													</c:when>
+													<c:otherwise>
+														<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</ul>
+									</div> --%>
+								</div>
+							</div>
+							<br></br>
+							<br>
+							<div>
+							<div class="detail-stars-main">
+									<ul class="detail-ratings" style="margin-top: -8px;">
+											<c:forEach var="i" begin="1" end="5" varStatus="statusCnt">
+												<c:choose>
+													<c:when test="${monthlyList.starAvg>=statusCnt.current}">
+														<!-- 별점  -->
+														<li><a href="#" style="display: block;"><i class="fa fa-star" aria-hidden="true"></i></a></li>
 													</c:when>
 													<c:when test="${monthlyList.starAvg<statusCnt.current}">
 														<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
@@ -38,8 +61,6 @@
 											</c:forEach>
 										</ul>
 									</div>
-									<div class="clearfix"></div>
-								</div>
 							</div>
 							<div class="ribben">
 								<p>NEW</p>

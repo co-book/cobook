@@ -54,7 +54,7 @@
             } else {
                 domdocument += "<div class='slidey-row row'><div class='slidey-image col-md-12'><div class='slidey-overlay'>";
             }
-            domdocument += "<p class='slidey-overlay-title'></p><p class='slidey-overlay-description'></p>";
+           // domdocument += "<p class='slidey-overlay-title'></p><p class='slidey-overlay-description'></p>";
             /*domdocument += "<span class='slidey-progress'></span>";*/
             domdocument += "</div></div><div class='slidey-list col-md-4'></div></div>";
             // append new structure
@@ -74,16 +74,21 @@
             var controls = "<div class='slidey-controls slidey-controls-previous'><i class='fa fa-chevron-left'></i></div>";
                controls += "<div class='slidey-controls slidey-controls-next'><i class='fa fa-chevron-right'></i></div>";
 
-            base.layout.$image.append(controls);
+            //base.layout.$image.append(controls);
 
             // create list items
             var $list = $("<ul></ul>");
             base.layout.$list.append($list);
+            var slidesThumb = ["/cobook/resources/CoBookDesign/images/mainImage/001.jpg",
+            						"/cobook/resources/CoBookDesign/images/mainImage/002.jpg",
+            						"/cobook/resources/CoBookDesign/images/mainImage/003.jpg",
+            						"/cobook/resources/CoBookDesign/images/mainImage/004.jpg",
+            						"/cobook/resources/CoBookDesign/images/mainImage/005.jpg"];
             for (var slideIndex = 0; slideIndex < base.slides.length; slideIndex++) {
                 var $li = $("<li></li>");
                 var elements = "<table class='slidey-list-table'><tr>";
                 elements += "<td rowspan='2' class='slidey-list-thumbnail-container'>";
-                elements += "<div class='slidey-list-thumbnail' style='background-image: url(\"" + base.slides[slideIndex].image + "\")'>";
+                elements += "<div class='slidey-list-thumbnail' style='background-image: url(\"" + slidesThumb[slideIndex]+ "\")'>";
                 elements += "</td><td class='slidey-list-title'>" + base.slides[slideIndex].title + "</td>";
                 elements += "</tr><tr>";
                 elements += "<td class='slidey-list-description'>" + base.slides[slideIndex].description + "</td>";
@@ -102,12 +107,12 @@
             var sliderHeight = base.layout.$image.innerHeight();
             var oneSlideListItemHeight = parseInt(sliderHeight) / base.options.listCount;
             
-            // set list item thumbnail dimensions
+            // set list item thumbnail dimensions 가로 길이 설정
             var thumbWidth = oneSlideListItemHeight - 9;
             base.layout.$list.find(".slidey-list-thumbnail").css("width", thumbWidth).css("height", thumbWidth);
             base.addEventListeners();
             
-            // set list item heights
+            // set list item heights 세로 길이 설정
             base.layout.$list.find("li").each(function() {
                 var $this = $(this);
                 var spaceBetweenSlides = $this.outerHeight() - $this.innerHeight();

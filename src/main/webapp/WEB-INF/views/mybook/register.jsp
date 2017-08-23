@@ -26,7 +26,7 @@
 	jQuery(document).ready(function($) {
 		console.log(member_no);
 		callSummernote();
-		var coverFile;
+	//	var coverFile;
 		
 	    function readURL(input) {
 	    	console.log("버튼클릭함1");
@@ -37,7 +37,7 @@
 	                $('#cover').attr('src', e.target.result);
 					//값을 넣어줄때는 id값에 하나로 넣어준다 
 	                $('#fileName').val(input.files[0].name);
-					coverFile = reader.result;
+		//			coverFile = reader.result;
 	            }
 	        
 	          reader.readAsDataURL(input.files[0]);
@@ -50,32 +50,38 @@
 	        console.log("이미지 바뀜?");
 	    });
 	    $("#mybookRegister").click(function () {
-	    	var formData = new FormData();
-	    	formData.append("member_no",member_no);
+	    	//console.log(coverFile);
+	    	var formData = new FormData($("#mybookForm")[0]);
+	    	/* formData.append("member_no",member_no);
 	    	formData.append("title",$('#title').val());
 	    	formData.append("contents",$('#summernote').val());
 	    	formData.append("coverFile",coverFile);
-	    	formData.append("intro",$('#intro').val());
+	    	formData.append("intro",$('#intro').val()); */ 
 	    	
-	    	$.ajax({
+	    	console.log("등록버튼 클릭 오키");
+	    	
+	    	 $.ajax({
 		    	type : "POST",
-		    	url : "/cobook/mybook/register",
+		    	url : "/cobook/mybook/mybookRegister",
 		    	data : formData,
 		    	contentType: false,
+		    	
 		    	processData: false,
 		    	dataType : 'json',
-		    	success : function data() {
+		    	success : function(data) {
+		    		console.log("성공함?");
 		    		if(data==true){
 						//해당 싱글페이지로 이동해야함
 						alert("등록되었습니다");
 						console.log("성공");
-						location.replace("/cobook/mybook");
+						location.replace("/cobook/mybook/");
 					}else{
+						console.log("아님 실팽");
 						alert("실패하였습니다. 다시 시도하여 주세요");
 					}
 				}
 		    	
-		    });
+		    }); 
 		})
 	     
 	  
@@ -92,6 +98,9 @@
 	
 	<div class="single-page-agile-main">
 		<h4 class="latest-text w3_faq_latest_text w3_latest_text">개인 소설</h4>
+		
+		<form id="mybookForm" enctype="multipart/form-data" onsubmit="return false;">
+		<input type="hidden" name="member_no" value="${member.member_no}">
 		<div class="container">
 			<div class="agileits-single-top">
 				<ol class="breadcrumb">
@@ -110,7 +119,7 @@
 					    <input id="fileName" class="form-control" value="파일선택" disabled="disabled" style="width:85%; display: inline;">
 					    <div class="fileRegiBtn">
 						 <label for="myFileUp">파일등록하기</label>
-						 <input type="file" id="myFileUp">
+						 <input type="file" id="myFileUp" name="coverFile">
 						 </div>
 					</div>
 					</li>
@@ -133,7 +142,7 @@
 				</ol>
 			</div>
 			
-			
+		
 			<div class="single-page-agile-info">
 				<div class="show-top-grids-w3lagile">
 					<div class="single-left">
@@ -148,6 +157,7 @@
 					</div>
 				</div>
 			</div>
+	</form>	
 			<div class="single-page-agile-bottom">
 				<button id="mybookRegister" class="mybookRegister">글쓰기</button>
 			</div>

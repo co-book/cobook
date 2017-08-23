@@ -20,6 +20,7 @@ h1,h2,h3,h4,h5,h6{
 ul,label{
 	margin:0;
 	padding:0;
+	margin-top: -8px;
 }
 body a:hover{
 	text-decoration:none;
@@ -200,23 +201,28 @@ ul#myTab {
   right: 0;
 }
 .w3l-movie-text h6 a {
-    font-size: 1.2em;
+    font-size: 1em;
     color: #222;
+    float: left;
 }
 .w3l-movie-text {
 	    margin: 0.7em 0;
+	    margin-bottom: 0;
 }
 .mid-2 p {
-       float: left;
-    font-size: 1em;
-    color: #333;
+   	float : left;
+    font-size: 0.9em;
+    color: #777;
     line-height: 22px;
 }
 .block-stars {
-    float: right;
+    /* float: right; */
 }
 .detail-stars {
 	float: left;
+}
+.detail-stars-main {
+	 float: left; 
 }
 ul.detail-ratings li i ,.detail-ratings a i{
 	color: #FC7D01;
@@ -225,7 +231,12 @@ ul.detail-ratings li,.detail-ratings a{
 	display: inline-block!important;
     list-style: none;
 }
-
+ul.detail-ratings-main li,.detail-ratings-main a{
+	display: inline-block!important;
+    list-style: none;
+    margin-top: -2px;
+    color: #FC7D01;
+}
 ul.w3l-ratings li,.w3l-ratings a{
     display: inline-block!important;
     list-style: none;

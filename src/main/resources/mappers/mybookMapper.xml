@@ -79,7 +79,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		<include refid="search"></include>
 
 	</select> -->
-
+<!-- 마이북 등록 -->
 	<insert id="insert">
 		INSERT INTO MYBOOK
 		(MYBOOK_NO,
