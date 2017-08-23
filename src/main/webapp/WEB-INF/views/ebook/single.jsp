@@ -44,8 +44,8 @@
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="/cobook/resources/js/replies/reply.js"></script>
 <script type="text/javascript">
-
 	var ebook_no = ${evo.ebook_no};
+	var board_no = ${evo.ebook_no};
 	var parent_type="EBOOK";
 	var moreCnt=1;	//더보기횟수 
 	var replyEventInit;
@@ -54,11 +54,10 @@
 	jQuery(document).ready(function($) {
 		var reply = new Reply();
 		reply.member_no=member_no;
-		reply.ebook_no=ebook_no;
+		reply.board_no=ebook_no;
 		reply.parent_type=parent_type;
 		$(".member-nickname").prepend(nickname);
 		$("#mypoint").prepend(myPoint);
-
 		
 		//이책을대여한사람들의 책리스트 가져오기
 		$.ajax({
@@ -74,7 +73,6 @@
 				console.log(member_no+"member no!!!!!!!!");
 			}
 		});
-		
 		
 		replyEventInit = function() {
 			//로그인 && 현재 로그인 사용자 != 작성자
@@ -106,7 +104,7 @@
 
 			//더보기 
 			$('#moreCnt').click(function() {
-				reply.moreCnt=(reply.moreCnt+1);
+				reply.moreCnt=reply.moreCnt+1;
 				moreCnt=moreCnt+1;
 				reply.getReplyList();
 			}); 
@@ -130,6 +128,7 @@
 			});	//addlick
 			
 		}
+
 		commentEventInit = function() {
 			//삭제버튼 Visible
 			//if (member_no == null || $(".comment-delete").data("member_no")!= member_no) {
@@ -164,7 +163,7 @@
 				}
 			}); //comment
 		}
-		
+
 		//리플등록
 		$('#addReply').click(function() {
 			if (member_no == null) {
@@ -211,7 +210,6 @@
 					type : 'GET',
 					url : '/cobook/member/chargePoint',
 					dataType : 'json' ,
-					//async: false,
 					success : function(result, status) {
 						console.log(result);
 						//var obj = eval("("+result+")");
@@ -236,11 +234,6 @@
 			if (member_no == null) {
 				$("#myModal").modal();
 			} else {	
-				console.log(JSON.stringify({
-					"price" : price,
-					"member_no" : member_no,
-					"ebook_no" : ebook_no,
-					"period" : selectDay}));
 				 $.ajax({
 					type : 'POST',
 					url : '/cobook/ebook/borrowEbook',
@@ -526,11 +519,12 @@
 <!-- reply list start -->
 							<div id="wrap-media-list">
 								<div id ="reply_list" >
-								
-						</div>
-						<!-- <div class="song-grid-right"></div>
-							<div class="clearfix"></div>-->
-					</div>
+								</div>
+					   <!-- 
+					   		<div class="song-grid-right"></div>
+							<div class="clearfix"></div>
+						-->
+							</div>
 					
 
 					<div class="clearfix"></div>

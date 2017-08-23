@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		
 		if(request.getSession().getAttribute("member") == null){
 			System.out.println("로그인 세션 없음");
-			response.sendRedirect("/");
+			response.sendRedirect("/cobook");
 			return false;
 		}else {
 			//요청정보를 다시 member에 넣어준다

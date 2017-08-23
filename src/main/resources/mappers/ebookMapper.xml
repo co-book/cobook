@@ -6,10 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.ebookMapper">
 
 	<select id="getEbookList" parameterType="String" resultType="EbookVO">
-  select 
-		e.ebook_no,
-		e.title,
-		e.author,
+  		SELECT
+  			   E.EBOOK_NO				,
+  			   E.TITLE					,
+  			   E.AUTHOR				,
     e.publisher,
     e.PUBLISHEDDATE,
     e.CATEGORY,
@@ -69,24 +69,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	SELECT
 		 	   E.EBOOK_NO  ,
 	 		   E.title,
-	 		e.author,
-	 		e.publisher,
-	 		e.translator,
-	 		e.publishedDate,
-	 		e.intro,
-	 		e.price,
-	 		e.category,
-	 		e.coverURL,
-	 		e.fileSize,
-	 		e.fileType,
-	 		e.listening,
+	 		E.author,
+	 		E.publisher,
+	 		E.translator,
+	 		E.publishedDate,
+	 		E.intro,
+	 		E.price,
+	 		E.category,
+	 		E.coverURL,
+	 		E.fileSize,
+	 		E.fileType,
+	 		E.listening,
 	 		NVL(STARRATING.starCount,0) as starCount,
    			NVL(STARRATING.starAvg,0) as starAvg
     		
-			from EBOOK e 
+			from EBOOK E 
 			LEFT OUTER JOIN (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no )
-			STARRATING ON  (STARRATING.ebook_no = e.ebook_no)
-     	where e.ebook_no=#{ebook_no}
+			STARRATING ON  (STARRATING.ebook_no = E.ebook_no)
+     	where E.ebook_no=#{ebook_no}
      	<!-- NVL이 전자가 널이면 후자로 넣어준다 NVL2는 첫번째가 널이면 세번째꺼 사용 아니면 두번째 사용-->
 	 </select>
 		

@@ -80,7 +80,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	/**
-	 * Review 리스트 불로오기
+	 * Review 리스트 불러오기 (리뷰 리스트 )
 	 */
 	@Override
 	public List<ReviewVO> getReviewList(String searchType , int moreCnt) throws Exception {
@@ -101,13 +101,41 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	
-/*	@Override
-	public ReviewVO single(Integer review_no) throws Exception {
+	@Override
+	public Map<String, String> single(Integer review_no) throws Exception {
 		// TODO Auto-generated method stub
 		//조회수 증가
-		reviewDAO.increseHit(review_no);
-		return reviewDAO.getReviewSingle(review_no);
-	}*/
+		reviewDAO.readReview(review_no);
+		return reviewDAO.single(review_no);
+	}
+	
+	
+	// 작성자의 다른 리뷰
+	@Override
+	public List<ReviewVO> getWriterReviews(int member_no) throws Exception {
+		// TODO Auto-generated method stub
+		List<ReviewVO> list = reviewDAO.getWriterReviews(member_no);
+		for(int i=0;i<list.size();i++){
+			//HTML태그들 제거합니다. 
+			String contentStr=BoardUtil.RemoveHTMLTag( list.get(i).getContents() );
+			list.get(i).setContents(BoardUtil.RemoveHTMLTag( list.get(i).getContents()));
+		}
+		return list;
+	}
+	
+	// 해당 책의 다른 리뷰
+	@Override
+	public List<ReviewVO> getOtherReviews(int ebook_no) throws Exception {
+		// TODO Auto-generated method stub
+		List<ReviewVO> list =reviewDAO.getOtherReviews(ebook_no);
+		for(int i=0;i<list.size();i++){
+			//HTML태그들 제거합니다. 
+			String contentStr=BoardUtil.RemoveHTMLTag( list.get(i).getContents() );
+			list.get(i).setContents(BoardUtil.RemoveHTMLTag( list.get(i).getContents()));
+		}
+		return list;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 회원의 대출목록을 가져오는 함수
 	@Override
@@ -210,19 +238,9 @@ public class ReviewServiceImpl implements ReviewService {
 			// TODO Auto-generated method stub
 			return myPageDAO.getMyBookReviewList(paramMap);
 		}
-		
-		// 같은 회원 다른 리뷰
-		@Override
-		public List<ReviewVO> getSameWriterOtherReviews(int member_no) throws Exception {
-			// TODO Auto-generated method stub
-			return reviewDAO.getSameWriterOtherReviews(member_no);
-		}
 
-		@Override
-		public List<ReviewVO> getSameBookOtherReviews(int ebook_no) throws Exception {
-			// TODO Auto-generated method stub
-			return reviewDAO.getSameBookOtherReviews(ebook_no);
-		}
+
+
 	
 	
 }

@@ -20,7 +20,7 @@
 <link href="/cobook/resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/contactstyle.css" rel="stylesheet"  type="text/css" media="all" />
 <!-- news-css -->
-<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewSingle.css" rel="stylesheet"  type="text/css" media="all" />
+<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewSingle.css?ver=4" rel="stylesheet"  type="text/css" media="all" />
 <!-- //news-css -->
 <!-- list-css -->
 <link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet"  type="text/css" media="all" />
@@ -35,12 +35,160 @@
 <!-- start-smoth-scrolling -->
 <script src="/cobook/resources/CoBookDesign/js/move-top.js" type="text/javascript" ></script>
 <script src="/cobook/resources/CoBookDesign/js/easing.js" type="text/javascript" ></script>
+
+<script type="text/javascript" src="/cobook/resources/js/replies/reply.js"></script>
 <script type="text/javascript">
+	var review_no = ${review.REVIEW_NO};
+	var board_no = ${review.REVIEW_NO};
+	var ebook_no = ${review.EBOOK_NO};
+	var writer = ${review.MEMBER_NO};
+	var parent_type = "REIVEW";
+	var moreCnt = 1;
+	var replyEventInit;
+	var commentEventInit;
+	
 	jQuery(document).ready(function($) {
+		var reply = new Reply();
+		reply.member_no=member_no;
+		reply.board_no=review_no;
+		reply.parent_type=parent_type;
+		
+		replyEventInit = function() {
+			//로그인 && 현재 로그인 사용자 != 작성자
+			// 코멘트 리스트 가져와서,  숨기기/보이기 
+			$(".commentBtn").click(function() {
+				var parent_no = $(this).data("parent_no");
+				if ($("#comment" + parent_no).css("display") == "none") {
+					//해당 리플의 코멘트 불러옴
+					reply.getCommentList(parent_no);
+					$("#comment" + parent_no).toggle();	//코멘트 목록 Show
+				} else {
+					$("#comment" + parent_no).toggle(); //코멘트 목록 hide
+				}
+			});
+			//
+			//리플 삭제하기
+			$(".reply-remove").click(function () {
+				var delete_reply_no=$(this).data("reply_no");
+				if(member_no==null)		//member_no = 해당 작성자가 다를때 삭제버튼 hide;
+				{	
+					$("#reply-delete").hide();
+					$("#myModal").modal();
+				}else {
+					reply.deleteReply(delete_reply_no);
+				}	
+			});
+
+			//더보기 
+			$('#moreCnt').click(function() {
+				reply.moreCnt=reply.moreCnt+1;
+				moreCnt=moreCnt+1;
+				reply.getReplyList();
+			}); 
+
+			//add like - 좋아요
+			$(".thumbs").click(function () {
+				if (member_no == null) {
+					$("#myModal").modal();
+				} else {
+					reply.addLike($(this).data("reply_no"));
+				}
+			});	//addlick
+			
+			//add like - 좋아요
+			$(".thumbs_can").click(function () {
+				if (member_no == null) {
+					$("#myModal").modal();
+				} else {
+					reply.deleteLike($(this).data("reply_no"));
+				}
+			});	//addlick
+			
+		}
+
+		commentEventInit = function() {
+			//삭제버튼 Visible
+			//if (member_no == null || $(".comment-delete").data("member_no")!= member_no) {
+			if (member_no == null ) {
+				$(".comment-delete").hide();
+			} else {
+				$(".comment-delete").show();
+			}
+			
+			//코멘트 등록
+			$(".addComment").click(function() {	//해당 클래스에는 모두 같은 이벤트 부여
+				// $("#comment-up").add(up).show();
+				var parent_no= $(this).data("parent_no");
+				if (member_no == null) {
+					$("#myModal").modal();
+				} else {
+					reply.addComment(parent_no);
+				}
+			}); //comment
+			
+			//코멘트 삭제
+			$(".comment-delete").click(function() {	
+				var reply_no= $(this).data("reply_no");
+				var parent_no= $(this).data("parent_no");
+				var writer= $(this).data("member_no");
+				if (member_no == null) {
+					$("#myModal").modal();
+				} else if(writer != member_no){
+					alert("작성자만 삭제가 가능합니다.");
+				} else {
+					reply.deleteComment(reply_no,parent_no);
+				}
+			}); //comment
+		}
+
+		//리플등록
+		$('#addReply').click(function() {
+			if (member_no == null) {
+				$("#myModal").modal();
+			} else {
+				reply.starRating=$('#starRating').val();
+				reply.contents=$('#replyContents').val();
+				reply.addReply();
+			}
+		}); //리플달기
+		
+		//리플리스트 불러오기 
+		reply.getReplyList();
+
+		//리뷰 글쓴이의 다른 리뷰들 
+		$.ajax({
+			type : "GET",
+			url : "/cobook/review/getWriterReviews",
+			data : {
+				"member_no" : writer
+			},
+			dataType : 'html',
+			success : function(data) {
+				$('#getWriterReviews').append(data);
+			}
+		});
+		
+		//해당 책의 다른 리뷰들 
+		$.ajax({
+			type : "GET",
+			url : "/cobook/review/getOtherReviews",
+			data : {
+				"ebook_no" : ebook_no
+			},
+			dataType : 'html',
+			success : function(data) {
+				$('#getOtherReviews').html(data);
+			}
+		});
+		//////////////////////////////////////////리플리스트
+		
+		
 		$(".scroll").click(function(event){		
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
+		
+		
 	});
 </script>
 
@@ -59,7 +207,7 @@
 					<ol class="breadcrumb">
 					  <li><a href="/cobook">CoBook</a></li>
 					   <li><a href="/cobook/review">리뷰</a></li>
-					  <li class="active">${reviewVO.TITLE}</li>
+					  <li class="active">${review.REVIEW_NO}</li>
 					</ol>
 				</div>
 				<div class="agileinfo-news-top-grids">
@@ -67,19 +215,22 @@
 						<div class="wthree-news-left">
 							<div class="wthree-news-left-img">
 								
-								<h4>${reviewVO.TITLE}</h4>
+								<h4>${review.TITLE}</h4>
 								<!-- 작성자, 날짜, 댓글갯수 -->
-									
+											
+								<div class="s-author">
+									<p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${review.NICKNAME}</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> ${review.REG_DATE} &nbsp;&nbsp; <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Comments (${review.REPLYCOUNT})</a></p>
+								</div>
 															<!-- 시작 -->
 				<div class="product-details">
 					<div class="ebook_detail">
 	           	 				<div class="grid images_3_of_2">
 				
-									<img src="${reviewVO.COVERURL}" alt="" />
+									<img src="${review.COVERURL}" alt="" />
 								</div>
 								<div class="desc span_3_of_2">
-									<h2>타이틀</h2>
-									<p>작가| 번역가</p>
+									<h2>${review.EBOOKTITLE}</h2>
+									<p>${review.AUTHOR}|${review.TRANSLATOR}</p>
 
 									<div class="detail-stars">
 										<ul class="detail-ratings">
@@ -95,23 +246,30 @@
 									<br> <br>
 									<div class="price">
 										<p>
-											대여가:1000 <span id="price"><fmt:formatNumber
-													value="${EbookList.price}" pattern="##,###" /></span><a class="starAvg">원</a>
+											대여가: <span id="price"><fmt:formatNumber
+													value="${review.PRICE}" pattern="##,###" /></span><a class="starAvg">원</a>
 										</p>
 									</div>
 
 									<div class="available">
 										<ul>
-											<li><span>도서정보:</span> &nbsp;출판사 | 
-											yyyy년 MM월 dd일 | 타입 | 사이즈</li>
+											<li><span>도서정보:</span> &nbsp;${review.PUBLISHER} | <fmt:formatDate
+													value="${review.PUBLISHEDDATE}" pattern="yyyy년 MM월 dd일" /> | ${review.FILETYPE} | ${review.FILESIZE}</li>
 											<li><span>지원기기:</span>&nbsp; Android | ios | PC | Mac</li>
-											<li><span>듣기가능:</span>&nbsp; 출판사 </li>
+											<li><span>듣기가능:</span>&nbsp; <c:choose>
+													<c:when test="${review.LISTENING==1}">
+																듣기가능
+															</c:when>
+													<c:otherwise>
+																듣기없음
+															</c:otherwise>
+												</c:choose></li>
 										</ul>
 									</div>
 									
 									<div class="wish-list">
 												<ul>
-												<button class="ebook-button">해당 책보러가기</button>
+												<button class="ebook-button" onclick="window.open('/cobook/ebook/single/${review.EBOOK_NO}')"; >해당 책보러가기</button>
 													<!--<li class="wish"><a href="#" class="select_can">선택 취소</a></li>
 													 <li class="compare"><a href="#">Add to Compare</a></li> -->
 												</ul>
@@ -122,10 +280,7 @@
 	            	
             	</div>
 								<!-- 끝 -->		
-									
-								<div class="s-author">
-									<p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${reviewVO.NICKNAME}</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> ${reviewVO.REG_DATE} &nbsp;&nbsp; <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Comments (${REPLYCOUNT})</a></p>
-								</div>
+							
 								
 							
 								<!-- 삭제,수정,목록 버튼 -->
@@ -153,18 +308,25 @@
 									</ul>
 								</div>
 								<div class="w3-agile-news-text">
-									<p><span>${reviewVO.CONTENTS}</span></p>
+									<p><span>${review.contents}</span></p>
 								</div>
 							</div>
 						</div>
-						<div class="wthree-related-news-left">
+						<div id ="getWriterReviews" class="wthree-related-news-left">
+							<h4> ${review.NICKNAME}님의 또 다른 리뷰</h4>
 							<!-- 다른리뷰 자리 -->
 						</div>
 						<!-- agile-comments -->
 						<div class="agile-news-comments">
 							<div class="agile-news-comments-info">
 								<h4>Comments</h4>
-								<div class="fb-comments" data-href="https://w3layouts.com/" data-width="100%" data-numposts="5"></div>
+								<br>
+								<textarea class="reply-textarea" rows="10" id="replyContents" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+								<button type="button" id="addReply" class="reply-regi">댓글 남기기</button>
+								<br/><br/><br/>
+								<div id ="reply_list" >
+								
+								</div>
 							</div>
 						</div>
 						<!-- //agile-comments -->
@@ -250,9 +412,9 @@
 						<!-- news-right-bottom -->
 						<div class="news-right-bottom">
 							<div class="wthree-news-right-heading">
-								<h3>같은책 다른리뷰</h3>
+								<h3>${review.EBOOKTITLE}의 다른리뷰</h3>
 							</div>
-							<div class="news-right-bottom-bg">
+							<div id ='getOtherReviews' class="news-right-bottom-bg">
 								
 							</div>
 							</div>
@@ -456,14 +618,6 @@
 			</div>
 	</div>
 	
-<!-- FormHtml -->
-<form class="singleForm" action="" method="post">
-	<input type="hidden" id="review_noTxt" name="review_no" value="">
-	<input type="hidden" id="pageTxt"  name="page" value="">
-	<input type="hidden" id="perPageNumTxt" name="perPageNum"  value="">
-	<input type="hidden" id="searchTypeTxt" name="searchType" value="">
-	<input type="hidden" id="keywordTxt" name="keyword" value="">
-</form>	
 <!-- //faq-banner -->
 <c:import url="/WEB-INF/views/footer.jsp" charEncoding="UTF-8"/>
 <script type="text/javascript">
@@ -493,7 +647,7 @@ $(function(){
 	var sameBookOtherReviews = "/cobook/review/getSameBookOtherReviews?ebook_no="+ebook_no;
 	getReviewList(sameWriterOtherReviews, '.wthree-related-news-left', 'html');
 	getReviewList(sameBookOtherReviews, '.news-right-bottom-bg', 'html');
-	
+
 	
 	// 수정버튼 이벤트처리
 	$(".modBtn").on("click", function(){

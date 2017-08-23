@@ -1,5 +1,6 @@
 package org.ebook.cobook.board.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.insert(reviewNamespace+".register", vo);
 	}
 	
+	/**
+	 * 리뷰 리스트
+	 *  - 페이징 처리
+	 */
 	@Override
 	public List<ReviewVO> getReviewList(String searchType ,int moreCnt) throws Exception {
 		// TODO Auto-generated method stub
@@ -51,11 +56,49 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectList(reviewNamespace+".getReviewList", searchType, rowBounds);
 	}
 
+	/**
+	 * 더보기 버튼을 위한 전체 리뷰 갯수
+	 */
 	@Override
 	public int getReviewListCnt(String searchType) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(reviewNamespace+".getReviewListCnt");
 	}
+	
+	/**
+	 * 조회수 증가
+	 */
+	@Override
+	public void readReview(Integer review_no) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(reviewNamespace+".readReview", review_no);
+	}
+	
+	/**
+	 * 리뷰 상세페이지 보기
+	 */
+	@Override
+	public Map<String, String> single(Integer review_no) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(reviewNamespace+".single", review_no);
+	}
+	
+    /**
+     * 리뷰 글쓴기가 작석한 다른 리뷰정보
+     */
+	@Override
+	public List<ReviewVO> getWriterReviews(int member_no) throws Exception {
+		return sqlSession.selectList(reviewNamespace+".getWriterReviews", member_no);
+	}
+	
+	/**
+	 * 해당 EBOOK의 다른 리뷰 리스트
+	 */
+	public List<ReviewVO> getOtherReviews(int ebook_no)throws Exception{
+
+		return sqlSession.selectList(reviewNamespace+".getOtherReviews", ebook_no);
+	};
+		
 	
 	/////////////////
 	
@@ -125,18 +168,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectList(reviewNamespace+".getBestReply");
 	}
 
-    // same writer other reviews
-	@Override
-	public List<ReviewVO> getSameWriterOtherReviews(int member_no) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(reviewNamespace+".getSameWriterOtherReviews", member_no);
-	}
 
-	// same ebook other reviews
-		public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception{
-		
-			return sqlSession.selectList(reviewNamespace+".getSameBookOtherReviews", ebook_no);
-		};
+
 	
 	
 }

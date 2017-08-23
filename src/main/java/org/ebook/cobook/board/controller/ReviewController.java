@@ -95,6 +95,8 @@ public class ReviewController {
 		return entity;
 	}
 	
+	
+	
 	/**
 	 * 리뷰 리스트 화면 출력 
 	 * @param model
@@ -115,8 +117,6 @@ public class ReviewController {
 		//최신 lasted //인기 - popular 
 		logger.debug("reviewList 호출" + searchType);
 
-
-		//List<Map<String, Object>> reviewList = reviewService.getBookReviewList(cri);
 		model.addAttribute("moreCnt", moreCnt);
 		model.addAttribute("reviewList", reviewService.getReviewList(searchType,moreCnt));
 		model.addAttribute("reviewListCnt", reviewService.getReviewListCnt(searchType));
@@ -132,20 +132,26 @@ public class ReviewController {
 		return "review/getLastedReviewList";
 	}
 	
+	/**
+	 * 리뷰 싱글페이지 호출
+	 * @param review_no
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/single/{review_no}", method = RequestMethod.GET)
-	public void single(@PathVariable int review_no , Model model) throws Exception {
+	public String single(@PathVariable int review_no , Model model) throws Exception {
 
-		ReplyVO vo = new ReplyVO();
-		vo.setBoard_no(review_no);
-		vo.setParent_type("BOOKREVIEW");
-		model.addAttribute("reviewVO", reviewService.getReviewSingle(review_no));
-		model.addAttribute("REPLYCOUNT", reviewService.getReplyCount(vo));
+		Map<String, String> map = reviewService.single(review_no);
+		System.out.println(map.get("coverUrl"));
+		System.out.println(map.toString());
+		model.addAttribute( "review" ,reviewService.single(review_no));
+		return "review/single";
 	}
 
 	// 게시물을 삭제하면 다수의 파일이 일괄 삭제된다
 	@RequestMapping(value = "/{review_no}", method = RequestMethod.DELETE)
 	public String deleteReview(@PathVariable("review_no") int review_no, RedirectAttributes rttr) throws Exception {
-
 			logger.debug("리뷰 삭제 호출");
 			
 			reviewService.deleteReview(review_no);
@@ -153,6 +159,23 @@ public class ReviewController {
 			rttr.addFlashAttribute("msg", "SUCCESS");
 			
 			return "redirect:/review/list";
+	}
+	
+	// 작성자의 다른 리뷰
+	@RequestMapping(value="/getWriterReviews", method = RequestMethod.GET)
+	public String getWriterReviews(int member_no, Model model)throws Exception{
+		logger.debug("리뷰작성자의 다른 책");
+		model.addAttribute("writerReviews", reviewService.getWriterReviews(member_no));
+		return "/review/single/getWriterReviews";
+	}
+	
+	// 해당 도서의 다른 리뷰
+	@RequestMapping(value="/getOtherReviews", method = RequestMethod.GET)
+	public String getOtherReviews(int ebook_no, Model model)throws Exception{
+		logger.debug("해당 책의 다른 리뷰");
+		model.addAttribute("otherReviews", reviewService.getOtherReviews(ebook_no));
+		
+		return "/review/single/getOtherReviews";
 	}
 	
 	//////////////////////////////////////////////////////////////////////
@@ -364,22 +387,7 @@ public class ReviewController {
 		return "/mybook/???";
 	}
 
-	// 같은 사용자 다른 리뷰
-	@RequestMapping(value="/getSameWriterOtherReviews", method = RequestMethod.GET)
-	public String getOtherReviews(int member_no, Model model)throws Exception{
-		logger.debug("같은작성자 다른 책 호출");
-		model.addAttribute("list", reviewService.getSameWriterOtherReviews(member_no));
-		return "/review/sameWriterOtherReviews";
-	}
-	
-	// same ebook other reviews
-	@RequestMapping(value="/getSameBookOtherReviews", method = RequestMethod.GET)
-	public String getOtherReviewsGET(int ebook_no, Model model)throws Exception{
-		logger.debug("같은책 다른 리뷰");
-		model.addAttribute("list", reviewService.getSameBookOtherReviews(ebook_no));
-		
-		return "/review/sameBookOtherReviews";
-	}
+
 	
 	
 	

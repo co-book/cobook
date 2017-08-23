@@ -112,7 +112,6 @@ var getReviewList = function(){
 		success : function(data) {
 			$('#reviewList').html(data);
 			$('.moreCntReview').click(function name() {
-				console.log("더보기더보기더보기");
 				moreCnt=moreCnt+1;
 				$(this).css("display","none");
 				getMoreList();

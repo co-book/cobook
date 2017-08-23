@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.ebook.cobook.mapper.MybookMapper">
 
 	<resultMap type="java.util.HashMap" id="ResMap">
-		<result property="CONTENTS" javaType="java.lang.String" jdbcType="CLOB" typeHandler="org.apache.ibatis.type.ClobTypeHandler" column="CONTENTS" />
+		<result column="CONTENTS" property="contents" javaType="java.lang.String" jdbcType="CLOB" typeHandler="org.apache.ibatis.type.ClobTypeHandler"  />
 	
 	</resultMap>
 
@@ -38,7 +38,7 @@ WHERE rn > #{pageStart} AND ROWNUM <= #{perPageNum}
 		mem.nickname, 
 		my.reg_date, 
 		my.hit,
-		NVL(re.myreply, 0) as replyCount
+ 		NVL(re.myreply, 0) as replyCount
 		
 		
 		from mybook my

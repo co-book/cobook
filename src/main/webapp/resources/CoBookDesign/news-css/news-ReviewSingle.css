@@ -511,3 +511,202 @@ ol.breadcrumb li a{
 	float: right;
 	margin-right: 15%;
 }
+
+
+<!---리플 -->
+.reply-control{
+	border-top: 1px solid #EBEBEB;
+	padding: 20px 0;
+	position: relative;
+}
+.reply-textarea {
+  float: left;
+  width: 85%;
+  height: 70px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.reply-regi {
+	margin-left: 5px;
+	background-color: #0c4d8a;
+	color: #fff;
+	border-color: #0c4d8a;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 4;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.reply-media {
+	border-top: 1px solid #EBEBEB;
+	padding: 20px 0;
+	position: relative;
+}
+.single-button {
+    margin-left: 81%;
+}
+.reply-comment {
+	display: none;
+	background-color: #F6FAFD;
+	border-top: 1px solid #EBEBEB;
+	padding: 10px 0;
+	position: relative;
+}
+.reply-remove {
+	-webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+.comment-textarea {
+  float: left;
+  width: 84%;
+  height: 38px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.comment-regi {
+	margin-left: 5px;
+	background-color: #0c4d8a;
+	color: #fff;
+	border-color: #0c4d8a;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.comment-up {
+	margin-left: 30px;
+	font-size: 0.9em;
+	font-color:#707070;
+	padding-bottom: 3px;
+}
+.btn-more {
+	margin-top: 10px;
+	width: 100%;
+	background-color: #0c4d8a;
+	color: #fff;
+	border-color: #0c4d8a;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.borrow-button {
+  border-radius: 0.25em;
+  border: none;
+  padding: .6em 1.2em;
+  background-color: #FC7D01;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "PT Sans", sans-serif;
+  font-size: 16px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.WriterReviewTitle{
+ overflow: hidden;
+ text-overflow: ellipsis;
+ display: -webkit-box;
+ -webkit-line-clamp: 2; /* 라인수 */
+ -webkit-box-orient: vertical;
+ word-wrap:break-word
+}
+.WriterReviewContent{
+ overflow: hidden;
+ text-overflow: ellipsis;
+ display: -webkit-box;
+ -webkit-line-clamp: 4; /* 라인수 */
+ -webkit-box-orient: vertical;
+ word-wrap:break-word
+}
+.OtherReviewTitle{
+ overflow: hidden;
+ text-overflow: ellipsis;
+ display: -webkit-box;
+ -webkit-line-clamp: 2; /* 라인수 */
+ -webkit-box-orient: vertical;
+ word-wrap:break-word
+}
+.OtherReviewContent{
+ overflow: hidden;
+ text-overflow: ellipsis;
+ display: -webkit-box;
+ -webkit-line-clamp: 3; /* 라인수 */
+ -webkit-box-orient: vertical;
+ word-wrap:break-word
+}

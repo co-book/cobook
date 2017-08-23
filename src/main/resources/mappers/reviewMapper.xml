@@ -5,6 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="org.ebook.cobook.mapper.ReviewMapper">
 
+
+	<resultMap type="java.util.HashMap" id="reivewMap">
+		<result column="contents" property="contents" javaType="java.lang.String" jdbcType="CLOB" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+	</resultMap>
+
 	<select id="getEbookList" resultType="EbookVO" >
 		SELECT
 				E.EBOOK_NO			,											
@@ -64,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 SELECT
 		 		R.REVIEW_NO					,
 				E.COVERURL	as COVERURL		,
-				E.TITLE	as ebookTitle		,
+				E.TITLE		as EBOOKTITLE	,
 				R.TITLE	 					,
 				R.CONTENTS					,
 				R.HIT						,
@@ -90,7 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getReviewListCnt" resultType="int" parameterType="string">
 		 SELECT
 		 		COUNT(1)
-		   FROM BOOKREVIEW R
+		   FROM 
+		    	BOOKREVIEW R
 		<if test="_parameter == 'popular'.toString()">
 		  ORDER BY HIT DESC
 		</if>
@@ -123,43 +129,85 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   REVIEW_NO = 	 #{review_no}
 	</update>
 	
-	<select id="single" resultType="ReviewVO">
+	<select id="single" parameterType = "Integer" resultMap="reivewMap" > 
 	    SELECT 
-	    	   R.REVIEW_NO				,
-	    	   R.TITLE					,
-	    	   R.EVALUATE				,
-	    	   R.CONTENTS				,
-	    	   R.REG_DATE				,
-	    	   R.HIT					,
-	    	   R.MEMBER_NO
+	    	   R.REVIEW_NO 								,
+	    	   R.TITLE									,
+	    	   R.EVALUATE								,
+	    	   R.CONTENTS 								,
+	    	   R.REG_DATE								,
+	    	   R.HIT									,
+	    	   R.MEMBER_NO								,
+	    	   E.EBOOK_NO								,
+	    	   E.TITLE     			AS ebookTitle		,
+	    	   E.AUTHOR									,
+	    	   E.COVERURL								,
+	    	   E.PUBLISHER								,
+	    	   E.PUBLISHEDDATE							,
+	    	   E.FILETYPE								,
+	    	   E.FILESIZE								,
+	    	   E.LISTENING								,
+	    	   E.TRANSLATOR								,
+	    	   E.PRICE									,			
+	    	   M.NICKNAME								,
 	    	   
-	    	   E.EBOOK_NO				,
-	    	   E.AUTHOR					,
-	    	   E.COVERURL				,
-	    	   E.PUBLISH				,
-	    	   M.NICKNAME				,
-	    	   
-	    	   	
-        NVL(STARRATING.starCount,0) as starCount,
-   			NVL(STARRATING.starAvg,0) as starAvg,
-        e.ebook_NO,m.NICKNAME,r.* 
-        
-        from bookReview r
-        left outer join Member m on (m.member_no = r.member_no)
-        left outer join EBOOk e on (e.ebook_no = r.ebook_no)
-        LEFT OUTER JOIN 
+			   NVL(STARRATING.starCount,0) AS starCount ,
+   			   NVL(STARRATING.starAvg,0)   AS starAvg
+   		  FROM 
+   		  	   BOOKREVIEW R
+   		  LEFT OUTER JOIN MEMBER M
+   		    ON ( R.MEMBER_NO = M.MEMBER_NO )
+   		  LEFT OUTER JOIN EBOOK E
+   		    ON ( R.EBOOK_NO = E.EBOOK_NO )	
+   		    
+   		  LEFT OUTER JOIN
         (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no )
-			STARRATING ON  (STARRATING.ebook_no = r.ebook_no);
+			STARRATING ON  (STARRATING.ebook_no = R.ebook_no)
 			
-		SELECT br.review_no, br.title, br.evaluate, br.contents, br.reg_date, br.hit, e.author,
-		e.publisher, e.coverurl, m.nickname, br.ebook_no, br.member_no
-		FROM bookreview br, ebook e, member m
-		WHERE 
-			br.ebook_no = e.ebook_no
-		AND
-  			br.member_no = m.member_no
-		AND
-			br.review_no = #{review_no}
+         WHERE R.REVIEW_NO = #{review_no}
+	</select>
+	
+	<select id="getWriterReviews" resultType="ReviewVO" parameterType="int">
+		SELECT * FROM (
+			SELECT 
+				   R.REVIEW_NO					,
+				   R.TITLE						,
+				   R.CONTENTS					,
+				   R.REG_DATE					,
+				   R.HIT						,
+				   E.COVERURL
+			  FROM 
+			  	   BOOKREVIEW R
+			  LEFT OUTER JOIN EBOOK E
+			    ON ( R.EBOOK_NO = E.EBOOK_NO )
+			    
+			 WHERE R.MEMBER_NO = #{member_no}
+			 
+			 ORDER BY HIT DESC 
+			 )
+		 WHERE ROWNUM <![CDATA[ < ]]> 3
+	</select>
+	
+	
+	<select id="getOtherReviews" resultType="ReviewVO" parameterType="int">
+ 		SELECT * FROM (
+			SELECT 
+				   R.REVIEW_NO					,
+				   R.TITLE						,
+				   R.CONTENTS					,
+				   R.REG_DATE					,
+				   R.HIT						,
+				   M.NICKNAME
+			  FROM 
+			  	   BOOKREVIEW R
+			  LEFT OUTER JOIN MEMBER M
+			    ON ( R.MEMBER_NO = M.MEMBER_NO )
+			    
+			 WHERE R.EBOOK_NO = #{ebook_no}
+			 
+			 ORDER BY HIT DESC 
+			 )
+		 WHERE ROWNUM <![CDATA[ <= ]]> 10
 	</select>
 	
 
@@ -276,19 +324,6 @@ AND ROWNUM <= 6
 	</select>
 
 
-
-<select id="getSameWriterOtherReviews" resultType="ReviewVO" parameterType="int">
-<![CDATA[
-SELECT * 
-FROM(  
-    SELECT br.review_no, br.title, SUBSTR(br.contents,1, 20) AS CONTENTS, br.reg_date, br.hit, e.coverurl, ROW_NUMBER() OVER (ORDER BY review_no desc) AS rn
-    FROM bookreview br, ebook e
-    WHERE br.ebook_no = e.ebook_no
-    AND br.member_no = #{member_no}
-    )
-WHERE rn <= 2
-]]>
-</select>
 
 <select id="getSameBookOtherReviews" resultType="ReviewVO">
 <![CDATA[

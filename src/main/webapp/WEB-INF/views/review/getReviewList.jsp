@@ -10,7 +10,7 @@
 					<a href="/cobook/review/single/${reviewList.review_no}"><img src="${reviewList.coverurl}" alt="" /></a>
 				</div>
 				<div class="col-sm-7 wthree-news-info">
-					<h5 class="reviewTitle"><a href="news-single.html">${reviewList.title}</a></h5>
+					<h5 class="reviewTitle"><a href="/cobook/review/single/${reviewList.review_no}">${reviewList.title}</a></h5>
 					<p class="reviewContent">${reviewList.contents}</p>
 					<ul class="nickname">
 					  <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>${reviewList.nickname}</li>

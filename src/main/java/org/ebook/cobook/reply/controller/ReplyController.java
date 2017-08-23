@@ -99,6 +99,7 @@ public class ReplyController {
 			vo.setMember_no(member_no);
 			
 			List<ReplyVO> replyList =replyService.getReplyList(vo);
+			System.out.println(" replyList +  : "+replyList.size()+"/"+replyList.toString());
 			mav.addObject("replyList",replyList );	 //리플 리스트
 			mav.addObject("replyListCnt",replyService.getReplyCount(vo));	//리플 전체 리스트
 			

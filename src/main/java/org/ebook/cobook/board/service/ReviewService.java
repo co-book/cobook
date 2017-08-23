@@ -26,6 +26,17 @@ public interface ReviewService {
 	//리스트 불러오기 
 	public int getReviewListCnt(String searchType) throws Exception;
 	
+	//싱글 페이지
+	public Map<String, String> single(Integer review_no) throws Exception;
+	
+	//작성자의 다른 리뷰
+	public List<ReviewVO> getWriterReviews(int member_no) throws Exception;
+	
+	//해당 책의 다른 리뷰
+    public List<ReviewVO> getOtherReviews(int ebook_no)throws Exception;
+
+	/////////////////
+	
 	// 내가 빌린책 리스트
 	public List<Map<String, Object>> borrowBookList(Integer member_no)throws Exception;
 	
@@ -59,11 +70,9 @@ public interface ReviewService {
 	// 내가 쓴 후기 리스트
 	public List<Map<String, Object>> getMyBookReviewList(Map<String, Object> paramMap)throws Exception;
 
-	// same member other reviews
-	public List<ReviewVO> getSameWriterOtherReviews(int member_no) throws Exception;
+
 	
-	// same ebook other reviews
-    public List<ReviewVO> getSameBookOtherReviews(int ebook_no)throws Exception;
+
 
 	
 

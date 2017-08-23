@@ -6,28 +6,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>review</title>
 </head>
 <body>
 
-	<h4>Related News</h4>
+	
 	<div class="wthree-news-top-left">
-	 <c:forEach items="${list}" var="vo">
+	 <c:forEach items="${writerReviews}" var="review">
 		<div class="col-md-6 w3-agileits-news-left">
 			<div class="col-sm-5 wthree-news-img">
-				<a href="/cobook/review/single?review_no=${vo.review_no}"><img src="${vo.coverurl}" alt="" /></a>
+				<a href="/cobook/review/single/${review.review_no}"><img src="${review.coverurl}" alt="" /></a>
 			</div>
 			<div class="col-sm-7 wthree-news-info">
 				<h5>
-					<a href="/cobook/review/single?review_no=${vo.review_no}">
-					${vo.title}
+					<a class="WriterReviewTitle" href="/cobook/review/single/${review.review_no}">
+					${review.title}
 					</a>
 				</h5>
-				<p>${vo.contents}</p>
+				<p  class="WriterReviewContent" >${review.contents}</p>
 				<ul>
 					<li><i class="fa fa-clock-o" aria-hidden="true"></i>
-						<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.reg_date}" /></li>
-					<li><i class="fa fa-eye" aria-hidden="true"></i> ${vo.hit}</li>
+						<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${review.reg_date}" /></li>
+					<li><i class="fa fa-eye" aria-hidden="true"></i> ${review.hit}</li>
 				</ul>
 			</div>
 		

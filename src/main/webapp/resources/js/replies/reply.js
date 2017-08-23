@@ -5,7 +5,6 @@ function Reply(){
 	this.parent_no = "";
 	this.member_no = "";
 	this.board_no = "";
-	this.ebook_no = "";
 	this.parent_type = "";
 	this.contents = "";
 	this.reg_date = "";
@@ -42,7 +41,7 @@ Reply.prototype.addReply = function() {
 		url : '/cobook/replies/addReply',
 		data : JSON.stringify({
 			"member_no" : this.member_no,
-			"board_no" : this.ebook_no,
+			"board_no" : this.board_no,
 			"contents" : $('#replyContents').val(),
 			"parent_type" : this.parent_type,
 			"starRating" : $('#starRating').val()
@@ -66,15 +65,17 @@ Reply.prototype.addReply = function() {
 
 // 리플리스트 불러오기
 Reply.prototype.getReplyList = function() {
+	console.log("this.moreCnt "+ this.moreCnt );
+	console.log("this.board_no "+ this.board_no );
+	console.log("this.parent_type "+ this.parent_type );
 	$.ajax({
 		type : 'get',
 		url : '/cobook/replies/getReplyList',
 		data  :{
-			"board_no" : this.ebook_no,
+			"board_no" : this.board_no,
 			"parent_type" : this.parent_type,
-			"moreCnt" : this.moreCnts
+			"moreCnt" : this.moreCnt
 		},
-		async: false,	//계속 실행되면 안댐
 		dataType : 'html',
 		success : function(result) {
 			//불러온 댓글 리스트 등록
@@ -96,7 +97,7 @@ Reply.prototype.deleteReply = function(delete_reply_no) {
 		data : JSON.stringify({
 			"member_no" : this.member_no,
 			"parent_type" : this.parent_type,
-			"board_no" : this.ebook_no
+			"board_no" : this.board_no
 		}),
 		async: false,
 		dataType : 'text',
@@ -123,7 +124,7 @@ Reply.prototype.addComment = function(parent_no) {
 		url : '/cobook/replies/addComment',
 		data : JSON.stringify({
 			"member_no" : this.member_no,
-			"board_no" : this.ebook_no,
+			"board_no" : this.board_no,
 			"parent_no" : parent_no,
 			"contents" : $('#commentContents'+parent_no).val(),
 			"parent_type" : this.parent_type
@@ -148,7 +149,7 @@ Reply.prototype.getCommentList = function(parent_no) {
 		url : '/cobook/replies/getCommentList',
 		data : {
 			"parent_type" : this.parent_type,
-			"board_no" : this.ebook_no,
+			"board_no" : this.board_no,
 			"parent_no" : parent_no
 		},
 		dataType : 'html',

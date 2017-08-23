@@ -1,5 +1,6 @@
 package org.ebook.cobook.board.domain;
 
+import java.io.File;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
@@ -18,7 +19,7 @@ public class MybookVO {
     private String coverUrl;
     private int moreCnt;
     private String intro;
-    
+ 
 	public String getIntro() {
 		return intro;
 	}
