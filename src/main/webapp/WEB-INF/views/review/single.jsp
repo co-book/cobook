@@ -19,12 +19,12 @@
 <link href="/cobook/resources/CoBookDesign/css/medile.css" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/single.css" rel='stylesheet' type='text/css' />
 <link href="/cobook/resources/CoBookDesign/css/contactstyle.css" rel="stylesheet"  type="text/css" media="all" />
-<!-- news-css -->
-<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewSingle.css?ver=4" rel="stylesheet"  type="text/css" media="all" />
-<!-- //news-css -->
 <!-- list-css -->
 <link href="/cobook/resources/CoBookDesign/list-css/list.css" rel="stylesheet"  type="text/css" media="all" />
 <!-- //list-css -->
+<!-- news-css -->
+<link href="/cobook/resources/CoBookDesign/news-css/news-ReviewSingle.css?ver=4" rel="stylesheet"  type="text/css" media="all" />
+<!-- //news-css -->
 <!-- font-awesome icons -->
 <link href="/cobook/resources/CoBookDesign/css/font-awesome.min.css" rel="stylesheet"  />
 <!-- //font-awesome icons -->
@@ -42,8 +42,9 @@
 	var board_no = ${review.REVIEW_NO};
 	var ebook_no = ${review.EBOOK_NO};
 	var writer = ${review.MEMBER_NO};
-	var parent_type = "REIVEW";
+	var parent_type = "REVIEW";
 	var moreCnt = 1;
+	var replyCount = ${review.REPLYCOUNT};
 	var replyEventInit;
 	var commentEventInit;
 	
@@ -52,6 +53,14 @@
 		reply.member_no=member_no;
 		reply.board_no=review_no;
 		reply.parent_type=parent_type;
+		
+		
+		if (member_no == writer ) {
+			$("#modifyAndDelete").show();
+		} else {
+			$("#modifyAndDelete").hide();
+		}
+		
 		
 		replyEventInit = function() {
 			//로그인 && 현재 로그인 사용자 != 작성자
@@ -182,6 +191,27 @@
 		});
 		//////////////////////////////////////////리플리스트
 		
+		//////////////////////////////////////////
+		//리뷰 수정
+		$("#delete").click(function(event){		
+			$("#deleteModal").modal();
+		});
+		$("#deleteOk").click(function(event){		
+			if(replyCount > 0){
+				$("#deleteModal").modal('hide');
+				alert("댓글 ("+replyCount+") 이 존재하여 삭제할수 없습니다.");
+			}else{
+				$.ajax({
+					type : "DELETE",
+					url : "/cobook/review/"+review_no,
+					dataType : 'json',
+					success : function(data) {
+						console.log("detlee" + data);
+					}
+				});
+			}
+		});
+		
 		
 		$(".scroll").click(function(event){		
 			event.preventDefault();
@@ -213,6 +243,37 @@
 				<div class="agileinfo-news-top-grids">
 					<div class="col-md-8 wthree-top-news-left">
 						<div class="wthree-news-left">
+							<div id = "modifyAndDelete" style="display:none"> 
+								<ul id="myTab" class="nav nav-tabs" role="tablist">
+									<li role="presentation" style ='float: right;'>
+										<a href="#" id="delete" role="tab">삭제</a>
+									</li>
+									<li role="presentation" style ='float: right;'>
+										<a href="#" id="modify" role="tab">수정</a>
+									</li>
+<!-------------- Modal --------------------->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">리뷰 삭제</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	리뷰를 삭제하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" id="deleteOk" class="btn btn-primary">예</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-------------- Modal end --------------------->
+								</ul>
+							</div>
 							<div class="wthree-news-left-img">
 								
 								<h4>${review.TITLE}</h4>

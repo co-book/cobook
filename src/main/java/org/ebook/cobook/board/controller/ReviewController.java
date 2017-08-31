@@ -158,7 +158,7 @@ public class ReviewController {
 
 			rttr.addFlashAttribute("msg", "SUCCESS");
 			
-			return "redirect:/review/list";
+			return "redirect:/";
 	}
 	
 	// 작성자의 다른 리뷰

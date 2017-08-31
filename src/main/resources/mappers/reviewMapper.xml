@@ -150,9 +150,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	   E.TRANSLATOR								,
 	    	   E.PRICE									,			
 	    	   M.NICKNAME								,
-	    	   
 			   NVL(STARRATING.starCount,0) AS starCount ,
-   			   NVL(STARRATING.starAvg,0)   AS starAvg
+   			   NVL(STARRATING.starAvg,0)   AS starAvg	,
+   			   NVL(REPLY.replyCount , 0)   AS replyCount
    		  FROM 
    		  	   BOOKREVIEW R
    		  LEFT OUTER JOIN MEMBER M
@@ -163,6 +163,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		  LEFT OUTER JOIN
         (select star.ebook_no, count(*) starCount ,AVG(star.STARRATING) starAvg from star GROUP BY star.ebook_no )
 			STARRATING ON  (STARRATING.ebook_no = R.ebook_no)
+			
+		  LEFT OUTER JOIN
+        (select reply.board_no, count(1) replyCount from reply WHERE parent_type='REVIEW' and  reply.reply_no= reply.parent_no GROUP BY reply.board_no )
+			REPLY ON  (REPLY.board_no = R.review_no) 
 			
          WHERE R.REVIEW_NO = #{review_no}
 	</select>
